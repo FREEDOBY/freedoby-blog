@@ -631,9 +631,9 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
       <div class="prob">
         <div class="p-num">III</div>
-        <div class="p-name">경계</div>
-        <div class="p-en">Boundary</div>
-        <div class="p-desc">어디까지가 이 모듈의 책임인가. 누가 어디서 결정하는가. 경계는 어떻게 긋는가.</div>
+        <div class="p-name">확장</div>
+        <div class="p-en">Extension</div>
+        <div class="p-desc">코어를 건드리지 않고 기능을 늘릴 수 있는가. 확장의 방향은 서로 영향받지 않는가.</div>
       </div>
     </div>
   </div>
@@ -675,7 +675,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="stage stage-split r">
     <div class="copy">
       <div class="kicker">Classics II — 불확실성의 답</div>
-      <div class="keyword"><em>TDD.</em><br>테스트가 먼저다.</div>
+      <div class="keyword"><em>TDD.</em><br>테스트로 신뢰를 만든다.</div>
       <div class="subline">
         Red → Green → Refactor.<br>
         <strong>실패하는 테스트를 먼저 쓴다.</strong><br><br>
@@ -690,7 +690,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="foot"><span>Classics · Uncertainty</span><span>05 / 16</span></div>
 </section>
 
-<!-- ============ 06 경계 → Clean Architecture ============ -->
+<!-- ============ 06 확장 → Clean Architecture ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Classics · III</span></div>
@@ -702,12 +702,12 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <img src="https://freedoby.github.io/freedoby-blog/images/architect-as-judge.png" alt="Architect as Judge" />
     </div>
     <div class="copy">
-      <div class="kicker">Classics III — 경계의 답</div>
+      <div class="kicker">Classics III — 확장의 답</div>
       <div class="keyword"><em>Clean Architecture.</em><br>코어는 닫고, 확장만 연다.</div>
       <div class="subline">
         어디까지가 이 레이어의 책임인가.<br>
-        <strong>아키텍트는 경계를 긋는 사람이다.</strong><br><br>
-        경계는 설계에 담긴다. 암묵적 경계는 곧 기술 부채가 된다.
+        <strong>아키텍트는 확장의 방향을 설계하는 사람이다.</strong><br><br>
+        코어를 닫고 확장만 여는 구조. 그것이 없으면 변경이 전파된다.
       </div>
     </div>
   </div>
@@ -731,17 +731,17 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     </div>
     <div class="subline" style="max-width:800px">
       실행이 10배 빨라졌다. 하지만 복잡성도 10배 빠르게 쌓인다.<br>
-      불확실성도, 경계의 혼란도 — <strong>더 빠르게, 더 크게 터진다.</strong>
+      불확실성도, 변경의 전파도 — <strong>더 빠르게, 더 크게 터진다.</strong>
     </div>
     <div class="ascii">[ AI 이전 ]
 복잡성   →  느리게 쌓였다
 불확실성 →  느리게 퍼졌다
-경계 혼란 →  느리게 무너졌다
+변경 전파 →  느리게 퍼졌다
 
 [ AI 이후 ]
 복잡성   →  <span class="hl">10분 만에 폭발한다</span>
 불확실성 →  <span class="hl">자신감 있는 오답이 빠르게 쌓인다</span>
-경계 혼란 →  <span class="hl">아무도 책임지지 않는 코드가 양산된다</span></div>
+변경 전파 →  <span class="hl">하나를 고치면 열 곳이 터진다</span></div>
   </div>
   <div class="foot"><span>The Shift · Same Problems</span><span>07 / 16 · → 엔지니어링의 진화</span></div>
 </section>
@@ -804,7 +804,7 @@ Harness Engineering
   = <span class="hl">세 원칙을 AI 시대에 구조화한 것</span>
     · Phase 격리     → Divide &amp; Conquer
     · LOOPBACK       → TDD Red-Green-Refactor
-    · Gate · 판단 경계 → Clean Architecture</div>
+    · Gate · 확장 제어 → Clean Architecture</div>
       <div class="subline" style="margin-top:16px">
         고전이 먼저 답을 알고 있었다.<br>
         엔지니어링은 그것을 <strong>AI에 맞게 재구현</strong>하는 과정이다.
@@ -870,7 +870,7 @@ Harness Engineering
       <div class="map-row">
         <div class="map-cell">
           <div class="mc-label">문제</div>
-          <div class="mc-name">경계</div>
+          <div class="mc-name">확장</div>
         </div>
         <div class="map-arrow">→</div>
         <div class="map-cell">
@@ -929,7 +929,7 @@ Harness Engineering
       <div class="subline">
         AI는 자신감 있는 오답을 낸다.<br>
         <strong>53개 모델 중 48개가 세차장에 걸어가라고 했다.</strong><br><br>
-        테스트가 먼저다. Judge는 RTM만 읽는다.
+        테스트로 신뢰를 만든다. Judge는 RTM만 읽는다.
         실제 환경에서만 진실이 드러난다.<br>
         TDD의 철학이 그대로다.
       </div>
@@ -953,13 +953,13 @@ Harness Engineering
       <img src="https://freedoby.github.io/freedoby-blog/images/developer-controlling-ai.png" alt="Developer Controlling AI" />
     </div>
     <div class="copy">
-      <div class="kicker">경계의 AI 시대 이름</div>
+      <div class="kicker">확장의 AI 시대 이름</div>
       <div class="keyword"><em>Judgment Boundary.</em></div>
       <div class="subline">
         어디까지 AI가 결정하고, 어디서부터 사람이 결정하는가.<br>
         <strong>Gate는 검증이 아니라 판단이다.</strong><br><br>
-        아키텍트가 경계를 긋는 것처럼,
-        개발자는 AI와의 경계를 설계해야 한다.<br>
+        아키텍트가 확장의 방향을 설계하듯,
+        개발자는 AI가 건드릴 수 있는 범위를 설계해야 한다.<br>
         Clean Architecture의 철학이 그대로다.
       </div>
     </div>
@@ -1034,8 +1034,8 @@ Harness Engineering
       <div class="halo-cell">
         <div class="ltr">O</div>
         <div class="word">Orchestration</div>
-        <div class="axis">↳ 경계 → Judgment</div>
-        <div class="desc">사람과 AI의 경계를 설계.</div>
+        <div class="axis">↳ 확장 → Judgment</div>
+        <div class="desc">코어는 닫고, 확장만 연다.</div>
       </div>
     </div>
   </div>
@@ -1056,7 +1056,7 @@ Harness Engineering
         원칙은<br><em>버전이 없다.</em>
       </div>
       <div class="final-sub">
-        복잡성 · 불확실성 · 경계.<br>
+        복잡성 · 불확실성 · 확장.<br>
         50년 전에도 지금도 같은 문제다.<br>
         AI는 그 원칙 위에서 달리는 <strong style="color:var(--gold)">속도</strong>일 뿐이다.
       </div>
