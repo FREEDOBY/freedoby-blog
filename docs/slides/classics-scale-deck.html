@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>고전의 스케일</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black:   #0c0b09;
+  --cream:   #f0ece0;
+  --warm:    #f5f0e6;
+  --gold:    #b8924a;
+  --gold-lt: #ddb96a;
+  --gold-dk: #7a5f2e;
+  --rule-lt: rgba(240, 236, 224, 0.18);
+  --rule-dk: rgba(12, 11, 9, 0.14);
+  --muted-dk:#6a6458;
+  --muted-lt:#c8c0b0;
+
+  --serif:   'Cormorant Garamond', 'Gowun Batang', Georgia, serif;
+  --serif-ko:'Gowun Batang', 'Cormorant Garamond', serif;
+  --sans:    'IBM Plex Sans KR', 'Helvetica Neue', sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { background: var(--black); color: var(--cream); font-family: var(--sans); }
+
+/* ============ DECK ============ */
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 44px 80px 52px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition: opacity 500ms cubic-bezier(.2,.7,.2,1), transform 600ms cubic-bezier(.2,.7,.2,1);
+}
+.slide.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+/* themes */
+.slide.dark  { background: var(--black); color: var(--cream); }
+.slide.light { background: var(--warm);  color: var(--black); }
+
+/* grain */
+.slide::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(180,170,140,0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  z-index: 0;
+}
+.slide > * { position: relative; z-index: 1; }
+
+/* ============ CHROME ============ */
+.chrome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-bottom: 12px;
+  border-bottom: 1px solid;
+}
+.slide.dark .chrome  { color: var(--muted-lt); border-color: var(--rule-lt); }
+.slide.light .chrome { color: var(--muted-dk); border-color: var(--rule-dk); }
+
+.chrome .seg { display: flex; gap: 10px; align-items: center; }
+.chrome .seg .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); display: inline-block; }
+.chrome .tag { color: var(--gold); text-transform: none; letter-spacing: 0.05em; }
+.slide.light .chrome .tag { color: var(--gold-dk); }
+
+/* ============ FOOTER ============ */
+.foot {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding-top: 12px;
+  border-top: 1px solid;
+}
+.slide.dark .foot  { color: var(--muted-lt); border-color: var(--rule-lt); }
+.slide.light .foot { color: var(--muted-dk); border-color: var(--rule-dk); }
+
+/* ============ STAGE ============ */
+.stage { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 28px 0; }
+
+.stage-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding: 20px 0;
+}
+.stage-split.r { grid-template-columns: 1fr 1fr; }
+.stage-split.r .art { order: 2; }
+.stage-split.r .copy { order: 1; }
+
+.art { display: flex; align-items: center; justify-content: center; min-height: 0; }
+.art img {
+  max-width: 100%; max-height: 58vh;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(12,11,9,0.28));
+}
+.art.sm img { max-height: 44vh; }
+
+/* bleed backdrop */
+.bleed { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.bleed img { width: 100%; height: 100%; object-fit: cover; opacity: 0.15; filter: saturate(0.7); }
+.has-bleed > *:not(.bleed) { z-index: 2; position: relative; }
+
+/* ============ TYPOGRAPHY ============ */
+.kicker {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.kicker::before { content: ""; display: inline-block; width: 20px; height: 1px; background: var(--gold); }
+.slide.light .kicker { color: var(--gold-dk); }
+.slide.light .kicker::before { background: var(--gold-dk); }
+
+/* BIG display type */
+.display {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(56px, 9vw, 148px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+}
+.slide.light .display { color: var(--black); }
+.display em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+.slide.light .display em { color: var(--gold-dk); }
+.display.md { font-size: clamp(44px, 6.5vw, 100px); }
+.display.sm { font-size: clamp(36px, 5vw, 76px); }
+
+/* Korean keyword */
+.keyword {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(44px, 6.5vw, 100px);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+.slide.light .keyword { color: var(--black); }
+.keyword em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+.slide.light .keyword em { color: var(--gold-dk); }
+.keyword.md { font-size: clamp(36px, 5vw, 76px); }
+.keyword.sm { font-size: clamp(28px, 3.8vw, 58px); }
+
+.subline {
+  font-family: var(--serif-ko);
+  font-size: clamp(16px, 1.3vw, 21px);
+  line-height: 1.6;
+  color: var(--muted-lt);
+  max-width: 560px;
+  margin-top: 4px;
+}
+.slide.light .subline { color: var(--muted-dk); }
+.subline strong { color: var(--cream); font-weight: 700; }
+.slide.light .subline strong { color: var(--black); }
+
+/* ============ COVER ============ */
+.cover { justify-content: space-between; padding: 52px 80px; }
+.cover-brand {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  display: flex; gap: 16px; align-items: baseline;
+}
+.cover-brand .gold { color: var(--gold); }
+.cover-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding: 24px 0;
+}
+.cover-title {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(80px, 13vw, 210px);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.cover-title .gold { color: var(--gold); font-family: var(--serif); font-style: italic; font-weight: 400; }
+.cover-rule {
+  width: 100%; height: 1px;
+  background: var(--gold);
+  margin: 28px 0;
+  opacity: 0.5;
+}
+.cover-sub {
+  font-family: var(--serif-ko);
+  font-size: clamp(18px, 1.8vw, 26px);
+  color: var(--muted-lt);
+  max-width: 720px;
+  line-height: 1.55;
+}
+.cover-sub strong { color: var(--cream); font-weight: 700; }
+.cover-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+}
+
+/* ============ THREE PROBLEMS ============ */
+.three-probs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 32px;
+  border-top: 1px solid var(--rule-lt);
+}
+.slide.light .three-probs { border-top-color: var(--rule-dk); }
+.prob {
+  padding: 24px 28px 24px 0;
+  border-right: 1px solid var(--rule-lt);
+}
+.slide.light .prob { border-right-color: var(--rule-dk); }
+.prob:last-child { border-right: none; padding-right: 0; padding-left: 28px; }
+.prob:nth-child(2) { padding-left: 28px; }
+.prob .p-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(56px, 7vw, 100px);
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.35;
+  margin-bottom: 12px;
+}
+.slide.light .prob .p-num { color: var(--gold-dk); }
+.prob .p-name {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(22px, 2.2vw, 34px);
+  color: var(--cream);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.slide.light .prob .p-name { color: var(--black); }
+.prob .p-en {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(14px, 1.2vw, 18px);
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.slide.light .prob .p-en { color: var(--gold-dk); }
+.prob .p-desc {
+  font-family: var(--serif-ko);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted-lt);
+}
+.slide.light .prob .p-desc { color: var(--muted-dk); }
+
+/* ============ MAPPING TABLE ============ */
+.mapping {
+  margin-top: 28px;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--rule-lt);
+}
+.slide.light .mapping { border-bottom-color: var(--rule-dk); }
+.map-row {
+  display: grid;
+  grid-template-columns: 1fr 56px 1fr 56px 1fr;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule-lt);
+  gap: 0;
+}
+.slide.light .map-row { border-bottom-color: var(--rule-dk); }
+.map-row:last-child { border-bottom: none; }
+.map-cell {
+  padding: 0 16px;
+}
+.map-cell:first-child { padding-left: 0; }
+.map-cell:last-child { padding-right: 0; }
+.map-cell .mc-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  margin-bottom: 4px;
+}
+.slide.light .map-cell .mc-label { color: var(--muted-dk); }
+.map-cell .mc-name {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(15px, 1.4vw, 21px);
+  color: var(--cream);
+}
+.slide.light .map-cell .mc-name { color: var(--black); }
+.map-cell .mc-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted-lt);
+  margin-top: 2px;
+}
+.map-arrow {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 16px;
+  color: var(--gold);
+  opacity: 0.7;
+}
+.slide.light .map-arrow { color: var(--gold-dk); }
+
+/* ============ SPEED SINGLE ============ */
+.speed-block {
+  margin-top: 32px;
+  padding: 28px 32px;
+  border: 1px solid var(--rule-lt);
+  background: rgba(184,146,74,0.06);
+  max-width: 900px;
+}
+.slide.light .speed-block { border-color: var(--rule-dk); background: rgba(122,95,46,0.06); }
+.speed-block .sb-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.slide.light .speed-block .sb-label { color: var(--gold-dk); }
+.speed-block .sb-body {
+  font-family: var(--serif-ko);
+  font-size: clamp(16px, 1.4vw, 22px);
+  line-height: 1.65;
+  color: var(--muted-lt);
+}
+.slide.light .speed-block .sb-body { color: var(--muted-dk); }
+.speed-block .sb-body strong { color: var(--cream); }
+.slide.light .speed-block .sb-body strong { color: var(--black); }
+
+/* ============ HALO SYNTHESIS ============ */
+.halo-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+}
+.halo-cell {
+  border-top: 2px solid var(--gold);
+  padding: 16px 0;
+  opacity: 0.85;
+}
+.halo-cell .ltr {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(52px, 8vw, 110px);
+  line-height: 0.9;
+  color: var(--gold);
+}
+.halo-cell .word {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(16px, 1.4vw, 22px);
+  color: var(--cream);
+  margin-top: 6px;
+}
+.halo-cell .axis {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--muted-lt);
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+.halo-cell .desc {
+  font-family: var(--serif-ko);
+  font-size: 13px;
+  color: var(--muted-lt);
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
+/* ============ PULLQUOTE ============ */
+.pullquote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(36px, 5.5vw, 88px);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--cream);
+  max-width: 960px;
+}
+.slide.light .pullquote { color: var(--black); }
+.pullquote em { font-style: normal; font-weight: 700; color: var(--gold); }
+.slide.light .pullquote em { color: var(--gold-dk); }
+.pullquote .ko {
+  font-family: var(--serif-ko);
+  font-style: normal;
+  display: block;
+  font-size: 0.55em;
+  margin-top: 12px;
+  color: var(--muted-lt);
+  font-weight: 400;
+}
+.slide.light .pullquote .ko { color: var(--muted-dk); }
+.pullquote-attr {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  margin-top: 28px;
+}
+.slide.light .pullquote-attr { color: var(--muted-dk); }
+
+/* ascii */
+.ascii {
+  font-family: var(--mono);
+  font-size: clamp(10px, 0.82vw, 12px);
+  line-height: 1.6;
+  white-space: pre;
+  padding: 16px 20px;
+  background: rgba(184,146,74,0.05);
+  border-left: 2px solid var(--gold);
+  margin-top: 20px;
+  overflow-x: auto;
+  color: var(--muted-lt);
+}
+.slide.light .ascii { color: var(--muted-dk); border-left-color: var(--gold-dk); background: rgba(122,95,46,0.06); }
+.ascii .hl { color: var(--gold); font-weight: 700; }
+.slide.light .ascii .hl { color: var(--gold-dk); }
+.ascii .hl2 { color: var(--cream); font-weight: 700; }
+.slide.light .ascii .hl2 { color: var(--black); }
+
+/* final */
+.final-big {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(52px, 8.5vw, 130px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.final-big em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 400;
+}
+.final-sub {
+  font-family: var(--serif-ko);
+  font-size: clamp(18px, 1.6vw, 24px);
+  color: var(--muted-lt);
+  margin-top: 20px;
+  max-width: 680px;
+  line-height: 1.6;
+}
+.final-link {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-top: 40px;
+  text-transform: uppercase;
+}
+
+/* ============ PROGRESS ============ */
+.progress {
+  position: fixed;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: var(--gold);
+  width: 0%;
+  transition: width 320ms cubic-bezier(.2,.7,.2,1);
+  z-index: 100;
+}
+.navhint {
+  position: fixed;
+  bottom: 14px; right: 18px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--muted-lt);
+  z-index: 90;
+  opacity: 0.6;
+}
+.navhint kbd {
+  background: var(--cream);
+  color: var(--black);
+  padding: 2px 6px;
+  border-radius: 2px;
+  margin: 0 2px;
+  font-family: var(--mono);
+  font-size: 10px;
+}
+.click-zone { position: fixed; top: 0; height: 100%; width: 33%; z-index: 50; }
+.click-zone.left  { left: 0;  cursor: w-resize; }
+.click-zone.right { right: 0; cursor: e-resize; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1100px) {
+  .slide { padding: 28px 36px 40px; }
+  .stage-split { grid-template-columns: 1fr; gap: 28px; }
+  .stage-split.r .art, .stage-split.r .copy { order: 0; }
+  .art img { max-height: 36vh; }
+  .three-probs { grid-template-columns: 1fr; }
+  .prob { border-right: none; border-bottom: 1px solid var(--rule-lt); padding: 16px 0 !important; }
+  .halo-row { grid-template-columns: repeat(2, 1fr); }
+  .map-row { grid-template-columns: 1fr 28px 1fr 28px 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- ============ 01 COVER ============ -->
+<section class="slide dark cover active">
+  <div class="cover-brand">
+    <span>FREEDOBY</span>
+    <span class="gold">—</span>
+    <span>2026</span>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-title">
+      고전의<br><span class="gold">스케일.</span>
+    </div>
+    <div class="cover-rule"></div>
+    <div class="cover-sub">
+      AI가 바꾼 건 <strong>속도</strong>뿐이다.<br>
+      TDD도, Clean Architecture도, Divide &amp; Conquer도 — 원칙은 바뀌지 않는다.
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span>The Classics Scale — AI Coding Engineering</span>
+    <span>01 / 16</span>
+  </div>
+</section>
+
+<!-- ============ 02 질문 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Prologue</span></div>
+    <div class="tag">#the-question</div>
+    <div>02 / 16</div>
+  </div>
+  <div class="stage stage-split r">
+    <div class="copy">
+      <div class="kicker">A Familiar Question</div>
+      <div class="keyword">
+        AI가 개발자를<br><em>대체하는가?</em>
+      </div>
+      <div class="subline">
+        매주 새 AI가 나온다. 썸네일은 넘친다.<br>
+        하지만 이 질문에 답하려면, 먼저 <strong>진짜 문제가 무엇인지</strong>를 정의해야 한다.
+      </div>
+    </div>
+    <div class="art">
+      <img src="https://freedoby.github.io/freedoby-blog/images/ai-dystopia.png" alt="AI Dystopia" />
+    </div>
+  </div>
+  <div class="foot"><span>Prologue</span><span>→ 문제를 정의한다</span></div>
+</section>
+
+<!-- ============ 03 세 가지 문제 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>The Problems</span></div>
+    <div class="tag">#complexity #uncertainty #boundary</div>
+    <div>03 / 16</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">소프트웨어 공학 50년의 문제</div>
+    <div class="display md">
+      우리는 늘<br><em>세 가지</em>와 싸웠다.
+    </div>
+
+    <div class="three-probs">
+      <div class="prob">
+        <div class="p-num">I</div>
+        <div class="p-name">복잡성</div>
+        <div class="p-en">Complexity</div>
+        <div class="p-desc">시스템이 커질수록 전체를 한 번에 다룰 수 없다. 어떻게 나누고 관리할 것인가.</div>
+      </div>
+      <div class="prob">
+        <div class="p-num">II</div>
+        <div class="p-name">불확실성</div>
+        <div class="p-en">Uncertainty</div>
+        <div class="p-desc">내가 만든 것이 맞는가. 어떻게 확신할 수 있는가. 어떻게 빠르게 검증할 것인가.</div>
+      </div>
+      <div class="prob">
+        <div class="p-num">III</div>
+        <div class="p-name">경계</div>
+        <div class="p-en">Boundary</div>
+        <div class="p-desc">어디까지가 이 모듈의 책임인가. 누가 어디서 결정하는가. 경계는 어떻게 긋는가.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>The Problems · 50 Years</span><span>03 / 16</span></div>
+</section>
+
+<!-- ============ 04 복잡성 → Divide & Conquer ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>The Classics · I</span></div>
+    <div class="tag">#complexity #divide-and-conquer</div>
+    <div>04 / 16</div>
+  </div>
+  <div class="stage stage-split">
+    <div class="art">
+      <img src="https://freedoby.github.io/freedoby-blog/images/divide-and-conquer.png" alt="Divide and Conquer" />
+    </div>
+    <div class="copy">
+      <div class="kicker">Classics I — 복잡성의 답</div>
+      <div class="keyword"><em>Divide &amp; Conquer.</em></div>
+      <div class="subline">
+        복잡성은 분할로 다룬다.<br>
+        <strong>작은 조각으로 나누고, 각 조각에 집중하고, 추적 가능하게 잇는다.</strong><br><br>
+        큰 문제를 한 번에 풀려고 하면 실패한다.<br>
+        AI가 와도 이 원칙은 바뀌지 않는다.
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Classics · Complexity</span><span>04 / 16</span></div>
+</section>
+
+<!-- ============ 05 불확실성 → TDD ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>The Classics · II</span></div>
+    <div class="tag">#uncertainty #tdd</div>
+    <div>05 / 16</div>
+  </div>
+  <div class="stage stage-split r">
+    <div class="copy">
+      <div class="kicker">Classics II — 불확실성의 답</div>
+      <div class="keyword"><em>TDD.</em><br>테스트가 먼저다.</div>
+      <div class="subline">
+        Red → Green → Refactor.<br>
+        <strong>실패하는 테스트를 먼저 쓴다.</strong><br><br>
+        불확실성은 빠른 검증으로 다룬다.
+        맞다고 확신하는 것이 아니라, 틀렸음을 증명하는 구조.
+      </div>
+    </div>
+    <div class="art">
+      <img src="https://freedoby.github.io/freedoby-blog/images/change-ripple-effect.png" alt="Change Ripple Effect" />
+    </div>
+  </div>
+  <div class="foot"><span>Classics · Uncertainty</span><span>05 / 16</span></div>
+</section>
+
+<!-- ============ 06 경계 → Clean Architecture ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>The Classics · III</span></div>
+    <div class="tag">#boundary #clean-architecture</div>
+    <div>06 / 16</div>
+  </div>
+  <div class="stage stage-split">
+    <div class="art">
+      <img src="https://freedoby.github.io/freedoby-blog/images/architect-as-judge.png" alt="Architect as Judge" />
+    </div>
+    <div class="copy">
+      <div class="kicker">Classics III — 경계의 답</div>
+      <div class="keyword"><em>Clean Architecture.</em><br>경계를 설계한다.</div>
+      <div class="subline">
+        어디까지가 이 레이어의 책임인가.<br>
+        <strong>아키텍트는 경계를 긋는 사람이다.</strong><br><br>
+        경계는 설계에 담긴다. 암묵적 경계는 곧 기술 부채가 된다.
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Classics · Boundary</span><span>06 / 16</span></div>
+</section>
+
+<!-- ============ 07 AI 시대 전환 — 문제는 같다 ============ -->
+<section class="slide dark has-bleed">
+  <div class="bleed">
+    <img src="https://freedoby.github.io/freedoby-blog/images/ai-running-blind.png" alt="AI running blind" />
+  </div>
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>The Shift</span></div>
+    <div class="tag">#ai-era #same-problems</div>
+    <div>07 / 16</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">그리고 AI 시대가 왔다</div>
+    <div class="display">
+      문제는<br><em>그대로다.</em>
+    </div>
+    <div class="subline" style="max-width:800px">
+      실행이 10배 빨라졌다. 하지만 복잡성도 10배 빠르게 쌓인다.<br>
+      불확실성도, 경계의 혼란도 — <strong>더 빠르게, 더 크게 터진다.</strong>
+    </div>
+    <div class="ascii">[ AI 이전 ]
+복잡성   →  느리게 쌓였다
+불확실성 →  느리게 퍼졌다
+경계 혼란 →  느리게 무너졌다
+
+[ AI 이후 ]
+복잡성   →  <span class="hl">10분 만에 폭발한다</span>
+불확실성 →  <span class="hl">자신감 있는 오답이 빠르게 쌓인다</span>
+경계 혼란 →  <span class="hl">아무도 책임지지 않는 코드가 양산된다</span></div>
+  </div>
+  <div class="foot"><span>The Shift · Same Problems</span><span>07 / 16 · → 엔지니어링의 진화</span></div>
+</section>
+
+<!-- ============ 08 엔지니어링의 진화 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Evolution of Engineering</span></div>
+    <div class="tag">#prompt #context #harness</div>
+    <div>08 / 16</div>
+  </div>
+  <div class="stage stage-split">
+    <div class="art">
+      <img src="https://freedoby.github.io/freedoby-blog/images/prompt-context-harness.png" alt="Prompt Context Harness" />
+    </div>
+    <div class="copy">
+      <div class="kicker">AI를 다루는 기술의 진화</div>
+      <div class="keyword sm">
+        세 단계로<br><em>진화했다.</em>
+      </div>
+      <div class="ascii"><span class="hl2">Prompt Engineering</span>
+  "어떻게 말할까" — 1회 호출을 최적화
+  CoT · Role · Few-shot · Format
+  한계: 컨텍스트 부족에 무력
+
+<span class="hl2">Context Engineering</span>
+  "무엇을 넣을까" — 1 세션을 최적화
+  RAG · MCP · 동적 주입
+  한계: 세션이 길면 Context Rot
+
+<span class="hl">Harness Engineering</span>
+  "어떤 구조로 실행할까" — 프로젝트 전체를 설계
+  Phase · RTM · LOOPBACK · Gate
+  <span class="hl">"Better prompts don't scale. Better systems do."</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Engineering Evolution · Three Layers</span><span>08 / 16</span></div>
+</section>
+
+<!-- ============ 09 근본은 같다 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>The Connection</span></div>
+    <div class="tag">#classics #same-structure</div>
+    <div>09 / 16</div>
+  </div>
+  <div class="stage stage-split r">
+    <div class="copy">
+      <div class="kicker">그러나 근본은 같다</div>
+      <div class="keyword sm">
+        이름이 바뀌었을 뿐,<br><em>구조는 그대로다.</em>
+      </div>
+      <div class="ascii">Context Engineering
+  = 무엇을 컨텍스트에 넣을까
+  = <span class="hl">Divide &amp; Conquer의 인프라</span>
+    (필요한 것만 골라 조리대에 올린다)
+
+Harness Engineering
+  = 워크플로우 자체를 설계한다
+  = <span class="hl">세 원칙을 AI 시대에 구조화한 것</span>
+    · Phase 격리     → Divide &amp; Conquer
+    · LOOPBACK       → TDD Red-Green-Refactor
+    · Gate · 판단 경계 → Clean Architecture</div>
+      <div class="subline" style="margin-top:16px">
+        고전이 먼저 답을 알고 있었다.<br>
+        엔지니어링은 그것을 <strong>AI에 맞게 재구현</strong>하는 과정이다.
+      </div>
+    </div>
+    <div class="art sm">
+      <img src="https://freedoby.github.io/freedoby-blog/images/harness-controlled-ai.png" alt="Harness Controlled AI" />
+    </div>
+  </div>
+  <div class="foot"><span>The Connection · Same Structure</span><span>09 / 16 · → 이름만 바뀌었다</span></div>
+</section>
+
+<!-- ============ 10 이름만 바뀌었다 — 매핑 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>The Mapping</span></div>
+    <div class="tag">#same-answer #new-name</div>
+    <div>10 / 16</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">답도 그대로다</div>
+    <div class="display sm">
+      <em>이름만</em> 바뀌었다.
+    </div>
+
+    <div class="mapping">
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">문제</div>
+          <div class="mc-name">복잡성</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">고전의 답</div>
+          <div class="mc-name">Divide &amp; Conquer</div>
+          <div class="mc-sub">Context Engineering의 뿌리</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">AI 시대의 이름</div>
+          <div class="mc-name" style="color:var(--gold)">Clean Context</div>
+          <div class="mc-sub">Phase · File · RTM</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">문제</div>
+          <div class="mc-name">불확실성</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">고전의 답</div>
+          <div class="mc-name">TDD</div>
+          <div class="mc-sub">Harness Engineering의 뿌리</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">AI 시대의 이름</div>
+          <div class="mc-name" style="color:var(--gold)">Verifiable Output</div>
+          <div class="mc-sub">Judge · LOOPBACK · Real E2E</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">문제</div>
+          <div class="mc-name">경계</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">고전의 답</div>
+          <div class="mc-name">Clean Architecture</div>
+          <div class="mc-sub">Harness Engineering의 뿌리</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">AI 시대의 이름</div>
+          <div class="mc-name" style="color:var(--gold)">Judgment Boundary</div>
+          <div class="mc-sub">Gate · 책임 배분</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>The Mapping · Same Answer</span><span>10 / 16</span></div>
+</section>
+
+<!-- ============ 11 Clean Context ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Axis I · Clean Context</span></div>
+    <div class="tag">#complexity → #clean-context</div>
+    <div>11 / 16</div>
+  </div>
+  <div class="stage stage-split">
+    <div class="art">
+      <img src="https://freedoby.github.io/freedoby-blog/images/needle-in-haystack.png" alt="Needle in Haystack" />
+    </div>
+    <div class="copy">
+      <div class="kicker">복잡성의 AI 시대 이름</div>
+      <div class="keyword"><em>Clean Context.</em></div>
+      <div class="subline">
+        AI의 컨텍스트 윈도우는 유한하다.<br>
+        넣을수록 썩는다 — <strong>Context Rot.</strong><br><br>
+        Phase로 격리하고, File로 통신하고, RTM으로 기억한다.<br>
+        Divide &amp; Conquer의 구조가 그대로다.
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Complexity → Clean Context</span><span>11 / 16</span></div>
+</section>
+
+<!-- ============ 12 Verifiable Output ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Axis II · Verifiable Output</span></div>
+    <div class="tag">#uncertainty → #verifiable-output</div>
+    <div>12 / 16</div>
+  </div>
+  <div class="stage stage-split r">
+    <div class="copy">
+      <div class="kicker">불확실성의 AI 시대 이름</div>
+      <div class="keyword"><em>Verifiable Output.</em></div>
+      <div class="subline">
+        AI는 자신감 있는 오답을 낸다.<br>
+        <strong>53개 모델 중 48개가 세차장에 걸어가라고 했다.</strong><br><br>
+        테스트가 먼저다. Judge는 RTM만 읽는다.
+        실제 환경에서만 진실이 드러난다.<br>
+        TDD의 철학이 그대로다.
+      </div>
+    </div>
+    <div class="art">
+      <img src="https://freedoby.github.io/freedoby-blog/images/car-wash-test.png" alt="Car Wash Test" />
+    </div>
+  </div>
+  <div class="foot"><span>Uncertainty → Verifiable Output</span><span>12 / 16</span></div>
+</section>
+
+<!-- ============ 13 Judgment Boundary ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Axis III · Judgment Boundary</span></div>
+    <div class="tag">#boundary → #judgment-boundary</div>
+    <div>13 / 16</div>
+  </div>
+  <div class="stage stage-split">
+    <div class="art sm">
+      <img src="https://freedoby.github.io/freedoby-blog/images/developer-controlling-ai.png" alt="Developer Controlling AI" />
+    </div>
+    <div class="copy">
+      <div class="kicker">경계의 AI 시대 이름</div>
+      <div class="keyword"><em>Judgment Boundary.</em></div>
+      <div class="subline">
+        어디까지 AI가 결정하고, 어디서부터 사람이 결정하는가.<br>
+        <strong>Gate는 검증이 아니라 판단이다.</strong><br><br>
+        아키텍트가 경계를 긋는 것처럼,
+        개발자는 AI와의 경계를 설계해야 한다.<br>
+        Clean Architecture의 철학이 그대로다.
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Boundary → Judgment Boundary</span><span>13 / 16</span></div>
+</section>
+
+<!-- ============ 14 단 하나의 변화 = 속도 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>The Only Difference</span></div>
+    <div class="tag">#speed #leverage</div>
+    <div>14 / 16</div>
+  </div>
+  <div class="stage stage-split r">
+    <div class="copy">
+      <div class="kicker">단 하나의 변화</div>
+      <div class="display">
+        <em>속도.</em>
+      </div>
+      <div class="speed-block">
+        <div class="sb-label">AI가 바꾼 것</div>
+        <div class="sb-body">
+          실행이 <strong>10배 빨라졌다.</strong><br>
+          문제가 10배 빠르게 터진다.<br>
+          원칙이 10배 더 중요해졌다.<br><br>
+          <strong>AI는 속도의 레버리지일 뿐이다.</strong><br>
+          판단은 빌려주지 않는다.
+        </div>
+      </div>
+    </div>
+    <div class="art">
+      <img src="https://freedoby.github.io/freedoby-blog/images/era-shift.png" alt="Era Shift" />
+    </div>
+  </div>
+  <div class="foot"><span>The Only Difference · Speed</span><span>14 / 16</span></div>
+</section>
+
+<!-- ============ 15 고전의 스케일 = HALO ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Synthesis · HALO</span></div>
+    <div class="tag">#halo #고전의-스케일</div>
+    <div>15 / 16</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">고전의 스케일 — 구현</div>
+    <div class="display sm" style="margin-bottom:8px">
+      HALO는 세 축을<br>
+      하나의 구조로 <em>만든 것이다.</em>
+    </div>
+
+    <div class="halo-row">
+      <div class="halo-cell">
+        <div class="ltr">H</div>
+        <div class="word">Harness</div>
+        <div class="axis">↳ 복잡성 → Clean Context</div>
+        <div class="desc">구조가 AI를 제어한다.</div>
+      </div>
+      <div class="halo-cell">
+        <div class="ltr">A</div>
+        <div class="word">Agentic</div>
+        <div class="axis">↳ 복잡성 + 불확실성</div>
+        <div class="desc">한계를 인정한 에이전트.</div>
+      </div>
+      <div class="halo-cell">
+        <div class="ltr">L</div>
+        <div class="word">Loopback</div>
+        <div class="axis">↳ 불확실성 → Verifiable</div>
+        <div class="desc">TDD처럼 실패를 구조화.</div>
+      </div>
+      <div class="halo-cell">
+        <div class="ltr">O</div>
+        <div class="word">Orchestration</div>
+        <div class="axis">↳ 경계 → Judgment</div>
+        <div class="desc">사람과 AI의 경계를 설계.</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>HALO · Harness · Agentic · Loopback · Orchestration</span><span>15 / 16</span></div>
+</section>
+
+<!-- ============ 16 FIN ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Fin</span></div>
+    <div class="tag">#고전의-스케일</div>
+    <div>16 / 16</div>
+  </div>
+  <div class="stage stage-split r">
+    <div class="copy">
+      <div class="kicker">Fin.</div>
+      <div class="final-big">
+        원칙은<br><em>버전이 없다.</em>
+      </div>
+      <div class="final-sub">
+        복잡성 · 불확실성 · 경계.<br>
+        50년 전에도 지금도 같은 문제다.<br>
+        AI는 그 원칙 위에서 달리는 <strong style="color:var(--gold)">속도</strong>일 뿐이다.
+      </div>
+      <div class="final-link">github.com/FREEDOBY/halo-workflow →</div>
+    </div>
+    <div class="art">
+      <img src="https://freedoby.github.io/freedoby-blog/images/harness-divide-and-conquer.png" alt="Harness Divide and Conquer" />
+    </div>
+  </div>
+  <div class="foot">
+    <span>고전의 스케일 — FREEDOBY</span>
+    <span>END</span>
+  </div>
+</section>
+
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="click-zone left" id="zoneLeft"></div>
+<div class="click-zone right" id="zoneRight"></div>
+<div class="navhint"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>F</kbd> fullscreen</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const progress = document.getElementById('progress');
+  const total = slides.length;
+  let idx = 0;
+
+  function go(n) {
+    idx = Math.max(0, Math.min(total - 1, n));
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    progress.style.width = ((idx + 1) / total * 100) + '%';
+    history.replaceState(null, '', '#' + (idx + 1));
+  }
+  function next() { go(idx + 1); }
+  function prev() { go(idx - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight',' ','PageDown'].includes(e.key)) { e.preventDefault(); next(); }
+    else if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') go(0);
+    else if (e.key === 'End') go(total - 1);
+    else if (e.key.toLowerCase() === 'f') {
+      document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    }
+  });
+
+  document.getElementById('zoneLeft').addEventListener('click', prev);
+  document.getElementById('zoneRight').addEventListener('click', next);
+
+  const h = parseInt(location.hash.replace('#',''), 10);
+  go(!isNaN(h) && h >= 1 && h <= total ? h - 1 : 0);
+})();
+</script>
+
+</body>
+</html>
