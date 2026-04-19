@@ -223,6 +223,22 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   margin: 28px 0;
   opacity: 0.5;
 }
+.cover-tagline {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(28px, 3.6vw, 52px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 28px;
+  max-width: 820px;
+}
+.cover-tagline em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
 .cover-sub {
   font-family: var(--serif-ko);
   font-size: clamp(18px, 1.8vw, 26px);
@@ -231,6 +247,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   line-height: 1.55;
 }
 .cover-sub strong { color: var(--cream); font-weight: 700; }
+.cover .bleed img { opacity: 0.32; filter: saturate(0.75); }
 .cover-footer {
   display: flex;
   justify-content: space-between;
@@ -302,7 +319,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .slide.light .mapping { border-bottom-color: var(--rule-dk); }
 .map-row {
   display: grid;
-  grid-template-columns: 0.8fr 40px 1fr 40px 1fr 40px 1fr;
+  grid-template-columns: 0.8fr 40px 1.3fr 60px 1.3fr;
   align-items: center;
   padding: 14px 0;
   border-bottom: 1px solid var(--rule-lt);
@@ -346,6 +363,13 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   opacity: 0.7;
 }
 .slide.light .map-arrow { color: var(--gold-dk); }
+.map-arrow.eq {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 32px;
+  font-weight: 700;
+  opacity: 1;
+}
 
 /* ============ SPEED SINGLE ============ */
 .speed-block {
@@ -452,6 +476,28 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 }
 .slide.light .pullquote-attr { color: var(--muted-dk); }
 
+/* ============ SOURCE ============ */
+.source {
+  margin-top: 18px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule-lt);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  max-width: 520px;
+  opacity: 0.8;
+}
+.slide.light .source { color: var(--muted-dk); border-top-color: var(--rule-dk); }
+.source::before {
+  content: "Source ";
+  color: var(--gold);
+  margin-right: 6px;
+  font-weight: 700;
+}
+.slide.light .source::before { color: var(--gold-dk); }
+
 /* ascii */
 .ascii {
   font-family: var(--mono);
@@ -545,7 +591,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   .three-probs { grid-template-columns: 1fr; }
   .prob { border-right: none; border-bottom: 1px solid var(--rule-lt); padding: 16px 0 !important; }
   .halo-row { grid-template-columns: repeat(2, 1fr); }
-  .map-row { grid-template-columns: 1fr 24px 1fr 24px 1fr 24px 1fr; }
+  .map-row { grid-template-columns: 1fr 24px 1.2fr 40px 1.2fr; }
 }
 </style>
 </head>
@@ -554,7 +600,10 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 <div class="deck" id="deck">
 
 <!-- ============ 01 COVER ============ -->
-<section class="slide dark cover active">
+<section class="slide dark cover active has-bleed">
+  <div class="bleed">
+    <img src="../images/classiconai.png" alt="Classics as foundation, AI stacked on top" />
+  </div>
   <div class="cover-brand">
     <span>FREEDOBY</span>
     <span class="gold">—</span>
@@ -566,6 +615,9 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       AI일수록,<br><span class="gold">클래식이다.</span>
     </div>
     <div class="cover-rule"></div>
+    <div class="cover-tagline">
+      클래식 위에, <em>AI를 쌓아라.</em>
+    </div>
     <div class="cover-sub">
       AI가 바꾼 건 <strong>속도</strong>뿐이다.<br>
       TDD도, Clean Architecture도, Divide &amp; Conquer도 — 원칙은 바뀌지 않는다.
@@ -574,7 +626,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
   <div class="cover-footer">
     <span>The More AI, The More Classical — AI Coding Engineering</span>
-    <span>01 / 16</span>
+    <span>01 / 17</span>
   </div>
 </section>
 
@@ -582,25 +634,26 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Prologue</span></div>
-    <div class="tag">#the-question</div>
-    <div>02 / 16</div>
+    <div class="tag">#two-years #fifty-years</div>
+    <div>02 / 17</div>
   </div>
   <div class="stage stage-split r">
     <div class="copy">
-      <div class="kicker">A Familiar Question</div>
+      <div class="kicker">Two Years vs Fifty</div>
       <div class="keyword">
-        AI가 개발자를<br><em>대체하는가?</em>
+        AI는 지난 <em>2년</em>을 바꿨다.
       </div>
       <div class="subline">
-        매주 새 AI가 나온다. 썸네일은 넘친다.<br>
-        하지만 이 질문에 답하려면, 먼저 <strong>진짜 문제가 무엇인지</strong>를 정의해야 한다.
+        매주 새 AI가 나온다. 썸네일은 '개발자의 종말'을 외친다.<br>
+        그러나 소프트웨어 공학이 50년간 싸워온 문제는 —<br>
+        <strong>하나도 사라지지 않았다.</strong>
       </div>
     </div>
     <div class="art">
-      <img src="https://freedoby.github.io/freedoby-blog/images/ai-dystopia.png" alt="AI Dystopia" />
+      <img src="../images/outsourecedThinking.png" alt="Outsourced Thinking" />
     </div>
   </div>
-  <div class="foot"><span>Prologue</span><span>→ 문제를 정의한다</span></div>
+  <div class="foot"><span>Prologue · Two Years vs Fifty</span><span>02 / 17 · → 50년의 세 가지 문제</span></div>
 </section>
 
 <!-- ============ 03 세 가지 문제 ============ -->
@@ -608,7 +661,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Problems</span></div>
     <div class="tag">#complexity #uncertainty #boundary</div>
-    <div>03 / 16</div>
+    <div>03 / 17</div>
   </div>
   <div class="stage">
     <div class="kicker">소프트웨어 공학 50년의 문제</div>
@@ -637,7 +690,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>The Problems · 50 Years</span><span>03 / 16</span></div>
+  <div class="foot"><span>The Problems · 50 Years</span><span>03 / 17</span></div>
 </section>
 
 <!-- ============ 04 복잡성 → Divide & Conquer ============ -->
@@ -645,11 +698,11 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Classics · I</span></div>
     <div class="tag">#complexity #divide-and-conquer</div>
-    <div>04 / 16</div>
+    <div>04 / 17</div>
   </div>
   <div class="stage stage-split">
     <div class="art">
-      <img src="https://freedoby.github.io/freedoby-blog/images/divide-and-conquer.png" alt="Divide and Conquer" />
+      <img src="../images/divide-and-conquer.png" alt="Divide and Conquer" />
     </div>
     <div class="copy">
       <div class="kicker">Classics I — 복잡성의 답</div>
@@ -662,7 +715,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Classics · Complexity</span><span>04 / 16</span></div>
+  <div class="foot"><span>Classics · Complexity</span><span>04 / 17</span></div>
 </section>
 
 <!-- ============ 05 불확실성 → TDD ============ -->
@@ -670,7 +723,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Classics · II</span></div>
     <div class="tag">#uncertainty #tdd</div>
-    <div>05 / 16</div>
+    <div>05 / 17</div>
   </div>
   <div class="stage stage-split r">
     <div class="copy">
@@ -684,10 +737,10 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
     <div class="art">
-      <img src="https://freedoby.github.io/freedoby-blog/images/change-ripple-effect.png" alt="Change Ripple Effect" />
+      <img src="../images/change-ripple-effect.png" alt="Change Ripple Effect" />
     </div>
   </div>
-  <div class="foot"><span>Classics · Uncertainty</span><span>05 / 16</span></div>
+  <div class="foot"><span>Classics · Uncertainty</span><span>05 / 17</span></div>
 </section>
 
 <!-- ============ 06 확장 → Clean Architecture ============ -->
@@ -695,11 +748,11 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Classics · III</span></div>
     <div class="tag">#boundary #clean-architecture</div>
-    <div>06 / 16</div>
+    <div>06 / 17</div>
   </div>
   <div class="stage stage-split">
     <div class="art">
-      <img src="https://freedoby.github.io/freedoby-blog/images/architect-as-judge.png" alt="Architect as Judge" />
+      <img src="../images/ocp.png" alt="Open-Closed Principle" />
     </div>
     <div class="copy">
       <div class="kicker">Classics III — 확장의 답</div>
@@ -711,18 +764,18 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Classics · Boundary</span><span>06 / 16</span></div>
+  <div class="foot"><span>Classics · Boundary</span><span>06 / 17</span></div>
 </section>
 
 <!-- ============ 07 AI 시대 전환 — 문제는 같다 ============ -->
 <section class="slide dark has-bleed">
   <div class="bleed">
-    <img src="https://freedoby.github.io/freedoby-blog/images/ai-running-blind.png" alt="AI running blind" />
+    <img src="../images/ai-running-blind.png" alt="AI running blind" />
   </div>
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Shift</span></div>
     <div class="tag">#ai-era #same-problems</div>
-    <div>07 / 16</div>
+    <div>07 / 17</div>
   </div>
   <div class="stage">
     <div class="kicker">그리고 AI 시대가 왔다</div>
@@ -743,7 +796,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 불확실성 →  <span class="hl">자신감 있는 오답이 빠르게 쌓인다</span>
 확장     →  <span class="hl">하나를 고치면 열 곳이 터진다</span></div>
   </div>
-  <div class="foot"><span>The Shift · Same Problems</span><span>07 / 16 · → 엔지니어링의 진화</span></div>
+  <div class="foot"><span>The Shift · Same Problems</span><span>07 / 17 · → 엔지니어링의 진화</span></div>
 </section>
 
 <!-- ============ 08 엔지니어링의 진화 ============ -->
@@ -751,11 +804,11 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Evolution of Engineering</span></div>
     <div class="tag">#prompt #context #harness</div>
-    <div>08 / 16</div>
+    <div>08 / 17</div>
   </div>
   <div class="stage stage-split">
     <div class="art">
-      <img src="https://freedoby.github.io/freedoby-blog/images/prompt-context-harness.png" alt="Prompt Context Harness" />
+      <img src="../images/prompt-context-harness.png" alt="Prompt Context Harness" />
     </div>
     <div class="copy">
       <div class="kicker">AI를 다루는 기술의 진화</div>
@@ -778,7 +831,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <span class="hl">"Better prompts don't scale. Better systems do."</span></div>
     </div>
   </div>
-  <div class="foot"><span>Engineering Evolution · Three Layers</span><span>08 / 16</span></div>
+  <div class="foot"><span>Engineering Evolution · Three Layers</span><span>08 / 17</span></div>
 </section>
 
 <!-- ============ 09 근본은 같다 ============ -->
@@ -786,13 +839,13 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Connection</span></div>
     <div class="tag">#classics #same-structure</div>
-    <div>09 / 16</div>
+    <div>09 / 17</div>
   </div>
   <div class="stage stage-split r">
     <div class="copy">
       <div class="kicker">그러나 근본은 같다</div>
       <div class="keyword sm">
-        이름이 바뀌었을 뿐,<br><em>구조는 그대로다.</em>
+        이름이 바뀌었을 뿐,<br><em>원리는 그대로다.</em>
       </div>
       <div class="ascii">Context Engineering
   = 무엇을 컨텍스트에 넣을까
@@ -810,101 +863,38 @@ Harness Engineering
       </div>
     </div>
     <div class="art sm">
-      <img src="https://freedoby.github.io/freedoby-blog/images/harness-controlled-ai.png" alt="Harness Controlled AI" />
+      <img src="../images/harness-controlled-ai.png" alt="Harness Controlled AI" />
     </div>
   </div>
-  <div class="foot"><span>The Connection · Same Structure</span><span>09 / 16 · → 이름만 바뀌었다</span></div>
+  <div class="foot"><span>The Connection · Same Structure</span><span>09 / 17 · → 그러나 AI에겐…</span></div>
 </section>
 
-<!-- ============ 10 요구가 새 이름을 얻었다 — 매핑 ============ -->
+<!-- ============ 10 Bridge — AI의 한계가 새 요구를 낳는다 ============ -->
 <section class="slide dark">
   <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>The Mapping</span></div>
-    <div class="tag">#same-principle #new-name</div>
-    <div>10 / 16</div>
+    <div class="seg"><span class="dot"></span><span>The Bridge</span></div>
+    <div class="tag">#ai-limits #new-requirements</div>
+    <div>10 / 17</div>
   </div>
-  <div class="stage">
-    <div class="kicker">원리는 같다</div>
-    <div class="display sm">
-      요구에 <em>새 이름이</em> 붙었다.
+  <div class="stage stage-split">
+    <div class="art">
+      <img src="../images/productivity-boost.png" alt="AI's Shaky Foundation - confident wrong output" />
     </div>
-
-    <div class="mapping">
-      <div class="map-row">
-        <div class="map-cell">
-          <div class="mc-label">문제</div>
-          <div class="mc-name">복잡성</div>
-        </div>
-        <div class="map-arrow">→</div>
-        <div class="map-cell">
-          <div class="mc-label">고전의 답</div>
-          <div class="mc-name">Divide &amp; Conquer</div>
-          <div class="mc-sub">분할의 원리</div>
-        </div>
-        <div class="map-arrow"></div>
-        <div class="map-cell">
-          <div class="mc-label">AI 시대의 요구</div>
-          <div class="mc-name" style="color:var(--gold)">Clean Context</div>
-          <div class="mc-sub">컨텍스트는 깨끗해야</div>
-        </div>
-        <div class="map-arrow">→</div>
-        <div class="map-cell">
-          <div class="mc-label">AI 시대의 방법론</div>
-          <div class="mc-name">Context Engineering</div>
-          <div class="mc-sub">RAG · Subagents</div>
-        </div>
+    <div class="copy">
+      <div class="kicker">같은 원리, 그러나 새 한계</div>
+      <div class="display sm">
+        AI의 한계가,<br><em>새 요구</em>를 낳는다.
       </div>
-      <div class="map-row">
-        <div class="map-cell">
-          <div class="mc-label">문제</div>
-          <div class="mc-name">불확실성</div>
-        </div>
-        <div class="map-arrow">→</div>
-        <div class="map-cell">
-          <div class="mc-label">고전의 답</div>
-          <div class="mc-name">TDD</div>
-          <div class="mc-sub">검증의 원리</div>
-        </div>
-        <div class="map-arrow"></div>
-        <div class="map-cell">
-          <div class="mc-label">AI 시대의 요구</div>
-          <div class="mc-name" style="color:var(--gold)">Verifiable Output</div>
-          <div class="mc-sub">검증 가능해야</div>
-        </div>
-        <div class="map-arrow">→</div>
-        <div class="map-cell">
-          <div class="mc-label">AI 시대의 방법론</div>
-          <div class="mc-name">Harness Engineering</div>
-          <div class="mc-sub">검증 루프 · Evals</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-cell">
-          <div class="mc-label">문제</div>
-          <div class="mc-name">확장</div>
-        </div>
-        <div class="map-arrow">→</div>
-        <div class="map-cell">
-          <div class="mc-label">고전의 답</div>
-          <div class="mc-name">Clean Architecture</div>
-          <div class="mc-sub">경계의 원리</div>
-        </div>
-        <div class="map-arrow"></div>
-        <div class="map-cell">
-          <div class="mc-label">AI 시대의 요구</div>
-          <div class="mc-name" style="color:var(--gold)">Extension Gate</div>
-          <div class="mc-sub">코어 닫고 · 확장만</div>
-        </div>
-        <div class="map-arrow">→</div>
-        <div class="map-cell">
-          <div class="mc-label">AI 시대의 방법론</div>
-          <div class="mc-name">Harness Engineering</div>
-          <div class="mc-sub">경계 설계 · Guardrails</div>
-        </div>
+      <div class="subline">
+        AI는 <strong>컨텍스트가 유한</strong>하다 — 넣을수록 썩는다.<br>
+        AI는 <strong>자신감 있는 오답</strong>을 낸다.<br>
+        AI는 <strong>보이지 않는 코드</strong>를 모른다.<br><br>
+        50년의 문제는 그대로다. 그러나 <strong>AI라는 새 매체</strong>가 각 문제에 <strong>고유 한계</strong>를 덧붙인다.<br>
+        그래서 엔지니어링이 재구현되어야 했다 — 그 재구현이 다음 세 <strong>명시적 요구</strong>다.
       </div>
     </div>
   </div>
-  <div class="foot"><span>The Mapping · Same Principle</span><span>10 / 16</span></div>
+  <div class="foot"><span>Bridge · AI Limits → New Requirements</span><span>10 / 17 · → 첫 번째 축</span></div>
 </section>
 
 <!-- ============ 11 Clean Context ============ -->
@@ -912,11 +902,11 @@ Harness Engineering
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Axis I · Clean Context</span></div>
     <div class="tag">#complexity → #clean-context</div>
-    <div>11 / 16</div>
+    <div>11 / 17</div>
   </div>
   <div class="stage stage-split">
     <div class="art">
-      <img src="https://freedoby.github.io/freedoby-blog/images/needle-in-haystack.png" alt="Needle in Haystack" />
+      <img src="../images/needle-in-haystack.png" alt="Needle in Haystack" />
     </div>
     <div class="copy">
       <div class="kicker">복잡성의 AI 시대 요구</div>
@@ -928,9 +918,10 @@ Harness Engineering
         필요한 것만 고르고, 나머지는 격리한다.<br>
         <strong>Divide &amp; Conquer의 구조가 그대로다.</strong>
       </div>
+      <div class="source">Needle in a Haystack · Lost in the Middle (Liu et al., 2023) · Context Rot</div>
     </div>
   </div>
-  <div class="foot"><span>Complexity → Clean Context</span><span>11 / 16</span></div>
+  <div class="foot"><span>Complexity → Clean Context</span><span>11 / 17</span></div>
 </section>
 
 <!-- ============ 12 Verifiable Output ============ -->
@@ -938,7 +929,7 @@ Harness Engineering
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Axis II · Verifiable Output</span></div>
     <div class="tag">#uncertainty → #verifiable-output</div>
-    <div>12 / 16</div>
+    <div>12 / 17</div>
   </div>
   <div class="stage stage-split r">
     <div class="copy">
@@ -951,12 +942,13 @@ Harness Engineering
         <strong>요구사항에서 TC를 만들고, Mock이 아닌 실제 환경으로 검증한다.</strong><br>
         실제 환경에서만 진실이 드러난다. <strong>TDD의 철학이 그대로다.</strong>
       </div>
+      <div class="source">Car Wash Test · Opper.ai (2025) · 48 of 53 models failed</div>
     </div>
     <div class="art">
-      <img src="https://freedoby.github.io/freedoby-blog/images/car-wash-test.png" alt="Car Wash Test" />
+      <img src="../images/car-wash-test.png" alt="Car Wash Test" />
     </div>
   </div>
-  <div class="foot"><span>Uncertainty → Verifiable Output</span><span>12 / 16</span></div>
+  <div class="foot"><span>Uncertainty → Verifiable Output</span><span>12 / 17</span></div>
 </section>
 
 <!-- ============ 13 Extension Gate ============ -->
@@ -964,11 +956,11 @@ Harness Engineering
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Axis III · Extension Gate</span></div>
     <div class="tag">#boundary → #extension-gate</div>
-    <div>13 / 16</div>
+    <div>13 / 17</div>
   </div>
   <div class="stage stage-split">
     <div class="art">
-      <img src="https://freedoby.github.io/freedoby-blog/images/harness-divide-and-conquer.png" alt="Harness Divide and Conquer" />
+      <img src="../images/harness-divide-and-conquer.png" alt="Harness Divide and Conquer" />
     </div>
     <div class="copy">
       <div class="kicker">확장의 AI 시대 요구</div>
@@ -977,20 +969,94 @@ Harness Engineering
         코어는 닫고, 확장만 연다 — AI가 건드릴 수 있는 범위를 Gate로 잠근다.<br>
         <strong>판단(Judgment)은 사람의 몫이다. Gate는 그 판단의 산물이다.</strong><br><br>
         이 요구를 <strong>Harness Engineering</strong>이 푼다 —<br>
-        Guardrails · Permission Scope · HITL로 확장 방향을 설계한다.<br>
+        Subagents · Hooks로 확장 지점만 열어두고, Permission Scope · Human in the Loop으로 <strong>Gate를 강제한다.</strong><br>
         <strong>Clean Architecture의 철학이 그대로다.</strong>
+      </div>
+      <div class="source">Blind Context · Change Ripple Effect · HBM physical limit</div>
+    </div>
+  </div>
+  <div class="foot"><span>Boundary → Extension Gate</span><span>13 / 17</span></div>
+</section>
+
+<!-- ============ 14 Synthesis — 세 축, 하나의 원리 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Synthesis</span></div>
+    <div class="tag">#three-axes #same-principle</div>
+    <div>14 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">이제 보인다 — 원리는 같다</div>
+    <div class="display sm">
+      세 축이, <em>하나의 원리</em>를 공유한다.
+    </div>
+
+    <div class="mapping">
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">문제</div>
+          <div class="mc-name">복잡성</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">고전의 답 (50년)</div>
+          <div class="mc-name">Divide &amp; Conquer</div>
+          <div class="mc-sub">분할의 원리</div>
+        </div>
+        <div class="map-arrow eq">=</div>
+        <div class="map-cell">
+          <div class="mc-label">AI 시대의 실체</div>
+          <div class="mc-name" style="color:var(--gold)">Context Engineering</div>
+          <div class="mc-sub">Clean Context — 컨텍스트는 깨끗해야</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">문제</div>
+          <div class="mc-name">불확실성</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">고전의 답 (50년)</div>
+          <div class="mc-name">TDD</div>
+          <div class="mc-sub">검증의 원리</div>
+        </div>
+        <div class="map-arrow eq">=</div>
+        <div class="map-cell">
+          <div class="mc-label">AI 시대의 실체</div>
+          <div class="mc-name" style="color:var(--gold)">Harness Engineering</div>
+          <div class="mc-sub">Verifiable Output — 검증 가능해야</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">문제</div>
+          <div class="mc-name">확장</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">고전의 답 (50년)</div>
+          <div class="mc-name">Clean Architecture</div>
+          <div class="mc-sub">경계의 원리</div>
+        </div>
+        <div class="map-arrow eq">=</div>
+        <div class="map-cell">
+          <div class="mc-label">AI 시대의 실체</div>
+          <div class="mc-name" style="color:var(--gold)">Harness Engineering</div>
+          <div class="mc-sub">Extension Gate — 코어 닫고, 확장만</div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="foot"><span>Boundary → Extension Gate</span><span>13 / 16</span></div>
+  <div class="foot"><span>Synthesis · Same Principle</span><span>14 / 17 · → 속도</span></div>
 </section>
 
-<!-- ============ 14 단 하나의 변화 = 속도 ============ -->
+<!-- ============ 15 단 하나의 변화 = 속도 ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Only Difference</span></div>
     <div class="tag">#speed #leverage</div>
-    <div>14 / 16</div>
+    <div>15 / 17</div>
   </div>
   <div class="stage stage-split r">
     <div class="copy">
@@ -1010,18 +1076,18 @@ Harness Engineering
       </div>
     </div>
     <div class="art">
-      <img src="https://freedoby.github.io/freedoby-blog/images/era-shift.png" alt="Era Shift" />
+      <img src="../images/architect-as-judge.png" alt="Architect as Judge" />
     </div>
   </div>
-  <div class="foot"><span>The Only Difference · Speed</span><span>14 / 16</span></div>
+  <div class="foot"><span>The Only Difference · Speed</span><span>15 / 17</span></div>
 </section>
 
-<!-- ============ 15 클래식의 구현 = HALO ============ -->
+<!-- ============ 16 클래식의 구현 = HALO ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · HALO</span></div>
     <div class="tag">#halo #classics-implementation</div>
-    <div>15 / 16</div>
+    <div>16 / 17</div>
   </div>
   <div class="stage">
     <div class="kicker">클래식의 구현</div>
@@ -1061,15 +1127,15 @@ Harness Engineering
       </div>
     </div>
   </div>
-  <div class="foot"><span>HALO · Harness · Agentic · Loopback · Orchestration</span><span>15 / 16</span></div>
+  <div class="foot"><span>HALO · Harness · Agentic · Loopback · Orchestration</span><span>16 / 17</span></div>
 </section>
 
-<!-- ============ 16 FIN ============ -->
+<!-- ============ 17 FIN ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Fin</span></div>
     <div class="tag">#ai일수록-클래식이다</div>
-    <div>16 / 16</div>
+    <div>17 / 17</div>
   </div>
   <div class="stage stage-split r">
     <div class="copy">
@@ -1085,7 +1151,7 @@ Harness Engineering
       <div class="final-link">github.com/FREEDOBY/halo-workflow →</div>
     </div>
     <div class="art">
-      <img src="https://freedoby.github.io/freedoby-blog/images/developer-controlling-ai.png" alt="Developer Controlling AI" />
+      <img src="../images/developer-controlling-ai.png" alt="Developer Controlling AI" />
     </div>
   </div>
   <div class="foot">
