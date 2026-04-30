@@ -1,0 +1,2299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Context vs 멘탈 모델</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black:   #0c0b09;
+  --cream:   #f0ece0;
+  --warm:    #f5f0e6;
+  --gold:    #b8924a;
+  --gold-lt: #ddb96a;
+  --gold-dk: #7a5f2e;
+  --rule-lt: rgba(240, 236, 224, 0.18);
+  --rule-dk: rgba(12, 11, 9, 0.14);
+  --muted-dk:#6a6458;
+  --muted-lt:#c8c0b0;
+  --warn:    #b85040;
+  --warn-dk: #8a3a2c;
+
+  --serif:   'Cormorant Garamond', 'Gowun Batang', Georgia, serif;
+  --serif-ko:'Gowun Batang', 'Cormorant Garamond', serif;
+  --sans:    'IBM Plex Sans KR', 'Helvetica Neue', sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { background: var(--black); color: var(--cream); font-family: var(--sans); }
+
+/* ============ DECK ============ */
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 44px 80px 52px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition: opacity 500ms cubic-bezier(.2,.7,.2,1), transform 600ms cubic-bezier(.2,.7,.2,1);
+}
+.slide.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+/* themes */
+.slide.dark  { background: var(--black); color: var(--cream); }
+.slide.light { background: var(--warm);  color: var(--black); }
+
+/* grain */
+.slide::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(180,170,140,0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  z-index: 0;
+}
+.slide > * { position: relative; z-index: 1; }
+
+/* ============ CHROME ============ */
+.chrome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-bottom: 12px;
+  border-bottom: 1px solid;
+}
+.slide.dark .chrome  { color: var(--muted-lt); border-color: var(--rule-lt); }
+.slide.light .chrome { color: var(--muted-dk); border-color: var(--rule-dk); }
+
+.chrome .seg { display: flex; gap: 10px; align-items: center; }
+.chrome .seg .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); display: inline-block; }
+.chrome .tag { color: var(--gold); text-transform: none; letter-spacing: 0.05em; }
+.slide.light .chrome .tag { color: var(--gold-dk); }
+
+/* ============ FOOTER ============ */
+.foot {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding-top: 12px;
+  border-top: 1px solid;
+}
+.slide.dark .foot  { color: var(--muted-lt); border-color: var(--rule-lt); }
+.slide.light .foot { color: var(--muted-dk); border-color: var(--rule-dk); }
+
+/* ============ STAGE ============ */
+.stage { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 28px 0; min-height: 0; }
+.stage.top { justify-content: flex-start; padding-top: 18px; }
+
+.stage-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding: 20px 0;
+}
+.stage-split.r .art { order: 2; }
+.stage-split.r .copy { order: 1; }
+
+.art { display: flex; align-items: center; justify-content: center; min-height: 0; }
+.art img {
+  max-width: 100%; max-height: 58vh;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(12,11,9,0.28));
+}
+.art.sm img { max-height: 44vh; }
+
+/* image placeholder — keeps slot visible while final art is pending */
+.art .ph {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-height: 58vh;
+  border: 1px dashed var(--gold);
+  background: rgba(184,146,74,0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  color: var(--muted-lt);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  gap: 10px;
+}
+.slide.light .art .ph {
+  border-color: var(--gold-dk);
+  background: rgba(122,95,46,0.04);
+  color: var(--muted-dk);
+}
+.art .ph .ph-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  opacity: 0.85;
+}
+.slide.light .art .ph .ph-tag { color: var(--gold-dk); }
+.art .ph .ph-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--cream);
+  font-weight: 600;
+  line-height: 1.25;
+  max-width: 80%;
+}
+.slide.light .art .ph .ph-name { color: var(--black); }
+.art .ph .ph-cap {
+  font-family: var(--serif-ko);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--muted-lt);
+  max-width: 80%;
+}
+.slide.light .art .ph .ph-cap { color: var(--muted-dk); }
+.art.sm .ph { aspect-ratio: 5 / 4; max-height: 44vh; }
+
+/* bleed placeholder — faint backdrop for cover/fin slides */
+.bleed.ph-bleed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bleed.ph-bleed .ph-bleed-mark {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.18;
+  border: 1px dashed var(--gold);
+  padding: 18px 24px;
+  border-radius: 2px;
+}
+
+/* bleed backdrop */
+.bleed { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.bleed img { width: 100%; height: 100%; object-fit: cover; opacity: 0.18; filter: saturate(0.7); }
+.has-bleed > *:not(.bleed) { z-index: 2; position: relative; }
+
+/* ============ TYPOGRAPHY ============ */
+.kicker {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.kicker::before { content: ""; display: inline-block; width: 20px; height: 1px; background: var(--gold); }
+.slide.light .kicker { color: var(--gold-dk); }
+.slide.light .kicker::before { background: var(--gold-dk); }
+
+.display {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(56px, 9vw, 148px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+}
+.slide.light .display { color: var(--black); }
+.display em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+.slide.light .display em { color: var(--gold-dk); }
+.display.md { font-size: clamp(44px, 6.5vw, 100px); }
+.display.sm { font-size: clamp(36px, 5vw, 76px); }
+
+.keyword {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(44px, 6.5vw, 100px);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+.slide.light .keyword { color: var(--black); }
+.keyword em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+.slide.light .keyword em { color: var(--gold-dk); }
+.keyword.md { font-size: clamp(36px, 5vw, 76px); }
+.keyword.sm { font-size: clamp(28px, 3.8vw, 58px); }
+
+.subline {
+  font-family: var(--serif-ko);
+  font-size: clamp(16px, 1.3vw, 21px);
+  line-height: 1.65;
+  color: var(--muted-lt);
+  max-width: 620px;
+  margin-top: 6px;
+}
+.slide.light .subline { color: var(--muted-dk); }
+.subline strong { color: var(--cream); font-weight: 700; }
+.slide.light .subline strong { color: var(--black); }
+.subline em { color: var(--gold); font-style: italic; font-weight: 600; }
+.slide.light .subline em { color: var(--gold-dk); }
+
+/* ============ COVER ============ */
+.cover { justify-content: space-between; padding: 52px 80px; }
+.cover-brand {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  display: flex; gap: 16px; align-items: baseline;
+}
+.cover-brand .gold { color: var(--gold); }
+.cover-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding: 24px 0;
+}
+.cover-title {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(72px, 11vw, 178px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.cover-title .gold { color: var(--gold); font-family: var(--serif); font-style: italic; font-weight: 400; }
+.cover-title .vs {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  margin: 0 0.12em;
+}
+.cover-rule {
+  width: 100%; height: 1px;
+  background: var(--gold);
+  margin: 28px 0;
+  opacity: 0.5;
+}
+.cover-tagline {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(28px, 3.6vw, 52px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 28px;
+  max-width: 880px;
+}
+.cover-tagline em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+.cover-sub {
+  font-family: var(--serif-ko);
+  font-size: clamp(18px, 1.7vw, 24px);
+  color: var(--muted-lt);
+  max-width: 720px;
+  line-height: 1.55;
+}
+.cover-sub strong { color: var(--cream); font-weight: 700; }
+.cover .bleed img { opacity: 0.28; filter: saturate(0.72); }
+.cover-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+}
+
+/* ============ THREE PROBLEMS ============ */
+.three-probs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 32px;
+  border-top: 1px solid var(--rule-lt);
+}
+.slide.light .three-probs { border-top-color: var(--rule-dk); }
+.prob {
+  padding: 24px 28px 24px 0;
+  border-right: 1px solid var(--rule-lt);
+}
+.slide.light .prob { border-right-color: var(--rule-dk); }
+.prob:last-child { border-right: none; padding-right: 0; padding-left: 28px; }
+.prob:nth-child(2) { padding-left: 28px; }
+.prob .p-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(56px, 7vw, 100px);
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.35;
+  margin-bottom: 12px;
+}
+.slide.light .prob .p-num { color: var(--gold-dk); }
+.prob .p-name {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(20px, 2vw, 30px);
+  color: var(--cream);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.slide.light .prob .p-name { color: var(--black); }
+.prob .p-en {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(13px, 1.1vw, 17px);
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.slide.light .prob .p-en { color: var(--gold-dk); }
+.prob .p-desc {
+  font-family: var(--serif-ko);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted-lt);
+}
+.slide.light .prob .p-desc { color: var(--muted-dk); }
+.prob .p-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 14px;
+  opacity: 0.85;
+}
+.slide.light .prob .p-tag { color: var(--gold-dk); }
+
+/* ============ MAPPING TABLE ============ */
+.mapping {
+  margin-top: 28px;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--rule-lt);
+}
+.slide.light .mapping { border-bottom-color: var(--rule-dk); border-top-color: var(--gold-dk); }
+.map-row {
+  display: grid;
+  grid-template-columns: 0.9fr 40px 1.4fr 60px 1.4fr;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule-lt);
+  gap: 0;
+}
+.slide.light .map-row { border-bottom-color: var(--rule-dk); }
+.map-row:last-child { border-bottom: none; }
+.map-cell { padding: 0 16px; }
+.map-cell:first-child { padding-left: 0; }
+.map-cell:last-child { padding-right: 0; }
+.map-cell .mc-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  margin-bottom: 4px;
+}
+.slide.light .map-cell .mc-label { color: var(--muted-dk); }
+.map-cell .mc-name {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(15px, 1.4vw, 21px);
+  color: var(--cream);
+}
+.slide.light .map-cell .mc-name { color: var(--black); }
+.map-cell .mc-name.gold { color: var(--gold); }
+.slide.light .map-cell .mc-name.gold { color: var(--gold-dk); }
+.map-cell .mc-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted-lt);
+  margin-top: 2px;
+}
+.slide.light .map-cell .mc-sub { color: var(--muted-dk); }
+.map-arrow {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 16px;
+  color: var(--gold);
+  opacity: 0.7;
+}
+.slide.light .map-arrow { color: var(--gold-dk); }
+.map-arrow.eq {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 700;
+  opacity: 1;
+}
+
+/* ============ SPLIT COPY (text-text) ============ */
+.split-copy {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+  margin-top: 28px;
+}
+.split-copy.tighter { gap: 36px; margin-top: 18px; }
+.col-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule-lt);
+}
+.slide.light .col-label { color: var(--gold-dk); border-bottom-color: var(--rule-dk); }
+.col-body {
+  font-family: var(--serif-ko);
+  font-size: clamp(15px, 1.2vw, 19px);
+  line-height: 1.65;
+  color: var(--muted-lt);
+}
+.slide.light .col-body { color: var(--muted-dk); }
+.col-body + .col-body { margin-top: 10px; }
+.col-body strong { color: var(--cream); font-weight: 700; }
+.slide.light .col-body strong { color: var(--black); }
+.col-body em { color: var(--gold); font-style: italic; font-weight: 600; }
+.slide.light .col-body em { color: var(--gold-dk); }
+.col-list {
+  list-style: none;
+  font-family: var(--serif-ko);
+  font-size: clamp(15px, 1.2vw, 19px);
+  line-height: 1.85;
+  color: var(--muted-lt);
+}
+.slide.light .col-list { color: var(--muted-dk); }
+.col-list li { padding-left: 20px; position: relative; }
+.col-list li::before {
+  content: "—";
+  position: absolute; left: 0;
+  color: var(--gold);
+  font-family: var(--serif);
+}
+.slide.light .col-list li::before { color: var(--gold-dk); }
+.col-list li strong { color: var(--cream); font-weight: 700; }
+.slide.light .col-list li strong { color: var(--black); }
+.col-list li em { color: var(--gold); font-style: italic; font-weight: 600; }
+.slide.light .col-list li em { color: var(--gold-dk); }
+
+/* ============ CALLOUT ============ */
+.callout {
+  margin-top: 32px;
+  padding: 18px 0;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--rule-lt);
+  font-family: var(--serif-ko);
+  font-size: clamp(17px, 1.5vw, 24px);
+  line-height: 1.5;
+  color: var(--cream);
+  max-width: 920px;
+}
+.slide.light .callout { color: var(--black); border-bottom-color: var(--rule-dk); border-top-color: var(--gold-dk); }
+.callout em { font-style: normal; color: var(--gold); font-weight: 700; }
+.slide.light .callout em { color: var(--gold-dk); }
+.callout strong { color: var(--cream); font-weight: 700; }
+.slide.light .callout strong { color: var(--black); }
+
+/* ============ BIG STAT ============ */
+.bigstat-block {
+  display: grid;
+  gap: 22px;
+}
+.bigstat {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(64px, 8.5vw, 130px);
+  line-height: 0.9;
+  color: var(--gold);
+  letter-spacing: -0.02em;
+}
+.slide.light .bigstat { color: var(--gold-dk); }
+.bigstat-cap {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  margin-top: -6px;
+}
+.slide.light .bigstat-cap { color: var(--muted-dk); }
+.bigstat-cap span.note { color: var(--muted-lt); text-transform: none; letter-spacing: 0.04em; }
+
+/* ============ ASCII / DIAGRAM ============ */
+.ascii {
+  font-family: var(--mono);
+  font-size: clamp(11px, 0.9vw, 13px);
+  line-height: 1.65;
+  white-space: pre;
+  padding: 16px 20px;
+  background: rgba(184,146,74,0.05);
+  border-left: 2px solid var(--gold);
+  margin-top: 16px;
+  overflow-x: auto;
+  color: var(--muted-lt);
+}
+.slide.light .ascii { color: var(--muted-dk); border-left-color: var(--gold-dk); background: rgba(122,95,46,0.06); }
+.ascii .hl { color: var(--gold); font-weight: 700; }
+.slide.light .ascii .hl { color: var(--gold-dk); }
+.ascii .hl2 { color: var(--cream); font-weight: 700; }
+.slide.light .ascii .hl2 { color: var(--black); }
+.ascii .warn { color: var(--warn); font-weight: 700; }
+.slide.light .ascii .warn { color: var(--warn-dk); }
+.ascii .mute { color: var(--muted-lt); opacity: 0.6; }
+.slide.light .ascii .mute { color: var(--muted-dk); opacity: 0.7; }
+
+/* ============ PULLQUOTE ============ */
+.pullquote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(38px, 5.5vw, 92px);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--cream);
+  max-width: 1000px;
+}
+.slide.light .pullquote { color: var(--black); }
+.pullquote em { font-style: normal; font-weight: 700; color: var(--gold); }
+.slide.light .pullquote em { color: var(--gold-dk); }
+.pullquote .ko {
+  font-family: var(--serif-ko);
+  font-style: normal;
+  display: block;
+  font-size: 0.55em;
+  margin-top: 12px;
+  color: var(--muted-lt);
+  font-weight: 400;
+}
+.slide.light .pullquote .ko { color: var(--muted-dk); }
+
+/* ============ SOURCE ============ */
+.source {
+  margin-top: 18px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule-lt);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  max-width: 520px;
+  opacity: 0.85;
+}
+.slide.light .source { color: var(--muted-dk); border-top-color: var(--rule-dk); }
+.source::before {
+  content: "Source ";
+  color: var(--gold);
+  margin-right: 6px;
+  font-weight: 700;
+}
+.slide.light .source::before { color: var(--gold-dk); }
+
+/* ============ FINAL ============ */
+.final-big {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(48px, 7.5vw, 116px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.final-big em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 400;
+}
+.final-sub {
+  font-family: var(--serif-ko);
+  font-size: clamp(17px, 1.5vw, 23px);
+  color: var(--muted-lt);
+  margin-top: 22px;
+  max-width: 720px;
+  line-height: 1.6;
+}
+.final-sub em { color: var(--gold); font-style: italic; }
+.final-link {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-top: 36px;
+  text-transform: uppercase;
+}
+
+/* ============ DEMO LINKS (slide 7) ============ */
+.demo-links {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.demo-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 18px;
+  background: rgba(184,146,74,0.06);
+  border-left: 2px solid var(--gold);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.slide.light .demo-link { background: rgba(122,95,46,0.06); border-left-color: var(--gold-dk); }
+.demo-link:hover { background: rgba(184,146,74,0.14); }
+.slide.light .demo-link:hover { background: rgba(122,95,46,0.13); }
+.demo-link .dl-eyebrow {
+  display: flex; gap: 12px; align-items: baseline;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gold);
+}
+.slide.light .demo-link .dl-eyebrow { color: var(--gold-dk); }
+.demo-link .dl-eyebrow .note { color: var(--muted-lt); letter-spacing: 0.06em; }
+.slide.light .demo-link .dl-eyebrow .note { color: var(--muted-dk); }
+.demo-link .dl-title {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--cream);
+  line-height: 1.35;
+}
+.slide.light .demo-link .dl-title { color: var(--black); }
+.demo-link .dl-title em { color: var(--gold); font-weight: 700; }
+.slide.light .demo-link .dl-title em { color: var(--gold-dk); }
+.demo-link .dl-url {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--muted-lt); letter-spacing: 0.04em;
+}
+.slide.light .demo-link .dl-url { color: var(--muted-dk); }
+
+/* ============ BLOG ATTEMPT CARDS (slide 6) ============ */
+.attempts {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+  margin-top: 18px;
+}
+.attempt {
+  border: 1px solid var(--rule-lt);
+  background: rgba(184,146,74,0.04);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+.slide.light .attempt { border-color: var(--rule-dk); background: rgba(122,95,46,0.04); }
+.attempt .a-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule-lt);
+}
+.slide.light .attempt .a-label { color: var(--gold-dk); border-bottom-color: var(--rule-dk); }
+.attempt .a-title {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--cream);
+  line-height: 1.3;
+}
+.slide.light .attempt .a-title { color: var(--black); }
+.attempt .a-title.serif {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+}
+.attempt .a-body {
+  font-family: var(--serif-ko);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--muted-lt);
+}
+.slide.light .attempt .a-body { color: var(--muted-dk); }
+.attempt .a-meta {
+  margin-top: auto;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  padding-top: 8px;
+  border-top: 1px solid var(--rule-lt);
+}
+.slide.light .attempt .a-meta { color: var(--gold-dk); border-top-color: var(--rule-dk); }
+
+/* ============ SCALE TABLE (slide 11) ============ */
+.scale-table {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr 1.4fr;
+  font-family: var(--serif-ko);
+  margin-top: 18px;
+  border-top: 1px solid var(--gold);
+}
+.slide.light .scale-table { border-top-color: var(--gold-dk); }
+.scale-table > div {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule-lt);
+}
+.slide.light .scale-table > div { border-bottom-color: var(--rule-dk); }
+.scale-table .h {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(184,146,74,0.06);
+}
+.slide.light .scale-table .h { color: var(--gold-dk); background: rgba(122,95,46,0.06); }
+.scale-table .lev {
+  font-weight: 700;
+  font-size: clamp(14px, 1.1vw, 17px);
+  color: var(--cream);
+}
+.slide.light .scale-table .lev { color: var(--black); }
+.scale-table .num {
+  font-family: var(--mono);
+  font-size: clamp(12px, 0.95vw, 14px);
+  color: var(--muted-lt);
+  letter-spacing: 0.04em;
+}
+.slide.light .scale-table .num { color: var(--muted-dk); }
+.scale-table .res {
+  font-size: clamp(13px, 1vw, 16px);
+  color: var(--muted-lt);
+}
+.slide.light .scale-table .res { color: var(--muted-dk); }
+.scale-table .res em { color: var(--gold); font-style: italic; font-weight: 700; }
+.slide.light .scale-table .res em { color: var(--gold-dk); }
+
+/* ============ NEEDLE CHART (slide 9) ============ */
+.needle-chart {
+  position: relative;
+  height: 36vh;
+  border-left: 1px solid var(--rule-lt);
+  border-bottom: 1px solid var(--rule-lt);
+  margin-top: 8px;
+  padding: 20px 18px 12px 14px;
+}
+.slide.light .needle-chart { border-color: var(--rule-dk); }
+.needle-chart svg { width: 100%; height: 100%; overflow: visible; }
+.needle-chart .cl-axis { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; fill: var(--muted-lt); }
+.slide.light .needle-chart .cl-axis { fill: var(--muted-dk); }
+.needle-chart .cl-line { fill: none; stroke: var(--gold); stroke-width: 2; }
+.needle-chart .cl-line.mid { stroke: var(--warn); stroke-dasharray: 4 4; }
+.needle-chart .cl-dot { fill: var(--gold); }
+.needle-chart .cl-dot.mid { fill: var(--warn); }
+.needle-chart .cl-area { fill: var(--gold); opacity: 0.08; }
+.slide.light .needle-chart .cl-area { fill: var(--gold-dk); opacity: 0.1; }
+.needle-chart .cl-label {
+  font-family: var(--mono); font-size: 9px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  fill: var(--muted-lt);
+}
+.slide.light .needle-chart .cl-label { fill: var(--muted-dk); }
+
+/* ============ VIZ22 (preserved stateful animation) ============ */
+.viz22 {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 36px;
+  margin-top: 14px;
+  flex: 1;
+  align-items: start;
+  min-height: 0;
+}
+.viz22 .sidebar {
+  font-family: var(--serif-ko);
+  border-right: 1px solid var(--rule-lt);
+  padding-right: 20px;
+}
+.slide.light .viz22 .sidebar { border-right-color: var(--rule-dk); }
+.viz22 .step-indicator {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+}
+.slide.light .viz22 .step-indicator { color: var(--muted-dk); }
+.viz22 .step-indicator .now {
+  display: inline-block;
+  margin-left: 10px;
+  color: var(--gold);
+  font-weight: 700;
+}
+.viz22 .counters {
+  margin-top: 18px;
+  display: grid;
+  gap: 8px;
+}
+.viz22 .counter {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--rule-lt);
+}
+.slide.light .viz22 .counter { color: var(--muted-dk); border-bottom-color: var(--rule-dk); }
+.viz22 .counter .num { color: var(--cream); font-weight: 700; font-size: 14px; }
+.slide.light .viz22 .counter .num { color: var(--black); }
+.viz22 .counter.dead .num { color: var(--warn); }
+.viz22 .counter.twin .num { color: var(--gold); }
+.viz22 .verdict {
+  margin-top: 22px;
+  padding: 14px 0;
+  border-top: 1px solid var(--gold);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--cream);
+}
+.slide.light .viz22 .verdict { color: var(--black); border-top-color: var(--gold-dk); }
+.viz22 .verdict em { color: var(--gold); font-style: normal; font-weight: 700; }
+.slide.light .viz22 .verdict em { color: var(--gold-dk); }
+.viz22 .verdict-meta {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--muted-lt);
+  text-transform: none;
+}
+.slide.light .viz22 .verdict-meta { color: var(--muted-dk); }
+.viz22 .help {
+  margin-top: 18px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--muted-lt);
+}
+.slide.light .viz22 .help { color: var(--muted-dk); }
+.viz22 .help kbd {
+  background: var(--cream);
+  color: var(--black);
+  padding: 2px 6px;
+  border-radius: 2px;
+  margin-right: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+}
+.slide.light .viz22 .help kbd { background: var(--black); color: var(--cream); }
+
+.viz22 .codebase {
+  display: grid;
+  gap: 14px;
+}
+.viz22 .file {
+  border: 1px solid var(--rule-lt);
+  background: rgba(184,146,74,0.04);
+  padding: 14px 18px;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+.slide.light .viz22 .file { border-color: var(--rule-dk); background: rgba(122,95,46,0.04); }
+.viz22 .file.dimmed { opacity: 0.4; filter: grayscale(0.5); }
+.viz22 .filename {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.slide.light .viz22 .filename { color: var(--gold-dk); }
+.viz22 .fn {
+  display: grid;
+  grid-template-columns: 12px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 6px 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--cream);
+  transition: opacity 0.4s, color 0.4s, background 0.5s;
+}
+.slide.light .viz22 .fn { color: var(--black); }
+.viz22 .fn .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  transition: background 0.4s;
+}
+.viz22 .fn .calls {
+  font-size: 10px;
+  color: var(--muted-lt);
+  letter-spacing: 0.06em;
+  text-align: right;
+}
+.slide.light .viz22 .fn .calls { color: var(--muted-dk); }
+.viz22 .fn.live .dot { background: var(--gold); }
+.viz22 .fn.partial .dot { background: var(--gold-lt); }
+.viz22 .fn.partial { color: var(--muted-lt); }
+.slide.light .viz22 .fn.partial { color: var(--muted-dk); }
+.viz22 .fn.fading .dot { background: var(--muted-dk); }
+.viz22 .fn.fading { color: var(--muted-lt); opacity: 0.55; }
+.slide.light .viz22 .fn.fading { color: var(--muted-dk); opacity: 0.5; }
+.viz22 .fn.dead .dot { background: var(--warn-dk); }
+.viz22 .fn.dead { color: var(--warn); text-decoration: line-through; opacity: 0.55; }
+.slide.light .viz22 .fn.dead { color: var(--warn-dk); opacity: 0.5; }
+.viz22 .fn.hidden { display: none; }
+.viz22 .fn.justadded {
+  background: rgba(184,146,74,0.18);
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-left: -6px;
+  margin-right: -6px;
+}
+.slide.light .viz22 .fn.justadded { background: rgba(122,95,46,0.16); }
+
+/* ============ PROGRESS / NAVHINT / ZONES ============ */
+.progress {
+  position: fixed;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: var(--gold);
+  width: 0%;
+  transition: width 320ms cubic-bezier(.2,.7,.2,1);
+  z-index: 100;
+}
+.navhint {
+  position: fixed;
+  bottom: 14px; right: 18px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--muted-lt);
+  z-index: 90;
+  opacity: 0.6;
+}
+.navhint kbd {
+  background: var(--cream);
+  color: var(--black);
+  padding: 2px 6px;
+  border-radius: 2px;
+  margin: 0 2px;
+  font-family: var(--mono);
+  font-size: 10px;
+}
+.click-zone { position: fixed; top: 0; height: 100%; width: 33%; z-index: 50; }
+.click-zone.left  { left: 0;  cursor: w-resize; }
+.click-zone.right { right: 0; cursor: e-resize; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1100px) {
+  .slide { padding: 28px 36px 40px; }
+  .stage-split { grid-template-columns: 1fr; gap: 28px; }
+  .stage-split.r .art, .stage-split.r .copy { order: 0; }
+  .art img { max-height: 36vh; }
+  .three-probs { grid-template-columns: 1fr; }
+  .prob { border-right: none; border-bottom: 1px solid var(--rule-lt); padding: 16px 0 !important; }
+  .map-row { grid-template-columns: 1fr 24px 1.2fr 40px 1.2fr; }
+  .split-copy { grid-template-columns: 1fr; gap: 28px; }
+  .attempts { grid-template-columns: 1fr; }
+  .demo-links { grid-template-columns: 1fr; }
+  .scale-table { grid-template-columns: 1fr; }
+  .viz22 { grid-template-columns: 1fr; }
+  .viz22 .sidebar { border-right: none; border-bottom: 1px solid var(--rule-lt); padding-right: 0; padding-bottom: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- ============ 01 COVER ============ -->
+<section class="slide dark cover has-bleed active">
+  <div class="bleed ph-bleed">
+    <div class="ph-bleed-mark">[ cover bleed · ai-running-blind ]</div>
+  </div>
+  <div class="cover-brand">
+    <span>FREEDOBY</span>
+    <span class="gold">—</span>
+    <span>2026 · DECK 1 OF 6</span>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-title">
+      AI Context<br><span class="vs">vs</span> 멘탈 모델<span class="gold">.</span>
+    </div>
+    <div class="cover-rule"></div>
+    <div class="cover-tagline">
+      AI는 정말, <em>개발자를 대체하는가.</em>
+    </div>
+    <div class="cover-sub">
+      세 가지 벤치마크가 보여주는 <strong>불편한 진실</strong> — 그리고 <strong>Edit Entropy.</strong><br>
+      AI 코딩 에이전트와 워크플로우 엔지니어링 시리즈의 출발점.
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span>"better prompts don't scale. better systems do."</span>
+    <span>01 / 25</span>
+  </div>
+</section>
+
+<!-- ============ 02 PROLOGUE — 대체된다는 착각 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Prologue</span></div>
+    <div class="tag">#hype #replacement-myth</div>
+    <div>02 / 25</div>
+  </div>
+  <div class="stage stage-split r">
+    <div class="copy">
+      <div class="kicker">Prologue</div>
+      <div class="keyword">
+        대체된다는 <em>착각.</em>
+      </div>
+      <div class="subline">
+        매주 새로운 AI가 나온다. <em>"개발자의 종말"</em>이라는 썸네일이 매일 올라온다.<br>
+        프롬프트 한 줄로 앱이 만들어지는 데모 영상이 인상적이다.<br><br>
+        그래서 묻는다 — <strong>정말로 그런가?</strong>
+      </div>
+      <div class="callout">
+        AI는 <em>강력한 도구</em>다. 그러나 <em>"대체"</em>와는 거리가 멀다.
+      </div>
+    </div>
+    <div class="art">
+      <div class="ph">
+        <div class="ph-tag">Illustration</div>
+        <div class="ph-name">Outsourced Thinking</div>
+        <div class="ph-cap">자극적 썸네일과 그 이면</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Prologue · The Question</span><span>02 / 25 · → 세 가지 벤치마크</span></div>
+</section>
+
+<!-- ============ 03 THE MAP — 세 가지 한계 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>The Map</span></div>
+    <div class="tag">#three-limits #benchmarks</div>
+    <div>03 / 25</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">세 가지 벤치마크로 본다</div>
+    <div class="display md">
+      함정은 하나다 —<br><em>local에서 일하고, global에서 무너진다.</em>
+    </div>
+
+    <div class="three-probs">
+      <div class="prob">
+        <div class="p-num">I</div>
+        <div class="p-name">Car Wash Test</div>
+        <div class="p-en">Context Above</div>
+        <div class="p-desc">봐도 — 통계로 덮는다. 패턴이 의도를 이긴다.</div>
+        <div class="p-tag">→ 질적 한계</div>
+      </div>
+      <div class="prob">
+        <div class="p-num">II</div>
+        <div class="p-name">Needle in a Haystack</div>
+        <div class="p-en">Context Inside</div>
+        <div class="p-desc">가득 차면 — 못 찾는다. 길어질수록 회상이 떨어진다.</div>
+        <div class="p-tag">→ 양적 한계</div>
+      </div>
+      <div class="prob">
+        <div class="p-num">III</div>
+        <div class="p-name">Blind Context</div>
+        <div class="p-en">Context Outside</div>
+        <div class="p-desc">들어오지 않으면 — 모른다. 보이지 않으면 존재하지 않는다.</div>
+        <div class="p-tag">→ 구조적 한계</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      셋이 합쳐지면 — <em>Edit Entropy.</em><br>
+      국소는 합리적, 전체는 모순이 된다.
+    </div>
+  </div>
+  <div class="foot"><span>The Map · Three Limits</span><span>03 / 25 · → 한계 ① Car Wash</span></div>
+</section>
+
+<!-- ============ 04 CAR WASH · 벤치마크 ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
+    <div class="tag">#benchmark #pattern-matching</div>
+    <div>04 / 25</div>
+  </div>
+  <div class="stage stage-split">
+    <div class="art">
+      <div class="ph">
+        <div class="ph-tag">Illustration</div>
+        <div class="ph-name">Car Wash Test</div>
+        <div class="ph-cap">세차장이 50미터 — 걸어갈까, 운전해서 갈까?</div>
+      </div>
+    </div>
+    <div class="copy">
+      <div class="kicker">① Benchmark</div>
+      <div class="keyword sm">
+        세차장이 <em>50미터.</em><br>걸어갈까, 운전해서 갈까?
+      </div>
+      <div class="subline">
+        사람은 1초 만에 답한다 — <em>세차하러 가는 거니까 운전.</em><br>
+        그런데 <strong>53개 모델 중 48개</strong>가 "걸어가라"고 답했다. 10/10 정답을 낸 모델은 <strong>5개뿐.</strong>
+      </div>
+      <div class="bigstat-block" style="margin-top:18px; grid-template-columns:1fr 1fr; display:grid; gap:24px;">
+        <div>
+          <div class="bigstat">71.5%</div>
+          <div class="bigstat-cap">사람 정답률 <span class="note">(N=10,000)</span></div>
+        </div>
+        <div>
+          <div class="bigstat" style="color:var(--warn-dk)">9.4%</div>
+          <div class="bigstat-cap">53개 모델 평균 정답률</div>
+        </div>
+      </div>
+      <div class="source">Opper.ai · 2025 · 53 LLMs · Car Wash Test</div>
+    </div>
+  </div>
+  <div class="foot"><span>Limit I · Benchmark</span><span>04 / 25 · → 의미: 봐도 통계로 덮는다</span></div>
+</section>
+
+<!-- ============ 05 CAR WASH · 의미 (컨텍스트 위) ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
+    <div class="tag">#meaning #context-above</div>
+    <div>05 / 25</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">② Meaning</div>
+    <div class="keyword">
+      컨텍스트 <em>"위"</em>의 한계.
+    </div>
+    <div class="subline" style="max-width:780px">
+      봐도 통계로 덮는다. <strong>패턴이 의도를 이긴다.</strong>
+    </div>
+
+    <div class="split-copy">
+      <div>
+        <div class="col-label">AI가 한 일</div>
+        <p class="col-body">훈련 데이터에서 가장 많이 나타난 답을 골랐다. <em>"50미터에 대한 통계적 다수"</em>는 "걸어가라"였다.</p>
+      </div>
+      <div>
+        <div class="col-label">AI가 못 한 일</div>
+        <p class="col-body">질문 안에 있던 <strong>"세차장"</strong>이라는 단어가 의미하는 <em>목적</em>을 추론하는 일. 그건 통계가 아니라 <em>상식</em>의 영역이다.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      AI는 <em>이해</em>하는 게 아니라 <em>패턴 매칭</em>한다. 그것도 — <strong>틀려도 자신감 있게.</strong>
+    </div>
+  </div>
+  <div class="foot"><span>Limit I · Meaning</span><span>05 / 25 · → 사례: 코딩에서 어떻게 나타나는가</span></div>
+</section>
+
+<!-- ============ 06 CAR WASH · 사례 (김치찌개 3 attempts) ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
+    <div class="tag">#case #blog-automation</div>
+    <div>06 / 25</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">③ Case</div>
+    <div class="keyword sm">
+      <em>같은 한 줄,</em> 매번 다른 결과.
+    </div>
+    <div class="subline" style="max-width:820px; margin-top:8px">
+      입력: <em>"김치찌개 맛있게 끓이는 법"</em> — 매 시도 동일.
+    </div>
+
+    <div class="attempts">
+      <div class="attempt">
+        <div class="a-label">시도 1</div>
+        <div class="a-title"># 김치찌개 황금 레시피</div>
+        <div class="a-body">
+          ## 시작하며<br>
+          ## 재료 준비<br>
+          ## 끓이는 법<br>
+          ## 황금 비율 TIP<br>
+          ## 마치며<br><br>
+          "쌀쌀한 날엔 김치찌개만한 게 없죠..."
+        </div>
+        <div class="a-meta">SEO 블로그 · 1,500자 · 친근 반말</div>
+      </div>
+      <div class="attempt">
+        <div class="a-label">시도 2</div>
+        <div class="a-title serif">엄마의 김치찌개</div>
+        <div class="a-body">
+          어릴 적, 엄마가 끓여주시던 김치찌개의 향 —<br><br>
+          그 깊은 맛은 시간이 만든 것이었습니다. 잘 익은 묵은지, 천천히 우러나는 국물...<br><br>
+          이번 주말, 그 맛을 다시 한 번.
+        </div>
+        <div class="a-meta">감성 에세이 · 700자 · 정중체</div>
+      </div>
+      <div class="attempt">
+        <div class="a-label">시도 3</div>
+        <div class="a-title">오늘 저녁 메뉴 ㅎㅎ</div>
+        <div class="a-body">
+          김치찌개 끝판왕 레시피<br>
+          묵은지 + 돼지고기 = 진리<br>
+          5분이면 끝!<br>
+          자취러 필수템<br><br>
+          #김치찌개 #자취요리<br>#저녁추천 #간단요리
+        </div>
+        <div class="a-meta">SNS · 300자 · 캐주얼</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <em>명시되지 않은 9/10</em>이 매번 다르게 채워진다. AI는 빈칸을 발견하면 — 묻지 않고, <em>훈련 분포의 다수</em>로 메운다.
+    </div>
+  </div>
+  <div class="foot"><span>Limit I · Case</span><span>06 / 25 · → 해법: 의도를 명시하라</span></div>
+</section>
+
+<!-- ============ 07 CAR WASH · 해법 (시스템 프롬프트) ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
+    <div class="tag">#remedy #prompt-engineering</div>
+    <div>07 / 25</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">④ Remedy</div>
+    <div class="keyword sm">
+      <em>빈칸을 메우는</em> 시스템 프롬프트.
+    </div>
+    <div class="subline" style="max-width:820px; margin-top:8px">
+      "김치찌개 글 써줘" 1줄을 <em>200줄로 명시화한 작업</em> — 블로그 자동화 프로젝트의 실제 시스템 프롬프트 발췌.
+    </div>
+
+    <div class="split-copy tighter">
+      <div>
+        <div class="col-label">메우는 빈칸</div>
+        <ul class="col-list">
+          <li><strong>출력 모드</strong></li>
+          <li><strong>출력 형식</strong></li>
+          <li><strong>분량 / 톤</strong></li>
+          <li><strong>금지 패턴</strong></li>
+          <li><strong>사실성</strong></li>
+          <li><strong>종료 조건</strong></li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-label">실제 프롬프트</div>
+<div class="ascii"><span class="hl">"무조건 블로그 콘텐츠로만 작성하며,</span>
+<span class="hl"> 설명·해석·제안은 절대 금지"</span>
+
+"H1 한 개 / H2 한 개 / 개요 300자 /
+ H3 6~8개 / 표 1개 이상 / 태그 2줄"
+
+"제목 20~30자 / 개요 300자 이내"
+
+"친근한 대화체. 짧은 문장과 긴 문장을
+ 혼용. 단락 길이는 의도적으로 불규칙"
+
+<span class="warn">"*, **, •, -, _ 등 마크다운 / 불렛 /</span>
+<span class="warn"> 번호 리스트 / '비교 형식' 같은</span>
+<span class="warn"> 메타문구 단 한 자도 금지"</span>
+
+"출력 후 GPT 자동 종료, 안내 출력 금지"</div>
+      </div>
+    </div>
+
+    <div class="demo-links">
+      <a class="demo-link" href="https://claude.ai/project/019ae841-c118-73d7-bc47-eaca69fcfcaf" target="_blank" rel="noopener">
+        <div class="dl-eyebrow"><span>↗ Demo I</span><span class="note">발표자 시연용</span></div>
+        <div class="dl-title">시스템 프롬프트가 적용된 <em>Claude 프로젝트</em></div>
+        <div class="dl-url">claude.ai / project / 019ae841…</div>
+      </a>
+      <a class="demo-link" href="https://claude.ai/chat/3f8d658b-fbb8-49c5-9a57-4aa85a7fb9ce" target="_blank" rel="noopener">
+        <div class="dl-eyebrow"><span>↗ Demo II</span><span class="note">발표자 시연용</span></div>
+        <div class="dl-title">실제 적용된 모습 — <em>기픈물웥 챗</em></div>
+        <div class="dl-url">claude.ai / chat / 3f8d658b…</div>
+      </a>
+    </div>
+  </div>
+  <div class="foot"><span>Limit I · Remedy</span><span>07 / 25 · → deck 3에서 다시 만난다</span></div>
+</section>
+
+<!-- ============ 08 CAR WASH · 통찰 ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit I · Insight</span></div>
+    <div class="tag">#insight #starting-point</div>
+    <div>08 / 25</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">⑤ Insight</div>
+    <div class="pullquote">
+      구체화되지 않은 것은<br>
+      <em>통계로 채워진다.</em>
+    </div>
+    <div class="subline" style="max-width:680px; margin-top:32px">
+      AI의 디폴트는 <em>"묻지 않고 채움"</em> — 빈칸을 발견하면 사용자에게 드러내는 대신 <strong>훈련 분포의 다수</strong>로 메워서 즉시 답한다.<br><br>
+      개발자가 명시하지 않은 모든 invariant는 <em>위험에 노출된다.</em>
+    </div>
+    <div class="callout">
+      이 통찰이 <em>시리즈 전체의 출발점</em>이다.<br>
+      뒤의 모든 엔지니어링은 — <em>암묵을 명시로 바꾸는 작업.</em>
+    </div>
+  </div>
+  <div class="foot"><span>Limit I · Insight</span><span>08 / 25 · → 한계 ② Needle</span></div>
+</section>
+
+<!-- ============ 09 NEEDLE · 벤치마크 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit II · Needle in a Haystack</span></div>
+    <div class="tag">#benchmark #lost-in-middle</div>
+    <div>09 / 25</div>
+  </div>
+  <div class="stage stage-split">
+    <div class="art">
+      <div class="ph">
+        <div class="ph-tag">Chart</div>
+        <div class="ph-name">Context Length × Recall</div>
+        <div class="ph-cap">길어질수록 회상이 떨어지는 곡선</div>
+      </div>
+    </div>
+    <div class="copy">
+      <div class="kicker">① Benchmark</div>
+      <div class="keyword sm">
+        길어질수록<br><em>회상이 떨어진다.</em>
+      </div>
+      <div class="subline">
+        긴 텍스트(건초더미) 중간에 특정 정보(바늘)를 넣고, 모델에게 그것을 찾게 한다.
+      </div>
+      <ul class="col-list" style="margin-top:14px">
+        <li>토큰 수가 늘면 <em>회상 정확도가 떨어진다</em></li>
+        <li>처음·끝이면 잘 찾지만 <em>중간이면 놓친다</em> — Lost in the Middle</li>
+        <li>여러 바늘을 동시에 — <em>Multi-needle은 더 심각</em></li>
+      </ul>
+      <div class="callout">
+        코드베이스 추적은 정확히 <em>Multi-needle + Reasoning</em>이 필요한 영역이다.
+      </div>
+      <div class="source">Liu et al. · 2023 · "Lost in the Middle"</div>
+    </div>
+  </div>
+  <div class="foot"><span>Limit II · Benchmark</span><span>09 / 25 · → 의미: 컨텍스트 안</span></div>
+</section>
+
+<!-- ============ 10 NEEDLE · 의미 (컨텍스트 안) ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit II · Needle in a Haystack</span></div>
+    <div class="tag">#meaning #context-inside</div>
+    <div>10 / 25</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">② Meaning</div>
+    <div class="keyword">
+      컨텍스트 <em>"안"</em>의 한계.
+    </div>
+    <div class="subline" style="max-width:780px">
+      들어와도 못 본다. <strong>가득 차면 못 찾는다.</strong>
+    </div>
+
+    <div class="split-copy">
+      <div>
+        <div class="col-label">Car Wash와의 차이</div>
+        <p class="col-body">Car Wash는 <em>봤는데도 통계로 덮는</em> 일. Needle은 <em>들어와도 가중치가 흩어져서 회상이 안 되는</em> 일. 둘은 한계의 위치가 다르다.</p>
+      </div>
+      <div>
+        <div class="col-label">메커니즘</div>
+        <p class="col-body">Attention의 가중치가 토큰이 늘수록 <em>분산</em>된다. 초반 정보가 후반 토큰에 묻힌다.<br><em>"조리대를 넓혀도 무한히 쌓으면 아래 것은 잊혀진다."</em></p>
+      </div>
+    </div>
+
+    <div class="callout">
+      컨텍스트는 <em>수확 체감이 있는 유한한 자원</em>이다. 많이 넣는다고 좋은 게 아니다.
+    </div>
+  </div>
+  <div class="foot"><span>Limit II · Meaning</span><span>10 / 25 · → 사례: 코드베이스 규모</span></div>
+</section>
+
+<!-- ============ 11 NEEDLE · 사례 (Scale Table) ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit II · Needle in a Haystack</span></div>
+    <div class="tag">#case #codebase-scale</div>
+    <div>11 / 25</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">③ Case</div>
+    <div class="keyword sm">
+      프로젝트 규모로<br>체감하는 <em>한계.</em>
+    </div>
+
+    <div class="scale-table">
+      <div class="h">Scale</div>
+      <div class="h">LOC · Files</div>
+      <div class="h">AI가 실제로 보는 비율</div>
+
+      <div class="lev">Toy / 사이드</div>
+      <div class="num">~500 LOC · 5~10 files</div>
+      <div class="res">거의 전부 — <em>잘 작동한다</em></div>
+
+      <div class="lev">중소 서비스</div>
+      <div class="num">~50K LOC · 수백 files</div>
+      <div class="res">컨텍스트의 <em>일부만</em></div>
+
+      <div class="lev">대규모 코드베이스</div>
+      <div class="num">~1M LOC · 수천 files</div>
+      <div class="res">1~5% <em>미만</em></div>
+
+      <div class="lev">임베디드 펌웨어</div>
+      <div class="num">~수백만 LOC · 수천 클래스</div>
+      <div class="res">사실상 <em>블라인드</em></div>
+    </div>
+
+    <div class="callout" style="font-style:italic; font-family:var(--serif);">
+      "내 토이에서 잘 되던 게,<br>
+      <em>회사 코드베이스에서 안 되는 이유.</em>"
+    </div>
+  </div>
+  <div class="foot"><span>Limit II · Case</span><span>11 / 25 · → 해법: 안을 깨끗하게</span></div>
+</section>
+
+<!-- ============ 12 NEEDLE · 해법 (Context Engineering) ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit II · Needle in a Haystack</span></div>
+    <div class="tag">#remedy #context-engineering</div>
+    <div>12 / 25</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">④ Remedy</div>
+    <div class="keyword sm">
+      <em>안을 깨끗하게</em> —<br>무엇을, 얼마나, 어떤 순서로.
+    </div>
+    <div class="subline" style="max-width:820px; margin-top:8px">
+      윈도우 자체를 <em>설계</em>하는 일. 냉장고 가득한 재료 중 지금 이 요리에 필요한 것만 정확히 골라 조리대에 올린다.
+    </div>
+
+    <div class="split-copy">
+      <div>
+        <div class="col-label">윈도우의 구성요소</div>
+        <ul class="col-list">
+          <li><strong>시스템 프롬프트</strong> — 행동 규칙</li>
+          <li><strong>Instruction</strong> — 작업별 지시</li>
+          <li><strong>Skill</strong> — 상황별 도구</li>
+          <li><strong>RAG · 외부 데이터</strong> — 동적 주입</li>
+          <li><strong>대화 히스토리</strong> — 이전 맥락</li>
+          <li><strong>도구 호출 결과</strong> — MCP·API</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-label">인프라</div>
+        <p class="col-body"><strong>RAG</strong> — 미리 다 넣지 않고 <em>필요할 때 검색해서 주입</em>한다.</p>
+        <p class="col-body"><strong>MCP</strong> — AI가 외부 도구와 소통하는 표준 프로토콜. <em>"컨텍스트의 USB-C."</em></p>
+        <p class="col-body" style="margin-top:14px; opacity:0.75">→ 이 둘이 Context Engineering을 실전에서 가능하게 만든 핵심 기술.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <em>Context Engineering의 본질</em> — 윈도우를 정교하게 설계하는 예술과 과학.
+    </div>
+  </div>
+  <div class="foot"><span>Limit II · Remedy</span><span>12 / 25 · → deck 3에서 다시 만난다</span></div>
+</section>
+
+<!-- ============ 13 NEEDLE · 통찰 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit II · Insight</span></div>
+    <div class="tag">#insight #window-illusion</div>
+    <div>13 / 25</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">⑤ Insight</div>
+    <div class="pullquote">
+      윈도우가 커진다고<br>
+      <em>더 똑똑해지지 않는다.</em>
+    </div>
+    <div class="subline" style="max-width:700px; margin-top:32px">
+      <strong>넣을 수 있는 양</strong>이 늘었을 뿐, <strong>소화할 수 있는 능력</strong>이 같이 늘진 않았다.<br><br>
+      128K → 1M으로 윈도우가 커지면 KV Cache가 차지하는 메모리도 <em>8배</em>로 커진다. 그러나 회상 정확도는 그만큼 함께 올라가지 않는다.
+    </div>
+    <div class="callout">
+      <em>"왜 그런가"</em> — 답은 deck 2에서.<br>
+      <strong>HBM이라는 물리적 천장</strong>이 그 답이다.
+    </div>
+  </div>
+  <div class="foot"><span>Limit II · Insight</span><span>13 / 25 · → 한계 ③ Blind</span></div>
+</section>
+
+<!-- ============ 14 BLIND · 벤치마크 ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit III · Blind Context</span></div>
+    <div class="tag">#benchmark #out-of-window</div>
+    <div>14 / 25</div>
+  </div>
+  <div class="stage stage-split r">
+    <div class="copy">
+      <div class="kicker">① Benchmark</div>
+      <div class="keyword sm">
+        보이지 않으면<br><em>존재하지 않는다.</em>
+      </div>
+      <div class="subline">
+        AI는 컨텍스트 윈도우에 들어오지 않은 정보는 <em>존재 자체</em>를 모른다.<br>
+        "아직" 못 하는 게 아니라 — <strong>물리적 구조의 문제.</strong>
+      </div>
+      <div class="ascii"><span class="hl2">[ AI가 보는 세계 ]</span>
+function A   ← 수정 요청
+  → calls B
+  → calls C
+
+<span class="hl2">[ 실제 세계 ]</span>
+function A
+  → calls B
+  → calls C
+  → D가 A를 참조        <span class="warn">(AI는 모름)</span>
+  → E의 타이밍이 A에 의존  <span class="warn">(AI는 모름)</span>
+  → F의 에러 핸들링이 A의
+    리턴값을 가정          <span class="warn">(AI는 모름)</span></div>
+    </div>
+    <div class="art">
+      <div class="ph">
+        <div class="ph-tag">Diagram</div>
+        <div class="ph-name">Blind Context</div>
+        <div class="ph-cap">윈도우 밖의 의존성이 더 크다</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Limit III · Benchmark</span><span>14 / 25 · → 의미: 컨텍스트 밖</span></div>
+</section>
+
+<!-- ============ 15 BLIND · 의미 (컨텍스트 밖) ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit III · Blind Context</span></div>
+    <div class="tag">#meaning #context-outside</div>
+    <div>15 / 25</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">② Meaning</div>
+    <div class="keyword">
+      컨텍스트 <em>"밖"</em>의 한계.
+    </div>
+    <div class="subline" style="max-width:780px">
+      들어오지 않으면 모른다. <strong>정보 부재 ≠ 무시.</strong>
+    </div>
+
+    <div class="mapping">
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">한계</div>
+          <div class="mc-name">Needle</div>
+        </div>
+        <div class="map-arrow">—</div>
+        <div class="map-cell" style="grid-column: 3 / span 3;">
+          <div class="mc-label">위치 / 성격</div>
+          <div class="mc-name">컨텍스트 <em style="font-style:italic;color:var(--gold-dk)">안</em>에서 회상 실패</div>
+          <div class="mc-sub">양적 한계</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">한계</div>
+          <div class="mc-name">Car Wash</div>
+        </div>
+        <div class="map-arrow">—</div>
+        <div class="map-cell" style="grid-column: 3 / span 3;">
+          <div class="mc-label">위치 / 성격</div>
+          <div class="mc-name">컨텍스트 <em style="font-style:italic;color:var(--gold-dk)">위</em>에서 의도 무시</div>
+          <div class="mc-sub">질적 한계</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">한계</div>
+          <div class="mc-name gold">Blind</div>
+        </div>
+        <div class="map-arrow">—</div>
+        <div class="map-cell" style="grid-column: 3 / span 3;">
+          <div class="mc-label">위치 / 성격</div>
+          <div class="mc-name gold">컨텍스트 <em style="font-style:italic">밖</em>이 존재 부재</div>
+          <div class="mc-sub">구조적 한계</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <em>"무시"</em>가 아니라 <em>"부재"</em>다. AI가 보지 않은 것은 — 추론의 <strong>후보군에 들어가지도 않는다.</strong>
+    </div>
+  </div>
+  <div class="foot"><span>Limit III · Meaning</span><span>15 / 25 · → 사례: 4 플랫폼이 폭사</span></div>
+</section>
+
+<!-- ============ 16 BLIND · 사례 (4 platforms) ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit III · Blind Context</span></div>
+    <div class="tag">#case #ripple-effect</div>
+    <div>16 / 25</div>
+  </div>
+  <div class="stage stage-split">
+    <div class="art">
+      <div class="ph">
+        <div class="ph-tag">Diagram</div>
+        <div class="ph-name">Change Ripple Effect</div>
+        <div class="ph-cap">한 곳을 고치면 4 플랫폼이 폭사</div>
+      </div>
+    </div>
+    <div class="copy">
+      <div class="kicker">③ Case</div>
+      <div class="keyword sm">
+        "네이버에 카테고리<br>분류 추가해줘"
+      </div>
+      <div class="ascii"><span class="mute"># base.py</span>
+class BasePublisher:
+    def publish(self, post,
+                <span class="hl">category</span>):
+        raise NotImplementedError
+
+<span class="mute"># naver.py</span>
+class NaverPublisher(BasePublisher):
+    def publish(self, post,
+                <span class="hl">category</span>):
+        category = category or self.classify(post)
+        naver_api.post(post, category)</div>
+      <div class="ascii"><span class="mute"># tistory.py / thread.py / google.py</span>
+def publish(self, post):       <span class="warn">← TypeError</span>
+
+<span class="mute"># main.py — 새벽 자동 발행 잡</span>
+for p in [tistory, thread, naver, google]:
+    p.publish(post)            <span class="warn">← 4개 다 옛 시그니처</span></div>
+      <div class="callout">
+        AI가 본 파일: <strong>naver.py / base.py</strong> — LGTM.<br>
+        못 본 파일: <strong>tistory · thread · google · main.py</strong> — 발견까지 <em>12시간.</em>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Limit III · Case</span><span>16 / 25 · → 해법: 필요한 걸 끌어와라</span></div>
+</section>
+
+<!-- ============ 17 BLIND · 해법 (Harness Engineering) ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit III · Blind Context</span></div>
+    <div class="tag">#remedy #harness-engineering</div>
+    <div>17 / 25</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">④ Remedy</div>
+    <div class="keyword sm">
+      <em>필요한 걸 끌어와라</em> —<br>워크플로우의 일.
+    </div>
+    <div class="subline" style="max-width:840px; margin-top:8px">
+      한 프롬프트로도, 한 세션으로도 풀 수 없다. <em>여러 Phase·여러 시점에 걸쳐</em> 의존성과 영향 범위를 시스템적으로 추적해야 한다.
+    </div>
+
+    <div class="split-copy">
+      <div>
+        <div class="col-label">왜 한 세션으로 안 되는가</div>
+        <ul class="col-list">
+          <li>긴 세션은 <em>Context Rot</em>이 발생한다 (Limit II)</li>
+          <li>"무엇을 끌어올지" 결정 자체가 <em>시스템 전체에 대한 이해</em>를 전제로 한다</li>
+          <li>그 이해는 <em>한 사람의 멘탈 모델</em>에 있다 — HBM에 안 담긴다</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-label">필요한 것 — 워크플로우 설계</div>
+        <ul class="col-list">
+          <li><strong>Phase 분할</strong> — 작업을 격리</li>
+          <li><strong>추적성 (RTM)</strong> — 의존성을 명시 문서로</li>
+          <li><strong>LOOPBACK</strong> — 실패의 구조적 복구</li>
+          <li><strong>Gate</strong> — 인간 판단 지점</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <em>Harness Engineering의 본질</em> — 워크플로우 자체를 설계한다.
+    </div>
+  </div>
+  <div class="foot"><span>Limit III · Remedy</span><span>17 / 25 · → deck 3·5에서 다시 만난다</span></div>
+</section>
+
+<!-- ============ 18 BLIND · 통찰 ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit III · Insight</span></div>
+    <div class="tag">#insight #invisible-larger</div>
+    <div>18 / 25</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">⑤ Insight</div>
+    <div class="pullquote">
+      보이지 않는 것이<br>
+      <em>보이는 것보다 크다.</em>
+    </div>
+    <div class="subline" style="max-width:720px; margin-top:32px">
+      실제 시스템에서 <em>보이는 것은 항상 일부</em>다. AI에게 보이는 부분은 그 일부의 <em>또 일부</em>다.<br><br>
+      시니어 개발자가 수년간 쌓아온 <strong>멘탈 모델</strong> — 수천 클래스의 관계, 하드웨어 인터럽트 흐름, 메모리 레이아웃, 타이밍 제약 — 이것은 <em>어떤 컨텍스트 윈도우에도 담기지 않는다.</em>
+    </div>
+    <div class="callout">
+      그래서 — <em>한 프롬프트, 한 세션의 일이 아니다.</em><br>
+      워크플로우 전체의 설계가 필요하다.
+    </div>
+  </div>
+  <div class="foot"><span>Limit III · Insight</span><span>18 / 25 · → 종합: Edit Entropy</span></div>
+</section>
+
+<!-- ============ 19 SYNTHESIS — Edit Entropy 정의 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Synthesis · Edit Entropy</span></div>
+    <div class="tag">#local-vs-global #drift</div>
+    <div>19 / 25</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">Synthesis</div>
+    <div class="display md">
+      국소는 합리적,<br><em>전체는 모순.</em>
+    </div>
+    <div class="subline" style="max-width:680px">
+      이것이 <strong>Edit Entropy</strong>다.
+    </div>
+
+    <div class="split-copy">
+      <div>
+        <div class="col-label">AI의 작업 단위</div>
+        <p class="col-body">편집 1건 · 함수 1개 · 파일 1개 · 세션 1번<br><em>= local</em></p>
+      </div>
+      <div>
+        <div class="col-label">시스템의 정합성</div>
+        <p class="col-body">설계 ↔ 코드 ↔ 테스트 일치 / 모듈 간 인터페이스 일관성 / v1부터 vN까지 누적된 규약<br><em>= global</em></p>
+      </div>
+    </div>
+
+    <div class="callout">
+      매 편집은 <em>local에서 best</em>를 만든다. 그러나 그 best의 합집합은 — <strong>global best가 아니다.</strong>
+    </div>
+  </div>
+  <div class="foot"><span>Synthesis · Definition</span><span>19 / 25 · → 세 한계가 같은 결과로 수렴</span></div>
+</section>
+
+<!-- ============ 20 SYNTHESIS — 세 한계가 같은 결과로 수렴 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Synthesis · Convergence</span></div>
+    <div class="tag">#three-limits #same-result</div>
+    <div>20 / 25</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">Convergence</div>
+    <div class="display sm">
+      세 한계가 <em>모두 같은 결과</em>로 수렴한다.
+    </div>
+
+    <div class="mapping">
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">한계</div>
+          <div class="mc-name">Car Wash</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">local</div>
+          <div class="mc-name">적합</div>
+          <div class="mc-sub">통계 다수에 부합</div>
+        </div>
+        <div class="map-arrow eq">≠</div>
+        <div class="map-cell">
+          <div class="mc-label">global</div>
+          <div class="mc-name gold">의도</div>
+          <div class="mc-sub">사용자가 원한 답</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">한계</div>
+          <div class="mc-name">Needle</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">local</div>
+          <div class="mc-name">보임</div>
+          <div class="mc-sub">컨텍스트에 들어와 있다</div>
+        </div>
+        <div class="map-arrow eq">≠</div>
+        <div class="map-cell">
+          <div class="mc-label">global</div>
+          <div class="mc-name gold">회상</div>
+          <div class="mc-sub">실제로 불러와진다</div>
+        </div>
+      </div>
+      <div class="map-row">
+        <div class="map-cell">
+          <div class="mc-label">한계</div>
+          <div class="mc-name">Blind</div>
+        </div>
+        <div class="map-arrow">→</div>
+        <div class="map-cell">
+          <div class="mc-label">local</div>
+          <div class="mc-name">작업</div>
+          <div class="mc-sub">눈앞의 파일 수정</div>
+        </div>
+        <div class="map-arrow eq">≠</div>
+        <div class="map-cell">
+          <div class="mc-label">global</div>
+          <div class="mc-name gold">영향</div>
+          <div class="mc-sub">시스템 전체의 정합성</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="font-style:italic; font-family:var(--serif);">
+      한계의 표면은 다르지만, 발현은 모두 — <em>"local 함정"</em>이다.<br>
+      세 한계는 <em>같은 함정의 다른 얼굴</em>이다.
+    </div>
+  </div>
+  <div class="foot"><span>Synthesis · Convergence</span><span>20 / 25 · → 사이클이 누적시킨다</span></div>
+</section>
+
+<!-- ============ 21 SYNTHESIS — The Cycle ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Synthesis · The Cycle</span></div>
+    <div class="tag">#dev-cycle #accumulation</div>
+    <div>21 / 25</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">The Cycle</div>
+    <div class="keyword sm">
+      사이클이 <em>그것을 누적시킨다.</em>
+    </div>
+
+    <div class="ascii"><span class="hl2">설계문서  →  코드  →  부분 patch  →  또 patch  →  ...</span>
+   ↑                                                │
+   └─────────────────── loop ─────────────────────┘
+
+매 loop의 매 단계에서, <span class="hl">한 한계가 모순을 주입</span>한다.
+정합성은 — <span class="warn">단조 감소.</span></div>
+
+    <div class="split-copy">
+      <div>
+        <div class="col-label">한 번의 편집</div>
+        <p class="col-body"><strong>항상 local에서 합리적</strong>이다. 그 한 컷만 보면 어떤 PR도 LGTM.</p>
+      </div>
+      <div>
+        <div class="col-label">여러 번의 편집</div>
+        <p class="col-body">누적되면 <em>global 정합성은 단조 감소</em>한다. 매 편집의 합집합은 — global best가 아니다.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="font-style:italic; font-family:var(--serif);">
+      그 누적의 가시적 흔적이 — <em>다음 슬라이드.</em>
+    </div>
+  </div>
+  <div class="foot"><span>Synthesis · The Cycle</span><span>21 / 25 · → 시각화: 화석화의 과정</span></div>
+</section>
+
+<!-- ============ 22 SYNTHESIS — Dynamic Visualization ★ ============ -->
+<section class="slide dark" id="s22">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Synthesis · Visualization ★</span></div>
+    <div class="tag">#fossilization #dead-code #twin-code</div>
+    <div>22 / 25</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">Visualization · Press Space</div>
+    <div class="keyword sm">
+      <em>부분 patch</em>가 코드베이스를 <em>화석화</em>시킨다.
+    </div>
+
+    <div class="viz22" data-step="0">
+      <div class="sidebar">
+        <div class="step-indicator">
+          현재 시점
+          <span class="now step-now">t1</span>
+        </div>
+        <div class="counters">
+          <div class="counter patch"><span>Patches</span><span class="num cnt-patch">0</span></div>
+          <div class="counter dead"><span>Dead Code</span><span class="num cnt-dead">0</span></div>
+          <div class="counter twin"><span>Twin Code</span><span class="num cnt-twin">0</span></div>
+        </div>
+        <div class="verdict" style="opacity:0">
+          <em>"기존 코드의 존재를 못 보면, 유사를 새로 만든다."</em>
+          <div class="verdict-meta">
+            매 PR은 LGTM이었다.<br>
+            누구도 코드베이스 전체를<br>본 적이 없을 뿐이다.
+          </div>
+        </div>
+        <div class="help"><kbd>Space</kbd> 다음 단계</div>
+      </div>
+      <div class="codebase">
+        <div class="file f-utils">
+          <div class="filename">utils/text.py</div>
+          <div class="fn live" data-fn="normalize_for_seo">
+            <span class="dot"></span>
+            <span>normalize_for_seo()</span>
+            <span class="calls">calls: 2</span>
+          </div>
+        </div>
+        <div class="file f-generate">
+          <div class="filename">generate.py</div>
+          <div class="fn live" data-fn="generate_post">
+            <span class="dot"></span>
+            <span>generate_post()</span>
+            <span class="calls">→ normalize_for_seo</span>
+          </div>
+        </div>
+        <div class="file f-publish">
+          <div class="filename">publish.py</div>
+          <div class="fn live" data-fn="publish">
+            <span class="dot"></span>
+            <span>publish()</span>
+            <span class="calls">→ normalize_for_seo</span>
+          </div>
+          <div class="fn hidden" data-fn="clean_text">
+            <span class="dot"></span>
+            <span>clean_text()</span>
+            <span class="calls"></span>
+          </div>
+          <div class="fn hidden" data-fn="clean_for_thread">
+            <span class="dot"></span>
+            <span>clean_for_thread()</span>
+            <span class="calls"></span>
+          </div>
+          <div class="fn hidden" data-fn="sanitize_post">
+            <span class="dot"></span>
+            <span>sanitize_post()</span>
+            <span class="calls"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Synthesis · Visualization</span><span>22 / 25 · Space로 t1 → t5</span></div>
+</section>
+
+<!-- ============ 23 CLOSING I — What vs Why ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Closing · What vs Why</span></div>
+    <div class="tag">#leverage #judgment</div>
+    <div>23 / 25</div>
+  </div>
+  <div class="stage stage-split r">
+    <div class="copy">
+      <div class="kicker">Closing · I</div>
+      <div class="keyword sm">
+        <em>What</em>과 <em>Why</em> —<br>두 영역은 겹치지 않는다.
+      </div>
+      <div class="split-copy tighter">
+        <div>
+          <div class="col-label">AI가 잘하는 것 — What</div>
+          <ul class="col-list" style="font-size:14px; line-height:1.7">
+            <li>패턴이 명확한 코드 생성</li>
+            <li>보일러플레이트 · 반복</li>
+            <li>유닛 테스트 템플릿</li>
+            <li>1차 리뷰</li>
+            <li>빠른 프로토타입</li>
+          </ul>
+        </div>
+        <div>
+          <div class="col-label">사람이 잘하는 것 — Why</div>
+          <ul class="col-list" style="font-size:14px; line-height:1.7">
+            <li>변경의 시스템 영향 판단</li>
+            <li>스펙에 없는 엣지케이스</li>
+            <li><em>역사적 맥락</em></li>
+            <li>모호 → 구체적 설계</li>
+            <li>디버깅의 직관</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout">
+        AI가 발전해도 <em>Why</em>는 침범하기 어렵고,<br>
+        사람이 노력해도 AI의 <em>What 처리 속도</em>는 따라잡기 어렵다.
+      </div>
+    </div>
+    <div class="art">
+      <div class="ph">
+        <div class="ph-tag">Illustration</div>
+        <div class="ph-name">Architect as Judge</div>
+        <div class="ph-cap">What과 Why는 겹치지 않는다</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Closing · I</span><span>23 / 25 · → AI는 레버리지다</span></div>
+</section>
+
+<!-- ============ 24 CLOSING II — Leverage ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Closing · Leverage</span></div>
+    <div class="tag">#tool #amplifier</div>
+    <div>24 / 25</div>
+  </div>
+  <div class="stage stage-split">
+    <div class="art">
+      <div class="ph">
+        <div class="ph-tag">Illustration</div>
+        <div class="ph-name">Harness Controlled AI</div>
+        <div class="ph-cap">레버리지된 범위 — 보조주행</div>
+      </div>
+    </div>
+    <div class="copy">
+      <div class="kicker">Closing · II</div>
+      <div class="keyword sm">
+        AI는 <em>대체재</em>가 아니라<br><em>레버리지</em>다.
+      </div>
+      <div class="ascii"><span class="hl2">[ AI 없이 ]</span>
+개발자 ── 코딩 + 테스트 + 리뷰 + 문서화 ── 제한된 범위
+
+<span class="hl2">[ AI as Leverage ]</span>
+개발자 ─┬─ 아키텍처 / 판단 / 설계 ── <span class="hl">핵심에 집중</span>
+        │
+        └─ AI가 보일러플레이트 / 테스트 / 문서 초안
+                                    ── <span class="hl">레버리지된 범위</span></div>
+      <div class="callout">
+        <em>보조주행 ≠ 자율주행.</em> 핸들에서 손을 떼도 된다는 뜻이 아니다.<br><br>
+        AI는 개발자의 판단 범위를 <em>대체</em>하는 것이 아니라 <em>확장</em>한다.
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Closing · II</span><span>24 / 25 · → 더 좋은 망치는 더 좋은 목수의 손에서</span></div>
+</section>
+
+<!-- ============ 25 FIN — Next Deck ============ -->
+<section class="slide dark has-bleed">
+  <div class="bleed ph-bleed">
+    <div class="ph-bleed-mark">[ fin bleed · era-shift ]</div>
+  </div>
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Fin</span></div>
+    <div class="tag">#hammer #carpenter #next-deck</div>
+    <div>25 / 25</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">Fin.</div>
+    <div class="final-big">
+      더 좋은 망치는<br>
+      <em>더 좋은 목수</em>의<br>
+      손에서.
+    </div>
+    <div class="final-sub">
+      deck 1에서 본 것 — 세 한계, 하나의 함정. <em>Edit Entropy.</em><br><br>
+      그러나 우리는 아직 <em>"왜 이런 한계가 생기는가"</em>를 답하지 않았다. 그 답은 — 더 똑똑한 모델이 아니라, <strong>물리 법칙</strong>에 있다.
+    </div>
+    <div class="callout" style="max-width:760px">
+      <em>→ next deck.</em><br>
+      <strong>HBM의 천장</strong> — 이 한계는 왜 생기는가.
+    </div>
+    <div class="final-link">deck 2 · HBM Ceiling →</div>
+  </div>
+  <div class="foot">
+    <span>AI Context vs 멘탈 모델 — Deck 1 / 6</span>
+    <span>25 / 25 · END</span>
+  </div>
+</section>
+
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="click-zone left" id="zoneLeft"></div>
+<div class="click-zone right" id="zoneRight"></div>
+<div class="navhint"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>Space</kbd> step (s22) · <kbd>F</kbd> fullscreen</div>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const progress = document.getElementById('progress');
+  const total = slides.length;
+  let idx = 0;
+  let viz22Step = 0;
+  const viz22MaxStep = 4;
+
+  const zoneLeft = document.getElementById('zoneLeft');
+  const zoneRight = document.getElementById('zoneRight');
+
+  function go(n) {
+    n = Math.max(0, Math.min(total - 1, n));
+    if (n === idx && slides[idx].classList.contains('active')) return;
+    slides.forEach((s, i) => s.classList.toggle('active', i === n));
+    idx = n;
+    progress.style.width = ((idx + 1) / total * 100) + '%';
+    history.replaceState(null, '', '#' + (idx + 1));
+
+    if (slides[idx].id === 's22') {
+      viz22Step = 0;
+      applyViz22();
+    }
+  }
+
+  function applyViz22() {
+    const root = document.querySelector('#s22 .viz22');
+    if (!root) return;
+    root.setAttribute('data-step', viz22Step);
+    const stepLabel = ['t1', 't2', 't3', 't4', 't5'][viz22Step];
+    const labelEl = root.querySelector('.step-now');
+    if (labelEl) labelEl.textContent = stepLabel;
+
+    const patches = [0, 1, 2, 3, 4];
+    const dead = [0, 0, 1, 1, 1];
+    const twin = [0, 1, 1, 2, 3];
+    root.querySelector('.cnt-patch').textContent = patches[viz22Step];
+    root.querySelector('.cnt-dead').textContent = dead[viz22Step];
+    root.querySelector('.cnt-twin').textContent = twin[viz22Step];
+
+    const stateByStep = [
+      {
+        normalize_for_seo:  { cls: 'live',    calls: 'calls: 2' },
+        generate_post:      { cls: 'live',    calls: '→ normalize_for_seo' },
+        publish:            { cls: 'live',    calls: '→ normalize_for_seo' },
+        clean_text:         { cls: 'hidden',  calls: '' },
+        clean_for_thread:   { cls: 'hidden',  calls: '' },
+        sanitize_post:      { cls: 'hidden',  calls: '' },
+      },
+      {
+        normalize_for_seo:  { cls: 'live',    calls: 'calls: 2' },
+        generate_post:      { cls: 'live',    calls: '→ normalize_for_seo' },
+        publish:            { cls: 'live',    calls: '→ normalize_for_seo' },
+        clean_text:         { cls: 'partial justadded', calls: 'just added' },
+        clean_for_thread:   { cls: 'hidden',  calls: '' },
+        sanitize_post:      { cls: 'hidden',  calls: '' },
+      },
+      {
+        normalize_for_seo:  { cls: 'fading',  calls: 'calls: 1' },
+        generate_post:      { cls: 'live',    calls: '→ clean_text' },
+        publish:            { cls: 'live',    calls: '→ clean_text' },
+        clean_text:         { cls: 'live',    calls: 'calls: 2' },
+        clean_for_thread:   { cls: 'hidden',  calls: '' },
+        sanitize_post:      { cls: 'hidden',  calls: '' },
+      },
+      {
+        normalize_for_seo:  { cls: 'fading',  calls: 'calls: 1' },
+        generate_post:      { cls: 'live',    calls: '→ clean_text' },
+        publish:            { cls: 'live',    calls: '→ clean_text + clean_for_thread' },
+        clean_text:         { cls: 'live',    calls: 'calls: 2' },
+        clean_for_thread:   { cls: 'partial justadded', calls: 'just added' },
+        sanitize_post:      { cls: 'hidden',  calls: '' },
+      },
+      {
+        normalize_for_seo:  { cls: 'dead',    calls: 'calls: 0' },
+        generate_post:      { cls: 'live',    calls: '→ clean_text' },
+        publish:            { cls: 'live',    calls: '→ clean_text + clean_for_thread' },
+        clean_text:         { cls: 'live',    calls: 'calls: 2' },
+        clean_for_thread:   { cls: 'live',    calls: 'calls: 1' },
+        sanitize_post:      { cls: 'partial justadded', calls: 'just added' },
+      }
+    ];
+
+    const state = stateByStep[viz22Step];
+    Object.keys(state).forEach(function(name) {
+      const fn = root.querySelector('.fn[data-fn="' + name + '"]');
+      if (!fn) return;
+      const s = state[name];
+      fn.classList.remove('live', 'partial', 'fading', 'dead', 'hidden', 'justadded');
+      s.cls.split(' ').forEach(function(c) { fn.classList.add(c); });
+      const callsEl = fn.querySelector('.calls');
+      if (callsEl) callsEl.textContent = s.calls;
+    });
+
+    const utilsFile = root.querySelector('.f-utils');
+    const normState = state.normalize_for_seo.cls;
+    if (utilsFile) {
+      if (normState.indexOf('fading') !== -1 || normState.indexOf('dead') !== -1) {
+        utilsFile.classList.add('dimmed');
+      } else {
+        utilsFile.classList.remove('dimmed');
+      }
+    }
+
+    const verdict = root.querySelector('.verdict');
+    if (verdict) verdict.style.opacity = (viz22Step === viz22MaxStep) ? '1' : '0';
+  }
+
+  function next() { go(idx + 1); }
+  function prev() { go(idx - 1); }
+
+  document.addEventListener('keydown', function(e) {
+    // s22 special: Space advances viz step
+    if (slides[idx].id === 's22' && (e.key === ' ' || e.code === 'Space')) {
+      e.preventDefault();
+      if (viz22Step < viz22MaxStep) {
+        viz22Step++;
+      } else {
+        viz22Step = 0;
+      }
+      applyViz22();
+      return;
+    }
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') { e.preventDefault(); go(0); }
+    else if (e.key === 'End') { e.preventDefault(); go(total - 1); }
+    else if (e.key.toLowerCase() === 'f') {
+      e.preventDefault();
+      document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    }
+  });
+
+  zoneLeft.addEventListener('click', prev);
+  zoneRight.addEventListener('click', next);
+
+  function fromHash() {
+    const m = location.hash.match(/#(\d+)/);
+    if (m) {
+      const n = parseInt(m[1], 10) - 1;
+      if (!isNaN(n)) go(n);
+    }
+  }
+  window.addEventListener('hashchange', fromHash);
+
+  // init
+  progress.style.width = (1 / total * 100) + '%';
+  fromHash();
+})();
+</script>
+
+</body>
+</html>
