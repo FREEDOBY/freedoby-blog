@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AI Context vs 멘탈 모델</title>
+<title>AI Context, Edit Entropy</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1064,68 +1064,35 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
   <div class="cover-main">
     <div class="cover-title">
-      AI Context<br><span class="vs">vs</span> 멘탈 모델<span class="gold">.</span>
+      AI Context,<br><span class="gold">Edit Entropy.</span>
     </div>
     <div class="cover-rule"></div>
     <div class="cover-tagline">
-      AI는 정말, <em>개발자를 대체하는가.</em>
+      3개의 benchmark로 보는 <em>AI의 한계.</em>
     </div>
     <div class="cover-sub">
-      세 가지 벤치마크가 보여주는 <strong>불편한 진실</strong> — 그리고 <strong>Edit Entropy.</strong><br>
-      AI 코딩 에이전트와 워크플로우 엔지니어링 시리즈의 출발점.
+      매 편집은 합리적이다.<br>
+      그러나, 누적되면 — <strong>모순이 된다.</strong>
     </div>
   </div>
 
   <div class="cover-footer">
     <span>"better prompts don't scale. better systems do."</span>
-    <span>01 / 25</span>
+    <span>01 / 18</span>
   </div>
 </section>
 
-<!-- ============ 02 PROLOGUE — 대체된다는 착각 ============ -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Prologue</span></div>
-    <div class="tag">#hype #replacement-myth</div>
-    <div>02 / 25</div>
-  </div>
-  <div class="stage stage-split r">
-    <div class="copy">
-      <div class="kicker">Prologue</div>
-      <div class="keyword">
-        대체된다는 <em>착각.</em>
-      </div>
-      <div class="subline">
-        매주 새로운 AI가 나온다. <em>"개발자의 종말"</em>이라는 썸네일이 매일 올라온다.<br>
-        프롬프트 한 줄로 앱이 만들어지는 데모 영상이 인상적이다.<br><br>
-        그래서 묻는다 — <strong>정말로 그런가?</strong>
-      </div>
-      <div class="callout">
-        AI는 <em>강력한 도구</em>다. 그러나 <em>"대체"</em>와는 거리가 멀다.
-      </div>
-    </div>
-    <div class="art">
-      <div class="ph">
-        <div class="ph-tag">Illustration</div>
-        <div class="ph-name">Outsourced Thinking</div>
-        <div class="ph-cap">자극적 썸네일과 그 이면</div>
-      </div>
-    </div>
-  </div>
-  <div class="foot"><span>Prologue · The Question</span><span>02 / 25 · → 세 가지 벤치마크</span></div>
-</section>
-
-<!-- ============ 03 THE MAP — 세 가지 한계 ============ -->
+<!-- ============ 02 THE MAP — 세 가지 한계 ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Map</span></div>
     <div class="tag">#three-limits #benchmarks</div>
-    <div>03 / 25</div>
+    <div>02 / 18</div>
   </div>
   <div class="stage">
     <div class="kicker">세 가지 벤치마크로 본다</div>
     <div class="display md">
-      함정은 하나다 —<br><em>local에서 일하고, global에서 무너진다.</em>
+      AI는, <em>세 곳에서 미끄러진다.</em>
     </div>
 
     <div class="three-probs">
@@ -1157,15 +1124,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       국소는 합리적, 전체는 모순이 된다.
     </div>
   </div>
-  <div class="foot"><span>The Map · Three Limits</span><span>03 / 25 · → 한계 ① Car Wash</span></div>
+  <div class="foot"><span>The Map · Three Limits</span><span>02 / 18 · → 한계 ① Car Wash</span></div>
 </section>
 
-<!-- ============ 04 CAR WASH · 벤치마크 ============ -->
+<!-- ============ 03 CAR WASH · 벤치마크 ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
     <div class="tag">#benchmark #pattern-matching</div>
-    <div>04 / 25</div>
+    <div>03 / 18</div>
   </div>
   <div class="stage stage-split">
     <div class="art">
@@ -1197,49 +1164,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <div class="source">Opper.ai · 2025 · 53 LLMs · Car Wash Test</div>
     </div>
   </div>
-  <div class="foot"><span>Limit I · Benchmark</span><span>04 / 25 · → 의미: 봐도 통계로 덮는다</span></div>
+  <div class="foot"><span>Limit I · Benchmark</span><span>03 / 18 · → 사례: 코딩에서 어떻게 나타나는가</span></div>
 </section>
 
-<!-- ============ 05 CAR WASH · 의미 (컨텍스트 위) ============ -->
-<section class="slide light">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
-    <div class="tag">#meaning #context-above</div>
-    <div>05 / 25</div>
-  </div>
-  <div class="stage">
-    <div class="kicker">② Meaning</div>
-    <div class="keyword">
-      컨텍스트 <em>"위"</em>의 한계.
-    </div>
-    <div class="subline" style="max-width:780px">
-      봐도 통계로 덮는다. <strong>패턴이 의도를 이긴다.</strong>
-    </div>
-
-    <div class="split-copy">
-      <div>
-        <div class="col-label">AI가 한 일</div>
-        <p class="col-body">훈련 데이터에서 가장 많이 나타난 답을 골랐다. <em>"50미터에 대한 통계적 다수"</em>는 "걸어가라"였다.</p>
-      </div>
-      <div>
-        <div class="col-label">AI가 못 한 일</div>
-        <p class="col-body">질문 안에 있던 <strong>"세차장"</strong>이라는 단어가 의미하는 <em>목적</em>을 추론하는 일. 그건 통계가 아니라 <em>상식</em>의 영역이다.</p>
-      </div>
-    </div>
-
-    <div class="callout">
-      AI는 <em>이해</em>하는 게 아니라 <em>패턴 매칭</em>한다. 그것도 — <strong>틀려도 자신감 있게.</strong>
-    </div>
-  </div>
-  <div class="foot"><span>Limit I · Meaning</span><span>05 / 25 · → 사례: 코딩에서 어떻게 나타나는가</span></div>
-</section>
-
-<!-- ============ 06 CAR WASH · 사례 (김치찌개 3 attempts) ============ -->
+<!-- ============ 04 CAR WASH · 사례 (김치찌개 3 attempts) ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
     <div class="tag">#case #blog-automation</div>
-    <div>06 / 25</div>
+    <div>04 / 18</div>
   </div>
   <div class="stage top">
     <div class="kicker">③ Case</div>
@@ -1292,15 +1225,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <em>명시되지 않은 9/10</em>이 매번 다르게 채워진다. AI는 빈칸을 발견하면 — 묻지 않고, <em>훈련 분포의 다수</em>로 메운다.
     </div>
   </div>
-  <div class="foot"><span>Limit I · Case</span><span>06 / 25 · → 해법: 의도를 명시하라</span></div>
+  <div class="foot"><span>Limit I · Case</span><span>04 / 18 · → 해법: 의도를 명시하라</span></div>
 </section>
 
-<!-- ============ 07 CAR WASH · 해법 (시스템 프롬프트) ============ -->
+<!-- ============ 05 CAR WASH · 해법 (시스템 프롬프트) ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
     <div class="tag">#remedy #prompt-engineering</div>
-    <div>07 / 25</div>
+    <div>05 / 18</div>
   </div>
   <div class="stage top">
     <div class="kicker">④ Remedy</div>
@@ -1357,15 +1290,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </a>
     </div>
   </div>
-  <div class="foot"><span>Limit I · Remedy</span><span>07 / 25 · → deck 3에서 다시 만난다</span></div>
+  <div class="foot"><span>Limit I · Remedy</span><span>05 / 18 · → deck 3에서 다시 만난다</span></div>
 </section>
 
-<!-- ============ 08 CAR WASH · 통찰 ============ -->
+<!-- ============ 06 CAR WASH · 통찰 ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit I · Insight</span></div>
     <div class="tag">#insight #starting-point</div>
-    <div>08 / 25</div>
+    <div>06 / 18</div>
   </div>
   <div class="stage">
     <div class="kicker">⑤ Insight</div>
@@ -1382,15 +1315,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       뒤의 모든 엔지니어링은 — <em>암묵을 명시로 바꾸는 작업.</em>
     </div>
   </div>
-  <div class="foot"><span>Limit I · Insight</span><span>08 / 25 · → 한계 ② Needle</span></div>
+  <div class="foot"><span>Limit I · Insight</span><span>06 / 18 · → 한계 ② Needle</span></div>
 </section>
 
-<!-- ============ 09 NEEDLE · 벤치마크 ============ -->
+<!-- ============ 07 NEEDLE · 벤치마크 ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit II · Needle in a Haystack</span></div>
     <div class="tag">#benchmark #lost-in-middle</div>
-    <div>09 / 25</div>
+    <div>07 / 18</div>
   </div>
   <div class="stage stage-split">
     <div class="art">
@@ -1419,49 +1352,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <div class="source">Liu et al. · 2023 · "Lost in the Middle"</div>
     </div>
   </div>
-  <div class="foot"><span>Limit II · Benchmark</span><span>09 / 25 · → 의미: 컨텍스트 안</span></div>
+  <div class="foot"><span>Limit II · Benchmark</span><span>07 / 18 · → 사례: 코드베이스 규모</span></div>
 </section>
 
-<!-- ============ 10 NEEDLE · 의미 (컨텍스트 안) ============ -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Limit II · Needle in a Haystack</span></div>
-    <div class="tag">#meaning #context-inside</div>
-    <div>10 / 25</div>
-  </div>
-  <div class="stage">
-    <div class="kicker">② Meaning</div>
-    <div class="keyword">
-      컨텍스트 <em>"안"</em>의 한계.
-    </div>
-    <div class="subline" style="max-width:780px">
-      들어와도 못 본다. <strong>가득 차면 못 찾는다.</strong>
-    </div>
-
-    <div class="split-copy">
-      <div>
-        <div class="col-label">Car Wash와의 차이</div>
-        <p class="col-body">Car Wash는 <em>봤는데도 통계로 덮는</em> 일. Needle은 <em>들어와도 가중치가 흩어져서 회상이 안 되는</em> 일. 둘은 한계의 위치가 다르다.</p>
-      </div>
-      <div>
-        <div class="col-label">메커니즘</div>
-        <p class="col-body">Attention의 가중치가 토큰이 늘수록 <em>분산</em>된다. 초반 정보가 후반 토큰에 묻힌다.<br><em>"조리대를 넓혀도 무한히 쌓으면 아래 것은 잊혀진다."</em></p>
-      </div>
-    </div>
-
-    <div class="callout">
-      컨텍스트는 <em>수확 체감이 있는 유한한 자원</em>이다. 많이 넣는다고 좋은 게 아니다.
-    </div>
-  </div>
-  <div class="foot"><span>Limit II · Meaning</span><span>10 / 25 · → 사례: 코드베이스 규모</span></div>
-</section>
-
-<!-- ============ 11 NEEDLE · 사례 (Scale Table) ============ -->
+<!-- ============ 08 NEEDLE · 사례 (Scale Table) ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit II · Needle in a Haystack</span></div>
     <div class="tag">#case #codebase-scale</div>
-    <div>11 / 25</div>
+    <div>08 / 18</div>
   </div>
   <div class="stage top">
     <div class="kicker">③ Case</div>
@@ -1496,15 +1395,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <em>회사 코드베이스에서 안 되는 이유.</em>"
     </div>
   </div>
-  <div class="foot"><span>Limit II · Case</span><span>11 / 25 · → 해법: 안을 깨끗하게</span></div>
+  <div class="foot"><span>Limit II · Case</span><span>08 / 18 · → 해법: 안을 깨끗하게</span></div>
 </section>
 
-<!-- ============ 12 NEEDLE · 해법 (Context Engineering) ============ -->
+<!-- ============ 09 NEEDLE · 해법 (Context Engineering) ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit II · Needle in a Haystack</span></div>
     <div class="tag">#remedy #context-engineering</div>
-    <div>12 / 25</div>
+    <div>09 / 18</div>
   </div>
   <div class="stage top">
     <div class="kicker">④ Remedy</div>
@@ -1539,15 +1438,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <em>Context Engineering의 본질</em> — 윈도우를 정교하게 설계하는 예술과 과학.
     </div>
   </div>
-  <div class="foot"><span>Limit II · Remedy</span><span>12 / 25 · → deck 3에서 다시 만난다</span></div>
+  <div class="foot"><span>Limit II · Remedy</span><span>09 / 18 · → deck 3에서 다시 만난다</span></div>
 </section>
 
-<!-- ============ 13 NEEDLE · 통찰 ============ -->
+<!-- ============ 10 NEEDLE · 통찰 ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit II · Insight</span></div>
     <div class="tag">#insight #window-illusion</div>
-    <div>13 / 25</div>
+    <div>10 / 18</div>
   </div>
   <div class="stage">
     <div class="kicker">⑤ Insight</div>
@@ -1564,119 +1463,55 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <strong>HBM이라는 물리적 천장</strong>이 그 답이다.
     </div>
   </div>
-  <div class="foot"><span>Limit II · Insight</span><span>13 / 25 · → 한계 ③ Blind</span></div>
+  <div class="foot"><span>Limit II · Insight</span><span>10 / 18 · → 한계 ③ Blind</span></div>
 </section>
 
-<!-- ============ 14 BLIND · 벤치마크 ============ -->
+<!-- ============ 11 BLIND · 벤치마크 ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit III · Blind Context</span></div>
     <div class="tag">#benchmark #out-of-window</div>
-    <div>14 / 25</div>
+    <div>11 / 18</div>
   </div>
-  <div class="stage stage-split r">
+  <div class="stage stage-split">
+    <div class="art">
+      <div class="ph">
+        <div class="ph-tag">Chart</div>
+        <div class="ph-name">CrossCodeEval</div>
+        <div class="ph-cap">in-file vs cross-file 정답률 갭</div>
+      </div>
+    </div>
     <div class="copy">
       <div class="kicker">① Benchmark</div>
       <div class="keyword sm">
-        보이지 않으면<br><em>존재하지 않는다.</em>
+        보이지 않으면,<br><em>존재하지 않는다.</em>
       </div>
       <div class="subline">
-        AI는 컨텍스트 윈도우에 들어오지 않은 정보는 <em>존재 자체</em>를 모른다.<br>
-        "아직" 못 하는 게 아니라 — <strong>물리적 구조의 문제.</strong>
+        ~10K 크로스파일 의존 문제 — Python · Java · TypeScript · C#.<br>
+        같은 모델에 <em>같은 파일만</em> 주느냐, <em>관련 파일까지</em> 주느냐로 정답률이 갈린다.
       </div>
-      <div class="ascii"><span class="hl2">[ AI가 보는 세계 ]</span>
-function A   ← 수정 요청
-  → calls B
-  → calls C
-
-<span class="hl2">[ 실제 세계 ]</span>
-function A
-  → calls B
-  → calls C
-  → D가 A를 참조        <span class="warn">(AI는 모름)</span>
-  → E의 타이밍이 A에 의존  <span class="warn">(AI는 모름)</span>
-  → F의 에러 핸들링이 A의
-    리턴값을 가정          <span class="warn">(AI는 모름)</span></div>
-    </div>
-    <div class="art">
-      <div class="ph">
-        <div class="ph-tag">Diagram</div>
-        <div class="ph-name">Blind Context</div>
-        <div class="ph-cap">윈도우 밖의 의존성이 더 크다</div>
+      <div class="bigstat-block" style="margin-top:18px; grid-template-columns:1fr 1fr; display:grid; gap:24px;">
+        <div>
+          <div class="bigstat" style="color:var(--warn-dk)">8.82%</div>
+          <div class="bigstat-cap">in-file only <span class="note">(StarCoder-15.5B · Python EM)</span></div>
+        </div>
+        <div>
+          <div class="bigstat">× 4.5</div>
+          <div class="bigstat-cap">with cross-file (retrieval + reference)</div>
+        </div>
       </div>
+      <div class="source">CrossCodeEval · Ding et al. (NeurIPS 2023) · ~10K examples · 4 langs</div>
     </div>
   </div>
-  <div class="foot"><span>Limit III · Benchmark</span><span>14 / 25 · → 의미: 컨텍스트 밖</span></div>
+  <div class="foot"><span>Limit III · Benchmark</span><span>11 / 18 · → 사례: 4 플랫폼이 폭사</span></div>
 </section>
 
-<!-- ============ 15 BLIND · 의미 (컨텍스트 밖) ============ -->
-<section class="slide light">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Limit III · Blind Context</span></div>
-    <div class="tag">#meaning #context-outside</div>
-    <div>15 / 25</div>
-  </div>
-  <div class="stage">
-    <div class="kicker">② Meaning</div>
-    <div class="keyword">
-      컨텍스트 <em>"밖"</em>의 한계.
-    </div>
-    <div class="subline" style="max-width:780px">
-      들어오지 않으면 모른다. <strong>정보 부재 ≠ 무시.</strong>
-    </div>
-
-    <div class="mapping">
-      <div class="map-row">
-        <div class="map-cell">
-          <div class="mc-label">한계</div>
-          <div class="mc-name">Needle</div>
-        </div>
-        <div class="map-arrow">—</div>
-        <div class="map-cell" style="grid-column: 3 / span 3;">
-          <div class="mc-label">위치 / 성격</div>
-          <div class="mc-name">컨텍스트 <em style="font-style:italic;color:var(--gold-dk)">안</em>에서 회상 실패</div>
-          <div class="mc-sub">양적 한계</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-cell">
-          <div class="mc-label">한계</div>
-          <div class="mc-name">Car Wash</div>
-        </div>
-        <div class="map-arrow">—</div>
-        <div class="map-cell" style="grid-column: 3 / span 3;">
-          <div class="mc-label">위치 / 성격</div>
-          <div class="mc-name">컨텍스트 <em style="font-style:italic;color:var(--gold-dk)">위</em>에서 의도 무시</div>
-          <div class="mc-sub">질적 한계</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-cell">
-          <div class="mc-label">한계</div>
-          <div class="mc-name gold">Blind</div>
-        </div>
-        <div class="map-arrow">—</div>
-        <div class="map-cell" style="grid-column: 3 / span 3;">
-          <div class="mc-label">위치 / 성격</div>
-          <div class="mc-name gold">컨텍스트 <em style="font-style:italic">밖</em>이 존재 부재</div>
-          <div class="mc-sub">구조적 한계</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="callout">
-      <em>"무시"</em>가 아니라 <em>"부재"</em>다. AI가 보지 않은 것은 — 추론의 <strong>후보군에 들어가지도 않는다.</strong>
-    </div>
-  </div>
-  <div class="foot"><span>Limit III · Meaning</span><span>15 / 25 · → 사례: 4 플랫폼이 폭사</span></div>
-</section>
-
-<!-- ============ 16 BLIND · 사례 (4 platforms) ============ -->
+<!-- ============ 12 BLIND · 사례 (4 platforms) ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit III · Blind Context</span></div>
     <div class="tag">#case #ripple-effect</div>
-    <div>16 / 25</div>
+    <div>12 / 18</div>
   </div>
   <div class="stage stage-split">
     <div class="art">
@@ -1715,15 +1550,15 @@ for p in [tistory, thread, naver, google]:
       </div>
     </div>
   </div>
-  <div class="foot"><span>Limit III · Case</span><span>16 / 25 · → 해법: 필요한 걸 끌어와라</span></div>
+  <div class="foot"><span>Limit III · Case</span><span>12 / 18 · → 해법: 필요한 걸 끌어와라</span></div>
 </section>
 
-<!-- ============ 17 BLIND · 해법 (Harness Engineering) ============ -->
+<!-- ============ 13 BLIND · 해법 (Harness Engineering) ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit III · Blind Context</span></div>
     <div class="tag">#remedy #harness-engineering</div>
-    <div>17 / 25</div>
+    <div>13 / 18</div>
   </div>
   <div class="stage top">
     <div class="kicker">④ Remedy</div>
@@ -1758,15 +1593,15 @@ for p in [tistory, thread, naver, google]:
       <em>Harness Engineering의 본질</em> — 워크플로우 자체를 설계한다.
     </div>
   </div>
-  <div class="foot"><span>Limit III · Remedy</span><span>17 / 25 · → deck 3·5에서 다시 만난다</span></div>
+  <div class="foot"><span>Limit III · Remedy</span><span>13 / 18 · → deck 3·5에서 다시 만난다</span></div>
 </section>
 
-<!-- ============ 18 BLIND · 통찰 ============ -->
+<!-- ============ 14 BLIND · 통찰 ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit III · Insight</span></div>
     <div class="tag">#insight #invisible-larger</div>
-    <div>18 / 25</div>
+    <div>14 / 18</div>
   </div>
   <div class="stage">
     <div class="kicker">⑤ Insight</div>
@@ -1783,15 +1618,15 @@ for p in [tistory, thread, naver, google]:
       워크플로우 전체의 설계가 필요하다.
     </div>
   </div>
-  <div class="foot"><span>Limit III · Insight</span><span>18 / 25 · → 종합: Edit Entropy</span></div>
+  <div class="foot"><span>Limit III · Insight</span><span>14 / 18 · → 종합: Edit Entropy</span></div>
 </section>
 
-<!-- ============ 19 SYNTHESIS — Edit Entropy 정의 ============ -->
+<!-- ============ 15 SYNTHESIS — Edit Entropy 정의 ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · Edit Entropy</span></div>
     <div class="tag">#local-vs-global #drift</div>
-    <div>19 / 25</div>
+    <div>15 / 18</div>
   </div>
   <div class="stage">
     <div class="kicker">Synthesis</div>
@@ -1817,93 +1652,15 @@ for p in [tistory, thread, naver, google]:
       매 편집은 <em>local에서 best</em>를 만든다. 그러나 그 best의 합집합은 — <strong>global best가 아니다.</strong>
     </div>
   </div>
-  <div class="foot"><span>Synthesis · Definition</span><span>19 / 25 · → 세 한계가 같은 결과로 수렴</span></div>
+  <div class="foot"><span>Synthesis · Definition</span><span>15 / 18 · → 사이클이 누적시킨다</span></div>
 </section>
 
-<!-- ============ 20 SYNTHESIS — 세 한계가 같은 결과로 수렴 ============ -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Synthesis · Convergence</span></div>
-    <div class="tag">#three-limits #same-result</div>
-    <div>20 / 25</div>
-  </div>
-  <div class="stage">
-    <div class="kicker">Convergence</div>
-    <div class="display sm">
-      세 한계가 <em>모두 같은 결과</em>로 수렴한다.
-    </div>
-
-    <div class="mapping">
-      <div class="map-row">
-        <div class="map-cell">
-          <div class="mc-label">한계</div>
-          <div class="mc-name">Car Wash</div>
-        </div>
-        <div class="map-arrow">→</div>
-        <div class="map-cell">
-          <div class="mc-label">local</div>
-          <div class="mc-name">적합</div>
-          <div class="mc-sub">통계 다수에 부합</div>
-        </div>
-        <div class="map-arrow eq">≠</div>
-        <div class="map-cell">
-          <div class="mc-label">global</div>
-          <div class="mc-name gold">의도</div>
-          <div class="mc-sub">사용자가 원한 답</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-cell">
-          <div class="mc-label">한계</div>
-          <div class="mc-name">Needle</div>
-        </div>
-        <div class="map-arrow">→</div>
-        <div class="map-cell">
-          <div class="mc-label">local</div>
-          <div class="mc-name">보임</div>
-          <div class="mc-sub">컨텍스트에 들어와 있다</div>
-        </div>
-        <div class="map-arrow eq">≠</div>
-        <div class="map-cell">
-          <div class="mc-label">global</div>
-          <div class="mc-name gold">회상</div>
-          <div class="mc-sub">실제로 불러와진다</div>
-        </div>
-      </div>
-      <div class="map-row">
-        <div class="map-cell">
-          <div class="mc-label">한계</div>
-          <div class="mc-name">Blind</div>
-        </div>
-        <div class="map-arrow">→</div>
-        <div class="map-cell">
-          <div class="mc-label">local</div>
-          <div class="mc-name">작업</div>
-          <div class="mc-sub">눈앞의 파일 수정</div>
-        </div>
-        <div class="map-arrow eq">≠</div>
-        <div class="map-cell">
-          <div class="mc-label">global</div>
-          <div class="mc-name gold">영향</div>
-          <div class="mc-sub">시스템 전체의 정합성</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="callout" style="font-style:italic; font-family:var(--serif);">
-      한계의 표면은 다르지만, 발현은 모두 — <em>"local 함정"</em>이다.<br>
-      세 한계는 <em>같은 함정의 다른 얼굴</em>이다.
-    </div>
-  </div>
-  <div class="foot"><span>Synthesis · Convergence</span><span>20 / 25 · → 사이클이 누적시킨다</span></div>
-</section>
-
-<!-- ============ 21 SYNTHESIS — The Cycle ============ -->
+<!-- ============ 16 SYNTHESIS — The Cycle ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · The Cycle</span></div>
     <div class="tag">#dev-cycle #accumulation</div>
-    <div>21 / 25</div>
+    <div>16 / 18</div>
   </div>
   <div class="stage top">
     <div class="kicker">The Cycle</div>
@@ -1933,15 +1690,15 @@ for p in [tistory, thread, naver, google]:
       그 누적의 가시적 흔적이 — <em>다음 슬라이드.</em>
     </div>
   </div>
-  <div class="foot"><span>Synthesis · The Cycle</span><span>21 / 25 · → 시각화: 화석화의 과정</span></div>
+  <div class="foot"><span>Synthesis · The Cycle</span><span>16 / 18 · → 시각화: 화석화의 과정</span></div>
 </section>
 
-<!-- ============ 22 SYNTHESIS — Dynamic Visualization ★ ============ -->
-<section class="slide dark" id="s22">
+<!-- ============ 17 SYNTHESIS — Dynamic Visualization ★ ============ -->
+<section class="slide dark" id="s17">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · Visualization ★</span></div>
     <div class="tag">#fossilization #dead-code #twin-code</div>
-    <div>22 / 25</div>
+    <div>17 / 18</div>
   </div>
   <div class="stage top">
     <div class="kicker">Visualization · Press Space</div>
@@ -2012,98 +1769,10 @@ for p in [tistory, thread, naver, google]:
       </div>
     </div>
   </div>
-  <div class="foot"><span>Synthesis · Visualization</span><span>22 / 25 · Space로 t1 → t5</span></div>
+  <div class="foot"><span>Synthesis · Visualization</span><span>17 / 18 · Space로 t1 → t5</span></div>
 </section>
 
-<!-- ============ 23 CLOSING I — What vs Why ============ -->
-<section class="slide light">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Closing · What vs Why</span></div>
-    <div class="tag">#leverage #judgment</div>
-    <div>23 / 25</div>
-  </div>
-  <div class="stage stage-split r">
-    <div class="copy">
-      <div class="kicker">Closing · I</div>
-      <div class="keyword sm">
-        <em>What</em>과 <em>Why</em> —<br>두 영역은 겹치지 않는다.
-      </div>
-      <div class="split-copy tighter">
-        <div>
-          <div class="col-label">AI가 잘하는 것 — What</div>
-          <ul class="col-list" style="font-size:14px; line-height:1.7">
-            <li>패턴이 명확한 코드 생성</li>
-            <li>보일러플레이트 · 반복</li>
-            <li>유닛 테스트 템플릿</li>
-            <li>1차 리뷰</li>
-            <li>빠른 프로토타입</li>
-          </ul>
-        </div>
-        <div>
-          <div class="col-label">사람이 잘하는 것 — Why</div>
-          <ul class="col-list" style="font-size:14px; line-height:1.7">
-            <li>변경의 시스템 영향 판단</li>
-            <li>스펙에 없는 엣지케이스</li>
-            <li><em>역사적 맥락</em></li>
-            <li>모호 → 구체적 설계</li>
-            <li>디버깅의 직관</li>
-          </ul>
-        </div>
-      </div>
-      <div class="callout">
-        AI가 발전해도 <em>Why</em>는 침범하기 어렵고,<br>
-        사람이 노력해도 AI의 <em>What 처리 속도</em>는 따라잡기 어렵다.
-      </div>
-    </div>
-    <div class="art">
-      <div class="ph">
-        <div class="ph-tag">Illustration</div>
-        <div class="ph-name">Architect as Judge</div>
-        <div class="ph-cap">What과 Why는 겹치지 않는다</div>
-      </div>
-    </div>
-  </div>
-  <div class="foot"><span>Closing · I</span><span>23 / 25 · → AI는 레버리지다</span></div>
-</section>
-
-<!-- ============ 24 CLOSING II — Leverage ============ -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Closing · Leverage</span></div>
-    <div class="tag">#tool #amplifier</div>
-    <div>24 / 25</div>
-  </div>
-  <div class="stage stage-split">
-    <div class="art">
-      <div class="ph">
-        <div class="ph-tag">Illustration</div>
-        <div class="ph-name">Harness Controlled AI</div>
-        <div class="ph-cap">레버리지된 범위 — 보조주행</div>
-      </div>
-    </div>
-    <div class="copy">
-      <div class="kicker">Closing · II</div>
-      <div class="keyword sm">
-        AI는 <em>대체재</em>가 아니라<br><em>레버리지</em>다.
-      </div>
-      <div class="ascii"><span class="hl2">[ AI 없이 ]</span>
-개발자 ── 코딩 + 테스트 + 리뷰 + 문서화 ── 제한된 범위
-
-<span class="hl2">[ AI as Leverage ]</span>
-개발자 ─┬─ 아키텍처 / 판단 / 설계 ── <span class="hl">핵심에 집중</span>
-        │
-        └─ AI가 보일러플레이트 / 테스트 / 문서 초안
-                                    ── <span class="hl">레버리지된 범위</span></div>
-      <div class="callout">
-        <em>보조주행 ≠ 자율주행.</em> 핸들에서 손을 떼도 된다는 뜻이 아니다.<br><br>
-        AI는 개발자의 판단 범위를 <em>대체</em>하는 것이 아니라 <em>확장</em>한다.
-      </div>
-    </div>
-  </div>
-  <div class="foot"><span>Closing · II</span><span>24 / 25 · → 더 좋은 망치는 더 좋은 목수의 손에서</span></div>
-</section>
-
-<!-- ============ 25 FIN — Next Deck ============ -->
+<!-- ============ 18 FIN — Next Deck ============ -->
 <section class="slide dark has-bleed">
   <div class="bleed ph-bleed">
     <div class="ph-bleed-mark">[ fin bleed · era-shift ]</div>
@@ -2111,7 +1780,7 @@ for p in [tistory, thread, naver, google]:
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Fin</span></div>
     <div class="tag">#hammer #carpenter #next-deck</div>
-    <div>25 / 25</div>
+    <div>18 / 18</div>
   </div>
   <div class="stage">
     <div class="kicker">Fin.</div>
@@ -2131,8 +1800,8 @@ for p in [tistory, thread, naver, google]:
     <div class="final-link">deck 2 · HBM Ceiling →</div>
   </div>
   <div class="foot">
-    <span>AI Context vs 멘탈 모델 — Deck 1 / 6</span>
-    <span>25 / 25 · END</span>
+    <span>AI Context, Edit Entropy — Deck 1 / 6</span>
+    <span>18 / 18 · END</span>
   </div>
 </section>
 
@@ -2141,7 +1810,7 @@ for p in [tistory, thread, naver, google]:
 <div class="progress" id="progress"></div>
 <div class="click-zone left" id="zoneLeft"></div>
 <div class="click-zone right" id="zoneRight"></div>
-<div class="navhint"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>Space</kbd> step (s22) · <kbd>F</kbd> fullscreen</div>
+<div class="navhint"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>Space</kbd> step (s17) · <kbd>F</kbd> fullscreen</div>
 
 <script>
 (function(){
@@ -2163,14 +1832,14 @@ for p in [tistory, thread, naver, google]:
     progress.style.width = ((idx + 1) / total * 100) + '%';
     history.replaceState(null, '', '#' + (idx + 1));
 
-    if (slides[idx].id === 's22') {
+    if (slides[idx].id === 's17') {
       viz22Step = 0;
       applyViz22();
     }
   }
 
   function applyViz22() {
-    const root = document.querySelector('#s22 .viz22');
+    const root = document.querySelector('#s17 .viz22');
     if (!root) return;
     root.setAttribute('data-step', viz22Step);
     const stepLabel = ['t1', 't2', 't3', 't4', 't5'][viz22Step];
@@ -2256,8 +1925,8 @@ for p in [tistory, thread, naver, google]:
   function prev() { go(idx - 1); }
 
   document.addEventListener('keydown', function(e) {
-    // s22 special: Space advances viz step
-    if (slides[idx].id === 's22' && (e.key === ' ' || e.code === 'Space')) {
+    // s17 special: Space advances viz step
+    if (slides[idx].id === 's17' && (e.key === ' ' || e.code === 'Space')) {
       e.preventDefault();
       if (viz22Step < viz22MaxStep) {
         viz22Step++;
