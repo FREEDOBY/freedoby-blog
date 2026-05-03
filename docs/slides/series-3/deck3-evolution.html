@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prompt → Context → Harness — 진화의 방향</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black:   #0c0b09;
+  --cream:   #f0ece0;
+  --warm:    #f5f0e6;
+  --gold:    #b8924a;
+  --gold-lt: #ddb96a;
+  --gold-dk: #7a5f2e;
+  --rule-lt: rgba(240, 236, 224, 0.18);
+  --rule-dk: rgba(12, 11, 9, 0.14);
+  --muted-dk:#6a6458;
+  --muted-lt:#c8c0b0;
+  --red:     #b04a3a;
+  --green:   #7a8a4a;
+  --blue:    #6a8aa6;
+
+  --serif:   'Cormorant Garamond', 'Gowun Batang', Georgia, serif;
+  --serif-ko:'Gowun Batang', 'Cormorant Garamond', serif;
+  --sans:    'IBM Plex Sans KR', 'Helvetica Neue', sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { background: var(--black); color: var(--cream); font-family: var(--sans); }
+
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 44px 80px 52px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition: opacity 500ms cubic-bezier(.2,.7,.2,1), transform 600ms cubic-bezier(.2,.7,.2,1);
+}
+.slide.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.slide.dark  { background: var(--black); color: var(--cream); }
+.slide.light { background: var(--warm);  color: var(--black); }
+
+.slide::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(180,170,140,0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  z-index: 0;
+}
+.slide > * { position: relative; z-index: 1; }
+
+/* CHROME */
+.chrome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-bottom: 12px;
+  border-bottom: 1px solid;
+}
+.slide.dark .chrome  { color: var(--muted-lt); border-color: var(--rule-lt); }
+.slide.light .chrome { color: var(--muted-dk); border-color: var(--rule-dk); }
+.chrome .seg { display: flex; gap: 10px; align-items: center; }
+.chrome .seg .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); display: inline-block; }
+.chrome .tag { color: var(--gold); text-transform: none; letter-spacing: 0.05em; }
+.slide.light .chrome .tag { color: var(--gold-dk); }
+
+/* FOOT */
+.foot {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding-top: 12px;
+  border-top: 1px solid;
+}
+.slide.dark .foot  { color: var(--muted-lt); border-color: var(--rule-lt); }
+.slide.light .foot { color: var(--muted-dk); border-color: var(--rule-dk); }
+
+/* STAGE */
+.stage { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 28px 0; min-height: 0; }
+.stage.top { justify-content: flex-start; padding-top: 24px; }
+.stage-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.stage-split.center { align-items: center; }
+
+/* TYPOGRAPHY */
+.kicker {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.kicker::before { content: ""; display: inline-block; width: 20px; height: 1px; background: var(--gold); }
+.slide.light .kicker { color: var(--gold-dk); }
+.slide.light .kicker::before { background: var(--gold-dk); }
+.kicker.dim { color: var(--muted-lt); }
+.kicker.dim::before { background: var(--muted-lt); }
+
+.display {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(56px, 9vw, 148px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+}
+.slide.light .display { color: var(--black); }
+.display em { font-style: italic; font-weight: 400; color: var(--gold); }
+.slide.light .display em { color: var(--gold-dk); }
+.display.md { font-size: clamp(44px, 6.5vw, 100px); }
+.display.sm { font-size: clamp(36px, 5vw, 76px); }
+
+.keyword {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(38px, 5.2vw, 78px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 18px;
+}
+.slide.light .keyword { color: var(--black); }
+.keyword em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+.slide.light .keyword em { color: var(--gold-dk); }
+.keyword.md { font-size: clamp(30px, 4vw, 58px); }
+.keyword.sm { font-size: clamp(24px, 3.2vw, 46px); }
+
+.subline {
+  font-family: var(--serif-ko);
+  font-size: clamp(15px, 1.25vw, 20px);
+  line-height: 1.7;
+  color: var(--muted-lt);
+  max-width: 720px;
+  margin-top: 6px;
+}
+.slide.light .subline { color: var(--muted-dk); }
+.subline em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--cream);
+}
+.slide.light .subline em { color: var(--black); }
+.subline strong { color: var(--cream); font-weight: 700; }
+.slide.light .subline strong { color: var(--black); }
+
+.divider { width: 40px; height: 1px; background: var(--gold); opacity: 0.5; margin: 22px 0; }
+
+/* COVER */
+.cover { justify-content: space-between; padding: 52px 80px; }
+.cover-brand {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  display: flex; gap: 16px; align-items: baseline;
+}
+.cover-brand .gold { color: var(--gold); }
+.cover-main { display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 24px 0; }
+.cover-title {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(64px, 10vw, 160px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.cover-title .gold { color: var(--gold); font-family: var(--serif); font-style: italic; font-weight: 400; }
+.cover-rule { width: 100%; height: 1px; background: var(--gold); margin: 28px 0; opacity: 0.5; }
+.cover-tagline {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(24px, 3vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 22px;
+  max-width: 880px;
+}
+.cover-tagline em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+.cover-sub {
+  font-family: var(--serif-ko);
+  font-size: clamp(15px, 1.3vw, 20px);
+  color: var(--muted-lt);
+  max-width: 720px;
+  line-height: 1.6;
+}
+.cover-sub strong { color: var(--cream); font-weight: 700; }
+.cover-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+}
+
+/* SERIES MAP */
+.series-map { display: flex; flex-direction: column; gap: 6px; margin-top: 28px; }
+.series-item {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--muted-lt);
+  opacity: 0.55;
+}
+.series-item.current { color: var(--gold); opacity: 1; }
+.series-item.done { color: var(--muted-lt); opacity: 0.85; }
+
+/* ASCII */
+.ascii {
+  font-family: var(--mono);
+  font-size: clamp(11px, 0.92vw, 14px);
+  line-height: 1.85;
+  white-space: pre-wrap;
+  padding: 20px 24px;
+  background: rgba(184,146,74,0.05);
+  border-left: 2px solid var(--gold);
+  margin-top: 18px;
+  color: var(--muted-lt);
+  border-radius: 1px;
+}
+.slide.light .ascii { color: var(--muted-dk); border-left-color: var(--gold-dk); background: rgba(122,95,46,0.06); }
+.ascii .hl  { color: var(--gold); font-weight: 700; }
+.ascii .hl2 { color: var(--cream); font-weight: 700; }
+.slide.light .ascii .hl2 { color: var(--black); }
+.ascii .dim { color: var(--muted-lt); opacity: 0.55; }
+.slide.light .ascii .dim { color: var(--muted-dk); }
+.ascii .good { color: var(--green); font-weight: 700; }
+.ascii .bad  { color: var(--red);   font-weight: 700; }
+.ascii .blue { color: var(--blue); font-weight: 700; }
+
+/* STACK VISUAL (slide 02) */
+.stack-wrap { display: flex; justify-content: center; align-items: center; padding: 20px 0; }
+.stack {
+  position: relative;
+  width: min(560px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.stack-tier {
+  border: 1px solid var(--rule-lt);
+  background: rgba(240,236,224,0.02);
+  padding: 22px 28px;
+  display: grid;
+  grid-template-columns: 100px 1fr 130px;
+  gap: 24px;
+  align-items: center;
+}
+.stack-tier:nth-child(1) { border-radius: 2px 2px 0 0; background: rgba(240,236,224,0.025); }
+.stack-tier:nth-child(2) { border-top: none; background: rgba(240,236,224,0.045); }
+.stack-tier:nth-child(3) { border-top: none; border-radius: 0 0 2px 2px; background: rgba(184,146,74,0.07); border-color: rgba(184,146,74,0.25); }
+.stack-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(28px, 3vw, 42px);
+  color: var(--gold);
+  opacity: 0.6;
+  line-height: 1;
+}
+.stack-tier:nth-child(3) .stack-num { opacity: 1; }
+.stack-name {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(18px, 1.6vw, 26px);
+  color: var(--cream);
+  letter-spacing: -0.01em;
+}
+.stack-en {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(13px, 1.05vw, 16px);
+  color: var(--gold);
+  margin-top: 2px;
+}
+.stack-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted-lt);
+  text-align: right;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+}
+.stack-meta .yr { color: var(--cream); display: block; }
+
+/* MAPPING TABLE (slide 06, 08) */
+.mapping {
+  margin-top: 18px;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--rule-lt);
+}
+.map-row {
+  display: grid;
+  align-items: start;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule-lt);
+  gap: 0;
+}
+.map-row:last-child { border-bottom: none; }
+.map-row.fwk { grid-template-columns: 230px 1fr 130px; }
+.map-row.matrix { grid-template-columns: 130px 110px 1.1fr 1.5fr 130px; }
+.map-cell { padding: 0 16px; }
+.map-cell:first-child { padding-left: 0; }
+.map-cell:last-child { padding-right: 0; }
+.mc-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  margin-bottom: 4px;
+}
+.mc-name {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(15px, 1.3vw, 20px);
+  color: var(--cream);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.mc-name .gold { color: var(--gold); }
+.mc-en {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--gold);
+  margin-top: 2px;
+}
+.mc-desc {
+  font-family: var(--serif-ko);
+  font-size: clamp(13px, 1.05vw, 15px);
+  color: var(--muted-lt);
+  line-height: 1.55;
+}
+.mc-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--muted-lt);
+  text-align: right;
+  line-height: 1.5;
+}
+.mc-tag .star { color: var(--gold); display: block; }
+.mc-tag .kr { color: var(--gold-lt); display: block; }
+
+/* CARD */
+.card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; margin-top: 22px; }
+.card {
+  border: 1px solid var(--rule-lt);
+  background: rgba(240,236,224,0.03);
+  padding: 22px 24px;
+  border-radius: 1px;
+}
+.card.cool { border-color: rgba(184,146,74,0.3); background: rgba(184,146,74,0.05); }
+.card-lbl  { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.card-name { font-family: var(--serif-ko); font-weight: 700; font-size: clamp(20px, 1.8vw, 28px); color: var(--cream); margin-bottom: 6px; line-height: 1.2; }
+.card-name em { font-family: var(--serif); font-style: italic; color: var(--gold); font-weight: 400; }
+.card-by { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; color: var(--muted-lt); margin-bottom: 12px; }
+.card-desc { font-family: var(--serif-ko); font-size: clamp(13px, 1.05vw, 16px); color: var(--muted-lt); line-height: 1.6; }
+.card-desc strong { color: var(--cream); font-weight: 700; }
+
+/* PULLQUOTE / FIN */
+.pullquote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(36px, 5.5vw, 88px);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--cream);
+  max-width: 1000px;
+}
+.slide.light .pullquote { color: var(--black); }
+.pullquote em { font-style: normal; font-weight: 700; color: var(--gold); }
+.slide.light .pullquote em { color: var(--gold-dk); }
+.pullquote .ko {
+  font-family: var(--serif-ko);
+  font-style: normal;
+  display: block;
+  font-size: 0.5em;
+  margin-top: 16px;
+  color: var(--muted-lt);
+  font-weight: 400;
+}
+.slide.light .pullquote .ko { color: var(--muted-dk); }
+
+.final-big {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(48px, 7.5vw, 112px);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.final-big em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 400;
+}
+.final-sub {
+  font-family: var(--serif-ko);
+  font-size: clamp(17px, 1.5vw, 24px);
+  color: var(--muted-lt);
+  margin-top: 22px;
+  max-width: 760px;
+  line-height: 1.6;
+}
+.final-link {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-top: 32px;
+  text-transform: uppercase;
+}
+
+/* SOURCE */
+.source {
+  margin-top: 16px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule-lt);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  max-width: 720px;
+  opacity: 0.75;
+}
+.source::before {
+  content: "Source ";
+  color: var(--gold);
+  margin-right: 6px;
+  font-weight: 700;
+}
+
+/* ATTRIBUTION INLINE */
+.attr {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--gold-lt);
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+/* PROGRESS / NAVHINT / CLICK */
+.progress {
+  position: fixed;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: var(--gold);
+  width: 0%;
+  transition: width 320ms cubic-bezier(.2,.7,.2,1);
+  z-index: 100;
+}
+.navhint {
+  position: fixed;
+  bottom: 14px; right: 18px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--muted-lt);
+  z-index: 90;
+  opacity: 0.55;
+}
+.navhint kbd {
+  background: var(--cream);
+  color: var(--black);
+  padding: 2px 6px;
+  border-radius: 2px;
+  margin: 0 2px;
+  font-family: var(--mono);
+  font-size: 10px;
+}
+.click-zone { position: fixed; top: 0; height: 100%; width: 33%; z-index: 50; }
+.click-zone.left  { left: 0;  cursor: w-resize; }
+.click-zone.right { right: 0; cursor: e-resize; }
+
+@media (max-width: 1100px) {
+  .slide { padding: 28px 36px 40px; }
+  .stage-split { grid-template-columns: 1fr; gap: 28px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .map-row.fwk { grid-template-columns: 160px 1fr 110px; }
+  .map-row.matrix { grid-template-columns: 90px 70px 1fr 1.2fr 90px; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- 01 COVER -->
+<section class="slide dark cover active">
+  <div class="cover-brand">
+    <span>FREEDOBY</span>
+    <span class="gold">—</span>
+    <span>2026</span>
+    <span class="gold">·</span>
+    <span>Deck 03 / 06</span>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-title">
+      Prompt → Context →<br><span class="gold">Harness.</span>
+    </div>
+    <div class="cover-rule"></div>
+    <div class="cover-tagline">
+      AI Agent의 진화 — <em>대체가 아니라 적층.</em>
+    </div>
+    <div class="cover-sub">
+      "어떻게 말할까"에서 "무엇을 넣을까"로, 다시 "어떤 구조로 실행할까"로.<br>
+      <strong>Better prompts don't scale. Better systems do.</strong>
+    </div>
+
+    <div class="series-map">
+      <div class="series-item done">01 &nbsp; 한계 직시 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [현상] ✓</div>
+      <div class="series-item done">02 &nbsp; HBM의 천장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [원인] ✓</div>
+      <div class="series-item current">03 &nbsp; 엔지니어링의 진화 &nbsp; [방향] ◀</div>
+      <div class="series-item">04 &nbsp; AI일수록, 클래식 &nbsp;&nbsp; [통찰]</div>
+      <div class="series-item">05 &nbsp; HALO Workflow &nbsp;&nbsp;&nbsp;&nbsp; [구현]</div>
+      <div class="series-item">06 &nbsp; 개발자 마인드셋 &nbsp;&nbsp;&nbsp; [자세]</div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span>The Evolution of AI Coding Engineering — FREEDOBY</span>
+    <span>01 / 09</span>
+  </div>
+</section>
+
+<!-- 02 ADOPTION -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Opening</span></div>
+    <div class="tag">#three-stages #stacked</div>
+    <div>02 / 09</div>
+  </div>
+  <div class="stage stage-split center">
+    <div>
+      <div class="kicker">세 단계로 진화했다</div>
+      <div class="keyword md">대체가 아니라<br><em>적층.</em></div>
+      <div class="subline">
+        새 단계가 등장했다고 이전 단계가 사라진 게 아닙니다.<br>
+        그 위에 한 층씩 <em>쌓였습니다.</em><br><br>
+        <strong>하네스 ⊃ 컨텍스트 ⊃ 프롬프트.</strong><br>
+        지금 우리가 쓰는 모든 셋업은 — 세 층의 합산입니다.
+      </div>
+    </div>
+
+    <div class="stack-wrap">
+      <div class="stack">
+        <div class="stack-tier">
+          <div class="stack-num">I</div>
+          <div>
+            <div class="stack-name">Prompt Engineering</div>
+            <div class="stack-en">"어떻게 말할까"</div>
+          </div>
+          <div class="stack-meta">
+            <span class="yr">2020~2023</span>
+            CoT · ReAct
+          </div>
+        </div>
+        <div class="stack-tier">
+          <div class="stack-num">II</div>
+          <div>
+            <div class="stack-name">Context Engineering</div>
+            <div class="stack-en">"무엇을, 어떤 순서로"</div>
+          </div>
+          <div class="stack-meta">
+            <span class="yr">2023~2025</span>
+            Lütke · Karpathy
+          </div>
+        </div>
+        <div class="stack-tier">
+          <div class="stack-num">III</div>
+          <div>
+            <div class="stack-name">Harness Engineering</div>
+            <div class="stack-en">"어떤 구조로 실행할까"</div>
+          </div>
+          <div class="stack-meta">
+            <span class="yr">2024~2026</span>
+            Bockeler · Huntley
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Opening · 세 단계 적층</span><span>02 / 09 · → Stage 1</span></div>
+</section>
+
+<!-- 03 STAGE 1 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Stage I · Prompt</span></div>
+    <div class="tag">#how-to-say #2020-2023</div>
+    <div>03 / 09</div>
+  </div>
+  <div class="stage stage-split">
+    <div>
+      <div class="kicker">Stage I — 2020~2023</div>
+      <div class="keyword">"어떻게<br><em>말할까.</em>"</div>
+      <div class="subline">
+        단위는 <em>1 호출.</em><br>
+        말하는 방식 자체를 다듬어 출력을 끌어올린다.<br><br>
+        <strong>CoT</strong> (Wei et al. 2022) ·
+        <strong>ReAct</strong> (Yao et al. 2022) ·
+        Few-shot · Role · Format.<br><br>
+        — 그런데 곧 한계가 드러난다.
+      </div>
+      <div class="source">CoT: Wei et al. 2022 · ReAct: Yao et al. 2022</div>
+    </div>
+
+    <div>
+      <div class="kicker dim">★ 한계의 증거</div>
+      <div class="keyword sm">
+        <em>Vibe Coding.</em>
+      </div>
+      <div class="attr">Karpathy 2025-02 · Collins WoTY 2025</div>
+      <div class="ascii">"fully give in to the vibes...
+ forget that the code even exists"
+
+  → 떠들고 / 받아쓰고 / 에러 다시 던지고
+  → 검토 없음 / 추적 없음 / <span class="hl">백지에서 시작</span>
+
+<span class="hl2">조리대(HBM)는 그대로다.</span>
+말솜씨를 다듬어도 — <span class="dim">deck 2 콜백</span>
+조리대가 커지지 않는다.</div>
+      <div class="subline" style="margin-top:14px;">
+        말 잘 한다고 해결되지 않는다는 걸<br>
+        커뮤니티 스스로가 <em>이름 붙여 증명</em>했다.
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Stage I · Prompt — 한계까지</span><span>03 / 09 · → Stage 2</span></div>
+</section>
+
+<!-- 04 STAGE 2 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Stage II · Context</span></div>
+    <div class="tag">#what-when-how #2023-2025</div>
+    <div>04 / 09</div>
+  </div>
+  <div class="stage stage-split">
+    <div>
+      <div class="kicker">Stage II — 2023~2025</div>
+      <div class="keyword">"무엇을,<br>어떤 <em>순서로.</em>"</div>
+      <div class="subline">
+        단위는 <em>1 세션.</em><br>
+        Tobi Lütke가 2025-06에 <strong>Context Engineering</strong>으로 명명.<br>
+        Karpathy 정의: <em>"the delicate art of filling the context window
+        with just the right information for the next step."</em>
+      </div>
+      <div class="ascii"><span class="hl">표준 프로토콜</span>
+  MCP        (Anthropic 2024-11)
+  RAG        (Lewis et al. 2020 → 2023 mainstream)
+  Function Calling
+
+<span class="hl">동적 주입</span>
+  Skills / SKILL.md   load-on-demand 모듈
+  CLAUDE.md           프로젝트 컨벤션·메모리
+  Serena (oraios)     symbol-level <span class="hl2">semantic MCP</span>
+  @path imports       파일 단위 합성</div>
+    </div>
+
+    <div>
+      <div class="kicker dim">한계</div>
+      <div class="keyword md">
+        차림표만으로는<br><em>실행 구조</em>가 안 만들어진다.
+      </div>
+      <div class="subline" style="margin-top:18px;">
+        세션이 길어지면 <em>Context Rot</em>이 시작된다.<br>
+        <span style="opacity:0.7;font-size:0.95em;">(deck 1·2 — Needle in Haystack · HBM Auto-compaction)</span><br><br>
+        잘 차려도 <strong>자기수정과 추적성</strong>이 빠져 있다.<br>
+        한 세션이 길어질수록, 흐름은 <em>희석된다.</em><br><br>
+        — 컨텍스트 위에 또 한 층이 필요하다.
+      </div>
+      <div class="source">Karpathy 2025-06 · Simon Willison · Phil Schmid</div>
+    </div>
+  </div>
+  <div class="foot"><span>Stage II · Context — 정의 + 한계</span><span>04 / 09 · → Stage 3</span></div>
+</section>
+
+<!-- 05 STAGE 3 — DEFINITION -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Stage III · Harness</span></div>
+    <div class="tag">#how-to-execute #2024-2026</div>
+    <div>05 / 09</div>
+  </div>
+  <div class="stage stage-split">
+    <div>
+      <div class="kicker">Stage III — 2024~2026</div>
+      <div class="keyword">"어떤 <em>구조로</em><br>실행할까."</div>
+      <div class="subline">
+        단위는 <em>프로젝트 / 워크플로우.</em><br>
+        Birgitta Bockeler가 <strong>Martin Fowler 블로그(2026-04)</strong>에서 공식화.
+      </div>
+      <div class="ascii" style="margin-top:14px;"><span class="hl">Agent = Model + Harness</span>
+
+  <span class="hl2">Guides</span>     (feedforward)
+            지침·규칙·페르소나가 미리 깔린다
+
+  <span class="hl2">Sensors</span>    (feedback)
+            테스트·린터·LLM judge가 결과를 본다
+
+도메인:  유지보수성 · 아키텍처 정합성 · 행동</div>
+      <div class="source">Bockeler · Thoughtworks · martinfowler.com 2026-04</div>
+    </div>
+
+    <div>
+      <div class="kicker dim">★ 가장 단순한 캐논</div>
+      <div class="keyword sm"><em>Ralph loop.</em></div>
+      <div class="attr">Geoffrey Huntley 2025-07-14</div>
+      <div class="ascii"><span class="dim">$ </span><span class="hl">while :; do
+    cat PROMPT.md | claude-code
+  done</span>
+
+진행은 <span class="hl2">git/파일</span>에 산다.
+context window이 아니라.
+
+  ✓ 모델이 잊어도 git이 기억한다
+  ✓ 매 루프마다 PROMPT.md를 다시 읽는다
+  ✓ 멈추는 조건은 사람이 정한다
+
+<span class="dim">"Deterministically bad in a
+ non-deterministic world."</span></div>
+      <div class="subline" style="margin-top:14px;font-style:italic;">
+        하네스의 핵심은 <em>똑똑한 실행</em>이 아니라<br>
+        <em>똑똑한 구조</em>다.
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Stage III · Harness — 정의</span><span>05 / 09 · → 4대장</span></div>
+</section>
+
+<!-- 06 FRAMEWORKS -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Stage III · Frameworks</span></div>
+    <div class="tag">#superpowers #gstack #bmad #omc</div>
+    <div>06 / 09</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">한 도구 위에 다시 한 층</div>
+    <div class="keyword md">하네스의 <em>4대장.</em></div>
+    <div class="subline" style="max-width:920px;margin-top:8px;">
+      Cursor·Claude Code 위에 사람들이 <em>또 하네스를 쌓고 있다.</em><br>
+      그것 자체가 <strong>Stage 3의 메타-증거</strong> — 진화는 도구에서 멈추지 않고
+      <em>워크플로우</em>로 이어진다.
+    </div>
+
+    <div class="mapping">
+      <div class="map-row fwk">
+        <div class="map-cell">
+          <div class="mc-label">Framework — Author</div>
+          <div class="mc-name">superpowers</div>
+          <div class="mc-en">Jesse Vincent · obra</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-desc">
+            <strong>plan-first methodology</strong>로 시작해 작은 task로 분해, TDD·리뷰가 사이클에 박힘.
+            agentic skills 프레임워크 + 부분-에이전트 협업.
+          </div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-tag">
+            <span class="star">★ 176K</span>
+            v5.0 · 2026-03
+          </div>
+        </div>
+      </div>
+
+      <div class="map-row fwk">
+        <div class="map-cell">
+          <div class="mc-label">Framework — Author</div>
+          <div class="mc-name">gstack</div>
+          <div class="mc-en">Garry Tan · Y Combinator</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-desc">
+            YC CEO의 <strong>23-tool 셋업</strong>: CEO · Designer · Eng Manager · Release Manager · Doc Engineer · QA.
+            한 명의 개인이 가상 팀을 끼고 일한다.
+          </div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-tag">
+            <span class="star">★ 10K / 48시간</span>
+            2026-03
+          </div>
+        </div>
+      </div>
+
+      <div class="map-row fwk">
+        <div class="map-cell">
+          <div class="mc-label">Framework — Author</div>
+          <div class="mc-name">BMAD-METHOD</div>
+          <div class="mc-en">BMad Code · Agile AI</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-desc">
+            "Breakthrough Method for Agile AI Driven Dev". <strong>12+ 도메인 페르소나</strong>(PM·Architect·Dev·UX·QA),
+            34+ 워크플로우, Party Mode 멀티-에이전트 협업.
+          </div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-tag">
+            v6.6 · 2026-04
+            <span class="kr">국내 활발 사용</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-row fwk">
+        <div class="map-cell">
+          <div class="mc-label">Framework — Author</div>
+          <div class="mc-name"><span class="gold">🇰🇷</span> oh-my-claudecode</div>
+          <div class="mc-en">Yeachan-Heo · 한국</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-desc">
+            <strong>한국 개발자가 만든</strong> multi-agent orchestration. 19 agents + 36 skills,
+            tmux fan-out으로 task를 동시에 분산. <em>"A weapon, not a tool."</em>
+          </div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-tag">
+            <span class="kr">국내 메이커</span>
+            tmux orchestration
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Stage III · 4 Frameworks</span><span>06 / 09 · → vendor 흐름</span></div>
+</section>
+
+<!-- 07 VENDOR FLOWS -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Stage III · Vendor Flows</span></div>
+    <div class="tag">#devin #kiro #closing-the-loop</div>
+    <div>07 / 09</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">vendor가 그리는 두 흐름</div>
+    <div class="keyword md">자율로 <em>닫거나</em>, 단계로 <em>나누거나.</em></div>
+
+    <div class="card-grid">
+      <div class="card cool">
+        <div class="card-lbl">Closing the Agent Loop</div>
+        <div class="card-name"><em>Devin.</em> Cognition Labs.</div>
+        <div class="card-by">코드리뷰 코멘트를 자율로 fix</div>
+        <div class="card-desc">
+          PR이 올라오면 리뷰어 코멘트를 읽고 <strong>스스로 수정 커밋을 푸시</strong>한다.
+          개발자가 매번 babysit하지 않아도 — sensor가 작동하면 loop이 닫힌다.<br><br>
+          <em>"Long-horizon agents"</em> — Addy Osmani의 표현 그대로.
+        </div>
+      </div>
+
+      <div class="card cool">
+        <div class="card-lbl">Spec-Driven Development</div>
+        <div class="card-name"><em>Kiro.</em> Amazon Web Services.</div>
+        <div class="card-by">Requirements → Design → Tasks 3-phase</div>
+        <div class="card-desc">
+          요구사항을 <strong>EARS 노테이션</strong>으로 강제, 다음 phase로 넘어가기 전 게이트.
+          AI가 코드 쓰기 전에 <em>사람이 spec을 검증</em>한다.<br><br>
+          phase 자체가 traceability — spec.md가 약속이 된다.
+        </div>
+      </div>
+    </div>
+
+    <div class="ascii" style="margin-top:18px;"><span class="hl">공통점:</span> 둘 다 model 위에 <span class="hl2">실행 구조</span>를 한 층 더 깐다
+       — Hooks · Subagents · Worktree 같은 <span class="hl2">Claude Code 메커니즘</span>이
+         이 위에서 게이트·격리·자동화를 떠받친다.
+
+<span class="hl">차이:</span>   Devin은 <span class="hl2">자율 closure</span>로 사람의 부담을 뺀다
+       Kiro는 <span class="hl2">phase + gate</span>로 사람의 판단을 박는다
+       — 트레이드오프는 결국 "어디까지 사람이 들어갈 것인가"</div>
+  </div>
+  <div class="foot"><span>Stage III · Vendor Flows</span><span>07 / 09 · → 종합</span></div>
+</section>
+
+<!-- 08 SYNTHESIS MATRIX -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Synthesis</span></div>
+    <div class="tag">#one-page #stacked</div>
+    <div>08 / 09</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">한 페이지로</div>
+    <div class="display sm">
+      세 단계 — <em>한 호흡에.</em>
+    </div>
+
+    <div class="mapping" style="margin-top:24px;">
+      <div class="map-row matrix">
+        <div class="map-cell">
+          <div class="mc-label">Stage</div>
+          <div class="mc-name">Prompt</div>
+          <div class="mc-en">2020~2023</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">단위</div>
+          <div class="mc-name">1 호출</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">질문</div>
+          <div class="mc-name">"어떻게 말할까"</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">핵심 도구</div>
+          <div class="mc-desc">CoT · ReAct · Few-shot · Role · Format</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">한계</div>
+          <div class="mc-name"><span class="gold">백지</span></div>
+        </div>
+      </div>
+
+      <div class="map-row matrix">
+        <div class="map-cell">
+          <div class="mc-label">Stage</div>
+          <div class="mc-name">Context</div>
+          <div class="mc-en">2023~2025</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">단위</div>
+          <div class="mc-name">1 세션</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">질문</div>
+          <div class="mc-name">"무엇을, 어떤 순서"</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">핵심 도구</div>
+          <div class="mc-desc">MCP · RAG · CLAUDE.md · Skills · Serena</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">한계</div>
+          <div class="mc-name"><span class="gold">Rot</span></div>
+        </div>
+      </div>
+
+      <div class="map-row matrix">
+        <div class="map-cell">
+          <div class="mc-label">Stage</div>
+          <div class="mc-name">Harness</div>
+          <div class="mc-en">2024~2026</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">단위</div>
+          <div class="mc-name">프로젝트</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">질문</div>
+          <div class="mc-name">"어떤 구조로 실행"</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">핵심 도구</div>
+          <div class="mc-desc">Ralph · Hooks · Subagents · Worktree<br>+ superpowers · gstack · BMAD · OMC</div>
+        </div>
+        <div class="map-cell">
+          <div class="mc-label">한계</div>
+          <div class="mc-name"><span class="gold">진화 중</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subline" style="margin-top:20px;text-align:center;max-width:none;">
+      <em>하네스 ⊃ 컨텍스트 ⊃ 프롬프트.</em> &nbsp;—&nbsp;
+      대체가 아니라 적층이다.
+    </div>
+  </div>
+  <div class="foot"><span>Synthesis · 한 페이지 적층</span><span>08 / 09 · → Fin</span></div>
+</section>
+
+<!-- 09 FIN -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Fin</span></div>
+    <div class="tag">#bridge-to-deck-4</div>
+    <div>09 / 09</div>
+  </div>
+  <div class="stage stage-split">
+    <div>
+      <div class="kicker">Fin.</div>
+      <div class="final-big">
+        Better prompts<br>don't <em>scale.</em>
+      </div>
+      <div class="final-sub">
+        Better systems do.<br><br>
+        말하는 방식을 다듬는 시대는 끝났다.<br>
+        지금은 <em>실행 구조</em>를 짜는 시대다.<br>
+        그러면 — 그 구조는 <strong>어디서 왔나?</strong>
+      </div>
+    </div>
+
+    <div>
+      <div class="kicker dim">다음</div>
+      <div class="keyword sm">
+        그런데 — <em>이게 정말</em><br>새로운 답인가?
+      </div>
+      <div class="subline" style="margin-top:18px;">
+        Phase · 검증 · 확장 — 우리가 지금 <em>새로 만들고 있다</em> 믿는 것들.<br>
+        50년 전에 다른 이름으로 같은 답이 있었다.<br><br>
+        다음 deck에서 그 이름들을 만난다.
+      </div>
+
+      <div class="series-map" style="margin-top:24px;">
+        <div class="series-item done">01 &nbsp; 한계 직시 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ✓</div>
+        <div class="series-item done">02 &nbsp; HBM의 천장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ✓</div>
+        <div class="series-item done">03 &nbsp; 엔지니어링의 진화 &nbsp; ✓</div>
+        <div class="series-item current">04 &nbsp; AI일수록, 클래식 &nbsp;&nbsp; ◀</div>
+      </div>
+
+      <div class="final-link">→ Deck 4 · AI일수록, 클래식이다</div>
+    </div>
+  </div>
+  <div class="foot"><span>Fin · Bridge to Deck 4</span><span>09 / 09 · END</span></div>
+</section>
+
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="navhint"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>F</kbd> fullscreen</div>
+<div class="click-zone left"  id="cz-left"></div>
+<div class="click-zone right" id="cz-right"></div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const progress = document.getElementById('progress');
+  const total = slides.length;
+  let idx = 0;
+
+  function go(n) {
+    idx = Math.max(0, Math.min(total - 1, n));
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    progress.style.width = ((idx + 1) / total * 100) + '%';
+    history.replaceState(null, '', '#' + (idx + 1));
+  }
+  function next() { go(idx + 1); }
+  function prev() { go(idx - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight',' ','PageDown'].includes(e.key)) { e.preventDefault(); next(); }
+    else if (['ArrowLeft','PageUp'].includes(e.key))   { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') go(0);
+    else if (e.key === 'End')  go(total - 1);
+    else if (e.key.toLowerCase() === 'f') {
+      document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    }
+  });
+
+  document.getElementById('cz-left').addEventListener('click', prev);
+  document.getElementById('cz-right').addEventListener('click', next);
+
+  const h = parseInt(location.hash.replace('#',''), 10);
+  go(!isNaN(h) && h >= 1 && h <= total ? h - 1 : 0);
+})();
+</script>
+
+</body>
+</html>

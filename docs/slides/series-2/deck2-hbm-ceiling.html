@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HBM의 천장</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black:   #0c0b09;
+  --cream:   #f0ece0;
+  --warm:    #f5f0e6;
+  --gold:    #b8924a;
+  --gold-lt: #ddb96a;
+  --gold-dk: #7a5f2e;
+  --rule-lt: rgba(240, 236, 224, 0.18);
+  --rule-dk: rgba(12, 11, 9, 0.14);
+  --muted-dk:#6a6458;
+  --muted-lt:#c8c0b0;
+  --red:     #b04a3a;
+  --green:   #7a8a4a;
+  --blue:    #6a8aa6;
+
+  --serif:   'Cormorant Garamond', 'Gowun Batang', Georgia, serif;
+  --serif-ko:'Gowun Batang', 'Cormorant Garamond', serif;
+  --sans:    'IBM Plex Sans KR', 'Helvetica Neue', sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { background: var(--black); color: var(--cream); font-family: var(--sans); }
+
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 44px 80px 52px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition: opacity 500ms cubic-bezier(.2,.7,.2,1), transform 600ms cubic-bezier(.2,.7,.2,1);
+}
+.slide.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.slide.dark  { background: var(--black); color: var(--cream); }
+.slide.light { background: var(--warm);  color: var(--black); }
+
+.slide::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(180,170,140,0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  z-index: 0;
+}
+.slide > * { position: relative; z-index: 1; }
+
+/* CHROME */
+.chrome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-bottom: 12px;
+  border-bottom: 1px solid;
+}
+.slide.dark .chrome  { color: var(--muted-lt); border-color: var(--rule-lt); }
+.slide.light .chrome { color: var(--muted-dk); border-color: var(--rule-dk); }
+.chrome .seg { display: flex; gap: 10px; align-items: center; }
+.chrome .seg .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); display: inline-block; }
+.chrome .tag { color: var(--gold); text-transform: none; letter-spacing: 0.05em; }
+.slide.light .chrome .tag { color: var(--gold-dk); }
+
+/* FOOT */
+.foot {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding-top: 12px;
+  border-top: 1px solid;
+}
+.slide.dark .foot  { color: var(--muted-lt); border-color: var(--rule-lt); }
+.slide.light .foot { color: var(--muted-dk); border-color: var(--rule-dk); }
+
+/* STAGE */
+.stage { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 28px 0; min-height: 0; }
+.stage.top { justify-content: flex-start; padding-top: 24px; }
+.stage-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* TYPOGRAPHY */
+.kicker {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.kicker::before { content: ""; display: inline-block; width: 20px; height: 1px; background: var(--gold); }
+.slide.light .kicker { color: var(--gold-dk); }
+.slide.light .kicker::before { background: var(--gold-dk); }
+.kicker.dim { color: var(--muted-lt); }
+.kicker.dim::before { background: var(--muted-lt); }
+
+.display {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(56px, 9vw, 148px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+}
+.slide.light .display { color: var(--black); }
+.display em { font-style: italic; font-weight: 400; color: var(--gold); }
+.slide.light .display em { color: var(--gold-dk); }
+.display.md { font-size: clamp(44px, 6.5vw, 100px); }
+.display.sm { font-size: clamp(36px, 5vw, 76px); }
+
+.keyword {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(40px, 5.6vw, 84px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+.slide.light .keyword { color: var(--black); }
+.keyword em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+.slide.light .keyword em { color: var(--gold-dk); }
+.keyword.md { font-size: clamp(32px, 4.4vw, 64px); }
+.keyword.sm { font-size: clamp(26px, 3.4vw, 50px); }
+
+.subline {
+  font-family: var(--serif-ko);
+  font-size: clamp(15px, 1.25vw, 20px);
+  line-height: 1.7;
+  color: var(--muted-lt);
+  max-width: 720px;
+  margin-top: 6px;
+}
+.slide.light .subline { color: var(--muted-dk); }
+.subline em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--cream);
+}
+.slide.light .subline em { color: var(--black); }
+.subline strong { color: var(--cream); font-weight: 700; }
+.slide.light .subline strong { color: var(--black); }
+
+.divider { width: 40px; height: 1px; background: var(--gold); opacity: 0.5; margin: 22px 0; }
+
+/* COVER */
+.cover { justify-content: space-between; padding: 52px 80px; }
+.cover-brand {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  display: flex; gap: 16px; align-items: baseline;
+}
+.cover-brand .gold { color: var(--gold); }
+.cover-main { display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 24px 0; }
+.cover-title {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(80px, 13vw, 200px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.cover-title .gold { color: var(--gold); font-family: var(--serif); font-style: italic; font-weight: 400; }
+.cover-rule { width: 100%; height: 1px; background: var(--gold); margin: 28px 0; opacity: 0.5; }
+.cover-tagline {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(26px, 3.2vw, 46px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 24px;
+  max-width: 820px;
+}
+.cover-tagline em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+.cover-sub {
+  font-family: var(--serif-ko);
+  font-size: clamp(16px, 1.4vw, 22px);
+  color: var(--muted-lt);
+  max-width: 720px;
+  line-height: 1.6;
+}
+.cover-sub strong { color: var(--cream); font-weight: 700; }
+.cover-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+}
+
+.series-map { display: flex; flex-direction: column; gap: 6px; margin-top: 28px; }
+.series-item {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--muted-lt);
+  opacity: 0.55;
+}
+.series-item.current { color: var(--gold); opacity: 1; }
+.series-item.done { color: var(--muted-lt); opacity: 0.85; }
+
+/* ASCII / mono-block */
+.ascii {
+  font-family: var(--mono);
+  font-size: clamp(11px, 0.9vw, 13px);
+  line-height: 1.85;
+  white-space: pre-wrap;
+  padding: 18px 22px;
+  background: rgba(184,146,74,0.05);
+  border-left: 2px solid var(--gold);
+  margin-top: 18px;
+  color: var(--muted-lt);
+  border-radius: 1px;
+}
+.slide.light .ascii { color: var(--muted-dk); border-left-color: var(--gold-dk); background: rgba(122,95,46,0.06); }
+.ascii .hl  { color: var(--gold); font-weight: 700; }
+.ascii .hl2 { color: var(--cream); font-weight: 700; }
+.slide.light .ascii .hl2 { color: var(--black); }
+.ascii .dim { color: var(--muted-lt); opacity: 0.55; }
+.slide.light .ascii .dim { color: var(--muted-dk); }
+.ascii .good { color: var(--green); font-weight: 700; }
+.ascii .bad  { color: var(--red);   font-weight: 700; }
+
+/* MEMORY LADDER */
+.mem-ladder { display: flex; flex-direction: column; margin-top: 22px; border-top: 1px solid var(--rule-lt); }
+.mem-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 110px 110px;
+  align-items: center;
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--rule-lt);
+  gap: 18px;
+}
+.mem-row.hi { background: rgba(184,146,74,0.07); }
+.mem-label { font-family: var(--mono); font-size: 11px; color: var(--cream); letter-spacing: 0.04em; }
+.mem-row.hi .mem-label { color: var(--gold); }
+.mem-bar-wrap { height: 5px; background: rgba(240,236,224,0.06); overflow: hidden; }
+.mem-bar-fill { height: 100%; }
+.mem-val { font-family: var(--mono); font-size: 10px; color: var(--muted-lt); text-align: right; }
+.mem-speed { font-family: var(--mono); font-size: 10px; color: var(--gold-lt); text-align: right; }
+.mem-row.hi .mem-speed { color: var(--gold); font-weight: 700; }
+
+/* HBM bar */
+.hbm-outer {
+  width: 100%; height: 50px;
+  background: rgba(240,236,224,0.04);
+  border: 1px solid var(--rule-lt);
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.hbm-weights { position: absolute; left: 0; top: 0; bottom: 0; background: rgba(200,192,176,0.22); transition: width 0.6s ease; }
+.hbm-kv { position: absolute; top: 0; bottom: 0; background: rgba(184,146,74,0.55); transition: left 0.6s ease, width 0.6s ease; }
+.hbm-kv.over { background: rgba(176,74,58,0.7); }
+.hbm-lbl { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; color: var(--cream); letter-spacing: 0.06em; pointer-events: none; z-index: 2; }
+.hbm-legend { display: flex; gap: 22px; margin-top: 10px; }
+.hbm-legend-item { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 10px; color: var(--muted-lt); }
+.hbm-dot { width: 10px; height: 10px; border-radius: 1px; }
+
+#req-btn {
+  margin-top: 18px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--gold);
+  border: none;
+  padding: 11px 24px;
+  cursor: pointer;
+  border-radius: 1px;
+  transition: opacity 0.2s;
+}
+#req-btn:hover { opacity: 0.85; }
+#req-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+#conv-log {
+  margin-top: 14px;
+  max-height: 150px;
+  overflow-y: auto;
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--muted-lt);
+  background: rgba(240,236,224,0.03);
+  border: 1px solid var(--rule-lt);
+  padding: 10px 14px;
+  border-radius: 1px;
+}
+.log-turn { margin-bottom: 7px; }
+.log-turn.lost { opacity: 0.22; text-decoration: line-through; }
+.log-u { color: var(--gold-lt); }
+.log-a { color: var(--muted-lt); }
+
+#compact-notice {
+  display: none;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border: 1px solid rgba(176,74,58,0.4);
+  background: rgba(176,74,58,0.05);
+}
+#bridge-txt {
+  display: none;
+  margin-top: 14px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(15px, 1.3vw, 20px);
+  color: var(--muted-lt);
+  border-left: 2px solid var(--gold);
+  padding-left: 14px;
+}
+
+/* CHAIN list */
+.chain { display: flex; flex-direction: column; margin-top: 18px; border-top: 1px solid var(--gold); }
+.chain-item {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  align-items: start;
+  gap: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule-lt);
+}
+.chain-no {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(20px, 1.8vw, 28px);
+  color: var(--gold);
+  opacity: 0.7;
+  line-height: 1;
+  padding-top: 4px;
+}
+.chain-lbl {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(15px, 1.3vw, 20px);
+  color: var(--cream);
+  margin-bottom: 4px;
+  letter-spacing: -0.005em;
+}
+.chain-desc {
+  font-family: var(--serif-ko);
+  font-size: clamp(13px, 1.05vw, 16px);
+  color: var(--muted-lt);
+  line-height: 1.5;
+}
+
+/* HBM SEGMENT BAR (slide 07) */
+.hbm-seg {
+  height: 50px;
+  display: flex;
+  border: 1px solid var(--rule-lt);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.hbm-seg > div {
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 10px;
+}
+.seg-w  { background: rgba(200,192,176,0.18); color: var(--cream); }
+.seg-kv { background: rgba(184,146,74,0.4);   color: var(--gold-lt); }
+.seg-fr { background: rgba(240,236,224,0.04); color: var(--muted-lt); }
+.seg-cap {
+  font-family: var(--mono); font-size: 9px;
+  color: var(--muted-lt); margin-top: 5px; text-align: right;
+  letter-spacing: 0.1em;
+}
+
+/* CARD GRID (slide 08, 13) */
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
+.card-grid.two { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+.card {
+  border: 1px solid var(--rule-lt);
+  background: rgba(240,236,224,0.03);
+  padding: 18px 20px;
+  border-radius: 1px;
+}
+.card.warn { border-color: rgba(176,74,58,0.35); background: rgba(176,74,58,0.04); }
+.card.good { border-color: rgba(122,138,74,0.35); background: rgba(122,138,74,0.04); }
+.card.cool { border-color: rgba(184,146,74,0.3); background: rgba(184,146,74,0.05); }
+.card-lbl  { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted-lt); margin-bottom: 10px; }
+.card-num  { font-family: var(--serif); font-weight: 700; font-size: clamp(28px, 3vw, 44px); color: var(--gold); line-height: 1; }
+.card.warn .card-num { color: var(--red); }
+.card.good .card-num { color: var(--green); }
+.card-foot { font-family: var(--serif-ko); font-size: 12px; color: var(--muted-lt); margin-top: 10px; line-height: 1.5; }
+.card-list { font-family: var(--serif-ko); font-size: clamp(13px, 1.05vw, 16px); color: var(--cream); line-height: 1.7; }
+.card-list li { list-style: none; padding: 2px 0; }
+.card-list li::before { content: "—"; color: var(--gold); margin-right: 10px; }
+.card.warn .card-list { color: var(--cream); }
+.card.warn .card-list li::before { content: "✗"; color: var(--red); }
+.card.good .card-list li::before { content: "✓"; color: var(--green); }
+.card-tag  { font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em; color: var(--muted-lt); margin-top: 12px; opacity: 0.7; }
+
+/* PROGRESS / NAVHINT / CLICK */
+.progress {
+  position: fixed;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: var(--gold);
+  width: 0%;
+  transition: width 320ms cubic-bezier(.2,.7,.2,1);
+  z-index: 100;
+}
+.navhint {
+  position: fixed;
+  bottom: 14px; right: 18px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--muted-lt);
+  z-index: 90;
+  opacity: 0.55;
+}
+.navhint kbd {
+  background: var(--cream);
+  color: var(--black);
+  padding: 2px 6px;
+  border-radius: 2px;
+  margin: 0 2px;
+  font-family: var(--mono);
+  font-size: 10px;
+}
+.click-zone { position: fixed; top: 0; height: 100%; width: 33%; z-index: 50; }
+.click-zone.left  { left: 0;  cursor: w-resize; }
+.click-zone.right { right: 0; cursor: e-resize; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: rgba(240,236,224,0.04); }
+::-webkit-scrollbar-thumb { background: var(--rule-lt); }
+
+@media (max-width: 1100px) {
+  .slide { padding: 28px 36px 40px; }
+  .stage-split { grid-template-columns: 1fr; gap: 28px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .card-grid.two { grid-template-columns: 1fr; }
+  .mem-row { grid-template-columns: 130px 1fr 90px 90px; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- 01 COVER -->
+<section class="slide dark cover active">
+  <div class="cover-brand">
+    <span>FREEDOBY</span>
+    <span class="gold">—</span>
+    <span>2026</span>
+    <span class="gold">·</span>
+    <span>Deck 02 / 06</span>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-title">
+      HBM의<br><span class="gold">천장.</span>
+    </div>
+    <div class="cover-rule"></div>
+    <div class="cover-tagline">
+      더 큰 컨텍스트 윈도우가 답이 아닌 이유 — <em>물리 법칙이 먼저다.</em>
+    </div>
+    <div class="cover-sub">
+      AI의 한계는 알고리즘 문제가 아니다. <strong>50년 된 Memory Wall</strong>의 최신 형태다.<br>
+      Rubin GPU가 나와도, GPT-6이 나와도 — 천장의 형태는 바뀌지 않는다.
+    </div>
+
+    <div class="series-map">
+      <div class="series-item done">01 &nbsp; 한계 직시 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [현상] ✓</div>
+      <div class="series-item current">02 &nbsp; HBM의 천장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [원인] ◀</div>
+      <div class="series-item">03 &nbsp; 엔지니어링의 진화 &nbsp; [방향]</div>
+      <div class="series-item">04 &nbsp; AI일수록, 클래식 &nbsp;&nbsp; [통찰]</div>
+      <div class="series-item">05 &nbsp; HALO Workflow &nbsp;&nbsp;&nbsp;&nbsp; [구현]</div>
+      <div class="series-item">06 &nbsp; 개발자 마인드셋 &nbsp;&nbsp;&nbsp; [자세]</div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span>The Ceiling of HBM — AI Coding Engineering</span>
+    <span>01 / 17</span>
+  </div>
+</section>
+
+<!-- 02 잘못된 가정 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Opening</span></div>
+    <div class="tag">#wrong-assumption</div>
+    <div>02 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">잘못된 가정</div>
+    <div class="keyword">
+      "GPT-5가 나오면<br><em>해결되지 않을까?</em>"
+    </div>
+    <div class="divider"></div>
+    <div class="subline">
+      많은 개발자들이 이렇게 생각합니다.<br>
+      <em>더 좋은 모델, 더 긴 컨텍스트 윈도우 — 그러면 되는 거 아닌가.</em><br><br>
+      이 질문 자체가 잘못된 전제를 깔고 있습니다. AI의 한계는 <em>알고리즘</em> 문제가 아닙니다.
+      <strong>물리</strong> 문제입니다.
+    </div>
+  </div>
+  <div class="foot"><span>Opening · 잘못된 전제</span><span>02 / 17 · → Memory Wall</span></div>
+</section>
+
+<!-- 03 물리 법칙 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Opening</span></div>
+    <div class="tag">#memory-wall #fifty-years</div>
+    <div>03 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">답</div>
+    <div class="keyword">
+      물리 법칙이다 —<br>그리고 <em>50년 된</em> 문제다.
+    </div>
+    <div class="divider"></div>
+    <div class="subline">
+      AI가 부딪히는 한계는 새로운 문제가 아닙니다.<br>
+      컴퓨터 과학이 1970년대부터 씨름해온 문제의 <em>최신 형태</em>입니다.<br><br>
+      연산 속도는 기하급수적으로 빨라졌습니다.<br>
+      메모리 대역폭은 그 속도를 따라가지 못했습니다.<br><br>
+      <em>Memory Wall.</em> 오늘날 AI의 천장이 여기서 옵니다.
+    </div>
+  </div>
+  <div class="foot"><span>Opening · 50년 된 문제</span><span>03 / 17 · → 메모리 계층</span></div>
+</section>
+
+<!-- 04 메모리 계층 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Memory Hierarchy</span></div>
+    <div class="tag">#hierarchy #bandwidth</div>
+    <div>04 / 17</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">원칙</div>
+    <div class="keyword md">빠를수록 <em>작고</em> 비싸다.</div>
+
+    <div class="mem-ladder">
+      <div class="mem-row">
+        <span class="mem-label">CPU Register</span>
+        <div class="mem-bar-wrap"><div class="mem-bar-fill" style="width:100%;background:var(--cream);"></div></div>
+        <span class="mem-val">KB 단위</span>
+        <span class="mem-speed">~TB/s</span>
+      </div>
+      <div class="mem-row">
+        <span class="mem-label">L1 / L2 / L3 Cache</span>
+        <div class="mem-bar-wrap"><div class="mem-bar-fill" style="width:80%;background:var(--muted-lt);"></div></div>
+        <span class="mem-val">MB 단위</span>
+        <span class="mem-speed">수백 GB/s</span>
+      </div>
+      <div class="mem-row hi">
+        <span class="mem-label">HBM (GPU) ◀</span>
+        <div class="mem-bar-wrap"><div class="mem-bar-fill" style="width:58%;background:var(--gold);"></div></div>
+        <span class="mem-val">수백 GB</span>
+        <span class="mem-speed">22 TB/s</span>
+      </div>
+      <div class="mem-row">
+        <span class="mem-label">System DRAM</span>
+        <div class="mem-bar-wrap"><div class="mem-bar-fill" style="width:36%;background:var(--blue);"></div></div>
+        <span class="mem-val">수 TB</span>
+        <span class="mem-speed">~1.2 TB/s</span>
+      </div>
+      <div class="mem-row">
+        <span class="mem-label">NVMe SSD</span>
+        <div class="mem-bar-wrap"><div class="mem-bar-fill" style="width:13%;background:var(--green);"></div></div>
+        <span class="mem-val">수십 TB</span>
+        <span class="mem-speed">~7 GB/s</span>
+      </div>
+    </div>
+
+    <div class="subline" style="margin-top:18px;">
+      HBM은 GPU의 System DRAM 자리. 대역폭을 극단적으로 높인 버전입니다.<br>
+      Rubin GPU 기준 <em>22 TB/s</em> — 그러나 용량은 <strong>288 GB</strong>가 한계.
+    </div>
+  </div>
+  <div class="foot"><span>Memory Hierarchy · 빠를수록 작다</span><span>04 / 17 · → KV Cache 재사용</span></div>
+</section>
+
+<!-- 05 KV 재사용 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Memory Hierarchy</span></div>
+    <div class="tag">#kv-reuse #layering</div>
+    <div>05 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">업계의 답</div>
+    <div class="keyword md">KV Cache <em>재사용</em> + 레이어링.</div>
+    <div class="ascii"><span class="good">이상적:</span>  같은 prefix → KV Cache 재사용
+          → HBM 부담 최소화, 레이턴시 80% 감소
+          GPT-5.5: 24시간 보존 / Anthropic: 5분~1시간
+
+<span class="bad">현실:</span>    대화가 쌓일수록 prefix가 바뀜
+          → 재사용 불가 → 매번 전체 재계산
+          → HBM이 계속 채워짐
+
+<span class="hl">넘치면:</span>  HBM → DRAM → SSD 오프로드
+          HBM   <span class="good">22 TB/s</span>
+          DRAM  <span class="hl2">1.2 TB/s</span>   <span class="dim">18배 느림</span>
+          SSD   <span class="bad">7 GB/s</span>     <span class="dim">3,000배 느림</span></div>
+    <div class="subline" style="margin-top:18px;">
+      <em>재사용이 되면 빠르고, 안 되면 느리고, 넘치면 더 느리다.</em>
+    </div>
+  </div>
+  <div class="foot"><span>Memory Hierarchy · KV 재사용</span><span>05 / 17 · → HBM = 조리대</span></div>
+</section>
+
+<!-- 06 HBM = 조리대 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
+    <div class="tag">#metaphor #countertop</div>
+    <div>06 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">비유</div>
+    <div class="keyword">HBM = <em>AI의 조리대.</em></div>
+    <div class="divider"></div>
+    <div class="stage-split">
+      <div class="subline">
+        재료(<em>Weights</em>)는 냉장고(<em>Storage</em>)에 있습니다.<br><br>
+        그러나 실제 연산은<br><em>조리대(HBM) 위에서만</em> 일어납니다.<br><br>
+        조리대가 좁으면 아무리 냉장고가 커도<br><strong>한 번에 쓸 수 없습니다.</strong>
+      </div>
+      <div class="ascii" style="margin-top:0;"><span class="dim">냉장고 (Storage)</span>
+  Model Weights
+  Fine-tuned Data
+
+<span class="dim">조리대 (HBM)</span>
+  <span class="hl">▶ 실제 연산 공간</span>
+  ▶ 여기 없으면 못 씀
+
+<span class="dim">A100: 80GB · B200: 192GB · Rubin: 288GB</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>HBM + KV Cache · 조리대</span><span>06 / 17 · → 경쟁하는 것들</span></div>
+</section>
+
+<!-- 07 HBM 안에는 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
+    <div class="tag">#prefill #decode #zerosum</div>
+    <div>07 / 17</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">구조</div>
+    <div class="keyword md">HBM 안에서 <em>경쟁</em>하는 것들.</div>
+
+    <div style="margin-top:22px;">
+      <div class="hbm-seg">
+        <div class="seg-w" style="width:72%;">Model Weights ~140 GB</div>
+        <div class="seg-kv" style="width:14%;">KV</div>
+        <div class="seg-fr" style="width:14%;">여유</div>
+      </div>
+      <div class="seg-cap">B200 192GB 기준 · 70B 모델 fp16</div>
+    </div>
+
+    <div class="ascii"><span class="dim">Prefill 단계</span>   프롬프트 전체를 한 번에 처리
+              → 모든 토큰의 K,V 벡터 계산 → HBM에 적재
+
+<span class="dim">Decode 단계</span>    토큰을 하나씩 생성
+              → 새 토큰마다 K,V 추가 → HBM이 조금씩 차오름
+
+<span class="hl">제로섬</span>        Weights가 크면 KV 공간 줄고
+              → KV가 늘면 Weights를 다른 GPU로 쪼개야</div>
+  </div>
+  <div class="foot"><span>HBM + KV Cache · 제로섬</span><span>07 / 17 · → 컨텍스트 = KV</span></div>
+</section>
+
+<!-- 08 컨텍스트 = KV -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
+    <div class="tag">#equivalence #scale</div>
+    <div>08 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">등가</div>
+    <div class="keyword md">컨텍스트가 길어진다<br>= <em>KV Cache가 HBM을 채운다.</em></div>
+
+    <div class="card-grid">
+      <div class="card cool">
+        <div class="card-lbl">128K 토큰</div>
+        <div class="card-num">~40 GB</div>
+        <div class="card-foot">B200 기준 weights 포함 시 빠듯</div>
+      </div>
+      <div class="card cool">
+        <div class="card-lbl">512K 토큰</div>
+        <div class="card-num">~160 GB</div>
+        <div class="card-foot">B200 192GB 한 장 불가</div>
+      </div>
+      <div class="card warn">
+        <div class="card-lbl">1M 토큰</div>
+        <div class="card-num">~320 GB</div>
+        <div class="card-foot">Rubin 288GB도 한 장 불가</div>
+      </div>
+    </div>
+
+    <div class="subline" style="margin-top:22px;">
+      매 API 요청마다 전체 대화를 보냅니다.<br>
+      대화가 쌓일수록 Prefill KV가 처음부터 크고, Decode가 진행될수록 더 쌓입니다.
+    </div>
+  </div>
+  <div class="foot"><span>HBM + KV Cache · 컨텍스트 = KV</span><span>08 / 17 · → 라이브 시각화</span></div>
+</section>
+
+<!-- 09 라이브 시각화 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
+    <div class="tag">#live #auto-compaction</div>
+    <div>09 / 17</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">★ 라이브 시각화</div>
+    <div class="keyword sm">요청할 때마다 <em>HBM이 차오른다.</em></div>
+
+    <div style="margin-top:18px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--muted-lt);letter-spacing:0.08em;">HBM 192 GB (B200 기준)</span>
+        <span id="hbm-pct" style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:0.08em;">36%</span>
+      </div>
+      <div class="hbm-outer">
+        <div class="hbm-weights" id="hbm-w" style="width:36%"></div>
+        <div class="hbm-kv" id="hbm-k" style="left:36%;width:0%"></div>
+        <div class="hbm-lbl" id="hbm-l">Weights 70GB &nbsp;|&nbsp; KV 0GB</div>
+      </div>
+      <div class="hbm-legend">
+        <div class="hbm-legend-item"><div class="hbm-dot" style="background:rgba(200,192,176,0.5)"></div>Model Weights</div>
+        <div class="hbm-legend-item"><div class="hbm-dot" style="background:rgba(184,146,74,0.6)"></div>KV Cache</div>
+        <div class="hbm-legend-item"><div class="hbm-dot" style="background:rgba(176,74,58,0.7)"></div>초과</div>
+      </div>
+    </div>
+
+    <button id="req-btn" onclick="sendReq()">Claude에게 요청 →</button>
+    <div id="compact-notice"></div>
+    <div id="conv-log"></div>
+    <div id="bridge-txt">물리적으로 유실되지 않아도, 또 다른 문제가 있다 →</div>
+  </div>
+  <div class="foot"><span>HBM + KV Cache · Live</span><span>09 / 17 · → Attention</span></div>
+</section>
+
+<!-- 10 Attention -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Context Rot</span></div>
+    <div class="tag">#attention</div>
+    <div>10 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">메커니즘</div>
+    <div class="keyword md">Attention이란 무엇인가.</div>
+    <div class="divider"></div>
+    <div class="subline">
+      모든 토큰이 다른 모든 토큰을<br><em>"얼마나 봐야 하는가"</em>를 계산하는 메커니즘입니다.
+    </div>
+    <div class="ascii"><span class="dim">"나는 어제 강남에서 맛있는 밥을 먹었다"</span>
+
+"먹었다"를 이해하려면:
+  → "밥을"      <span class="good">많이 봐야 함</span>     (높은 attention)
+  → "강남에서"  <span class="hl2">조금 봐야 함</span>     (중간 attention)
+  → "어제"      <span class="dim">별로 안 봐야 함</span>  (낮은 attention)
+
+<span class="dim">이 가중치 계산 결과가 K, V 벡터로 HBM에 저장됩니다</span></div>
+  </div>
+  <div class="foot"><span>Context Rot · Attention</span><span>10 / 17 · → 희석</span></div>
+</section>
+
+<!-- 11 희석 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Context Rot</span></div>
+    <div class="tag">#dilution #context-rot</div>
+    <div>11 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">Context Rot</div>
+    <div class="keyword md">길어질수록 <em>희석된다</em><br>— 있는데 못 찾는다.</div>
+    <div class="divider"></div>
+    <div class="stage-split">
+      <div class="subline">
+        봐야 할 대상이 많아질수록<br>attention 가중치가 분산됩니다.<br><br>
+        물을 많이 탈수록<br>커피가 연해지는 것과 같습니다.<br><br>
+        정보가 없는 게 아닙니다.<br><em>있는데 못 찾는 겁니다.</em><br>그래서 더 위험합니다.
+      </div>
+      <div class="ascii" style="margin-top:0;">토큰     10개 → 각각      9개를 봄
+토큰  1,000개 → 각각    999개를 봄
+토큰 100,000개 → 각각 <span class="bad">99,999개</span>를 봄
+
+<span class="dim">─────────────────────────</span>
+
+User: "아까 말한 설계 원칙대로 구현해줘"
+  <span class="dim">→ 설계 원칙이 컨텍스트에 있음</span>
+  <span class="dim">→ 근데 10만 토큰 중 하나</span>
+  <span class="bad">→ attention이 거기까지 안 감</span>
+  <span class="bad">→ 자신있게 엉뚱하게 구현</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Context Rot · 희석</span><span>11 / 17 · → Deck 1 연결</span></div>
+</section>
+
+<!-- 12 Needle 연결 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Context Rot</span></div>
+    <div class="tag">#deck-1 #needle</div>
+    <div>12 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">Deck 1 연결</div>
+    <div class="keyword md">Deck 1의 Needle은<br><em>이것의 직접 증거였다.</em></div>
+    <div class="divider"></div>
+    <div class="subline">
+      Deck 1에서 우리는 컨텍스트 중간 내용이 망각되는 현상을 봤습니다.<br><br>
+      그때의 그래프가 바로 <em>Context Rot의 fingerprint</em>였습니다.<br><br>
+      정보가 없어서가 아닙니다. HBM에 물리적으로 있지만,
+      attention이 거기까지 충분히 가지 못한 것입니다.<br><br>
+      <em>local에서 합리적인 것이 global에서 모순이 되는</em> 이유가 여기 있습니다.
+    </div>
+  </div>
+  <div class="foot"><span>Context Rot · Needle 재해석</span><span>12 / 17 · → 멘탈 모델</span></div>
+</section>
+
+<!-- 13 멘탈 모델 vs 윈도우 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Mental Model vs Window</span></div>
+    <div class="tag">#mental-model #window</div>
+    <div>13 / 17</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">대비</div>
+    <div class="keyword md">시니어의 <em>멘탈 모델</em><br>vs 컨텍스트 윈도우.</div>
+
+    <div class="card-grid two">
+      <div class="card good">
+        <div class="card-lbl">멘탈 모델</div>
+        <ul class="card-list">
+          <li>체화된 판단력</li>
+          <li>압축됨, 패턴화됨</li>
+          <li>즉각 인출 가능</li>
+          <li>장애 패턴 인식</li>
+          <li>트레이드오프 감각</li>
+          <li>도메인 간 연결</li>
+        </ul>
+        <div class="card-tag">10년이 수 KB로 압축됨</div>
+      </div>
+      <div class="card warn">
+        <div class="card-lbl">컨텍스트 윈도우</div>
+        <ul class="card-list">
+          <li>토큰의 나열</li>
+          <li>길이 제한 있음</li>
+          <li>희석됨</li>
+          <li>매 요청마다 재구성</li>
+          <li>순서에 민감</li>
+          <li>압축 불가</li>
+        </ul>
+        <div class="card-tag">경험은 토큰이 아니다</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Mental Model vs Window</span><span>13 / 17 · → 담을 수 없는 것</span></div>
+</section>
+
+<!-- 14 담을 수 없는 것들 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Mental Model vs Window</span></div>
+    <div class="tag">#tacit #intuition</div>
+    <div>14 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">본질</div>
+    <div class="keyword md">HBM에 <em>담을 수 없는</em> 것들.</div>
+    <div class="chain">
+      <div class="chain-item">
+        <span class="chain-no">i</span>
+        <div>
+          <div class="chain-lbl">암묵적 설계 감각</div>
+          <div class="chain-desc">수백 번의 리뷰를 통해 체화된 "이건 뭔가 이상하다"의 직관</div>
+        </div>
+      </div>
+      <div class="chain-item">
+        <span class="chain-no">ii</span>
+        <div>
+          <div class="chain-lbl">반복 실패에서 나온 직관</div>
+          <div class="chain-desc">같은 실수를 세 번 하고 나서야 생기는 패턴 인식</div>
+        </div>
+      </div>
+      <div class="chain-item">
+        <span class="chain-no">iii</span>
+        <div>
+          <div class="chain-lbl">프로젝트 전체 구조의 일관성</div>
+          <div class="chain-desc">파일 하나가 아니라 시스템 전체를 보는 눈</div>
+        </div>
+      </div>
+      <div class="chain-item">
+        <span class="chain-no">iv</span>
+        <div>
+          <div class="chain-lbl">도메인 간 연결 능력</div>
+          <div class="chain-desc">SSD FW 경험이 AI 추론 병목을 이해하는 데 쓰이는 것</div>
+        </div>
+      </div>
+    </div>
+    <div class="subline" style="margin-top:20px;font-style:italic;">
+      이것들이 없으면 AI는 <em>local에서만 똑똑하다.</em>
+    </div>
+  </div>
+  <div class="foot"><span>Mental Model · 담을 수 없는 것</span><span>14 / 17 · → 인과사슬</span></div>
+</section>
+
+<!-- 15 인과사슬 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Closing</span></div>
+    <div class="tag">#causal-chain</div>
+    <div>15 / 17</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">정리</div>
+    <div class="keyword md">한계의 <em>인과사슬.</em></div>
+    <div class="chain">
+      <div class="chain-item">
+        <span class="chain-no">01</span>
+        <div>
+          <div class="chain-lbl">컨텍스트 길어짐</div>
+          <div class="chain-desc">대화가 쌓이고, 코드베이스가 커지고, 요청이 복잡해진다</div>
+        </div>
+      </div>
+      <div class="chain-item">
+        <span class="chain-no">02</span>
+        <div>
+          <div class="chain-lbl">KV Cache가 HBM을 채운다</div>
+          <div class="chain-desc">Prefill + Decode KV가 Weights와 같은 공간을 두고 경쟁</div>
+        </div>
+      </div>
+      <div class="chain-item">
+        <span class="chain-no">03</span>
+        <div>
+          <div class="chain-lbl">HBM 포화 → Auto-compaction</div>
+          <div class="chain-desc">물리적 유실. 내용이 사라지는데 모델은 모른다</div>
+        </div>
+      </div>
+      <div class="chain-item">
+        <span class="chain-no">04</span>
+        <div>
+          <div class="chain-lbl">Attention 희석 → Context Rot</div>
+          <div class="chain-desc">유실되지 않아도 못 찾는다. 있는데 못 쓰는 정보</div>
+        </div>
+      </div>
+      <div class="chain-item">
+        <span class="chain-no">05</span>
+        <div>
+          <div class="chain-lbl">멘탈 모델 대체 불가</div>
+          <div class="chain-desc">컨텍스트 윈도우가 아무리 커져도 체화된 판단력은 못 담는다</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Closing · 인과사슬</span><span>15 / 17 · → 결론</span></div>
+</section>
+
+<!-- 16 모델 업그레이드로 안 풀린다 -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Closing</span></div>
+    <div class="tag">#ceiling #structural</div>
+    <div>16 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">결론</div>
+    <div class="keyword">"이건 모델 업그레이드로<br><em>안 풀린다.</em>"</div>
+    <div class="divider"></div>
+    <div class="subline">
+      이제 왜인지 압니다.<br><br>
+      <em>물리 법칙:</em> HBM 대역폭과 용량에는 천장이 있다.<br>
+      <em>50년 된 문제:</em> Memory Wall은 새 아키텍처가 나와도 구조적으로 남는다.<br>
+      <em>알고리즘 문제:</em> Attention 희석은 컨텍스트가 길어지는 한 피할 수 없다.<br><br>
+      Rubin GPU가 나와도, GPT-6이 나와도, 이 구조 안에서 싸우는 한
+      <strong>천장의 형태는 바뀌지 않는다.</strong>
+    </div>
+  </div>
+  <div class="foot"><span>Closing · 결론</span><span>16 / 17 · → Fin</span></div>
+</section>
+
+<!-- 17 Fin -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Fin</span></div>
+    <div class="tag">#deck-3 #strategy</div>
+    <div>17 / 17</div>
+  </div>
+  <div class="stage">
+    <div class="kicker dim">다음</div>
+    <div class="keyword">그래서 <em>전략</em>이 필요하다.</div>
+    <div class="divider"></div>
+    <div class="subline" style="margin-bottom:24px;">
+      한계를 알았다면, 그 안에서 <em>싸우는 법</em>을 배워야 합니다.<br>
+      한계를 우회하는 엔지니어링이 존재합니다.
+    </div>
+
+    <div class="card cool" style="max-width:480px;">
+      <div class="card-lbl">Deck 3 —</div>
+      <div style="font-family:var(--serif-ko);font-weight:700;font-size:clamp(20px,2vw,28px);color:var(--gold);margin-top:6px;">엔지니어링의 진화</div>
+      <div class="card-foot" style="margin-top:8px;">Prompt → Context → Harness</div>
+    </div>
+
+    <div class="series-map" style="margin-top:30px;">
+      <div class="series-item done">01 &nbsp; 한계 직시 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [현상] ✓</div>
+      <div class="series-item done">02 &nbsp; HBM의 천장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [원인] ✓</div>
+      <div class="series-item current">03 &nbsp; 엔지니어링의 진화 &nbsp; [방향] ◀</div>
+    </div>
+  </div>
+  <div class="foot"><span>Fin · Deck 2 of 6</span><span>17 / 17</span></div>
+</section>
+
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="navhint"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>F</kbd> fullscreen</div>
+<div class="click-zone left"  id="cz-left"></div>
+<div class="click-zone right" id="cz-right"></div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const progress = document.getElementById('progress');
+let cur = 0;
+
+function setProgress() {
+  progress.style.width = ((cur + 1) / slides.length * 100) + '%';
+}
+function goTo(n) {
+  slides[cur].classList.remove('active');
+  cur = Math.max(0, Math.min(n, slides.length - 1));
+  slides[cur].classList.add('active');
+  setProgress();
+}
+setProgress();
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') goTo(cur + 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(cur - 1);
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+document.getElementById('cz-left').addEventListener('click', () => goTo(cur - 1));
+document.getElementById('cz-right').addEventListener('click', () => goTo(cur + 1));
+
+document.getElementById('deck').addEventListener('click', e => {
+  if (e.target.closest('button, a, input, #conv-log, .hbm-outer')) return;
+  e.clientX < window.innerWidth / 2 ? goTo(cur - 1) : goTo(cur + 1);
+});
+
+/* ============ Slide 09 — HBM Live Viz ============ */
+const W_PCT = 36;
+const THRESHOLD = 82;
+const STEP = 9;
+const PROMPTS = [
+  "이 함수의 시간복잡도를 분석해줘",
+  "위 코드에서 메모리 누수 가능성 있어?",
+  "에러 핸들링 패턴을 개선하고 싶은데",
+  "비동기 처리 방식을 바꾸면 어떨까?",
+  "지금까지 논의한 설계 원칙대로 구현해줘",
+  "이전에 합의한 인터페이스 기억해?",
+  "아까 말한 최적화 전략 적용해줘",
+  "처음 요청했던 아키텍처로 돌아가자",
+];
+let kvPct = 0, reqN = 0, busy = false, compactN = 0, inCompact = false;
+let turns = [];
+
+function updateBar() {
+  const total = W_PCT + kvPct;
+  const over = total > 100;
+  const kEl = document.getElementById('hbm-k');
+  kEl.style.left = W_PCT + '%';
+  kEl.style.width = (over ? 100 - W_PCT : kvPct) + '%';
+  over ? kEl.classList.add('over') : kEl.classList.remove('over');
+  document.getElementById('hbm-l').textContent = `Weights 70GB  |  KV ${Math.round(kvPct*1.92)}GB`;
+  const pEl = document.getElementById('hbm-pct');
+  pEl.textContent = Math.min(total,100).toFixed(0) + '%';
+  pEl.style.color = total >= THRESHOLD ? 'var(--red)' : 'var(--gold)';
+}
+
+function addLog(user, asst, lost=false) {
+  const log = document.getElementById('conv-log');
+  const d = document.createElement('div');
+  d.className = 'log-turn' + (lost?' lost':'');
+  d.innerHTML = `<span class="log-u">User [${reqN}]:</span> ${user}<br><span class="log-a">Claude:</span> ${(asst||'').slice(0,90)}${asst&&asst.length>90?'...':''}`;
+  log.appendChild(d);
+  log.scrollTop = log.scrollHeight;
+}
+
+function doCompact() {
+  compactN++;
+  inCompact = true;
+  const n = document.getElementById('compact-notice');
+  n.style.display = 'block';
+  n.style.color = 'var(--red)';
+  n.textContent = `⚠ Auto-compaction #${compactN} — 오래된 대화 압축 중...`;
+  const all = document.querySelectorAll('#conv-log .log-turn:not(.lost)');
+  const lose = Math.floor(all.length * 0.5);
+  for (let i = 0; i < lose; i++) all[i].classList.add('lost');
+  setTimeout(() => {
+    kvPct = Math.max(0, kvPct - 36);
+    updateBar();
+    n.style.color = 'var(--muted-lt)';
+    n.textContent = `✓ Compaction 완료 — ${lose}턴 유실됨`;
+    if (compactN >= 1) document.getElementById('bridge-txt').style.display = 'block';
+    setTimeout(() => { inCompact = false; }, 800);
+  }, 1200);
+}
+
+async function sendReq() {
+  if (busy) return;
+  busy = true;
+  const btn = document.getElementById('req-btn');
+  btn.disabled = true;
+  btn.textContent = '요청 중...';
+  reqN++;
+  const userMsg = PROMPTS[(reqN-1) % PROMPTS.length];
+  const msgs = turns.flatMap(t => ([{role:'user',content:t.u},{role:'assistant',content:t.a}]));
+  msgs.push({role:'user',content:userMsg});
+  let asst = '';
+  try {
+    const r = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514', max_tokens:80,
+        system:'코드 리뷰 어시스턴트. 한국어로 2문장 이내로 답하세요.',
+        messages: msgs
+      })
+    });
+    const d = await r.json();
+    asst = d.content?.[0]?.text || '(응답 없음)';
+  } catch { asst = '(시뮬레이션 계속)'; }
+  turns.push({u:userMsg, a:asst});
+  kvPct = Math.min(kvPct + STEP, 64);
+  updateBar();
+  addLog(userMsg, asst);
+  const total = W_PCT + kvPct;
+  if (total >= THRESHOLD && !inCompact) doCompact();
+  btn.disabled = false;
+  btn.textContent = 'Claude에게 요청 →';
+  busy = false;
+}
+
+updateBar();
+</script>
+</body>
+</html>
