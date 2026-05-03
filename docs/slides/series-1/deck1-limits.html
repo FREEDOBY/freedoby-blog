@@ -372,7 +372,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .prob .p-name {
   font-family: var(--serif-ko);
   font-weight: 700;
-  font-size: clamp(20px, 2vw, 30px);
+  font-size: clamp(24px, 2.4vw, 36px);
   color: var(--cream);
   margin-bottom: 8px;
   letter-spacing: -0.01em;
@@ -381,26 +381,26 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .prob .p-en {
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(13px, 1.1vw, 17px);
+  font-size: clamp(15px, 1.2vw, 19px);
   color: var(--gold);
   margin-bottom: 12px;
 }
 .slide.light .prob .p-en { color: var(--gold-dk); }
 .prob .p-desc {
   font-family: var(--serif-ko);
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.6;
   color: var(--muted-lt);
 }
 .slide.light .prob .p-desc { color: var(--muted-dk); }
 .prob .p-tag {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gold);
   margin-top: 14px;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 .slide.light .prob .p-tag { color: var(--gold-dk); }
 
@@ -445,7 +445,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .map-cell .mc-sub {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted-lt);
   margin-top: 2px;
 }
@@ -477,8 +477,8 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .split-copy.tighter { gap: 36px; margin-top: 18px; }
 .col-label {
   font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  font-size: 14px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 14px;
@@ -522,14 +522,14 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 /* ============ CALLOUT ============ */
 .callout {
   margin-top: 32px;
-  padding: 18px 0;
+  padding: 18px 24px;
   border-top: 1px solid var(--gold);
   border-bottom: 1px solid var(--rule-lt);
   font-family: var(--serif-ko);
   font-size: clamp(17px, 1.5vw, 24px);
   line-height: 1.5;
   color: var(--cream);
-  max-width: 920px;
+  text-align: center;
 }
 .slide.light .callout { color: var(--black); border-bottom-color: var(--rule-dk); border-top-color: var(--gold-dk); }
 .callout em { font-style: normal; color: var(--gold); font-weight: 700; }
@@ -566,8 +566,8 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 /* ============ ASCII / DIAGRAM ============ */
 .ascii {
   font-family: var(--mono);
-  font-size: clamp(11px, 0.9vw, 13px);
-  line-height: 1.65;
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.7;
   white-space: pre;
   padding: 16px 20px;
   background: rgba(184,146,74,0.05);
@@ -617,11 +617,11 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   padding-top: 10px;
   border-top: 1px solid var(--rule-lt);
   font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.16em;
+  font-size: 14px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted-lt);
-  max-width: 520px;
+  max-width: 820px;
   opacity: 0.85;
 }
 .slide.light .source { color: var(--muted-dk); border-top-color: var(--rule-dk); }
@@ -668,47 +668,195 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
 /* ============ DEMO LINKS (slide 7) ============ */
 .demo-links {
-  margin-top: 18px;
+  margin-top: 12px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 12px;
 }
 .demo-link {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 14px 18px;
-  background: rgba(184,146,74,0.06);
-  border-left: 2px solid var(--gold);
+  gap: 4px;
+  padding: 12px 36px 12px 16px;
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 3px;
   text-decoration: none;
-  transition: background 0.2s;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  box-shadow: 0 2px 8px rgba(184,146,74,0.18);
 }
-.slide.light .demo-link { background: rgba(122,95,46,0.06); border-left-color: var(--gold-dk); }
-.demo-link:hover { background: rgba(184,146,74,0.14); }
-.slide.light .demo-link:hover { background: rgba(122,95,46,0.13); }
+.slide.light .demo-link {
+  background: var(--gold-dk);
+  border-color: var(--gold-dk);
+  box-shadow: 0 2px 8px rgba(122,95,46,0.18);
+}
+.demo-link::after {
+  content: "↗";
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--black);
+  opacity: 0.8;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.slide.light .demo-link::after { color: var(--cream); }
+.demo-link:hover {
+  background: var(--gold-lt);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(184,146,74,0.35);
+}
+.slide.light .demo-link:hover {
+  background: var(--gold);
+  box-shadow: 0 8px 22px rgba(122,95,46,0.3);
+}
+.demo-link:hover::after {
+  opacity: 1;
+  transform: translate(3px, calc(-50% - 1px));
+}
 .demo-link .dl-eyebrow {
   display: flex; gap: 12px; align-items: baseline;
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--gold);
+  text-transform: uppercase; color: var(--black); font-weight: 700;
 }
-.slide.light .demo-link .dl-eyebrow { color: var(--gold-dk); }
-.demo-link .dl-eyebrow .note { color: var(--muted-lt); letter-spacing: 0.06em; }
-.slide.light .demo-link .dl-eyebrow .note { color: var(--muted-dk); }
+.slide.light .demo-link .dl-eyebrow { color: var(--cream); }
+.demo-link .dl-eyebrow .note { color: rgba(12,11,9,0.65); letter-spacing: 0.06em; font-weight: 400; }
+.slide.light .demo-link .dl-eyebrow .note { color: rgba(240,236,224,0.75); }
 .demo-link .dl-title {
   font-family: var(--serif);
   font-style: italic;
   font-size: 16px;
-  color: var(--cream);
+  color: var(--black);
   line-height: 1.35;
+  font-weight: 700;
 }
-.slide.light .demo-link .dl-title { color: var(--black); }
-.demo-link .dl-title em { color: var(--gold); font-weight: 700; }
-.slide.light .demo-link .dl-title em { color: var(--gold-dk); }
+.slide.light .demo-link .dl-title { color: var(--cream); }
+.demo-link .dl-title em { color: var(--black); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.slide.light .demo-link .dl-title em { color: var(--cream); }
 .demo-link .dl-url {
   font-family: var(--mono); font-size: 10px;
-  color: var(--muted-lt); letter-spacing: 0.04em;
+  color: rgba(12,11,9,0.6); letter-spacing: 0.04em;
 }
-.slide.light .demo-link .dl-url { color: var(--muted-dk); }
+.slide.light .demo-link .dl-url { color: rgba(240,236,224,0.7); }
+
+/* ============ SPEC PANE (slide 5 — single box, two columns inside) ============ */
+.spec-pane {
+  margin-top: 18px;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.spec-source {
+  flex: 1;
+  background: rgba(184,146,74,0.05);
+  border-left: 2px solid var(--gold);
+  padding: 14px 20px;
+  border-radius: 1px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.spec-col {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted-lt);
+  white-space: pre-wrap;
+}
+.slide.light .spec-col { color: var(--muted-dk); }
+.spec-col + .spec-col { border-left: 1px solid var(--rule-lt); padding-left: 28px; margin-left: -14px; }
+.slide.light .spec-col + .spec-col { border-left-color: var(--rule-dk); }
+.spec-col .h {
+  display: block;
+  color: var(--gold);
+  font-weight: 700;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  letter-spacing: 0.04em;
+}
+.slide.light .spec-col .h { color: var(--gold-dk); }
+.spec-col .h:first-child { margin-top: 0; }
+.spec-col .warn { color: var(--warn); font-weight: 700; }
+.slide.light .spec-col .warn { color: var(--warn-dk); }
+.spec-col .body { color: var(--cream); }
+.slide.light .spec-col .body { color: var(--black); }
+
+.spec-col .ex-list {
+  display: block;
+  margin: 2px 0;
+}
+.spec-col .ex {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 0;
+  line-height: 1.5;
+  padding-left: 12px;
+}
+.slide.light .spec-col .ex { color: var(--gold-dk); }
+.slide.light .spec-source {
+  color: var(--muted-dk);
+  border-left-color: var(--gold-dk);
+  background: rgba(122,95,46,0.06);
+}
+.spec-source .h {
+  display: block;
+  color: var(--gold);
+  font-weight: 700;
+  margin-top: 14px;
+  margin-bottom: 4px;
+  letter-spacing: 0.04em;
+}
+.slide.light .spec-source .h { color: var(--gold-dk); }
+.spec-source .h:first-child { margin-top: 0; }
+.spec-source .warn { color: var(--warn); font-weight: 700; }
+.slide.light .spec-source .warn { color: var(--warn-dk); }
+.spec-source .body { color: var(--cream); }
+.slide.light .spec-source .body { color: var(--black); }
+
+.spec-legend {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+}
+.spec-legend-row {
+  border-top: 1px solid var(--rule-lt);
+  padding-top: 12px;
+}
+.slide.light .spec-legend-row { border-top-color: var(--rule-dk); }
+.spec-legend-row:first-child { border-top: 1px solid var(--gold); }
+.slide.light .spec-legend-row:first-child { border-top-color: var(--gold-dk); }
+.spec-legend-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.slide.light .spec-legend-tag { color: var(--gold-dk); }
+.spec-legend-desc {
+  font-family: var(--serif-ko);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted-lt);
+}
+.slide.light .spec-legend-desc { color: var(--muted-dk); }
+.spec-legend-desc em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 600;
+}
+.slide.light .spec-legend-desc em { color: var(--gold-dk); }
 
 /* ============ BLOG ATTEMPT CARDS (slide 6) ============ */
 .attempts {
@@ -729,7 +877,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .slide.light .attempt { border-color: var(--rule-dk); background: rgba(122,95,46,0.04); }
 .attempt .a-label {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--gold);
@@ -740,7 +888,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .attempt .a-title {
   font-family: var(--serif-ko);
   font-weight: 700;
-  font-size: 14px;
+  font-size: 17px;
   color: var(--cream);
   line-height: 1.3;
 }
@@ -752,21 +900,1368 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 }
 .attempt .a-body {
   font-family: var(--serif-ko);
-  font-size: 11px;
-  line-height: 1.55;
+  font-size: 14px;
+  line-height: 1.65;
   color: var(--muted-lt);
 }
 .slide.light .attempt .a-body { color: var(--muted-dk); }
+
+/* per-genre typography */
+.attempt.seo .a-body {
+  font-family: var(--serif-ko);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.attempt.seo .a-body .h { display: block; font-weight: 700; color: var(--cream); margin-top: 10px; }
+.slide.light .attempt.seo .a-body .h { color: var(--black); }
+.attempt.seo .a-body .em { color: var(--gold); font-weight: 700; }
+.slide.light .attempt.seo .a-body .em { color: var(--gold-dk); }
+
+.attempt.essay .a-body {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.75;
+  letter-spacing: 0.005em;
+}
+
+.attempt.sns .a-body {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+.attempt.sns .a-body .tag { color: var(--gold); }
+.slide.light .attempt.sns .a-body .tag { color: var(--gold-dk); }
 .attempt .a-meta {
   margin-top: auto;
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--gold);
   padding-top: 8px;
   border-top: 1px solid var(--rule-lt);
 }
 .slide.light .attempt .a-meta { color: var(--gold-dk); border-top-color: var(--rule-dk); }
+
+/* ============ SCALE VIZ (slide 08 — codebase vs AI visibility) ============ */
+.scale-viz {
+  display: flex;
+  flex-direction: column;
+  margin-top: 22px;
+  border-top: 1px solid var(--gold);
+}
+.slide.light .scale-viz { border-top-color: var(--gold-dk); }
+.scale-viz-header {
+  display: grid;
+  grid-template-columns: 220px 240px 1fr 100px;
+  gap: 22px;
+  padding: 12px 4px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  border-bottom: 1px solid var(--rule-lt);
+}
+.slide.light .scale-viz-header { color: var(--muted-dk); border-bottom-color: var(--rule-dk); }
+.scale-viz-row {
+  display: grid;
+  grid-template-columns: 220px 240px 1fr 100px;
+  gap: 22px;
+  align-items: center;
+  padding: 18px 4px;
+  border-bottom: 1px solid var(--rule-lt);
+}
+.scale-viz-row .examples {
+  font-family: var(--serif-ko);
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted-lt);
+}
+.slide.light .scale-viz-row .examples { color: var(--muted-dk); }
+.scale-viz-row .examples em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 600;
+}
+.slide.light .scale-viz-row .examples em { color: var(--gold-dk); }
+.scale-viz-note {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule-lt);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted-lt);
+  text-align: right;
+  font-style: italic;
+  opacity: 0.85;
+}
+.slide.light .scale-viz-note { color: var(--muted-dk); border-top-color: var(--rule-dk); }
+.slide.light .scale-viz-row { border-bottom-color: var(--rule-dk); }
+.scale-viz-row:last-child { border-bottom: none; }
+.scale-viz-row .lbl {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--cream);
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+}
+.slide.light .scale-viz-row .lbl { color: var(--black); }
+.scale-viz-row .lbl .meta {
+  display: block;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--muted-lt);
+  margin-top: 6px;
+}
+.slide.light .scale-viz-row .lbl .meta { color: var(--muted-dk); }
+.scale-viz-row .bar {
+  position: relative;
+  height: 32px;
+}
+.scale-viz-row .bar-shell {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: rgba(184,146,74,0.06);
+  border: 1px solid rgba(184,146,74,0.4);
+  border-radius: 1px;
+  overflow: hidden;
+  transition: width 0.5s ease;
+}
+.slide.light .scale-viz-row .bar-shell {
+  background: rgba(122,95,46,0.04);
+  border-color: rgba(122,95,46,0.4);
+}
+.scale-viz-row .bar-window {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 90px;
+  max-width: 100%;
+  background: linear-gradient(90deg, var(--gold-lt), var(--gold));
+  border-right: 2px solid var(--gold);
+  z-index: 2;
+  transition: width 0.5s ease;
+}
+.slide.light .scale-viz-row .bar-window {
+  background: linear-gradient(90deg, var(--gold), var(--gold-dk));
+  border-right-color: var(--gold-dk);
+}
+.scale-viz-row .bar-window.contained { border-right: none; }
+.scale-viz-row .bar-cap {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--muted-lt);
+  pointer-events: none;
+}
+.slide.light .scale-viz-row .bar-cap { color: var(--muted-dk); }
+.scale-viz-row .pct {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--gold);
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+.slide.light .scale-viz-row .pct { color: var(--gold-dk); }
+.scale-viz-row .pct.warn { color: var(--warn); }
+.slide.light .scale-viz-row .pct.warn { color: var(--warn-dk); }
+
+/* ============ CYCLE ANIMATION (slide 17 — Press Space) ============ */
+.cycle-anim {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cycle-anim-3panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.cycle-anim-canvas-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cycle-anim-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  color: var(--muted-lt);
+  border-bottom: 1px solid var(--rule-lt);
+  padding-bottom: 10px;
+}
+
+.cycle-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+.cycle-stepper .stepper-label {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: var(--cream);
+  text-transform: uppercase;
+  margin-right: 14px;
+}
+.slide.light .cycle-stepper .stepper-label { color: var(--black); }
+.cycle-stepper .step-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid var(--rule-lt);
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+.slide.light .cycle-stepper .step-dot { border-color: var(--rule-dk); }
+.cycle-stepper .step-dot.done {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.slide.light .cycle-stepper .step-dot.done {
+  background: var(--gold-dk);
+  border-color: var(--gold-dk);
+}
+.cycle-stepper .step-dot.current {
+  animation: stepperPulse 1.6s ease-out infinite;
+}
+@keyframes stepperPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(184,146,74,0.75); }
+  70%  { box-shadow: 0 0 0 12px rgba(184,146,74,0); }
+  100% { box-shadow: 0 0 0 0   rgba(184,146,74,0); }
+}
+.cycle-stepper .step-line {
+  width: 22px;
+  height: 2px;
+  background: var(--rule-lt);
+  transition: background 0.35s ease;
+  flex-shrink: 0;
+}
+.slide.light .cycle-stepper .step-line { background: var(--rule-dk); }
+.cycle-stepper .step-line.done {
+  background: var(--gold);
+}
+.slide.light .cycle-stepper .step-line.done { background: var(--gold-dk); }
+.cycle-stepper .step-count {
+  margin-left: 18px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: -0.01em;
+}
+.slide.light .cycle-stepper .step-count { color: var(--gold-dk); }
+.cycle-stepper .step-count .cycle-num {
+  display: inline-block;
+  min-width: 0.9em;
+  text-align: right;
+}
+
+.cycle-trigger {
+  margin-top: 8px;
+  padding: 10px 16px;
+  background: rgba(237,224,188,0.08);
+  border-left: 3px solid #ede0bc;
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.4s, border-left-color 0.4s;
+}
+.slide.light .cycle-trigger {
+  background: rgba(122,95,46,0.06);
+  border-left-color: #c0a040;
+}
+.cycle-trigger .trigger-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #ede0bc;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.slide.light .cycle-trigger .trigger-tag { color: #6a5530; }
+.cycle-trigger .trigger-text {
+  font-family: var(--serif-ko);
+  font-size: 16px;
+  color: var(--cream);
+  letter-spacing: -0.005em;
+}
+.slide.light .cycle-trigger .trigger-text { color: var(--black); }
+.cycle-trigger .trigger-text em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: #ede0bc;
+  font-weight: 700;
+}
+.slide.light .cycle-trigger .trigger-text em { color: var(--gold-dk); }
+.cycle-trigger .trigger-arrow {
+  font-family: var(--mono);
+  color: var(--muted-lt);
+  margin: 0 4px;
+}
+.slide.light .cycle-trigger .trigger-arrow { color: var(--muted-dk); }
+.slide.light .cycle-anim-header { color: var(--muted-dk); border-bottom-color: var(--rule-dk); }
+.cycle-anim-header .cycle-counter {
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.slide.light .cycle-anim-header .cycle-counter { color: var(--black); }
+.cycle-anim-header .cycle-counter .cycle-num {
+  display: inline-block;
+  min-width: 1.4em;
+  text-align: center;
+  color: var(--gold);
+  font-size: 22px;
+}
+.slide.light .cycle-anim-header .cycle-counter .cycle-num { color: var(--gold-dk); }
+.cycle-anim-header .cycle-help {
+  font-size: 14px;
+  letter-spacing: 0.1em;
+}
+.cycle-anim-header .cycle-help kbd {
+  background: var(--cream); color: var(--black);
+  padding: 2px 8px; border-radius: 2px;
+  font-family: var(--mono); font-weight: 700;
+}
+
+.code-canvas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--muted-lt);
+  padding: 8px 14px;
+  background: rgba(184,146,74,0.1);
+  border: 1px solid var(--rule-lt);
+  border-bottom: none;
+  border-radius: 2px 2px 0 0;
+  letter-spacing: 0.04em;
+}
+.slide.light .code-canvas-header {
+  color: var(--muted-dk);
+  background: rgba(122,95,46,0.08);
+  border-color: var(--rule-dk);
+}
+.code-canvas-header .filename {
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.code-canvas-header.design .filename,
+.code-canvas-header.dld .filename { color: #8eb4cc; }
+.code-canvas-header.test .filename { color: #94c074; }
+.code-canvas-header.spec .filename { color: #ede0bc; }
+.slide.light .code-canvas-header .filename { color: var(--gold-dk); }
+.slide.light .code-canvas-header.design .filename { color: #2e5a78; }
+.slide.light .code-canvas-header.test .filename { color: #2e6438; }
+.code-canvas-header .filename::before {
+  content: "▸";
+  color: var(--gold);
+  font-size: 12px;
+}
+.code-canvas-header.design .filename::before,
+.code-canvas-header.dld .filename::before { color: #8eb4cc; }
+.code-canvas-header.test .filename::before { color: #94c074; }
+.code-canvas-header.spec .filename::before { color: #ede0bc; }
+.code-canvas-header .meta {
+  font-size: 13px;
+  color: var(--muted-lt);
+}
+.slide.light .code-canvas-header .meta { color: var(--muted-dk); }
+.code-canvas-header .meta .total-rows,
+.code-canvas-header .meta .rows-added {
+  color: var(--cream);
+  font-weight: 700;
+}
+.slide.light .code-canvas-header .meta .total-rows,
+.slide.light .code-canvas-header .meta .rows-added { color: var(--black); }
+
+.code-canvas-anim {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border: 1px solid var(--rule-lt);
+  border-radius: 0 0 2px 2px;
+  overflow: hidden;
+  background: var(--rule-lt);
+  padding: 0;
+  min-height: 220px;
+}
+.slide.light .code-canvas-anim { border-color: var(--rule-dk); background: var(--rule-dk); }
+.code-canvas-anim .cb-row {
+  height: 11px;
+  background: var(--gold);
+  transition: height 0.45s cubic-bezier(.2,.7,.2,1),
+              background 0.45s ease,
+              opacity 0.4s ease,
+              margin 0.45s ease;
+  position: relative;
+  opacity: 1;
+}
+.code-canvas-anim .cb-row.hidden {
+  height: 0;
+  opacity: 0;
+  margin: -1px 0 0;
+}
+/* default — gold */
+.code-canvas-anim .cb-row.live { background: #b8924a; }
+.code-canvas-anim .cb-row.twin { background: #e8b020; }
+.code-canvas-anim .cb-row.dead { background: #2a2823; }
+
+/* spec.md (요구사항) — 안 변함, 밝은 cream */
+.code-canvas-anim.spec .cb-row.live { background: #ede0bc; }
+
+/* dld.md (설계) — blue */
+.code-canvas-anim.dld .cb-row.live { background: #5a8aa6; }
+.code-canvas-anim.dld .cb-row.twin { background: #8eb4cc; }
+.code-canvas-anim.design .cb-row.live { background: #5a8aa6; }
+.code-canvas-anim.design .cb-row.twin { background: #8eb4cc; }
+
+/* main.cpp (코드) — gold/amber */
+.code-canvas-anim.code .cb-row.live { background: #b8924a; }
+.code-canvas-anim.code .cb-row.twin { background: #e8b020; }
+
+/* test.cpp (테스트) — green */
+.code-canvas-anim.test .cb-row.live { background: #5a9468; }
+.code-canvas-anim.test .cb-row.twin { background: #94c074; }
+
+.code-canvas-anim .cb-row.dead-fallback {
+  background: #2a2823;
+}
+.slide.light .code-canvas-anim .cb-row.dead { background: #1c1a16; }
+.code-canvas-anim .cb-row.dead::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0px, transparent 5px,
+    rgba(192,72,56,0.5) 5px, rgba(192,72,56,0.5) 6px
+  );
+}
+.code-canvas-anim .cb-row.orphan {
+  background: #5a0a0a;
+  box-shadow: inset 0 0 0 1px rgba(255,60,60,0.6);
+}
+
+.cycle-anim-meta {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--muted-lt);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+.slide.light .cycle-anim-meta { color: var(--muted-dk); }
+.cycle-anim-meta .total-rows {
+  color: var(--cream);
+  font-weight: 700;
+}
+.slide.light .cycle-anim-meta .total-rows { color: var(--black); }
+
+.cycle-stats-anim {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 18px;
+  border: 1px solid var(--rule-lt);
+  border-radius: 2px;
+  background: rgba(184,146,74,0.04);
+  flex-wrap: wrap;
+}
+.slide.light .cycle-stats-anim {
+  border-color: var(--rule-dk);
+  background: rgba(122,95,46,0.04);
+}
+.cycle-stats-anim .stat-row {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  padding: 0;
+  border-bottom: none;
+  gap: 10px;
+}
+.cycle-stats-anim .stat-row .label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.cycle-stats-anim .stat-row .swatch {
+  width: 14px; height: 14px;
+  border-radius: 1px;
+}
+.cycle-stats-anim .stat-row .num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cream);
+  transition: color 0.4s;
+}
+.slide.light .cycle-stats-anim .stat-row .num { color: var(--black); }
+.cycle-stats-anim .stat-row.live .label { color: var(--gold); }
+.slide.light .cycle-stats-anim .stat-row.live .label { color: var(--gold-dk); }
+.cycle-stats-anim .stat-row.live .swatch { background: #b8924a; }
+.cycle-stats-anim .stat-row.twin .label { color: #e8b020; }
+.cycle-stats-anim .stat-row.twin .swatch { background: #e8b020; }
+.cycle-stats-anim .stat-row.dead .label { color: var(--muted-lt); }
+.slide.light .cycle-stats-anim .stat-row.dead .label { color: var(--muted-dk); }
+.cycle-stats-anim .stat-row.dead .swatch { background: #2a2823; }
+.cycle-stats-anim .stat-row.orphan .label { color: var(--warn); }
+.slide.light .cycle-stats-anim .stat-row.orphan .label { color: var(--warn-dk); }
+.cycle-stats-anim .stat-row.orphan .swatch { background: #5a0a0a; }
+
+.cycle-stats-anim .stat-pct {
+  margin-left: auto;
+  padding: 0;
+  border: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  text-align: left;
+}
+.cycle-stats-anim .stat-pct .pct-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--cream);
+  display: inline-block;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  transition: color 0.45s;
+}
+.slide.light .cycle-stats-anim .stat-pct .pct-num { color: var(--black); }
+.cycle-stats-anim .stat-pct.danger .pct-num { color: var(--warn); }
+.slide.light .cycle-stats-anim .stat-pct.danger .pct-num { color: var(--warn-dk); }
+.cycle-stats-anim .stat-pct .pct-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  color: var(--muted-lt);
+  margin-top: 4px;
+}
+.slide.light .cycle-stats-anim .stat-pct .pct-label { color: var(--muted-dk); }
+
+.cycle-stats-anim .stat-footer {
+  margin: 0;
+  padding: 0 0 0 18px;
+  border-left: 1px dashed var(--rule-lt);
+  border-top: none;
+  font-family: var(--serif-ko);
+  font-size: 14px;
+  color: var(--muted-lt);
+  text-align: left;
+  line-height: 1.5;
+}
+.slide.light .cycle-stats-anim .stat-footer {
+  color: var(--muted-dk);
+  border-left-color: var(--rule-dk);
+}
+.cycle-stats-anim .stat-footer em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 700;
+}
+.slide.light .cycle-stats-anim .stat-footer em { color: var(--gold-dk); }
+.cycle-stats-anim .stat-footer .warn {
+  color: var(--warn);
+  font-weight: 700;
+  font-style: italic;
+}
+.slide.light .cycle-stats-anim .stat-footer .warn { color: var(--warn-dk); }
+
+/* ============ CYCLE DEFINITION BAND (slide 17 — what is a cycle) ============ */
+.cycle-def {
+  margin-top: 12px;
+  padding: 12px 22px;
+  background: rgba(184,146,74,0.06);
+  border-left: 3px solid var(--gold);
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.slide.light .cycle-def {
+  background: rgba(122,95,46,0.06);
+  border-left-color: var(--gold-dk);
+}
+.cycle-def .cd-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.slide.light .cycle-def .cd-label { color: var(--gold-dk); }
+.cycle-def .cd-step {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--cream);
+  letter-spacing: -0.005em;
+}
+.slide.light .cycle-def .cd-step { color: var(--black); }
+.cycle-def .cd-arrow {
+  font-family: var(--mono);
+  font-size: 18px;
+  color: var(--gold);
+  font-weight: 700;
+}
+.slide.light .cycle-def .cd-arrow { color: var(--gold-dk); }
+.cycle-def .cd-loop {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--warn);
+  margin-left: 4px;
+}
+.slide.light .cycle-def .cd-loop { color: var(--warn-dk); }
+.cycle-def .cd-tail {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--muted-lt);
+  margin-left: auto;
+}
+.slide.light .cycle-def .cd-tail { color: var(--muted-dk); }
+
+/* ============ CODEBASE PROGRESSION (slide 17 — patchwork) ============ */
+.code-progression {
+  display: grid;
+  grid-template-columns: 1fr 36px 1fr 36px 1fr;
+  gap: 0;
+  margin-top: 12px;
+  align-items: start;
+}
+.code-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.code-stage-grow {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  text-align: center;
+  margin-top: -2px;
+  font-weight: 700;
+}
+.slide.light .code-stage-grow { color: var(--gold-dk); }
+.code-stage.danger .code-stage-grow { color: var(--warn); }
+.slide.light .code-stage.danger .code-stage-grow { color: var(--warn-dk); }
+.code-stage-label {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+}
+.slide.light .code-stage-label { color: var(--gold-dk); }
+.code-canvas {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border: 1px solid var(--rule-lt);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--rule-lt);
+}
+.slide.light .code-canvas { border-color: var(--rule-dk); background: var(--rule-dk); }
+.cb-row {
+  height: 10px;
+  background: var(--gold);
+  transition: background 0.4s ease;
+  position: relative;
+}
+.slide.light .cb-row { background: var(--gold-dk); }
+
+.cb-row.twin {
+  background: #e8b020 !important;
+}
+.cb-row.dead {
+  background: #2a2823 !important;
+  position: relative;
+}
+.slide.light .cb-row.dead {
+  background: #1c1a16 !important;
+}
+.cb-row.dead::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0px, transparent 5px,
+    rgba(192,72,56,0.5) 5px, rgba(192,72,56,0.5) 6px
+  );
+}
+.cb-row.orphan {
+  background: #5a0a0a !important;
+  box-shadow: inset 0 0 0 1px rgba(255,60,60,0.6);
+}
+
+.code-stage-stats {
+  font-family: var(--mono);
+  font-size: 14px;
+  text-align: center;
+  color: var(--muted-lt);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+.slide.light .code-stage-stats { color: var(--muted-dk); }
+.code-stage-stats .pct {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--cream);
+  display: block;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.slide.light .code-stage-stats .pct { color: var(--black); }
+.code-stage.danger .code-stage-stats .pct { color: var(--warn); }
+.slide.light .code-stage.danger .code-stage-stats .pct { color: var(--warn-dk); }
+
+.code-arrow-cell {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 32px;
+  color: var(--gold);
+  font-weight: 700;
+  padding-top: 70px;
+}
+.slide.light .code-arrow-cell { color: var(--gold-dk); }
+
+.code-legend {
+  margin-top: 12px;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--muted-lt);
+}
+.slide.light .code-legend { color: var(--muted-dk); }
+.code-legend .leg-item { display: inline-flex; align-items: center; gap: 10px; }
+.code-legend .leg-swatch {
+  display: inline-block;
+  width: 22px;
+  height: 18px;
+  border-radius: 1px;
+}
+
+/* ============ CYCLE VIZ (slide 17 — The Cycle) ============ */
+.cycle-viz {
+  margin-top: 14px;
+  padding: 18px 22px 22px;
+  border: 1px solid var(--rule-lt);
+  background: linear-gradient(180deg, rgba(184,146,74,0.04) 0%, rgba(192,72,56,0.06) 100%);
+  border-radius: 2px;
+}
+.slide.light .cycle-viz {
+  border-color: var(--rule-dk);
+  background: linear-gradient(180deg, rgba(122,95,46,0.04) 0%, rgba(176,74,58,0.05) 100%);
+}
+
+.cycle-steps {
+  display: grid;
+  grid-template-columns: 1fr 28px 1fr 28px 1fr 28px 1fr 28px 1fr 28px 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+.cycle-step {
+  text-align: center;
+  padding: 14px 8px 12px;
+  border: 2px solid;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.cycle-step.h-100 { border-color: #7a9468;        background: rgba(122,148,104,0.14); }
+.cycle-step.h-88  { border-color: var(--gold-lt); background: rgba(221,185,106,0.12); }
+.cycle-step.h-70  { border-color: var(--gold);    background: rgba(184,146,74,0.13); }
+.cycle-step.h-52  { border-color: #c0883d;        background: rgba(192,136,61,0.16); }
+.cycle-step.h-35  { border-color: #c06848;        background: rgba(192,104,72,0.18); }
+.cycle-step.h-18  { border-color: var(--warn);    background: rgba(192,72,56,0.22); }
+
+.cycle-step .num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+.cycle-step.h-100 .num { color: #95b07a; }
+.cycle-step.h-88 .num,
+.cycle-step.h-70 .num { color: var(--gold); }
+.slide.light .cycle-step.h-88 .num,
+.slide.light .cycle-step.h-70 .num { color: var(--gold-dk); }
+.cycle-step.h-52 .num { color: #c0883d; }
+.cycle-step.h-35 .num,
+.cycle-step.h-18 .num { color: var(--warn); }
+.slide.light .cycle-step.h-35 .num,
+.slide.light .cycle-step.h-18 .num { color: var(--warn-dk); }
+
+.cycle-step .name {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--cream);
+  margin-top: 4px;
+  letter-spacing: -0.005em;
+}
+.slide.light .cycle-step .name { color: var(--black); }
+.cycle-step .lgtm {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: #95b07a;
+  margin-top: 6px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.cycle-step .health-bar {
+  margin-top: 12px;
+  height: 6px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.slide.light .cycle-step .health-bar { background: rgba(0,0,0,0.08); }
+.cycle-step .health-fill {
+  height: 100%;
+  border-radius: 1px;
+}
+.cycle-step.h-100 .health-fill { width: 100%; background: #7a9468; }
+.cycle-step.h-88  .health-fill { width: 88%;  background: var(--gold-lt); }
+.cycle-step.h-70  .health-fill { width: 70%;  background: var(--gold); }
+.cycle-step.h-52  .health-fill { width: 52%;  background: #c0883d; }
+.cycle-step.h-35  .health-fill { width: 35%;  background: #c06848; }
+.cycle-step.h-18  .health-fill { width: 18%;  background: var(--warn); }
+.cycle-step .health-pct {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 6px;
+  letter-spacing: 0.04em;
+}
+.cycle-step.h-100 .health-pct { color: #95b07a; }
+.cycle-step.h-88 .health-pct,
+.cycle-step.h-70 .health-pct { color: var(--gold); }
+.slide.light .cycle-step.h-88 .health-pct,
+.slide.light .cycle-step.h-70 .health-pct { color: var(--gold-dk); }
+.cycle-step.h-52 .health-pct { color: #c0883d; }
+.cycle-step.h-35 .health-pct,
+.cycle-step.h-18 .health-pct { color: var(--warn); }
+.slide.light .cycle-step.h-35 .health-pct,
+.slide.light .cycle-step.h-18 .health-pct { color: var(--warn-dk); }
+
+.cycle-arrow-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 22px;
+  color: var(--gold);
+  font-weight: 700;
+}
+.slide.light .cycle-arrow-cell { color: var(--gold-dk); }
+
+.cycle-loop-svg {
+  width: 100%;
+  height: 50px;
+  margin-top: 4px;
+}
+.cycle-loop-svg .lp-path {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.slide.light .cycle-loop-svg .lp-path { stroke: var(--gold-dk); }
+.cycle-loop-svg .lp-arrow {
+  fill: var(--gold);
+  vector-effect: non-scaling-stroke;
+}
+.slide.light .cycle-loop-svg .lp-arrow { fill: var(--gold-dk); }
+.cycle-loop-svg .lp-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  fill: var(--gold);
+  paint-order: stroke fill;
+  stroke: var(--black);
+  stroke-width: 5;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.slide.light .cycle-loop-svg .lp-label { fill: var(--gold-dk); stroke: var(--warm); }
+
+.cycle-decay-title {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--warn);
+  margin: 18px 0 6px;
+  text-transform: uppercase;
+}
+.slide.light .cycle-decay-title { color: var(--warn-dk); }
+.cycle-decay-svg {
+  width: 100%;
+  height: 160px;
+}
+.cycle-decay-svg .d-axis-line { stroke: var(--rule-lt); stroke-width: 1; }
+.slide.light .cycle-decay-svg .d-axis-line { stroke: var(--rule-dk); }
+.cycle-decay-svg .d-grid { stroke: var(--rule-lt); stroke-dasharray: 2 4; opacity: 0.5; }
+.slide.light .cycle-decay-svg .d-grid { stroke: var(--rule-dk); }
+.cycle-decay-svg .d-line {
+  fill: none;
+  stroke: var(--warn);
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+.slide.light .cycle-decay-svg .d-line { stroke: var(--warn-dk); }
+.cycle-decay-svg .d-area { fill: var(--warn); opacity: 0.12; }
+.slide.light .cycle-decay-svg .d-area { fill: var(--warn-dk); opacity: 0.1; }
+.cycle-decay-svg .d-dot { fill: var(--warn); }
+.slide.light .cycle-decay-svg .d-dot { fill: var(--warn-dk); }
+.cycle-decay-svg .d-axis {
+  font-family: var(--mono); font-size: 14px; fill: var(--muted-lt);
+}
+.slide.light .cycle-decay-svg .d-axis { fill: var(--muted-dk); }
+.cycle-decay-svg .d-label {
+  font-family: var(--mono); font-size: 13px; font-weight: 700;
+  fill: var(--warn);
+  paint-order: stroke fill;
+  stroke: var(--black);
+  stroke-width: 4;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.slide.light .cycle-decay-svg .d-label { fill: var(--warn-dk); stroke: var(--warm); }
+
+/* ============ HARNESS WORKFLOW (slide 14) ============ */
+.harness-title {
+  margin-top: 18px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule-lt);
+}
+.slide.light .harness-title { border-bottom-color: var(--rule-dk); }
+.harness-title-tag {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.slide.light .harness-title-tag { color: var(--gold-dk); }
+.harness-title-sub {
+  font-family: var(--serif-ko);
+  font-size: 15px;
+  color: var(--muted-lt);
+  font-style: italic;
+}
+.slide.light .harness-title-sub { color: var(--muted-dk); }
+
+.harness-flow {
+  display: grid;
+  grid-template-columns: 1fr 36px 1fr 36px 1fr 36px 1fr;
+  gap: 0;
+  margin-top: 18px;
+  align-items: stretch;
+  position: relative;
+}
+.harness-phase {
+  border: 2px solid var(--gold);
+  background: rgba(184,146,74,0.06);
+  padding: 16px 14px;
+  border-radius: 2px;
+  text-align: center;
+  position: relative;
+}
+.slide.light .harness-phase { border-color: var(--gold-dk); background: rgba(122,95,46,0.05); }
+.harness-phase-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 26px;
+  color: var(--gold);
+  font-weight: 700;
+  line-height: 1;
+}
+.slide.light .harness-phase-num { color: var(--gold-dk); }
+.harness-phase-name {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--cream);
+  margin-top: 4px;
+  letter-spacing: -0.005em;
+}
+.slide.light .harness-phase-name { color: var(--black); }
+.harness-phase-desc {
+  margin-top: 8px;
+  font-family: var(--serif-ko);
+  font-size: 14px;
+  color: var(--muted-lt);
+  line-height: 1.5;
+}
+.slide.light .harness-phase-desc { color: var(--muted-dk); }
+
+.harness-arrow-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.harness-arrow-cell .arrow {
+  font-family: var(--mono);
+  font-size: 24px;
+  color: var(--gold);
+  font-weight: 700;
+}
+.slide.light .harness-arrow-cell .arrow { color: var(--gold-dk); }
+.harness-arrow-cell .gate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 44px));
+  background: var(--gold);
+  color: var(--black);
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 2px;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+.slide.light .harness-arrow-cell .gate { background: var(--gold-dk); color: var(--cream); }
+
+.harness-loopback-svg {
+  width: 100%;
+  height: 60px;
+  margin-top: 4px;
+}
+.harness-loopback-svg .lb-path {
+  fill: none;
+  stroke: var(--warn);
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.slide.light .harness-loopback-svg .lb-path { stroke: var(--warn-dk); }
+.harness-loopback-svg .lb-arrow {
+  fill: var(--warn);
+  vector-effect: non-scaling-stroke;
+}
+.slide.light .harness-loopback-svg .lb-arrow { fill: var(--warn-dk); }
+.harness-loopback-svg .lb-label {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  fill: var(--warn);
+  paint-order: stroke fill;
+  stroke: var(--black);
+  stroke-width: 6;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.slide.light .harness-loopback-svg .lb-label {
+  fill: var(--warn-dk);
+  stroke: var(--warm);
+}
+
+.harness-rtm {
+  margin-top: 8px;
+  padding: 12px 18px;
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  background: rgba(184,146,74,0.06);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.slide.light .harness-rtm {
+  border-top-color: var(--gold-dk);
+  border-bottom-color: var(--gold-dk);
+  background: rgba(122,95,46,0.05);
+}
+.harness-rtm-tag {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.slide.light .harness-rtm-tag { color: var(--gold-dk); }
+.harness-rtm-desc {
+  font-family: var(--serif-ko);
+  font-size: 15px;
+  color: var(--muted-lt);
+  line-height: 1.55;
+}
+.slide.light .harness-rtm-desc { color: var(--muted-dk); }
+.harness-rtm-desc em { color: var(--cream); font-style: italic; font-weight: 700; }
+.slide.light .harness-rtm-desc em { color: var(--black); }
+
+.harness-legend {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--muted-lt);
+  letter-spacing: 0.04em;
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.slide.light .harness-legend { color: var(--muted-dk); }
+.harness-legend .badge {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--black);
+  padding: 3px 10px;
+  border-radius: 2px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin-right: 8px;
+  font-size: 14px;
+}
+.slide.light .harness-legend .badge { background: var(--gold-dk); color: var(--cream); }
+.harness-legend .badge.warn { background: var(--warn); }
+.slide.light .harness-legend .badge.warn { background: var(--warn-dk); }
+
+/* ============ USER PROMPT BUBBLE (slide 13) ============ */
+.user-prompt {
+  font-family: var(--mono);
+  font-size: 16px;
+  background: rgba(184,146,74,0.08);
+  border-left: 3px solid var(--gold);
+  padding: 14px 20px;
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--cream);
+  border-radius: 1px;
+}
+.slide.light .user-prompt { background: rgba(122,95,46,0.08); border-left-color: var(--gold-dk); color: var(--black); }
+.user-prompt .who {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.slide.light .user-prompt .who { color: var(--gold-dk); }
+.user-prompt .arrow { color: var(--gold); font-weight: 700; opacity: 0.7; }
+.slide.light .user-prompt .arrow { color: var(--gold-dk); }
+
+/* ============ RIPPLE PANE (slide 13 — visible vs invisible) ============ */
+.ripple-pane {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 18px;
+}
+.ripple-col {
+  border: 1px solid;
+  padding: 14px 18px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+}
+.ripple-col.good { border-color: var(--gold); background: rgba(184,146,74,0.05); }
+.slide.light .ripple-col.good { border-color: var(--gold-dk); background: rgba(122,95,46,0.05); }
+.ripple-col.bad { border-color: var(--warn); background: rgba(192,72,56,0.05); }
+.slide.light .ripple-col.bad { border-color: var(--warn-dk); background: rgba(176,74,58,0.05); }
+.ripple-col-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid;
+}
+.ripple-col.good .ripple-col-label { color: var(--gold); border-bottom-color: rgba(184,146,74,0.3); }
+.slide.light .ripple-col.good .ripple-col-label { color: var(--gold-dk); border-bottom-color: rgba(122,95,46,0.3); }
+.ripple-col.bad .ripple-col-label { color: var(--warn); border-bottom-color: rgba(192,72,56,0.3); }
+.slide.light .ripple-col.bad .ripple-col-label { color: var(--warn-dk); border-bottom-color: rgba(176,74,58,0.3); }
+.ripple-col .ascii { margin-top: 6px; padding: 12px 16px; }
+.ripple-col .verdict {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.ripple-col.good .verdict { color: var(--gold); }
+.slide.light .ripple-col.good .verdict { color: var(--gold-dk); }
+.ripple-col.bad .verdict { color: var(--warn); }
+.slide.light .ripple-col.bad .verdict { color: var(--warn-dk); }
+
+.ripple-note {
+  margin-top: 12px;
+  padding: 10px 18px;
+  font-family: var(--serif-ko);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted-lt);
+  border-left: 3px solid var(--warn);
+  background: rgba(192,72,56,0.04);
+}
+.slide.light .ripple-note { color: var(--muted-dk); border-left-color: var(--warn-dk); background: rgba(176,74,58,0.05); }
+.ripple-note em { font-style: italic; color: var(--warn); font-weight: 700; }
+.slide.light .ripple-note em { color: var(--warn-dk); }
+.ripple-note code {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--cream);
+  background: rgba(0,0,0,0.2);
+  padding: 1px 6px;
+  border-radius: 1px;
+}
+.slide.light .ripple-note code { color: var(--black); background: rgba(0,0,0,0.05); }
+
+.ripple-summary {
+  margin-top: 14px;
+  padding: 14px 18px;
+  border-top: 2px solid var(--gold);
+  border-bottom: 1px solid var(--rule-lt);
+  font-family: var(--serif-ko);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 17px;
+  color: var(--cream);
+}
+.slide.light .ripple-summary { color: var(--black); border-top-color: var(--gold-dk); border-bottom-color: var(--rule-dk); }
+.ripple-summary em { color: var(--gold); font-style: italic; font-weight: 700; }
+.slide.light .ripple-summary em { color: var(--gold-dk); }
+.ripple-summary .time {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--warn);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.slide.light .ripple-summary .time { color: var(--warn-dk); }
+
+/* ============ CONTEXT VIZ (slide 10 — /context command) ============ */
+.context-viz {
+  font-family: var(--mono);
+  background: var(--black);
+  color: var(--cream);
+  border: 1px solid var(--gold-dk);
+  padding: 18px 24px;
+  margin-top: 16px;
+  border-radius: 2px;
+  box-shadow: 0 4px 14px rgba(12,11,9,0.12);
+}
+.context-viz-prompt {
+  font-size: 14px;
+  color: var(--gold-lt);
+  margin-bottom: 6px;
+}
+.context-viz-prompt .arrow { color: var(--gold); margin-right: 8px; font-weight: 700; }
+.context-viz-title {
+  font-size: 14px;
+  color: var(--muted-lt);
+  margin-bottom: 14px;
+  letter-spacing: 0.04em;
+}
+.context-viz-bar {
+  display: flex;
+  height: 26px;
+  margin: 12px 0 16px;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid rgba(240,236,224,0.1);
+}
+.context-viz-bar > div {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+.context-viz-list {
+  display: grid;
+  grid-template-columns: 1fr 80px 80px;
+  gap: 5px 18px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.context-viz-list .ck { display: flex; align-items: center; gap: 10px; color: var(--cream); }
+.context-viz-list .ck .swatch { width: 12px; height: 12px; border-radius: 1px; flex-shrink: 0; }
+.context-viz-list .tk { text-align: right; color: var(--cream); font-weight: 700; }
+.context-viz-list .pct { text-align: right; color: var(--muted-lt); }
+.context-viz-list .divider {
+  grid-column: 1 / -1;
+  height: 1px;
+  background: rgba(240,236,224,0.12);
+  margin: 4px 0;
+}
+.context-viz-list .row-total .ck,
+.context-viz-list .row-total .tk,
+.context-viz-list .row-total .pct { color: var(--gold-lt); font-weight: 700; }
 
 /* ============ SCALE TABLE (slide 11) ============ */
 .scale-table {
@@ -799,13 +2294,13 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .slide.light .scale-table .lev { color: var(--black); }
 .scale-table .num {
   font-family: var(--mono);
-  font-size: clamp(12px, 0.95vw, 14px);
+  font-size: clamp(13px, 1vw, 15px);
   color: var(--muted-lt);
   letter-spacing: 0.04em;
 }
 .slide.light .scale-table .num { color: var(--muted-dk); }
 .scale-table .res {
-  font-size: clamp(13px, 1vw, 16px);
+  font-size: clamp(14px, 1.1vw, 17px);
   color: var(--muted-lt);
 }
 .slide.light .scale-table .res { color: var(--muted-dk); }
@@ -815,28 +2310,42 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 /* ============ NEEDLE CHART (slide 9) ============ */
 .needle-chart {
   position: relative;
-  height: 36vh;
-  border-left: 1px solid var(--rule-lt);
-  border-bottom: 1px solid var(--rule-lt);
+  height: 42vh;
   margin-top: 8px;
-  padding: 20px 18px 12px 14px;
+  padding: 14px 12px 8px 8px;
 }
-.slide.light .needle-chart { border-color: var(--rule-dk); }
+.slide.light .needle-chart { }
 .needle-chart svg { width: 100%; height: 100%; overflow: visible; }
-.needle-chart .cl-axis { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; fill: var(--muted-lt); }
+.needle-chart .cl-axis { font-family: var(--mono); font-size: 15px; letter-spacing: 0.04em; fill: var(--muted-lt); }
 .slide.light .needle-chart .cl-axis { fill: var(--muted-dk); }
-.needle-chart .cl-line { fill: none; stroke: var(--gold); stroke-width: 2; }
+.needle-chart .cl-axis-line { stroke: var(--rule-lt); stroke-width: 1; }
+.slide.light .needle-chart .cl-axis-line { stroke: var(--rule-dk); }
+.needle-chart .cl-grid { stroke: var(--rule-lt); stroke-width: 1; stroke-dasharray: 2 4; opacity: 0.55; }
+.slide.light .needle-chart .cl-grid { stroke: var(--rule-dk); }
+.needle-chart .cl-dip-zone { fill: var(--warn); opacity: 0.07; }
+.slide.light .needle-chart .cl-dip-zone { fill: var(--warn-dk); opacity: 0.07; }
+.needle-chart .cl-line { fill: none; stroke: var(--gold); stroke-width: 2.5; }
+.slide.light .needle-chart .cl-line { stroke: var(--gold-dk); }
 .needle-chart .cl-line.mid { stroke: var(--warn); stroke-dasharray: 4 4; }
 .needle-chart .cl-dot { fill: var(--gold); }
+.slide.light .needle-chart .cl-dot { fill: var(--gold-dk); }
 .needle-chart .cl-dot.mid { fill: var(--warn); }
-.needle-chart .cl-area { fill: var(--gold); opacity: 0.08; }
+.slide.light .needle-chart .cl-dot.mid { fill: var(--warn-dk); }
+.needle-chart .cl-area { fill: var(--gold); opacity: 0.1; }
 .slide.light .needle-chart .cl-area { fill: var(--gold-dk); opacity: 0.1; }
 .needle-chart .cl-label {
-  font-family: var(--mono); font-size: 9px;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  fill: var(--muted-lt);
+  font-family: var(--mono); font-size: 17px; font-weight: 700;
+  letter-spacing: 0.04em;
+  fill: var(--gold);
 }
-.slide.light .needle-chart .cl-label { fill: var(--muted-dk); }
+.slide.light .needle-chart .cl-label { fill: var(--gold-dk); }
+.needle-chart .cl-label.warn { fill: var(--warn); }
+.slide.light .needle-chart .cl-label.warn { fill: var(--warn-dk); }
+.needle-chart .cl-zone-label {
+  font-family: var(--mono); font-size: 14px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  fill: var(--warn-dk); opacity: 0.9;
+}
 
 /* ============ VIZ22 (preserved stateful animation) ============ */
 .viz22 {
@@ -895,8 +2404,8 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   border-top: 1px solid var(--gold);
   font-family: var(--serif);
   font-style: italic;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.55;
   color: var(--cream);
 }
 .slide.light .viz22 .verdict { color: var(--black); border-top-color: var(--gold-dk); }
@@ -958,7 +2467,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   align-items: center;
   padding: 6px 0;
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: 14px;
   color: var(--cream);
   transition: opacity 0.4s, color 0.4s, background 0.5s;
 }
@@ -996,6 +2505,255 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 }
 .slide.light .viz22 .fn.justadded { background: rgba(122,95,46,0.16); }
 
+/* ============ DIFFVIEW (single static diff with twin/dead/orphan badges) ============ */
+.diffview {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 36px;
+  margin-top: 14px;
+  flex: 1;
+  align-items: start;
+  min-height: 0;
+}
+.diffview .sidebar {
+  font-family: var(--serif-ko);
+  border-right: 1px solid var(--rule-lt);
+  padding-right: 20px;
+}
+.slide.light .diffview .sidebar { border-right-color: var(--rule-dk); }
+.diffview .tally-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  margin-bottom: 14px;
+}
+.slide.light .diffview .tally-label { color: var(--muted-dk); }
+.diffview .tally { display: flex; flex-direction: column; gap: 0; margin-bottom: 22px; }
+.diffview .tally-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  border-bottom: 1px solid var(--rule-lt);
+  padding: 10px 0;
+}
+.slide.light .diffview .tally-row { border-bottom-color: var(--rule-dk); }
+.diffview .tally-row .label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+}
+.slide.light .diffview .tally-row .label { color: var(--muted-dk); }
+.diffview .tally-row .label .swatch { width: 10px; height: 10px; display: inline-block; }
+.diffview .tally-row.twin   .swatch { background: var(--gold); }
+.diffview .tally-row.dead   .swatch { background: var(--warn); }
+.diffview .tally-row.orphan .swatch { background: transparent; border: 1px dashed var(--gold-lt); }
+.diffview .tally-row .num { font-size: 18px; font-weight: 700; color: var(--cream); }
+.slide.light .diffview .tally-row .num { color: var(--black); }
+.diffview .tally-row.twin   .num { color: var(--gold); }
+.slide.light .diffview .tally-row.twin   .num { color: var(--gold-dk); }
+.diffview .tally-row.dead   .num { color: var(--warn); }
+.slide.light .diffview .tally-row.dead   .num { color: var(--warn-dk); }
+.diffview .tally-row.orphan .num { color: var(--gold-lt); }
+.slide.light .diffview .tally-row.orphan .num { color: var(--warn-dk); }
+.diffview .changes {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--muted-lt);
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+.slide.light .diffview .changes { color: var(--muted-dk); }
+.diffview .changes em { color: var(--gold); font-style: normal; font-weight: 700; }
+.slide.light .diffview .changes em { color: var(--gold-dk); }
+.diffview .verdict {
+  font-family: var(--serif-ko);
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--cream);
+  border-top: 1px solid var(--gold);
+  padding-top: 14px;
+}
+.slide.light .diffview .verdict { color: var(--black); border-top-color: var(--gold-dk); }
+.diffview .verdict em { color: var(--gold); font-style: normal; font-weight: 700; }
+.slide.light .diffview .verdict em { color: var(--gold-dk); }
+.diffview .verdict-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--muted-lt);
+  margin-top: 10px;
+}
+.slide.light .diffview .verdict-meta { color: var(--muted-dk); }
+
+/* code panel */
+.diffview .code-panel {
+  border: 1px solid var(--rule-lt);
+  background: rgba(184,146,74,0.04);
+  border-radius: 2px;
+  font-family: var(--mono);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.slide.light .diffview .code-panel { border-color: var(--rule-dk); background: rgba(122,95,46,0.04); }
+.diffview .code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--rule-lt);
+  padding: 10px 16px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+.slide.light .diffview .code-header { border-bottom-color: var(--rule-dk); }
+.diffview .code-header .filename { color: var(--gold); font-weight: 600; }
+.slide.light .diffview .code-header .filename { color: var(--gold-dk); }
+.diffview .code-header .stats { font-family: var(--mono); }
+.diffview .code-header .stats .plus  { color: var(--gold-lt); margin-right: 10px; }
+.slide.light .diffview .code-header .stats .plus { color: var(--gold-dk); }
+.diffview .code-header .stats .minus { color: var(--muted-lt); }
+.slide.light .diffview .code-header .stats .minus { color: var(--muted-dk); }
+.diffview .code-body {
+  padding: 10px 0;
+  flex: 1;
+  min-height: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.diffview .dl {
+  display: grid;
+  grid-template-columns: 32px 18px 1fr auto;
+  align-items: baseline;
+  padding: 0 14px;
+  color: var(--cream);
+}
+.slide.light .diffview .dl { color: var(--black); }
+.diffview .dl .ln {
+  color: var(--muted-lt);
+  opacity: 0.45;
+  font-size: 11px;
+  text-align: right;
+  padding-right: 10px;
+}
+.slide.light .diffview .dl .ln { color: var(--muted-dk); }
+.diffview .dl .mk {
+  font-weight: 700;
+  text-align: center;
+  color: transparent;
+}
+.diffview .dl.added { background: rgba(184,146,74,0.06); }
+.slide.light .diffview .dl.added { background: rgba(122,95,46,0.05); }
+/* per-type tints — visual distinction for twin / dead / orphan added lines */
+.diffview .dl.added.t-twin   { background: rgba(184,146,74,0.14); box-shadow: inset 3px 0 0 var(--gold); }
+.diffview .dl.added.t-dead   { background: rgba(184,80,64,0.13);  box-shadow: inset 3px 0 0 var(--warn); }
+.diffview .dl.added.t-orphan { background: rgba(96,108,128,0.16); box-shadow: inset 3px 0 0 var(--gold-lt); }
+.slide.light .diffview .dl.added.t-twin   { background: rgba(122,95,46,0.11); box-shadow: inset 3px 0 0 var(--gold-dk); }
+.slide.light .diffview .dl.added.t-dead   { background: rgba(138,58,44,0.10); box-shadow: inset 3px 0 0 var(--warn-dk); }
+.slide.light .diffview .dl.added.t-orphan { background: rgba(70,82,100,0.11);  box-shadow: inset 3px 0 0 var(--gold-dk); }
+/* orphan: dashed-feel left rail (lighter, intermittent) */
+.diffview .dl.added.t-orphan {
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0px, transparent 4px,
+    rgba(221,185,106,0.18) 4px, rgba(221,185,106,0.18) 8px
+  ), linear-gradient(rgba(96,108,128,0.16), rgba(96,108,128,0.16));
+  background-size: 3px 100%, 100% 100%;
+  background-position: 0 0, 0 0;
+  background-repeat: no-repeat, no-repeat;
+  box-shadow: none;
+}
+.slide.light .diffview .dl.added.t-orphan {
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0px, transparent 4px,
+    rgba(122,95,46,0.30) 4px, rgba(122,95,46,0.30) 8px
+  ), linear-gradient(rgba(70,82,100,0.11), rgba(70,82,100,0.11));
+  background-size: 3px 100%, 100% 100%;
+  background-position: 0 0, 0 0;
+  background-repeat: no-repeat, no-repeat;
+}
+.diffview .dl.added .mk { color: var(--gold); }
+.slide.light .diffview .dl.added .mk { color: var(--gold-dk); }
+.diffview .dl .src { white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+.diffview .dl .src .kw  { color: var(--gold); }
+.slide.light .diffview .dl .src .kw  { color: var(--gold-dk); }
+.diffview .dl .src .fn  { color: var(--gold-lt); font-weight: 600; }
+.slide.light .diffview .dl .src .fn  { color: var(--gold-dk); font-weight: 700; }
+.diffview .dl .src .str { color: var(--muted-lt); }
+.slide.light .diffview .dl .src .str { color: var(--muted-dk); }
+.diffview .dl .src .cm  { color: var(--muted-lt); opacity: 0.7; font-style: italic; }
+.slide.light .diffview .dl .src .cm  { color: var(--muted-dk); opacity: 0.75; }
+.diffview .dl .src .num { color: var(--gold-lt); }
+.slide.light .diffview .dl .src .num { color: var(--warn-dk); }
+.diffview .dl .badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  padding: 2px 8px;
+  border: 1px solid currentColor;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-left: 14px;
+  align-self: center;
+}
+.diffview .dl .badge.twin   { color: var(--gold); }
+.slide.light .diffview .dl .badge.twin   { color: var(--gold-dk); }
+.diffview .dl .badge.dead   { color: var(--warn); }
+.slide.light .diffview .dl .badge.dead   { color: var(--warn-dk); }
+.diffview .dl .badge.orphan { color: var(--gold-lt); border-style: dashed; }
+.slide.light .diffview .dl .badge.orphan { color: var(--warn-dk); border-style: dashed; }
+.diffview .dl .badge .cy {
+  color: var(--muted-lt);
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  margin-left: 8px;
+}
+.slide.light .diffview .dl .badge .cy { color: var(--muted-dk); }
+
+/* prompt embedded as inline `# user:` comment in the diff */
+.diffview .dl .src .cm-prompt {
+  color: var(--gold-lt);
+  opacity: 0.92;
+  font-style: italic;
+}
+.slide.light .diffview .dl .src .cm-prompt { color: var(--gold-dk); opacity: 0.95; }
+.diffview .dl .src .cm-tag {
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 600;
+}
+.slide.light .diffview .dl .src .cm-tag { color: var(--gold-dk); }
+.diffview .dl .src .cm-tag.later { color: var(--warn); }
+.slide.light .diffview .dl .src .cm-tag.later { color: var(--warn-dk); }
+
+/* #s17 scoped — presentation-friendly sizing (Option A: collapsed bodies) */
+#s17 .stage.top { padding-top: 14px; }
+#s17 .kicker { margin-bottom: 12px; }
+#s17 .keyword.sm { font-size: clamp(26px, 3.0vw, 42px); line-height: 1.12; margin-bottom: 14px; }
+#s17 .diffview { margin-top: 10px; gap: 32px; }
+#s17 .diffview .tally-label { margin-bottom: 12px; font-size: 12px; }
+#s17 .diffview .tally-row { padding: 10px 0; }
+#s17 .diffview .tally-row .label { font-size: 12px; gap: 11px; }
+#s17 .diffview .tally-row .label .swatch { width: 12px; height: 12px; }
+#s17 .diffview .tally-row .num { font-size: 22px; }
+#s17 .diffview .changes { margin-bottom: 18px; font-size: 13px; line-height: 1.7; }
+#s17 .diffview .verdict { padding-top: 13px; font-size: 15.5px; line-height: 1.55; }
+#s17 .diffview .verdict-meta { font-size: 12px; line-height: 1.7; }
+#s17 .diffview .code-header { padding: 12px 18px; font-size: 13px; }
+#s17 .diffview .code-body { padding: 10px 0; font-size: 15.5px; line-height: 1.5; }
+#s17 .diffview .dl { padding: 0 16px; grid-template-columns: 36px 20px 1fr auto; }
+#s17 .diffview .dl .ln { font-size: 12px; }
+#s17 .diffview .dl .badge { font-size: 11px; padding: 3px 9px; letter-spacing: 0.18em; }
+
 /* ============ PROGRESS / NAVHINT / ZONES ============ */
 .progress {
   position: fixed;
@@ -1029,6 +2787,86 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .click-zone.left  { left: 0;  cursor: w-resize; }
 .click-zone.right { right: 0; cursor: e-resize; }
 
+/* ============ SECTION DIVIDER (slides 03 / 07 / 11) ============ */
+.divider-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: stretch;
+  flex: 1;
+  padding: 24px 0;
+  min-height: 0;
+}
+.divider-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  border-right: 1px solid var(--rule-lt);
+  padding-right: 56px;
+  min-height: 0;
+}
+.slide.light .divider-left { border-right-color: var(--rule-dk); }
+.divider-mark {
+  display: flex;
+  flex-direction: column;
+}
+.divider-head {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  flex-wrap: nowrap;
+}
+.divider-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: var(--limit-img, none);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 2px;
+  min-height: 0;
+}
+.divider-roman {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(80px, 10vw, 150px);
+  line-height: 0.85;
+  color: var(--gold);
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+.divider-rule {
+  width: 60px; height: 1px; background: var(--gold); opacity: 0.6;
+  margin: 18px 0 16px;
+}
+.divider-name {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(80px, 10vw, 150px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.slide.light .divider-name { color: var(--gold-dk); }
+.divider-tag {
+  font-family: var(--serif-ko);
+  font-style: italic;
+  font-size: clamp(17px, 1.5vw, 24px);
+  color: var(--muted-lt);
+  line-height: 1.4;
+}
+.slide.light .divider-tag { color: var(--muted-dk); }
+
+.divider-bench { display: flex; flex-direction: column; padding-left: 8px; }
+.divider-bench .kicker { margin-bottom: 14px; }
+.divider-bench .keyword { margin-bottom: 14px; }
+.divider-bench .subline { margin-top: 0; max-width: none; }
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1100px) {
   .slide { padding: 28px 36px 40px; }
@@ -1044,6 +2882,8 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   .scale-table { grid-template-columns: 1fr; }
   .viz22 { grid-template-columns: 1fr; }
   .viz22 .sidebar { border-right: none; border-bottom: 1px solid var(--rule-lt); padding-right: 0; padding-bottom: 18px; }
+  .diffview { grid-template-columns: 1fr; }
+  .diffview .sidebar { border-right: none; border-bottom: 1px solid var(--rule-lt); padding-right: 0; padding-bottom: 18px; }
 }
 </style>
 </head>
@@ -1078,7 +2918,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
   <div class="cover-footer">
     <span>"better prompts don't scale. better systems do."</span>
-    <span>01 / 18</span>
+    <span>01 / 19</span>
   </div>
 </section>
 
@@ -1086,11 +2926,11 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Map</span></div>
-    <div class="tag">#three-limits #benchmarks</div>
-    <div>02 / 18</div>
+    <div class="tag">#three-limits #phenomena</div>
+    <div>02 / 19</div>
   </div>
   <div class="stage">
-    <div class="kicker">세 가지 벤치마크로 본다</div>
+    <div class="kicker">세 가지 현상으로 본다</div>
     <div class="display md">
       AI는, <em>세 곳에서 미끄러진다.</em>
     </div>
@@ -1098,23 +2938,23 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div class="three-probs">
       <div class="prob">
         <div class="p-num">I</div>
-        <div class="p-name">Car Wash Test</div>
-        <div class="p-en">Context Above</div>
-        <div class="p-desc">봐도 — 통계로 덮는다. 패턴이 의도를 이긴다.</div>
+        <div class="p-name">Pattern Drift</div>
+        <div class="p-en">명시 없으면 — 매번 흐른다</div>
+        <div class="p-desc">지침 없는 자리에 — 통계가 들어찬다.</div>
         <div class="p-tag">→ 질적 한계</div>
       </div>
       <div class="prob">
         <div class="p-num">II</div>
-        <div class="p-name">Needle in a Haystack</div>
-        <div class="p-en">Context Inside</div>
-        <div class="p-desc">가득 차면 — 못 찾는다. 길어질수록 회상이 떨어진다.</div>
+        <div class="p-name">Context Rot</div>
+        <div class="p-en">있는데 못 찾는다</div>
+        <div class="p-desc">넣어 둬도 — 길어질수록 회상이 떨어진다.</div>
         <div class="p-tag">→ 양적 한계</div>
       </div>
       <div class="prob">
         <div class="p-num">III</div>
-        <div class="p-name">Blind Context</div>
-        <div class="p-en">Context Outside</div>
-        <div class="p-desc">들어오지 않으면 — 모른다. 보이지 않으면 존재하지 않는다.</div>
+        <div class="p-name">Context Blind</div>
+        <div class="p-en">보이지 않으면 모른다</div>
+        <div class="p-desc">들어오지 않은 코드는 — 존재하지 않는 것과 같다.</div>
         <div class="p-tag">→ 구조적 한계</div>
       </div>
     </div>
@@ -1124,47 +2964,51 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       국소는 합리적, 전체는 모순이 된다.
     </div>
   </div>
-  <div class="foot"><span>The Map · Three Limits</span><span>02 / 18 · → 한계 ① Car Wash</span></div>
+  <div class="foot"><span>The Map · Three Limits</span><span>02 / 19 · → 한계 ① Car Wash</span></div>
 </section>
 
-<!-- ============ 03 CAR WASH · 벤치마크 ============ -->
-<section class="slide light">
+<!-- ============ 03 LIMIT I · DIVIDER + Car Wash Benchmark ============ -->
+<section class="slide dark" style="--limit-img: url('../../images/car-wash-test.png');">
   <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
-    <div class="tag">#benchmark #pattern-matching</div>
-    <div>03 / 18</div>
+    <div class="seg"><span class="dot"></span><span>Limit I · Pattern Drift</span></div>
+    <div class="tag">#section-i #pattern-drift</div>
+    <div>03 / 19</div>
   </div>
-  <div class="stage stage-split">
-    <div class="art">
-      <div class="ph">
-        <div class="ph-tag">Illustration</div>
-        <div class="ph-name">Car Wash Test</div>
-        <div class="ph-cap">세차장이 50미터 — 걸어갈까, 운전해서 갈까?</div>
+  <div class="divider-stage">
+    <div class="divider-left">
+      <div class="divider-mark">
+        <div class="divider-head">
+          <div class="divider-roman">I.</div>
+          <div class="divider-name">Pattern Drift.</div>
+        </div>
+        <div class="divider-rule"></div>
+        <div class="divider-tag">명시 없으면 — 매번 흐른다.</div>
+      </div>
+      <div class="divider-bench">
+        <div class="kicker">① Benchmark · Car Wash Test</div>
+        <div class="keyword sm">
+          세차장이 <em>50미터.</em><br>걸어갈까, 운전해서 갈까?
+        </div>
+        <div class="subline">
+          사람은 1초 만에 답한다 — <em>세차하러 가는 거니까 운전.</em><br>
+          그런데 <strong>53개 모델 중 48개</strong>가 "걸어가라"고 답했다.
+        </div>
+        <div class="bigstat-block" style="margin-top:18px; grid-template-columns:1fr 1fr; display:grid; gap:24px;">
+          <div>
+            <div class="bigstat">71.5%</div>
+            <div class="bigstat-cap">사람 정답률</div>
+          </div>
+          <div>
+            <div class="bigstat" style="color:var(--warn-dk)">9.4%</div>
+            <div class="bigstat-cap">모델 평균 정답률</div>
+          </div>
+        </div>
+        <div class="source">Opper.ai · 2025 · 53 LLMs</div>
       </div>
     </div>
-    <div class="copy">
-      <div class="kicker">① Benchmark</div>
-      <div class="keyword sm">
-        세차장이 <em>50미터.</em><br>걸어갈까, 운전해서 갈까?
-      </div>
-      <div class="subline">
-        사람은 1초 만에 답한다 — <em>세차하러 가는 거니까 운전.</em><br>
-        그런데 <strong>53개 모델 중 48개</strong>가 "걸어가라"고 답했다. 10/10 정답을 낸 모델은 <strong>5개뿐.</strong>
-      </div>
-      <div class="bigstat-block" style="margin-top:18px; grid-template-columns:1fr 1fr; display:grid; gap:24px;">
-        <div>
-          <div class="bigstat">71.5%</div>
-          <div class="bigstat-cap">사람 정답률 <span class="note">(N=10,000)</span></div>
-        </div>
-        <div>
-          <div class="bigstat" style="color:var(--warn-dk)">9.4%</div>
-          <div class="bigstat-cap">53개 모델 평균 정답률</div>
-        </div>
-      </div>
-      <div class="source">Opper.ai · 2025 · 53 LLMs · Car Wash Test</div>
-    </div>
+    <div class="divider-art"></div>
   </div>
-  <div class="foot"><span>Limit I · Benchmark</span><span>03 / 18 · → 사례: 코딩에서 어떻게 나타나는가</span></div>
+  <div class="foot"><span>Limit I · Begin</span><span>03 / 19 · → 사례</span></div>
 </section>
 
 <!-- ============ 04 CAR WASH · 사례 (김치찌개 3 attempts) ============ -->
@@ -1172,7 +3016,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
     <div class="tag">#case #blog-automation</div>
-    <div>04 / 18</div>
+    <div>04 / 19</div>
   </div>
   <div class="stage top">
     <div class="kicker">③ Case</div>
@@ -1184,48 +3028,60 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     </div>
 
     <div class="attempts">
-      <div class="attempt">
+      <div class="attempt seo">
         <div class="a-label">시도 1</div>
-        <div class="a-title"># 김치찌개 황금 레시피</div>
+        <div class="a-title"># 김치찌개 황금 레시피 🍲</div>
         <div class="a-body">
-          ## 시작하며<br>
-          ## 재료 준비<br>
-          ## 끓이는 법<br>
-          ## 황금 비율 TIP<br>
-          ## 마치며<br><br>
-          "쌀쌀한 날엔 김치찌개만한 게 없죠..."
+          쌀쌀한 날엔 김치찌개만한 게 없죠?<br>
+          오늘은 <span class="em">10분 컷</span>으로 끝내는 황금 레시피!<br>
+          <span class="h">## 재료 (2인분)</span>
+          • 묵은지 200g · 돼지고기 150g<br>
+          • 두부 1/2모 · 대파 1대<br>
+          <span class="h">## 끓이는 법</span>
+          1. 김치 볶기 (3분)<br>
+          2. 고기 넣고 5분<br>
+          3. 물 500ml → 약불 20분<br>
+          <span class="h">## 황금 비율 💡</span>
+          <span class="em">물:김치 = 5:2</span>가 베스트!<br>
+          <span class="h">## 마치며</span>
+          오늘 저녁 한번 해보세요 :)
         </div>
-        <div class="a-meta">SEO 블로그 · 1,500자 · 친근 반말</div>
+        <div class="a-meta">SEO 블로그 · 1,500자 · 반말</div>
       </div>
-      <div class="attempt">
+      <div class="attempt essay">
         <div class="a-label">시도 2</div>
         <div class="a-title serif">엄마의 김치찌개</div>
         <div class="a-body">
-          어릴 적, 엄마가 끓여주시던 김치찌개의 향 —<br><br>
-          그 깊은 맛은 시간이 만든 것이었습니다. 잘 익은 묵은지, 천천히 우러나는 국물...<br><br>
+          어릴 적, 부엌 창문에 서리던 그 향을 기억합니다.<br><br>
+          어머니의 김치찌개는 늘 같은 자리에서 시작되었습니다. 잘 익은 묵은지를 손가락으로 썰어내는 소리, 돼지고기가 천천히 익어가는 시간 — 그 모든 것이 '맛'이라는 한 단어로 응축되었지요.<br><br>
+          레시피로는 옮길 수 없는 무엇이 있습니다. 어머니가 쥐던 손의 무게, 끓는 시간의 호흡 — 그것은 책에 적히지 않습니다.<br><br>
           이번 주말, 그 맛을 다시 한 번.
         </div>
         <div class="a-meta">감성 에세이 · 700자 · 정중체</div>
       </div>
-      <div class="attempt">
+      <div class="attempt sns">
         <div class="a-label">시도 3</div>
-        <div class="a-title">오늘 저녁 메뉴 ㅎㅎ</div>
+        <div class="a-title">오늘 저녁 ㄹㅇ 핵맛 ㄷㄷ</div>
         <div class="a-body">
-          김치찌개 끝판왕 레시피<br>
-          묵은지 + 돼지고기 = 진리<br>
-          5분이면 끝!<br>
-          자취러 필수템<br><br>
-          #김치찌개 #자취요리<br>#저녁추천 #간단요리
+          묵은지 + 돼지고기 = 갓<br>
+          물 적게! 자작하게 ㅇㅇ<br>
+          5분컷 가능 ㅇㅈ?<br>
+          자취러 필수템 ㄹㅇ<br>
+          존맛탱 인정ㅋㅋ<br><br>
+          레시피 댓글 ㄱㄱ<br><br>
+          <span class="tag">#존맛 #김치찌개</span><br>
+          <span class="tag">#자취요리 #저녁추천</span><br>
+          <span class="tag">#간단요리 #ㄹㅇ</span>
         </div>
         <div class="a-meta">SNS · 300자 · 캐주얼</div>
       </div>
     </div>
 
-    <div class="callout">
+    <div class="callout" style="max-width:none; white-space:nowrap; font-size:clamp(15px, 1.25vw, 20px);">
       <em>명시되지 않은 9/10</em>이 매번 다르게 채워진다. AI는 빈칸을 발견하면 — 묻지 않고, <em>훈련 분포의 다수</em>로 메운다.
     </div>
   </div>
-  <div class="foot"><span>Limit I · Case</span><span>04 / 18 · → 해법: 의도를 명시하라</span></div>
+  <div class="foot"><span>Limit I · Case</span><span>04 / 19 · → 해법: 의도를 명시하라</span></div>
 </section>
 
 <!-- ============ 05 CAR WASH · 해법 (시스템 프롬프트) ============ -->
@@ -1233,47 +3089,47 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
     <div class="tag">#remedy #prompt-engineering</div>
-    <div>05 / 18</div>
+    <div>05 / 19</div>
   </div>
   <div class="stage top">
     <div class="kicker">④ Remedy</div>
     <div class="keyword sm">
       <em>빈칸을 메우는</em> 시스템 프롬프트.
     </div>
-    <div class="subline" style="max-width:820px; margin-top:8px">
-      "김치찌개 글 써줘" 1줄을 <em>200줄로 명시화한 작업</em> — 블로그 자동화 프로젝트의 실제 시스템 프롬프트 발췌.
+    <div class="subline" style="max-width:none; white-space:nowrap; margin-top:8px; font-size:clamp(14px, 1.15vw, 18px);">
+      "김치찌개 글 써줘" 1줄을 <em> SEO 서식에 맞춘 1500자 내외 글로 명시화한 작업</em> — 블로그 자동화 프로젝트의 실제 시스템 프롬프트 발췌.
     </div>
 
-    <div class="split-copy tighter">
-      <div>
-        <div class="col-label">메우는 빈칸</div>
-        <ul class="col-list">
-          <li><strong>출력 모드</strong></li>
-          <li><strong>출력 형식</strong></li>
-          <li><strong>분량 / 톤</strong></li>
-          <li><strong>금지 패턴</strong></li>
-          <li><strong>사실성</strong></li>
-          <li><strong>종료 조건</strong></li>
-        </ul>
-      </div>
-      <div>
-        <div class="col-label">실제 프롬프트</div>
-<div class="ascii"><span class="hl">"무조건 블로그 콘텐츠로만 작성하며,</span>
-<span class="hl"> 설명·해석·제안은 절대 금지"</span>
+    <div class="spec-pane">
+      <div class="spec-source">
+        <div class="spec-col"><span class="h">[ 핵심 시스템 규칙 ]</span>
+- 무조건 블로그 콘텐츠로만 작성
+  (설명·해석·제안 절대 금지)
+- 코드블록·마크다운·구조 안내 출력 금지
+- 1500자 내외, 글자 수 엄격 준수 
 
-"H1 한 개 / H2 한 개 / 개요 300자 /
- H3 6~8개 / 표 1개 이상 / 태그 2줄"
+<span class="h">[ 출력 구조 ]</span>
+1. <span class="body">H1</span> — 20~30자, 한 줄
+2. <span class="body">H2</span> — 두 개로 시작
+3. <span class="body">개요</span> — 300자, 존댓말
+4. <span class="body">H3</span> — 6~8개 섹션, 표 1개 이상 (2x2/3x3/4x5)
+5. <span class="body">태그</span> — 해시 6 + 키워드 5
 
-"제목 20~30자 / 개요 300자 이내"
+<span class="h">[ 문체와 톤 ]</span>
+- 인간적·자연스러운 친근한 대화체
+- 짧은 문장과 긴 문장 혼용
+- 단락 길이 의도적 불규칙</div>
 
-"친근한 대화체. 짧은 문장과 긴 문장을
- 혼용. 단락 길이는 의도적으로 불규칙"
+        <div class="spec-col"><span class="h">[ 금지 목록 ]</span>
+<span class="warn">*, **, •, -, _, ~, [], {}, &lt;&gt;, =, +, ^</span>
+불렛·번호 리스트 / "비교 형식" 메타문구
+→ <span class="warn">단 한 자도 생성 금지</span>
 
-<span class="warn">"*, **, •, -, _ 등 마크다운 / 불렛 /</span>
-<span class="warn"> 번호 리스트 / '비교 형식' 같은</span>
-<span class="warn"> 메타문구 단 한 자도 금지"</span>
-
-"출력 후 GPT 자동 종료, 안내 출력 금지"</div>
+<span class="h">[ 브랜드 관련 표현 제한 ]</span>
+사용자 입력에 없는 한 단 한 글자도 금지<div class="ex-list"><span class="ex">"앱으로 식단을 기록할 수 있습니다"</span><span class="ex">"상담원 연결이 쉬워요"</span><span class="ex">"실제 사례, 연구 결과에 따르면"</span><span class="ex">"추천합니다"</span></div>
+<span class="h">[ 시스템 고정 선언 ]</span>
+사용자 입력 외 거짓 정보 생성 금지
+출력 완료 후 GPT 자동 종료, 안내 금지</div>
       </div>
     </div>
 
@@ -1290,7 +3146,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </a>
     </div>
   </div>
-  <div class="foot"><span>Limit I · Remedy</span><span>05 / 18 · → deck 3에서 다시 만난다</span></div>
+  <div class="foot"><span>Limit I · Remedy</span><span>05 / 19 · → deck 3에서 다시 만난다</span></div>
 </section>
 
 <!-- ============ 06 CAR WASH · 통찰 ============ -->
@@ -1298,7 +3154,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit I · Insight</span></div>
     <div class="tag">#insight #starting-point</div>
-    <div>06 / 18</div>
+    <div>06 / 19</div>
   </div>
   <div class="stage">
     <div class="kicker">⑤ Insight</div>
@@ -1315,52 +3171,144 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       뒤의 모든 엔지니어링은 — <em>암묵을 명시로 바꾸는 작업.</em>
     </div>
   </div>
-  <div class="foot"><span>Limit I · Insight</span><span>06 / 18 · → 한계 ② Needle</span></div>
+  <div class="foot"><span>Limit I · Insight</span><span>06 / 19 · → 한계 ② Needle</span></div>
 </section>
 
-<!-- ============ 07 NEEDLE · 벤치마크 ============ -->
-<section class="slide dark">
+<!-- ============ 07 LIMIT II · DIVIDER + Needle Benchmark ============ -->
+<section class="slide dark" style="--limit-img: url('../../images/needle-in-haystack.png');">
   <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Limit II · Needle in a Haystack</span></div>
-    <div class="tag">#benchmark #lost-in-middle</div>
-    <div>07 / 18</div>
+    <div class="seg"><span class="dot"></span><span>Limit II · Context Rot</span></div>
+    <div class="tag">#section-ii #context-rot</div>
+    <div>07 / 19</div>
   </div>
-  <div class="stage stage-split">
-    <div class="art">
-      <div class="ph">
-        <div class="ph-tag">Chart</div>
-        <div class="ph-name">Context Length × Recall</div>
-        <div class="ph-cap">길어질수록 회상이 떨어지는 곡선</div>
+  <div class="divider-stage">
+    <div class="divider-left">
+      <div class="divider-mark">
+        <div class="divider-head">
+          <div class="divider-roman">II.</div>
+          <div class="divider-name">Context Rot.</div>
+        </div>
+        <div class="divider-rule"></div>
+        <div class="divider-tag">있는데 못 찾는다.</div>
+      </div>
+      <div class="divider-bench">
+        <div class="kicker">① Benchmark · Needle in a Haystack</div>
+        <div class="keyword sm">
+          길어질수록<br><em>회상이 떨어진다.</em>
+        </div>
+        <div class="subline">
+          긴 텍스트(건초더미) 중간에 특정 정보(바늘)를 넣고, 모델이 찾게 한다.<br>
+          처음·끝이면 잘 찾지만 — <em>중간이면 놓친다.</em>
+        </div>
+        <ul class="col-list" style="margin-top:14px">
+          <li>토큰 수가 늘면 <em>회상 정확도가 떨어진다</em></li>
+          <li>중간이면 놓친다 — <em>Lost in the Middle</em></li>
+          <li>Multi-needle은 더 심각 — 코드베이스 추적이 정확히 그 영역</li>
+        </ul>
+        <div class="source">Liu et al. · 2023 · "Lost in the Middle"</div>
       </div>
     </div>
-    <div class="copy">
-      <div class="kicker">① Benchmark</div>
-      <div class="keyword sm">
-        길어질수록<br><em>회상이 떨어진다.</em>
+    <div class="divider-art"></div>
+  </div>
+  <div class="foot"><span>Limit II · Begin</span><span>07 / 19 · → 그래프</span></div>
+</section>
+
+<!-- ============ 08 NEEDLE · 그래프 (Lost in the Middle) ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Limit II · Context Rot</span></div>
+    <div class="tag">#evidence #lost-in-middle</div>
+    <div>08 / 19</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">② Evidence — Context Rot (Chroma · NoLiMa, 2025)</div>
+    <div class="keyword sm">
+      길어질수록, <em>정보 회상 정확도가 떨어진다.</em>
+    </div>
+    <div class="subline" style="max-width:920px; margin-top:8px">
+      <em>최신 18개 모델</em> (Claude 4 · GPT-4.1 · Gemini 2.5 · Qwen3 등) — 입력 길이가 늘어날수록 *긴 컨텍스트 안 정보를 정확히 찾아 쓰는 능력*이 단조 감소. <em>주장된 컨텍스트 ≠ 실제 효과적인 컨텍스트.</em>
+    </div>
+
+    <div class="stage-split" style="margin-top:18px;">
+      <div>
+        <div class="needle-chart">
+          <svg viewBox="0 0 620 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <line x1="60" y1="20" x2="60" y2="270" class="cl-axis-line" />
+            <line x1="60" y1="270" x2="600" y2="270" class="cl-axis-line" />
+
+            <g class="cl-axis">
+              <line x1="60" y1="50" x2="600" y2="50" class="cl-grid" />
+              <text x="55" y="55" text-anchor="end">100%</text>
+              <line x1="60" y1="105" x2="600" y2="105" class="cl-grid" />
+              <text x="55" y="110" text-anchor="end">75%</text>
+              <line x1="60" y1="160" x2="600" y2="160" class="cl-grid" />
+              <text x="55" y="165" text-anchor="end">50%</text>
+              <line x1="60" y1="215" x2="600" y2="215" class="cl-grid" />
+              <text x="55" y="220" text-anchor="end">25%</text>
+              <text x="55" y="275" text-anchor="end">0%</text>
+              <text x="20" y="150" text-anchor="middle" transform="rotate(-90 20 150)" style="font-size:14px;">정보 회상 정확도 (%)</text>
+            </g>
+
+            <g class="cl-axis">
+              <text x="80" y="290" text-anchor="middle">1K</text>
+              <text x="160" y="290" text-anchor="middle">4K</text>
+              <text x="240" y="290" text-anchor="middle">8K</text>
+              <text x="320" y="290" text-anchor="middle">16K</text>
+              <text x="400" y="290" text-anchor="middle">32K</text>
+              <text x="480" y="290" text-anchor="middle">64K</text>
+              <text x="560" y="290" text-anchor="middle">128K</text>
+              <text x="330" y="314" text-anchor="middle" style="font-size:14px;">컨텍스트 길이 (tokens)</text>
+            </g>
+
+            <rect x="400" y="50" width="200" height="220" class="cl-dip-zone" />
+            <text x="500" y="42" text-anchor="middle" class="cl-zone-label">32K+ Drop</text>
+
+            <line x1="400" y1="50" x2="400" y2="270" class="cl-grid" style="stroke-dasharray:4 4; opacity:0.8;" />
+            <text x="400" y="32" text-anchor="middle" class="cl-label" style="font-size:14px;">32K</text>
+
+            <path d="M 80 52 L 160 59 L 240 68 L 320 85 L 400 116 L 480 149 L 560 178 L 560 270 L 80 270 Z" class="cl-area" />
+            <path d="M 80 52 L 160 59 L 240 68 L 320 85 L 400 116 L 480 149 L 560 178" class="cl-line" />
+
+            <circle cx="80" cy="52" r="6" class="cl-dot" />
+            <circle cx="160" cy="59" r="6" class="cl-dot" />
+            <circle cx="240" cy="68" r="6" class="cl-dot" />
+            <circle cx="320" cy="85" r="6" class="cl-dot" />
+            <circle cx="400" cy="116" r="7" class="cl-dot mid" />
+            <circle cx="480" cy="149" r="6" class="cl-dot mid" />
+            <circle cx="560" cy="178" r="7" class="cl-dot mid" />
+
+            <text x="80" y="40" text-anchor="middle" class="cl-label">99%</text>
+            <text x="240" y="56" text-anchor="middle" class="cl-label">92%</text>
+            <text x="400" y="105" text-anchor="middle" class="cl-label warn">70%</text>
+            <text x="560" y="166" text-anchor="middle" class="cl-label warn">42%</text>
+          </svg>
+        </div>
       </div>
-      <div class="subline">
-        긴 텍스트(건초더미) 중간에 특정 정보(바늘)를 넣고, 모델에게 그것을 찾게 한다.
+      <div>
+        <div class="col-label">최신 발견 (2025)</div>
+        <ul class="col-list">
+          <li><em>GPT-4o</em>: 99.3% → <em>69.7% @ 32K</em> (NoLiMa)</li>
+          <li>32K에서 <em>10개 모델이 baseline 절반 이하</em>로 추락</li>
+          <li>Claude 4 · GPT-4.1 · Gemini 2.5 · Qwen3 — <em>최신 모델도 동일 패턴</em> (Chroma 18-model 평가)</li>
+          <li>Literal match 없으면 더 가파르게 — 실제 코드 추적이 그 영역</li>
+        </ul>
+        <div class="callout">
+          <em>윈도우가 크다 ≠ 그만큼 활용</em>한다.<br>
+          모델이 새로워져도 — <em>근본 패턴은 동일.</em>
+        </div>
+        <div class="source">Chroma "Context Rot" (2025-07, 18 SOTA 모델) · NoLiMa (Modarressi et al., ICML 2025) · arxiv:2502.05167</div>
       </div>
-      <ul class="col-list" style="margin-top:14px">
-        <li>토큰 수가 늘면 <em>회상 정확도가 떨어진다</em></li>
-        <li>처음·끝이면 잘 찾지만 <em>중간이면 놓친다</em> — Lost in the Middle</li>
-        <li>여러 바늘을 동시에 — <em>Multi-needle은 더 심각</em></li>
-      </ul>
-      <div class="callout">
-        코드베이스 추적은 정확히 <em>Multi-needle + Reasoning</em>이 필요한 영역이다.
-      </div>
-      <div class="source">Liu et al. · 2023 · "Lost in the Middle"</div>
     </div>
   </div>
-  <div class="foot"><span>Limit II · Benchmark</span><span>07 / 18 · → 사례: 코드베이스 규모</span></div>
+  <div class="foot"><span>Limit II · Evidence</span><span>08 / 19 · → 코드베이스 규모</span></div>
 </section>
 
 <!-- ============ 08 NEEDLE · 사례 (Scale Table) ============ -->
-<section class="slide dark">
+<section class="slide light">
   <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Limit II · Needle in a Haystack</span></div>
+    <div class="seg"><span class="dot"></span><span>Limit II · Context Rot</span></div>
     <div class="tag">#case #codebase-scale</div>
-    <div>08 / 18</div>
+    <div>09 / 19</div>
   </div>
   <div class="stage top">
     <div class="kicker">③ Case</div>
@@ -1368,85 +3316,150 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       프로젝트 규모로<br>체감하는 <em>한계.</em>
     </div>
 
-    <div class="scale-table">
-      <div class="h">Scale</div>
-      <div class="h">LOC · Files</div>
-      <div class="h">AI가 실제로 보는 비율</div>
+    <div class="scale-viz">
+      <div class="scale-viz-header">
+        <div>Scale</div>
+        <div>대표 예시</div>
+        <div>골드 = AI 윈도우 (Claude 200K) · 회색 = 못 보는 코드</div>
+        <div>AI 보는 비율</div>
+      </div>
 
-      <div class="lev">Toy / 사이드</div>
-      <div class="num">~500 LOC · 5~10 files</div>
-      <div class="res">거의 전부 — <em>잘 작동한다</em></div>
+      <div class="scale-viz-row">
+        <div class="lbl">Toy / 사이드<span class="meta">~5K LOC · 책 ~½권</span></div>
+        <div class="examples">개인 블로그 · Todo 앱 · <em>사이드 SaaS MVP</em></div>
+        <div class="bar">
+          <div class="bar-shell" style="width:45px">
+            <div class="bar-window contained" style="width:100%"></div>
+          </div>
+        </div>
+        <div class="pct">~100%</div>
+      </div>
 
-      <div class="lev">중소 서비스</div>
-      <div class="num">~50K LOC · 수백 files</div>
-      <div class="res">컨텍스트의 <em>일부만</em></div>
+      <div class="scale-viz-row">
+        <div class="lbl">대규모 코드베이스<span class="meta">~1M LOC · 책 ~100권</span></div>
+        <div class="examples">VS Code · <em>Spring</em> · Kubernetes · 카카오톡 코어</div>
+        <div class="bar">
+          <div class="bar-shell" style="width:22%">
+            <div class="bar-window"></div>
+          </div>
+        </div>
+        <div class="pct warn">~20%</div>
+      </div>
 
-      <div class="lev">대규모 코드베이스</div>
-      <div class="num">~1M LOC · 수천 files</div>
-      <div class="res">1~5% <em>미만</em></div>
+      <div class="scale-viz-row">
+        <div class="lbl">산업용 임베디드<span class="meta">~10M LOC · 책 ~1,000권</span></div>
+        <div class="examples">자동차 ECU · <em>SSD FW suite</em> · 산업 제어 PLC · 통신장비 OS</div>
+        <div class="bar">
+          <div class="bar-shell" style="width:55%">
+            <div class="bar-window"></div>
+          </div>
+        </div>
+        <div class="pct warn">~2%</div>
+      </div>
 
-      <div class="lev">임베디드 펌웨어</div>
-      <div class="num">~수백만 LOC · 수천 클래스</div>
-      <div class="res">사실상 <em>블라인드</em></div>
+      <div class="scale-viz-row">
+        <div class="lbl">빅테크 / 하이퍼스케일<span class="meta">~100M~수십억 LOC · 책 ~1만권+</span></div>
+        <div class="examples"><em>Android AOSP</em> (~100M) · Google monorepo (~2B) · Facebook codebase</div>
+        <div class="bar">
+          <div class="bar-shell" style="width:100%">
+            <div class="bar-window"></div>
+          </div>
+        </div>
+        <div class="pct warn">~0.2%</div>
+      </div>
+
+      <div class="scale-viz-note">표준 환산: 책 1권 ≈ ~10K LOC (300~500 페이지 기준)</div>
     </div>
 
     <div class="callout" style="font-style:italic; font-family:var(--serif);">
-      "내 토이에서 잘 되던 게,<br>
+      "내 토이에서 잘 되던 게,
       <em>회사 코드베이스에서 안 되는 이유.</em>"
     </div>
   </div>
-  <div class="foot"><span>Limit II · Case</span><span>08 / 18 · → 해법: 안을 깨끗하게</span></div>
+  <div class="foot"><span>Limit II · Case</span><span>09 / 19 · → 해법: 안을 깨끗하게</span></div>
 </section>
 
 <!-- ============ 09 NEEDLE · 해법 (Context Engineering) ============ -->
-<section class="slide dark">
+<section class="slide light">
   <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Limit II · Needle in a Haystack</span></div>
+    <div class="seg"><span class="dot"></span><span>Limit II · Context Rot</span></div>
     <div class="tag">#remedy #context-engineering</div>
-    <div>09 / 18</div>
+    <div>10 / 19</div>
   </div>
   <div class="stage top">
     <div class="kicker">④ Remedy</div>
     <div class="keyword sm">
-      <em>안을 깨끗하게</em> —<br>무엇을, 얼마나, 어떤 순서로.
+      <em>안을 깨끗하게</em> — 무엇을, 얼마나, 어떤 순서로.
     </div>
-    <div class="subline" style="max-width:820px; margin-top:8px">
+    <div class="subline" style="max-width:1000px; margin-top:8px">
       윈도우 자체를 <em>설계</em>하는 일. 냉장고 가득한 재료 중 지금 이 요리에 필요한 것만 정확히 골라 조리대에 올린다.
     </div>
 
-    <div class="split-copy">
-      <div>
-        <div class="col-label">윈도우의 구성요소</div>
-        <ul class="col-list">
-          <li><strong>시스템 프롬프트</strong> — 행동 규칙</li>
-          <li><strong>Instruction</strong> — 작업별 지시</li>
-          <li><strong>Skill</strong> — 상황별 도구</li>
-          <li><strong>RAG · 외부 데이터</strong> — 동적 주입</li>
-          <li><strong>대화 히스토리</strong> — 이전 맥락</li>
-          <li><strong>도구 호출 결과</strong> — MCP·API</li>
-        </ul>
+    <div class="context-viz">
+      <div class="context-viz-prompt"><span class="arrow">▶</span>/context</div>
+      <div class="context-viz-title">Context window — Claude Sonnet · 200K tokens</div>
+
+      <div class="context-viz-bar">
+        <div style="width:2%;    background:#888888" title="System prompt"></div>
+        <div style="width:10.5%; background:#bbbbbb" title="System tools"></div>
+        <div style="width:1%;    background:#b1b9f9" title="Custom agents"></div>
+        <div style="width:0.5%;  background:#d77757" title="Memory files"></div>
+        <div style="width:1%;    background:#ffc107" title="Skills"></div>
+        <div style="width:50%;   background:#9333ea" title="Messages"></div>
+        <div style="width:35%;   background:rgba(240,236,224,0.06); border-left: 1px solid rgba(240,236,224,0.18);" title="Free"></div>
       </div>
-      <div>
-        <div class="col-label">인프라</div>
-        <p class="col-body"><strong>RAG</strong> — 미리 다 넣지 않고 <em>필요할 때 검색해서 주입</em>한다.</p>
-        <p class="col-body"><strong>MCP</strong> — AI가 외부 도구와 소통하는 표준 프로토콜. <em>"컨텍스트의 USB-C."</em></p>
-        <p class="col-body" style="margin-top:14px; opacity:0.75">→ 이 둘이 Context Engineering을 실전에서 가능하게 만든 핵심 기술.</p>
+
+      <div class="context-viz-list">
+        <div class="ck"><span class="swatch" style="background:#888888"></span>System prompt</div>
+        <div class="tk">4K</div>
+        <div class="pct">2.0%</div>
+
+        <div class="ck"><span class="swatch" style="background:#bbbbbb"></span>System tools <span style="opacity:0.55">(built-in + MCP)</span></div>
+        <div class="tk">21K</div>
+        <div class="pct">10.5%</div>
+
+        <div class="ck"><span class="swatch" style="background:#b1b9f9"></span>Custom agents</div>
+        <div class="tk">2K</div>
+        <div class="pct">1.0%</div>
+
+        <div class="ck"><span class="swatch" style="background:#d77757"></span>Memory files <span style="opacity:0.55">(CLAUDE.md · auto-memory)</span></div>
+        <div class="tk">1K</div>
+        <div class="pct">0.5%</div>
+
+        <div class="ck"><span class="swatch" style="background:#ffc107"></span>Skills</div>
+        <div class="tk">2K</div>
+        <div class="pct">1.0%</div>
+
+        <div class="ck"><span class="swatch" style="background:#9333ea"></span>Messages <span style="opacity:0.55">(대화 히스토리)</span></div>
+        <div class="tk">100K</div>
+        <div class="pct">50.0%</div>
+
+        <div class="divider"></div>
+
+        <div class="ck row-total">Used</div>
+        <div class="tk row-total">130K</div>
+        <div class="pct row-total">65.0%</div>
+
+        <div class="ck"><span class="swatch" style="background:rgba(240,236,224,0.06); border:1px solid rgba(240,236,224,0.25)"></span>Free space</div>
+        <div class="tk">70K</div>
+        <div class="pct">35.0%</div>
       </div>
     </div>
 
     <div class="callout">
-      <em>Context Engineering의 본질</em> — 윈도우를 정교하게 설계하는 예술과 과학.
+      <em>Context Engineering = 이 표를 설계하는 일.</em><br>
+      무엇을·얼마나·어떤 순서로 들어갈지 — 한 줄씩 의도적으로.
     </div>
   </div>
-  <div class="foot"><span>Limit II · Remedy</span><span>09 / 18 · → deck 3에서 다시 만난다</span></div>
+  <div class="foot"><span>Limit II · Remedy</span><span>10 / 19 · → deck 3에서 다시 만난다</span></div>
 </section>
 
 <!-- ============ 10 NEEDLE · 통찰 ============ -->
-<section class="slide dark">
+<section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit II · Insight</span></div>
     <div class="tag">#insight #window-illusion</div>
-    <div>10 / 18</div>
+    <div>11 / 19</div>
   </div>
   <div class="stage">
     <div class="kicker">⑤ Insight</div>
@@ -1463,137 +3476,198 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <strong>HBM이라는 물리적 천장</strong>이 그 답이다.
     </div>
   </div>
-  <div class="foot"><span>Limit II · Insight</span><span>10 / 18 · → 한계 ③ Blind</span></div>
+  <div class="foot"><span>Limit II · Insight</span><span>11 / 19 · → 한계 ③ Blind</span></div>
 </section>
 
-<!-- ============ 11 BLIND · 벤치마크 ============ -->
-<section class="slide light">
+<!-- ============ 11 LIMIT III · DIVIDER + CrossCodeEval Benchmark ============ -->
+<section class="slide dark" style="--limit-img: url('../../images/blind-context.png');">
   <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Limit III · Blind Context</span></div>
-    <div class="tag">#benchmark #out-of-window</div>
-    <div>11 / 18</div>
+    <div class="seg"><span class="dot"></span><span>Limit III · Context Blind</span></div>
+    <div class="tag">#section-iii #context-blind</div>
+    <div>12 / 19</div>
   </div>
-  <div class="stage stage-split">
-    <div class="art">
-      <div class="ph">
-        <div class="ph-tag">Chart</div>
-        <div class="ph-name">CrossCodeEval</div>
-        <div class="ph-cap">in-file vs cross-file 정답률 갭</div>
+  <div class="divider-stage">
+    <div class="divider-left">
+      <div class="divider-mark">
+        <div class="divider-head">
+          <div class="divider-roman">III.</div>
+          <div class="divider-name">Context Blind.</div>
+        </div>
+        <div class="divider-rule"></div>
+        <div class="divider-tag">보이지 않으면 모른다.</div>
+      </div>
+      <div class="divider-bench">
+        <div class="kicker">① Benchmark · CrossCodeEval</div>
+        <div class="keyword sm">
+          보이지 않으면,<br><em>존재하지 않는다.</em>
+        </div>
+        <div class="subline">
+          ~10K 크로스파일 의존 문제 — Python · Java · TypeScript · C#.<br>
+          같은 파일만 주느냐, <em>관련 파일까지</em> 주느냐로 정답률이 갈린다.
+        </div>
+        <div class="bigstat-block" style="margin-top:18px; grid-template-columns:1fr 1fr; display:grid; gap:24px;">
+          <div>
+            <div class="bigstat" style="color:var(--warn-dk)">8.82%</div>
+            <div class="bigstat-cap">in-file only</div>
+          </div>
+          <div>
+            <div class="bigstat">× 4.5</div>
+            <div class="bigstat-cap">with cross-file</div>
+          </div>
+        </div>
+        <div class="source">CrossCodeEval · Ding et al. NeurIPS 2023</div>
       </div>
     </div>
-    <div class="copy">
-      <div class="kicker">① Benchmark</div>
-      <div class="keyword sm">
-        보이지 않으면,<br><em>존재하지 않는다.</em>
-      </div>
-      <div class="subline">
-        ~10K 크로스파일 의존 문제 — Python · Java · TypeScript · C#.<br>
-        같은 모델에 <em>같은 파일만</em> 주느냐, <em>관련 파일까지</em> 주느냐로 정답률이 갈린다.
-      </div>
-      <div class="bigstat-block" style="margin-top:18px; grid-template-columns:1fr 1fr; display:grid; gap:24px;">
-        <div>
-          <div class="bigstat" style="color:var(--warn-dk)">8.82%</div>
-          <div class="bigstat-cap">in-file only <span class="note">(StarCoder-15.5B · Python EM)</span></div>
-        </div>
-        <div>
-          <div class="bigstat">× 4.5</div>
-          <div class="bigstat-cap">with cross-file (retrieval + reference)</div>
-        </div>
-      </div>
-      <div class="source">CrossCodeEval · Ding et al. (NeurIPS 2023) · ~10K examples · 4 langs</div>
-    </div>
+    <div class="divider-art"></div>
   </div>
-  <div class="foot"><span>Limit III · Benchmark</span><span>11 / 18 · → 사례: 4 플랫폼이 폭사</span></div>
+  <div class="foot"><span>Limit III · Begin</span><span>12 / 19 · → 사례</span></div>
 </section>
 
 <!-- ============ 12 BLIND · 사례 (4 platforms) ============ -->
 <section class="slide light">
   <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Limit III · Blind Context</span></div>
+    <div class="seg"><span class="dot"></span><span>Limit III · Context Blind</span></div>
     <div class="tag">#case #ripple-effect</div>
-    <div>12 / 18</div>
+    <div>13 / 19</div>
   </div>
-  <div class="stage stage-split">
-    <div class="art">
-      <div class="ph">
-        <div class="ph-tag">Diagram</div>
-        <div class="ph-name">Change Ripple Effect</div>
-        <div class="ph-cap">한 곳을 고치면 4 플랫폼이 폭사</div>
-      </div>
+  <div class="stage top">
+    <div class="kicker">③ Case</div>
+    <div class="user-prompt">
+      <span class="who">User</span>
+      <span class="arrow">▶</span>
+      네이버 블로그 자동 발행할 때, 카테고리에 따라 글이 작성되도록 추가해줘
     </div>
-    <div class="copy">
-      <div class="kicker">③ Case</div>
-      <div class="keyword sm">
-        "네이버에 카테고리<br>분류 추가해줘"
-      </div>
-      <div class="ascii"><span class="mute"># base.py</span>
-class BasePublisher:
-    def publish(self, post,
-                <span class="hl">category</span>):
+
+    <div class="ripple-pane">
+      <div class="ripple-col good">
+        <div class="ripple-col-label">✓ AI가 수정한 파일 (3)</div>
+        <div class="ascii"><span class="mute"># base.py — 추상 클래스</span>
+class <span class="hl2">BasePublisher</span>:
+    def publish(self, post, <span class="hl">category</span>):  <span class="mute"># ← 시그니처 변경</span>
         raise NotImplementedError
 
 <span class="mute"># naver.py</span>
-class NaverPublisher(BasePublisher):
-    def publish(self, post,
-                <span class="hl">category</span>):
-        category = category or self.classify(post)
-        naver_api.post(post, category)</div>
-      <div class="ascii"><span class="mute"># tistory.py / thread.py / google.py</span>
-def publish(self, post):       <span class="warn">← TypeError</span>
+class NaverPublisher(<span class="hl2">BasePublisher</span>):  <span class="mute"># ← 상속</span>
+    def publish(self, post, <span class="hl">category</span>):
+        naver_api.post(post, category)
 
 <span class="mute"># main.py — 새벽 자동 발행 잡</span>
 for p in [tistory, thread, naver, google]:
-    p.publish(post)            <span class="warn">← 4개 다 옛 시그니처</span></div>
-      <div class="callout">
-        AI가 본 파일: <strong>naver.py / base.py</strong> — LGTM.<br>
-        못 본 파일: <strong>tistory · thread · google · main.py</strong> — 발견까지 <em>12시간.</em>
+    p.publish(post, <span class="hl">classify(post)</span>)  <span class="mute"># ← 인자 추가</span></div>
+        <div class="verdict">→ 테스트: naver만 돌려봄. LGTM ✓</div>
+      </div>
+
+      <div class="ripple-col bad">
+        <div class="ripple-col-label">✗ AI가 못 본 파일 (3)</div>
+        <div class="ascii"><span class="mute"># tistory.py</span>
+class TistoryPublisher(<span class="hl2">BasePublisher</span>):  <span class="mute"># ← 상속</span>
+    def publish(self, post):  <span class="warn">← 옛 시그니처 그대로</span>
+        tistory_api.post(post)
+
+<span class="mute"># thread.py · google.py — 동일 구조</span>
+class ThreadPublisher(<span class="hl2">BasePublisher</span>):
+    def publish(self, post):  <span class="warn">← 옛 시그니처</span>
+class GooglePublisher(<span class="hl2">BasePublisher</span>):
+    def publish(self, post):  <span class="warn">← 옛 시그니처</span>
+
+<span class="warn">main.py 루프 실행 시 ──────────────────</span>
+<span class="warn">TypeError: publish() takes 2 positional</span>
+<span class="warn">  arguments but 3 were given  (× 3개)</span></div>
+        <div class="verdict">→ 새벽 4시 자동 잡 죽음 · 3 플랫폼 발행 실패</div>
       </div>
     </div>
+
+    <div class="ripple-note">
+      <em>Python은 동적 언어 — 시그니처 mismatch를 빌드 타임에 안 잡음.</em>
+      클래스 정의·인스턴스 생성 모두 통과하고, 메서드 <code>publish(post, category)</code> 호출 *그 순간*에야 <code>TypeError</code>로 터진다. 즉 — *프로덕션에서야* 처음 드러난다.
+    </div>
+
+    <div class="ripple-summary">
+      <span><em>수정한 곳</em> 3 파일 · <em>못 본 상속 클래스</em> 3 파일</span>
+      <span class="time">⏰ 발견까지 12시간</span>
+    </div>
   </div>
-  <div class="foot"><span>Limit III · Case</span><span>12 / 18 · → 해법: 필요한 걸 끌어와라</span></div>
+  <div class="foot"><span>Limit III · Case</span><span>13 / 19 · → 해법: 필요한 걸 끌어와라</span></div>
 </section>
 
 <!-- ============ 13 BLIND · 해법 (Harness Engineering) ============ -->
 <section class="slide light">
   <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Limit III · Blind Context</span></div>
+    <div class="seg"><span class="dot"></span><span>Limit III · Context Blind</span></div>
     <div class="tag">#remedy #harness-engineering</div>
-    <div>13 / 18</div>
+    <div>14 / 19</div>
   </div>
   <div class="stage top">
     <div class="kicker">④ Remedy</div>
     <div class="keyword sm">
-      <em>필요한 걸 끌어와라</em> —<br>워크플로우의 일.
+      <em>필요한 걸 끌어와라</em> — 워크플로우의 일.
     </div>
     <div class="subline" style="max-width:840px; margin-top:8px">
       한 프롬프트로도, 한 세션으로도 풀 수 없다. <em>여러 Phase·여러 시점에 걸쳐</em> 의존성과 영향 범위를 시스템적으로 추적해야 한다.
     </div>
 
-    <div class="split-copy">
-      <div>
-        <div class="col-label">왜 한 세션으로 안 되는가</div>
-        <ul class="col-list">
-          <li>긴 세션은 <em>Context Rot</em>이 발생한다 (Limit II)</li>
-          <li>"무엇을 끌어올지" 결정 자체가 <em>시스템 전체에 대한 이해</em>를 전제로 한다</li>
-          <li>그 이해는 <em>한 사람의 멘탈 모델</em>에 있다 — HBM에 안 담긴다</li>
-        </ul>
+    <div class="harness-title">
+      <span class="harness-title-tag">⌘ Harness Workflow</span>
+      <span class="harness-title-sub">하네스 워크플로우 — Phase + Gate + RTM + LOOPBACK</span>
+    </div>
+
+    <div class="harness-flow">
+      <div class="harness-phase">
+        <div class="harness-phase-num">①</div>
+        <div class="harness-phase-name">Plan</div>
+        <div class="harness-phase-desc">영향 범위<br>전체 식별</div>
       </div>
-      <div>
-        <div class="col-label">필요한 것 — 워크플로우 설계</div>
-        <ul class="col-list">
-          <li><strong>Phase 분할</strong> — 작업을 격리</li>
-          <li><strong>추적성 (RTM)</strong> — 의존성을 명시 문서로</li>
-          <li><strong>LOOPBACK</strong> — 실패의 구조적 복구</li>
-          <li><strong>Gate</strong> — 인간 판단 지점</li>
-        </ul>
+      <div class="harness-arrow-cell">
+        <span class="gate">Gate</span>
+        <span class="arrow">→</span>
+      </div>
+      <div class="harness-phase">
+        <div class="harness-phase-num">②</div>
+        <div class="harness-phase-name">Spec</div>
+        <div class="harness-phase-desc">인터페이스<br>약속 작성</div>
+      </div>
+      <div class="harness-arrow-cell">
+        <span class="gate">Gate</span>
+        <span class="arrow">→</span>
+      </div>
+      <div class="harness-phase">
+        <div class="harness-phase-num">③</div>
+        <div class="harness-phase-name">Implement</div>
+        <div class="harness-phase-desc">관련 파일<br>모두 업데이트</div>
+      </div>
+      <div class="harness-arrow-cell">
+        <span class="arrow">→</span>
+      </div>
+      <div class="harness-phase">
+        <div class="harness-phase-num">④</div>
+        <div class="harness-phase-name">Verify</div>
+        <div class="harness-phase-desc">모든 케이스<br>실행 + 검증</div>
       </div>
     </div>
 
-    <div class="callout">
+    <svg class="harness-loopback-svg" viewBox="0 0 1000 60" preserveAspectRatio="none">
+      <path class="lb-path" d="M 870 4 L 870 38 L 510 38 L 510 14" />
+      <polygon class="lb-arrow" points="500,16 520,16 510,2" />
+      <text class="lb-label" x="690" y="30" text-anchor="middle">LOOPBACK · 실패 시 ③ Implement로 자동 복구</text>
+    </svg>
+
+    <div class="harness-rtm">
+      <span class="harness-rtm-tag">⊢ RTM ⟶</span>
+      <span class="harness-rtm-desc">Requirements Traceability Matrix — 매 Phase 산출물·의존성·영향 범위를 <em>명시 문서로</em> 추적. 한 세션의 기억이 아니라 *문서가* 시스템 전체를 안다.</span>
+    </div>
+
+    <div class="harness-legend">
+      <span><span class="badge">Gate</span>인간 판단 지점</span>
+      <span><span class="badge warn">LOOPBACK</span>실패의 구조적 복구</span>
+      <span><span class="badge">Phase</span>작업 격리</span>
+      <span><span class="badge">RTM</span>추적성 문서</span>
+    </div>
+
+    <div class="callout" style="margin-top:14px;">
       <em>Harness Engineering의 본질</em> — 워크플로우 자체를 설계한다.
     </div>
   </div>
-  <div class="foot"><span>Limit III · Remedy</span><span>13 / 18 · → deck 3·5에서 다시 만난다</span></div>
+  <div class="foot"><span>Limit III · Remedy</span><span>14 / 19 · → deck 3·5에서 다시 만난다</span></div>
 </section>
 
 <!-- ============ 14 BLIND · 통찰 ============ -->
@@ -1601,7 +3675,7 @@ for p in [tistory, thread, naver, google]:
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit III · Insight</span></div>
     <div class="tag">#insight #invisible-larger</div>
-    <div>14 / 18</div>
+    <div>15 / 19</div>
   </div>
   <div class="stage">
     <div class="kicker">⑤ Insight</div>
@@ -1618,7 +3692,7 @@ for p in [tistory, thread, naver, google]:
       워크플로우 전체의 설계가 필요하다.
     </div>
   </div>
-  <div class="foot"><span>Limit III · Insight</span><span>14 / 18 · → 종합: Edit Entropy</span></div>
+  <div class="foot"><span>Limit III · Insight</span><span>15 / 19 · → 종합: Edit Entropy</span></div>
 </section>
 
 <!-- ============ 15 SYNTHESIS — Edit Entropy 정의 ============ -->
@@ -1626,7 +3700,7 @@ for p in [tistory, thread, naver, google]:
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · Edit Entropy</span></div>
     <div class="tag">#local-vs-global #drift</div>
-    <div>15 / 18</div>
+    <div>16 / 19</div>
   </div>
   <div class="stage">
     <div class="kicker">Synthesis</div>
@@ -1652,124 +3726,300 @@ for p in [tistory, thread, naver, google]:
       매 편집은 <em>local에서 best</em>를 만든다. 그러나 그 best의 합집합은 — <strong>global best가 아니다.</strong>
     </div>
   </div>
-  <div class="foot"><span>Synthesis · Definition</span><span>15 / 18 · → 사이클이 누적시킨다</span></div>
+  <div class="foot"><span>Synthesis · Definition</span><span>16 / 19 · → 사이클이 누적시킨다</span></div>
 </section>
 
 <!-- ============ 16 SYNTHESIS — The Cycle ============ -->
-<section class="slide dark">
+<section class="slide dark" id="s-cycle">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · The Cycle</span></div>
     <div class="tag">#dev-cycle #accumulation</div>
-    <div>16 / 18</div>
+    <div>17 / 19</div>
   </div>
   <div class="stage top">
-    <div class="kicker">The Cycle</div>
+    <div class="kicker">The Cycle · Press Space</div>
     <div class="keyword sm">
       사이클이 <em>그것을 누적시킨다.</em>
     </div>
 
-    <div class="ascii"><span class="hl2">설계문서  →  코드  →  부분 patch  →  또 patch  →  ...</span>
-   ↑                                                │
-   └─────────────────── loop ─────────────────────┘
-
-매 loop의 매 단계에서, <span class="hl">한 한계가 모순을 주입</span>한다.
-정합성은 — <span class="warn">단조 감소.</span></div>
-
-    <div class="split-copy">
-      <div>
-        <div class="col-label">한 번의 편집</div>
-        <p class="col-body"><strong>항상 local에서 합리적</strong>이다. 그 한 컷만 보면 어떤 PR도 LGTM.</p>
+    <div class="cycle-anim">
+      <div class="cycle-anim-header">
+        <div class="cycle-stepper">
+          <span class="stepper-label">Cycle</span>
+          <span class="step-dot done current"></span>
+          <span class="step-line"></span>
+          <span class="step-dot"></span>
+          <span class="step-line"></span>
+          <span class="step-dot"></span>
+          <span class="step-line"></span>
+          <span class="step-dot"></span>
+          <span class="step-line"></span>
+          <span class="step-dot"></span>
+          <span class="step-line"></span>
+          <span class="step-dot"></span>
+          <span class="step-count"><span class="cycle-num">0</span> / 5</span>
+        </div>
+        <span class="cycle-help"><kbd>Space</kbd> 다음 사이클</span>
       </div>
-      <div>
-        <div class="col-label">여러 번의 편집</div>
-        <p class="col-body">누적되면 <em>global 정합성은 단조 감소</em>한다. 매 편집의 합집합은 — global best가 아니다.</p>
-      </div>
-    </div>
 
-    <div class="callout" style="font-style:italic; font-family:var(--serif);">
-      그 누적의 가시적 흔적이 — <em>다음 슬라이드.</em>
+      <div class="cycle-trigger">
+        <span class="trigger-tag">⚙ Trigger</span>
+        <span class="trigger-text">초기 시스템 — <em>REQ-1, REQ-2</em> 기반</span>
+        <span class="trigger-arrow">→</span>
+        <span class="trigger-text" style="color:var(--muted-lt); font-style:italic; font-size:14px;">spec.md 기준선</span>
+      </div>
+
+      <div class="cycle-anim-3panels">
+        <div class="cycle-anim-canvas-wrap">
+          <div class="code-canvas-header spec">
+            <span class="filename">docs/spec.md</span>
+            <span class="meta"><span class="total-rows-spec">14</span> lines · +<span class="rows-added-spec">0</span> REQ</span>
+          </div>
+          <div class="code-canvas-anim spec" data-panel="spec">
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="live" data-c5="live"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="hidden" data-c5="live"></div>
+          </div>
+        </div>
+
+        <div class="cycle-anim-canvas-wrap">
+          <div class="code-canvas-header dld">
+            <span class="filename">docs/dld.md</span>
+            <span class="meta"><span class="total-rows-design">14</span> lines · <span class="rows-added-design">0</span> added</span>
+          </div>
+          <div class="code-canvas-anim dld" data-panel="design">
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row live" data-c0="live" data-c1="twin" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="orphan"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="dead" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="orphan" data-c4="orphan" data-c5="orphan"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="dead" data-c2="dead" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="twin" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="dead" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="orphan" data-c5="orphan"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="hidden" data-c5="orphan"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="hidden" data-c5="dead"></div>
+          </div>
+        </div>
+
+        <div class="cycle-anim-canvas-wrap">
+          <div class="code-canvas-header code">
+            <span class="filename">src/main.cpp</span>
+            <span class="meta"><span class="total-rows-code">14</span> lines · <span class="rows-added-code">0</span> added</span>
+          </div>
+          <div class="code-canvas-anim code" data-panel="code">
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="dead" data-c5="dead"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+          <div class="cb-row live" data-c0="live" data-c1="twin" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="orphan"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="dead" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="orphan" data-c4="orphan" data-c5="orphan"></div>
+          <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="twin" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="twin" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="dead" data-c2="dead" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="dead" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="dead" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="live" data-c4="live" data-c5="live"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="orphan" data-c4="orphan" data-c5="orphan"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="live" data-c5="live"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="twin" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="twin" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="twin" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="dead" data-c5="dead"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="orphan" data-c5="orphan"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="hidden" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="hidden" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="hidden" data-c5="twin"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="hidden" data-c5="dead"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="hidden" data-c5="dead"></div>
+          <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="hidden" data-c5="orphan"></div>
+          </div>
+        </div>
+
+        <div class="cycle-anim-canvas-wrap">
+          <div class="code-canvas-header test">
+            <span class="filename">test/test.cpp</span>
+            <span class="meta"><span class="total-rows-test">14</span> lines · <span class="rows-added-test">0</span> added</span>
+          </div>
+          <div class="code-canvas-anim test" data-panel="test">
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="orphan" data-c5="orphan"></div>
+            <div class="cb-row live" data-c0="live" data-c1="dead" data-c2="dead" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="live"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="dead" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row live" data-c0="live" data-c1="live" data-c2="live" data-c3="live" data-c4="live" data-c5="orphan"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="twin" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="dead" data-c2="dead" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="twin" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="dead" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="twin" data-c4="twin" data-c5="twin"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="dead" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="twin" data-c5="twin"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="dead" data-c5="dead"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="hidden" data-c5="twin"></div>
+            <div class="cb-row hidden" data-c0="hidden" data-c1="hidden" data-c2="hidden" data-c3="hidden" data-c4="hidden" data-c5="dead"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cycle-stats-anim">
+        <div class="stat-row live">
+          <span class="label"><span class="swatch"></span>live</span>
+          <span class="num live-count">14</span>
+        </div>
+        <div class="stat-row twin">
+          <span class="label"><span class="swatch"></span>twin</span>
+          <span class="num twin-count">0</span>
+        </div>
+        <div class="stat-row dead">
+          <span class="label"><span class="swatch"></span>dead</span>
+          <span class="num dead-count">0</span>
+        </div>
+        <div class="stat-row orphan">
+          <span class="label"><span class="swatch"></span>orphan</span>
+          <span class="num orphan-count">0</span>
+        </div>
+        <div class="stat-pct">
+          <span class="pct-num">100%</span>
+          <span class="pct-label">live</span>
+        </div>
+        <div class="stat-footer">
+          매 사이클 PR은 <em>LGTM ✓</em>.<br>
+          누적되는 건 <span class="warn">twin · dead · orphan</span>.
+        </div>
+      </div>
     </div>
   </div>
-  <div class="foot"><span>Synthesis · The Cycle</span><span>16 / 18 · → 시각화: 화석화의 과정</span></div>
+  <div class="foot"><span>Synthesis · The Cycle</span><span>17 / 19 · → 시각화: 화석화의 과정</span></div>
 </section>
 
-<!-- ============ 17 SYNTHESIS — Dynamic Visualization ★ ============ -->
+<!-- ============ 18 SYNTHESIS — Static Diff (twin/dead/orphan trace) ★ ============ -->
 <section class="slide dark" id="s17">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · Visualization ★</span></div>
-    <div class="tag">#fossilization #dead-code #twin-code</div>
-    <div>17 / 18</div>
+    <div class="tag">#fossilization #twin-dead-orphan #blog-engine</div>
+    <div>18 / 19</div>
   </div>
   <div class="stage top">
-    <div class="kicker">Visualization · Press Space</div>
+    <div class="kicker">Visualization · After 5 platforms</div>
     <div class="keyword sm">
-      <em>부분 patch</em>가 코드베이스를 <em>화석화</em>시킨다.
+      <em>공통</em>이 될 줄 알았다. 그러나 — <em>플랫폼마다</em> 다시 태어났다.
     </div>
 
-    <div class="viz22" data-step="0">
+    <div class="diffview">
       <div class="sidebar">
-        <div class="step-indicator">
-          현재 시점
-          <span class="now step-now">t1</span>
+        <div class="tally-label">Tally · 5 platforms later</div>
+        <div class="tally">
+          <div class="tally-row twin">
+            <span class="label"><span class="swatch"></span>twin</span>
+            <span class="num">×3</span>
+          </div>
+          <div class="tally-row dead">
+            <span class="label"><span class="swatch"></span>dead</span>
+            <span class="num">×1</span>
+          </div>
+          <div class="tally-row orphan">
+            <span class="label"><span class="swatch"></span>orphan</span>
+            <span class="num">×2</span>
+          </div>
         </div>
-        <div class="counters">
-          <div class="counter patch"><span>Patches</span><span class="num cnt-patch">0</span></div>
-          <div class="counter dead"><span>Dead Code</span><span class="num cnt-dead">0</span></div>
-          <div class="counter twin"><span>Twin Code</span><span class="num cnt-twin">0</span></div>
+        <div class="changes">
+          patches: <em>6 cycles</em><br>
+          lines: <em>+18</em> &nbsp;/&nbsp; −0<br>
+          모든 변경은 <em>+</em>였다.<br>
+          누구도 <em>−</em>를 만들지 않았다.
         </div>
-        <div class="verdict" style="opacity:0">
+        <div class="verdict">
           <em>"기존 코드의 존재를 못 보면, 유사를 새로 만든다."</em>
           <div class="verdict-meta">
             매 PR은 LGTM이었다.<br>
             누구도 코드베이스 전체를<br>본 적이 없을 뿐이다.
           </div>
         </div>
-        <div class="help"><kbd>Space</kbd> 다음 단계</div>
       </div>
-      <div class="codebase">
-        <div class="file f-utils">
-          <div class="filename">utils/text.py</div>
-          <div class="fn live" data-fn="normalize_for_seo">
-            <span class="dot"></span>
-            <span>normalize_for_seo()</span>
-            <span class="calls">calls: 2</span>
-          </div>
+
+      <div class="code-panel">
+        <div class="code-header">
+          <span class="filename">src/blog_engine/publish.py</span>
+          <span class="stats"><span class="plus">+18</span><span class="minus">−0</span></span>
         </div>
-        <div class="file f-generate">
-          <div class="filename">generate.py</div>
-          <div class="fn live" data-fn="generate_post">
-            <span class="dot"></span>
-            <span>generate_post()</span>
-            <span class="calls">→ normalize_for_seo</span>
-          </div>
-        </div>
-        <div class="file f-publish">
-          <div class="filename">publish.py</div>
-          <div class="fn live" data-fn="publish">
-            <span class="dot"></span>
-            <span>publish()</span>
-            <span class="calls">→ normalize_for_seo</span>
-          </div>
-          <div class="fn hidden" data-fn="clean_text">
-            <span class="dot"></span>
-            <span>clean_text()</span>
-            <span class="calls"></span>
-          </div>
-          <div class="fn hidden" data-fn="clean_for_thread">
-            <span class="dot"></span>
-            <span>clean_for_thread()</span>
-            <span class="calls"></span>
-          </div>
-          <div class="fn hidden" data-fn="sanitize_post">
-            <span class="dot"></span>
-            <span>sanitize_post()</span>
-            <span class="calls"></span>
-          </div>
+        <div class="code-body">
+          <div class="dl"><span class="ln">1</span><span class="mk">·</span><span class="src"><span class="kw">from</span> llm <span class="kw">import</span> draft   <span class="cm"># cycle 0 · 공통 의도였다</span></span></div>
+          <div class="dl"><span class="ln">2</span><span class="mk">·</span><span class="src"> </span></div>
+          <div class="dl"><span class="ln">3</span><span class="mk">·</span><span class="src"><span class="kw">def</span> <span class="fn">generate_post</span>(topic):</span></div>
+          <div class="dl"><span class="ln">4</span><span class="mk">·</span><span class="src">    body = draft(topic)</span></div>
+          <div class="dl"><span class="ln">5</span><span class="mk">·</span><span class="src">    <span class="kw">return</span> Post(make_title(body), body)</span></div>
+          <div class="dl"><span class="ln">6</span><span class="mk">·</span><span class="src"> </span></div>
+          <div class="dl"><span class="ln">7</span><span class="mk">·</span><span class="src"><span class="kw">def</span> <span class="fn">publish</span>(post, platform):</span></div>
+          <div class="dl"><span class="ln">8</span><span class="mk">·</span><span class="src">    upload(platform, post.title, post.body)</span></div>
+
+          <div class="dl added t-twin"><span class="ln">9</span><span class="mk">+</span><span class="src"><span class="kw">def</span> <span class="fn">generate_post_for_tistory</span>(topic):  <span class="cm"><span class="cm-tag">› user:</span></span> <span class="cm-prompt">"티스토리도 발행 추가"</span></span><span class="badge twin">twin<span class="cy">cycle 1</span></span></div>
+          <div class="dl added t-twin"><span class="ln">10</span><span class="mk">+</span><span class="src">    <span class="kw">return</span> Post(make_title(draft(topic, style=<span class="str">"seo"</span>)))</span></div>
+          <div class="dl added"><span class="ln">11</span><span class="mk">+</span><span class="src"> </span></div>
+          <div class="dl added t-twin"><span class="ln">12</span><span class="mk">+</span><span class="src"><span class="kw">def</span> <span class="fn">generate_post_for_blogger</span>(topic):  <span class="cm"><span class="cm-tag">› user:</span></span> <span class="cm-prompt">"Blogger도 지원해줘"</span></span><span class="badge twin">twin<span class="cy">cycle 2</span></span></div>
+          <div class="dl added t-twin"><span class="ln">13</span><span class="mk">+</span><span class="src">    <span class="kw">return</span> Post(make_title(draft(topic, style=<span class="str">"english"</span>)))</span></div>
+          <div class="dl added"><span class="ln">14</span><span class="mk">+</span><span class="src"> </span></div>
+          <div class="dl added t-twin"><span class="ln">15</span><span class="mk">+</span><span class="src"><span class="kw">def</span> <span class="fn">generate_thread</span>(topic):  <span class="cm"><span class="cm-tag">› user:</span></span> <span class="cm-prompt">"Threads용 — 280자 제한"</span></span><span class="badge twin">twin<span class="cy">cycle 3</span></span></div>
+          <div class="dl added t-twin"><span class="ln">16</span><span class="mk">+</span><span class="src">    <span class="kw">return</span> Post(<span class="str">""</span>, draft(topic)[:<span class="num">280</span>])</span></div>
+          <div class="dl added"><span class="ln">17</span><span class="mk">+</span><span class="src"> </span></div>
+          <div class="dl added t-dead"><span class="ln">18</span><span class="mk">+</span><span class="src"><span class="kw">def</span> <span class="fn">draft_with_gpt35</span>(topic):  <span class="cm"><span class="cm-tag">› user:</span></span> <span class="cm-prompt">"GPT-4o로 업그레이드해줘"</span></span><span class="badge dead">dead<span class="cy">cycle 4</span></span></div>
+          <div class="dl added t-dead"><span class="ln">19</span><span class="mk">+</span><span class="src">    <span class="kw">return</span> openai.completions.create(model=<span class="str">"gpt-3.5-turbo"</span>, prompt=topic)</span></div>
+          <div class="dl added"><span class="ln">20</span><span class="mk">+</span><span class="src"> </span></div>
+          <div class="dl added t-orphan"><span class="ln">21</span><span class="mk">+</span><span class="src"><span class="kw">def</span> <span class="fn">generate_post_for_naver</span>(topic):  <span class="cm"><span class="cm-tag">› user:</span></span> <span class="cm-prompt">"네이버도 추가해줘"</span></span><span class="badge orphan">orphan<span class="cy">cycle 5</span></span></div>
+          <div class="dl added t-orphan"><span class="ln">22</span><span class="mk">+</span><span class="src">    <span class="kw">return</span> Post(make_title(draft(topic, style=<span class="str">"naver-blog"</span>)))</span></div>
+          <div class="dl added t-orphan"><span class="ln">23</span><span class="mk">+</span><span class="src"><span class="kw">def</span> <span class="fn">publish_to_naver</span>(post):</span><span class="badge orphan">orphan<span class="cy">cycle 5</span></span></div>
+          <div class="dl added t-orphan"><span class="ln">24</span><span class="mk">+</span><span class="src">    <span class="kw">return</span> upload(<span class="str">"naver"</span>, post.title, post.body)</span></div>
+          <div class="dl added"><span class="ln">25</span><span class="mk">+</span><span class="src"> </span></div>
+          <div class="dl added t-orphan"><span class="ln">26</span><span class="mk">+</span><span class="src"><span class="cm"><span class="cm-tag later">↳ later:</span></span> <span class="cm-prompt">"네이버는 정책상 빼자"</span> <span class="cm">— dispatcher 진입만 제거됨</span></span></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="foot"><span>Synthesis · Visualization</span><span>17 / 18 · Space로 t1 → t5</span></div>
+  <div class="foot"><span>Synthesis · Visualization</span><span>18 / 19 · 매 PR은 LGTM ✓ — 누적되는 건 twin · dead · orphan</span></div>
 </section>
 
 <!-- ============ 18 FIN — Next Deck ============ -->
@@ -1780,7 +4030,7 @@ for p in [tistory, thread, naver, google]:
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Fin</span></div>
     <div class="tag">#hammer #carpenter #next-deck</div>
-    <div>18 / 18</div>
+    <div>19 / 19</div>
   </div>
   <div class="stage">
     <div class="kicker">Fin.</div>
@@ -1801,7 +4051,7 @@ for p in [tistory, thread, naver, google]:
   </div>
   <div class="foot">
     <span>AI Context, Edit Entropy — Deck 1 / 6</span>
-    <span>18 / 18 · END</span>
+    <span>19 / 19 · END</span>
   </div>
 </section>
 
@@ -1810,7 +4060,7 @@ for p in [tistory, thread, naver, google]:
 <div class="progress" id="progress"></div>
 <div class="click-zone left" id="zoneLeft"></div>
 <div class="click-zone right" id="zoneRight"></div>
-<div class="navhint"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>Space</kbd> step (s17) · <kbd>F</kbd> fullscreen</div>
+<div class="navhint"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>Space</kbd> cycle (s-cycle) · <kbd>F</kbd> fullscreen</div>
 
 <script>
 (function(){
@@ -1818,8 +4068,6 @@ for p in [tistory, thread, naver, google]:
   const progress = document.getElementById('progress');
   const total = slides.length;
   let idx = 0;
-  let viz22Step = 0;
-  const viz22MaxStep = 4;
 
   const zoneLeft = document.getElementById('zoneLeft');
   const zoneRight = document.getElementById('zoneRight');
@@ -1832,108 +4080,102 @@ for p in [tistory, thread, naver, google]:
     progress.style.width = ((idx + 1) / total * 100) + '%';
     history.replaceState(null, '', '#' + (idx + 1));
 
-    if (slides[idx].id === 's17') {
-      viz22Step = 0;
-      applyViz22();
+    if (slides[idx].id === 's-cycle') {
+      cycleStep = 0;
+      applyCycle();
     }
   }
 
-  function applyViz22() {
-    const root = document.querySelector('#s17 .viz22');
+  let cycleStep = 0;
+  function applyCycle() {
+    const root = document.querySelector('#s-cycle .cycle-anim');
     if (!root) return;
-    root.setAttribute('data-step', viz22Step);
-    const stepLabel = ['t1', 't2', 't3', 't4', 't5'][viz22Step];
-    const labelEl = root.querySelector('.step-now');
-    if (labelEl) labelEl.textContent = stepLabel;
 
-    const patches = [0, 1, 2, 3, 4];
-    const dead = [0, 0, 1, 1, 1];
-    const twin = [0, 1, 1, 2, 3];
-    root.querySelector('.cnt-patch').textContent = patches[viz22Step];
-    root.querySelector('.cnt-dead').textContent = dead[viz22Step];
-    root.querySelector('.cnt-twin').textContent = twin[viz22Step];
-
-    const stateByStep = [
-      {
-        normalize_for_seo:  { cls: 'live',    calls: 'calls: 2' },
-        generate_post:      { cls: 'live',    calls: '→ normalize_for_seo' },
-        publish:            { cls: 'live',    calls: '→ normalize_for_seo' },
-        clean_text:         { cls: 'hidden',  calls: '' },
-        clean_for_thread:   { cls: 'hidden',  calls: '' },
-        sanitize_post:      { cls: 'hidden',  calls: '' },
-      },
-      {
-        normalize_for_seo:  { cls: 'live',    calls: 'calls: 2' },
-        generate_post:      { cls: 'live',    calls: '→ normalize_for_seo' },
-        publish:            { cls: 'live',    calls: '→ normalize_for_seo' },
-        clean_text:         { cls: 'partial justadded', calls: 'just added' },
-        clean_for_thread:   { cls: 'hidden',  calls: '' },
-        sanitize_post:      { cls: 'hidden',  calls: '' },
-      },
-      {
-        normalize_for_seo:  { cls: 'fading',  calls: 'calls: 1' },
-        generate_post:      { cls: 'live',    calls: '→ clean_text' },
-        publish:            { cls: 'live',    calls: '→ clean_text' },
-        clean_text:         { cls: 'live',    calls: 'calls: 2' },
-        clean_for_thread:   { cls: 'hidden',  calls: '' },
-        sanitize_post:      { cls: 'hidden',  calls: '' },
-      },
-      {
-        normalize_for_seo:  { cls: 'fading',  calls: 'calls: 1' },
-        generate_post:      { cls: 'live',    calls: '→ clean_text' },
-        publish:            { cls: 'live',    calls: '→ clean_text + clean_for_thread' },
-        clean_text:         { cls: 'live',    calls: 'calls: 2' },
-        clean_for_thread:   { cls: 'partial justadded', calls: 'just added' },
-        sanitize_post:      { cls: 'hidden',  calls: '' },
-      },
-      {
-        normalize_for_seo:  { cls: 'dead',    calls: 'calls: 0' },
-        generate_post:      { cls: 'live',    calls: '→ clean_text' },
-        publish:            { cls: 'live',    calls: '→ clean_text + clean_for_thread' },
-        clean_text:         { cls: 'live',    calls: 'calls: 2' },
-        clean_for_thread:   { cls: 'live',    calls: 'calls: 1' },
-        sanitize_post:      { cls: 'partial justadded', calls: 'just added' },
-      }
-    ];
-
-    const state = stateByStep[viz22Step];
-    Object.keys(state).forEach(function(name) {
-      const fn = root.querySelector('.fn[data-fn="' + name + '"]');
-      if (!fn) return;
-      const s = state[name];
-      fn.classList.remove('live', 'partial', 'fading', 'dead', 'hidden', 'justadded');
-      s.cls.split(' ').forEach(function(c) { fn.classList.add(c); });
-      const callsEl = fn.querySelector('.calls');
-      if (callsEl) callsEl.textContent = s.calls;
+    // Per-panel update + count
+    let aggLive = 0, aggTwin = 0, aggDead = 0, aggOrphan = 0;
+    ['spec', 'design', 'code', 'test'].forEach(function(panel) {
+      const panelEl = root.querySelector('.code-canvas-anim[data-panel="' + panel + '"]');
+      if (!panelEl) return;
+      const rows = panelEl.querySelectorAll('.cb-row');
+      let visible = 0;
+      rows.forEach(function(row) {
+        const state = row.dataset['c' + cycleStep];
+        row.className = 'cb-row ' + state;
+        if (state !== 'hidden') visible++;
+        if (state === 'live') aggLive++;
+        else if (state === 'twin') aggTwin++;
+        else if (state === 'dead') aggDead++;
+        else if (state === 'orphan') aggOrphan++;
+      });
+      const totalEl = root.querySelector('.total-rows-' + panel);
+      const addedEl = root.querySelector('.rows-added-' + panel);
+      if (totalEl) totalEl.textContent = visible;
+      if (addedEl) addedEl.textContent = visible - 14;
     });
 
-    const utilsFile = root.querySelector('.f-utils');
-    const normState = state.normalize_for_seo.cls;
-    if (utilsFile) {
-      if (normState.indexOf('fading') !== -1 || normState.indexOf('dead') !== -1) {
-        utilsFile.classList.add('dimmed');
-      } else {
-        utilsFile.classList.remove('dimmed');
-      }
-    }
+    // Trigger banner
+    const triggers = [
+      { tag: '⚙ Trigger', text: '초기 시스템 — <em>REQ-1, REQ-2</em> 기반', sub: 'spec.md 기준선' },
+      { tag: '+ Cycle 1', text: '<em>REQ-3</em> 추가 — 카테고리 분류',           sub: '→ dld·code·test 연쇄' },
+      { tag: '+ Cycle 2', text: '<em>REQ-4</em> 추가 — 다국어 지원',             sub: '→ 영향 범위 확대' },
+      { tag: '~ Cycle 3', text: '<em>REQ-2 변경</em> — 인터페이스 수정',         sub: '→ 호출부 전체 재작업' },
+      { tag: '+ Cycle 4', text: '<em>REQ-5</em> 추가 — 알림 기능',               sub: '→ 새 의존성 도입' },
+      { tag: '~ Cycle 5', text: '<em>REQ-3 확장</em> — 옵션 추가',               sub: '→ 기존 코드 침식' }
+    ];
+    const trig = triggers[cycleStep] || triggers[0];
+    const trigTagEl = root.querySelector('.cycle-trigger .trigger-tag');
+    const trigTextEls = root.querySelectorAll('.cycle-trigger .trigger-text');
+    if (trigTagEl) trigTagEl.textContent = trig.tag;
+    if (trigTextEls[0]) trigTextEls[0].innerHTML = trig.text;
+    if (trigTextEls[1]) trigTextEls[1].textContent = trig.sub;
 
-    const verdict = root.querySelector('.verdict');
-    if (verdict) verdict.style.opacity = (viz22Step === viz22MaxStep) ? '1' : '0';
+    // Stepper update
+    const dots = root.querySelectorAll('.cycle-stepper .step-dot');
+    const lines = root.querySelectorAll('.cycle-stepper .step-line');
+    dots.forEach(function(dot, i) {
+      dot.classList.remove('done', 'current');
+      if (i <= cycleStep) dot.classList.add('done');
+      if (i === cycleStep) dot.classList.add('current');
+    });
+    lines.forEach(function(line, i) {
+      line.classList.remove('done');
+      if (i < cycleStep) line.classList.add('done');
+    });
+
+    const aggTotal = aggLive + aggTwin + aggDead + aggOrphan;
+    const numEl = root.querySelector('.cycle-num');
+    const liveEl = root.querySelector('.live-count');
+    const twinEl = root.querySelector('.twin-count');
+    const deadEl = root.querySelector('.dead-count');
+    const orphanEl = root.querySelector('.orphan-count');
+    const pctEl = root.querySelector('.pct-num');
+    const pctBox = root.querySelector('.stat-pct');
+    if (numEl) numEl.textContent = cycleStep;
+    if (liveEl) liveEl.textContent = aggLive;
+    if (twinEl) twinEl.textContent = aggTwin;
+    if (deadEl) deadEl.textContent = aggDead;
+    if (orphanEl) orphanEl.textContent = aggOrphan;
+    const pct = aggTotal > 0 ? Math.round(aggLive / aggTotal * 100) : 0;
+    if (pctEl) pctEl.textContent = pct + '%';
+    if (pctBox) {
+      if (pct < 50) pctBox.classList.add('danger');
+      else pctBox.classList.remove('danger');
+    }
   }
 
   function next() { go(idx + 1); }
   function prev() { go(idx - 1); }
 
   document.addEventListener('keydown', function(e) {
-    // s17 special: Space advances viz step
-    if (slides[idx].id === 's17' && (e.key === ' ' || e.code === 'Space')) {
+    // s-cycle special: Space advances cycle animation
+    if (slides[idx].id === 's-cycle' && (e.key === ' ' || e.code === 'Space')) {
       e.preventDefault();
-      if (viz22Step < viz22MaxStep) {
-        viz22Step++;
+      if (cycleStep < 5) {
+        cycleStep++;
       } else {
-        viz22Step = 0;
+        cycleStep = 0;
       }
-      applyViz22();
+      applyCycle();
       return;
     }
     if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
