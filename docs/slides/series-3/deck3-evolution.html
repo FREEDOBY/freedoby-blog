@@ -176,6 +176,51 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
 .divider { width: 40px; height: 1px; background: var(--gold); opacity: 0.5; margin: 22px 0; }
 
+/* ============ CALLOUT ============ */
+.callout {
+  margin-top: 32px;
+  padding: 18px 24px;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--rule-lt);
+  font-family: var(--serif-ko);
+  font-size: clamp(17px, 1.5vw, 24px);
+  line-height: 1.5;
+  color: var(--cream);
+  text-align: center;
+}
+.slide.light .callout { color: var(--black); border-bottom-color: var(--rule-dk); border-top-color: var(--gold-dk); }
+.callout em { font-style: normal; color: var(--gold); font-weight: 700; }
+.slide.light .callout em { color: var(--gold-dk); }
+.callout strong { color: var(--cream); font-weight: 700; }
+.slide.light .callout strong { color: var(--black); }
+
+/* ============ SATURATION CHART (slide 02) ============ */
+.sat-chart { margin-top: 18px; max-width: 100%; }
+.sat-chart-label {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+}
+.slide.light .sat-chart-label { color: var(--gold-dk); }
+.sat-svg { width: 100%; height: auto; max-height: 280px; display: block; }
+.sat-svg .ax-line { stroke: var(--muted-lt); stroke-width: 1; opacity: 0.45; fill: none; }
+.sat-svg .ax-grid { stroke: var(--muted-lt); stroke-width: 0.5; opacity: 0.2; stroke-dasharray: 2 4; fill: none; }
+.sat-svg .ax-tick { fill: var(--muted-lt); font-family: var(--mono); font-size: 10px; }
+.sat-svg .sat-zone { fill: rgba(176,74,58,0.08); stroke: rgba(176,74,58,0.25); stroke-width: 0.5; stroke-dasharray: 4 4; }
+.sat-svg .zone-label { fill: var(--red); font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em; opacity: 0.75; }
+.sat-svg .curve-mmlu { fill: none; stroke: var(--gold); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.sat-svg .dot-mmlu { fill: var(--gold); }
+.sat-svg .curve-he { fill: none; stroke: var(--cream); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.sat-svg .dot-he { fill: var(--cream); }
+.sat-svg .curve-label { font-family: var(--mono); font-size: 11px; font-weight: 700; }
+.sat-svg .curve-label.gold { fill: var(--gold); }
+.sat-svg .curve-label.cream { fill: var(--cream); }
+.sat-chart-source {
+  font-family: var(--mono); font-size: 9px;
+  color: var(--muted-lt); margin-top: 6px;
+  letter-spacing: 0.08em; text-align: right; opacity: 0.65;
+}
+
 /* COVER */
 .cover { justify-content: space-between; padding: 52px 80px; }
 .cover-brand {
@@ -565,16 +610,87 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
   <div class="cover-footer">
     <span>The Evolution of AI Coding Engineering — FREEDOBY</span>
-    <span>01 / 09</span>
+    <span>01 / 10</span>
   </div>
 </section>
 
-<!-- 02 ADOPTION -->
+<!-- 02 SATURATION -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Opening</span></div>
+    <div class="tag">#saturation #wrong-assumption</div>
+    <div>02 / 10</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">왜 진화했나</div>
+    <div class="keyword sm">
+      "GPT-5가 나오면 <em>해결되지 않을까?</em>"
+    </div>
+    <div class="subline" style="margin-top:8px;">
+      많은 개발자가 그렇게 생각합니다 — <em>더 좋은 모델, 더 긴 윈도우, 그러면 되는 거 아닌가.</em><br>
+      하지만 데이터는 다른 이야기를 합니다.
+    </div>
+
+    <div class="sat-chart">
+      <div class="sat-chart-label">★ 모델 벤치마크 saturation · 2020~2026</div>
+      <svg viewBox="0 0 720 280" preserveAspectRatio="xMidYMid meet" class="sat-svg" xmlns="http://www.w3.org/2000/svg">
+        <line x1="60" y1="20" x2="60" y2="240" class="ax-line" />
+        <line x1="60" y1="240" x2="700" y2="240" class="ax-line" />
+
+        <line x1="60" y1="64" x2="700" y2="64" class="ax-grid" />
+        <text x="55" y="68" text-anchor="end" class="ax-tick">80</text>
+        <line x1="60" y1="108" x2="700" y2="108" class="ax-grid" />
+        <text x="55" y="112" text-anchor="end" class="ax-tick">60</text>
+        <line x1="60" y1="152" x2="700" y2="152" class="ax-grid" />
+        <text x="55" y="156" text-anchor="end" class="ax-tick">40</text>
+        <line x1="60" y1="196" x2="700" y2="196" class="ax-grid" />
+        <text x="55" y="200" text-anchor="end" class="ax-tick">20</text>
+        <text x="55" y="245" text-anchor="end" class="ax-tick">0</text>
+
+        <text x="100" y="260" text-anchor="middle" class="ax-tick">'20</text>
+        <text x="200" y="260" text-anchor="middle" class="ax-tick">'22</text>
+        <text x="320" y="260" text-anchor="middle" class="ax-tick">'23</text>
+        <text x="450" y="260" text-anchor="middle" class="ax-tick">'24</text>
+        <text x="580" y="260" text-anchor="middle" class="ax-tick">'25</text>
+        <text x="680" y="260" text-anchor="middle" class="ax-tick">'26</text>
+
+        <rect x="450" y="20" width="250" height="220" class="sat-zone" />
+        <text x="575" y="40" text-anchor="middle" class="zone-label">SATURATION</text>
+
+        <path d="M 100 143 L 200 86 L 320 51 L 450 46 L 580 42 L 680 40" class="curve-mmlu" />
+        <circle cx="100" cy="143" r="4" class="dot-mmlu" />
+        <circle cx="200" cy="86" r="4" class="dot-mmlu" />
+        <circle cx="320" cy="51" r="4" class="dot-mmlu" />
+        <circle cx="450" cy="46" r="4" class="dot-mmlu" />
+        <circle cx="580" cy="42" r="4" class="dot-mmlu" />
+        <circle cx="680" cy="40" r="4" class="dot-mmlu" />
+        <text x="685" y="34" class="curve-label gold">MMLU</text>
+
+        <path d="M 200 134 L 320 93 L 450 42 L 580 33 L 680 29" class="curve-he" />
+        <circle cx="200" cy="134" r="4" class="dot-he" />
+        <circle cx="320" cy="93" r="4" class="dot-he" />
+        <circle cx="450" cy="42" r="4" class="dot-he" />
+        <circle cx="580" cy="33" r="4" class="dot-he" />
+        <circle cx="680" cy="29" r="4" class="dot-he" />
+        <text x="660" y="22" class="curve-label cream">HumanEval</text>
+      </svg>
+      <div class="sat-chart-source">MMLU (Hendrycks 2020) · HumanEval (Chen 2021) · 공개 SOTA 점수 종합 — GPT · Claude · Gemini</div>
+    </div>
+
+    <div class="callout" style="margin-top:18px;">
+      <em>모델은 이미 천장에 닿아간다.</em> 그런데 AI는 계속 강해진다 —<br>
+      <strong>그 차이는 어디서 오는가?</strong>
+    </div>
+  </div>
+  <div class="foot"><span>Opening · 데이터로 본 잘못된 가정</span><span>02 / 10 · → 적층</span></div>
+</section>
+
+<!-- 03 ADOPTION -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Opening</span></div>
     <div class="tag">#three-stages #stacked</div>
-    <div>02 / 09</div>
+    <div>03 / 10</div>
   </div>
   <div class="stage stage-split center">
     <div>
@@ -626,15 +742,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Opening · 세 단계 적층</span><span>02 / 09 · → Stage 1</span></div>
+  <div class="foot"><span>Opening · 세 단계 적층</span><span>03 / 10 · → Stage 1</span></div>
 </section>
 
-<!-- 03 STAGE 1 -->
+<!-- 04 STAGE 1 -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage I · Prompt</span></div>
     <div class="tag">#how-to-say #2020-2023</div>
-    <div>03 / 09</div>
+    <div>04 / 10</div>
   </div>
   <div class="stage stage-split">
     <div>
@@ -672,15 +788,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Stage I · Prompt — 한계까지</span><span>03 / 09 · → Stage 2</span></div>
+  <div class="foot"><span>Stage I · Prompt — 한계까지</span><span>04 / 10 · → Stage 2</span></div>
 </section>
 
-<!-- 04 STAGE 2 -->
+<!-- 05 STAGE 2 -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage II · Context</span></div>
     <div class="tag">#what-when-how #2023-2025</div>
-    <div>04 / 09</div>
+    <div>05 / 10</div>
   </div>
   <div class="stage stage-split">
     <div>
@@ -719,15 +835,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <div class="source">Karpathy 2025-06 · Simon Willison · Phil Schmid</div>
     </div>
   </div>
-  <div class="foot"><span>Stage II · Context — 정의 + 한계</span><span>04 / 09 · → Stage 3</span></div>
+  <div class="foot"><span>Stage II · Context — 정의 + 한계</span><span>05 / 10 · → Stage 3</span></div>
 </section>
 
-<!-- 05 STAGE 3 — DEFINITION -->
+<!-- 06 STAGE 3 — DEFINITION -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage III · Harness</span></div>
     <div class="tag">#how-to-execute #2024-2026</div>
-    <div>05 / 09</div>
+    <div>06 / 10</div>
   </div>
   <div class="stage stage-split">
     <div>
@@ -772,15 +888,15 @@ context window이 아니라.
       </div>
     </div>
   </div>
-  <div class="foot"><span>Stage III · Harness — 정의</span><span>05 / 09 · → 4대장</span></div>
+  <div class="foot"><span>Stage III · Harness — 정의</span><span>06 / 10 · → 4대장</span></div>
 </section>
 
-<!-- 06 FRAMEWORKS -->
+<!-- 07 FRAMEWORKS -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage III · Frameworks</span></div>
     <div class="tag">#superpowers #gstack #bmad #omc</div>
-    <div>06 / 09</div>
+    <div>07 / 10</div>
   </div>
   <div class="stage top">
     <div class="kicker">한 도구 위에 다시 한 층</div>
@@ -873,15 +989,15 @@ context window이 아니라.
       </div>
     </div>
   </div>
-  <div class="foot"><span>Stage III · 4 Frameworks</span><span>06 / 09 · → vendor 흐름</span></div>
+  <div class="foot"><span>Stage III · 4 Frameworks</span><span>07 / 10 · → vendor 흐름</span></div>
 </section>
 
-<!-- 07 VENDOR FLOWS -->
+<!-- 08 VENDOR FLOWS -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage III · Vendor Flows</span></div>
     <div class="tag">#devin #kiro #closing-the-loop</div>
-    <div>07 / 09</div>
+    <div>08 / 10</div>
   </div>
   <div class="stage">
     <div class="kicker">vendor가 그리는 두 흐름</div>
@@ -919,15 +1035,15 @@ context window이 아니라.
        Kiro는 <span class="hl2">phase + gate</span>로 사람의 판단을 박는다
        — 트레이드오프는 결국 "어디까지 사람이 들어갈 것인가"</div>
   </div>
-  <div class="foot"><span>Stage III · Vendor Flows</span><span>07 / 09 · → 종합</span></div>
+  <div class="foot"><span>Stage III · Vendor Flows</span><span>08 / 10 · → 종합</span></div>
 </section>
 
-<!-- 08 SYNTHESIS MATRIX -->
+<!-- 09 SYNTHESIS MATRIX -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis</span></div>
     <div class="tag">#one-page #stacked</div>
-    <div>08 / 09</div>
+    <div>09 / 10</div>
   </div>
   <div class="stage top">
     <div class="kicker">한 페이지로</div>
@@ -1014,15 +1130,15 @@ context window이 아니라.
       대체가 아니라 적층이다.
     </div>
   </div>
-  <div class="foot"><span>Synthesis · 한 페이지 적층</span><span>08 / 09 · → Fin</span></div>
+  <div class="foot"><span>Synthesis · 한 페이지 적층</span><span>09 / 10 · → Fin</span></div>
 </section>
 
-<!-- 09 FIN -->
+<!-- 10 FIN -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Fin</span></div>
     <div class="tag">#bridge-to-deck-4</div>
-    <div>09 / 09</div>
+    <div>10 / 10</div>
   </div>
   <div class="stage stage-split">
     <div>
@@ -1059,7 +1175,7 @@ context window이 아니라.
       <div class="final-link">→ Deck 4 · AI일수록, 클래식이다</div>
     </div>
   </div>
-  <div class="foot"><span>Fin · Bridge to Deck 4</span><span>09 / 09 · END</span></div>
+  <div class="foot"><span>Fin · Bridge to Deck 4</span><span>10 / 10 · END</span></div>
 </section>
 
 </div>

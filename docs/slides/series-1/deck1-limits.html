@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AI Context, Edit Entropy</title>
+<title>AI Context, Agent Entropy</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2904,7 +2904,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
   <div class="cover-main">
     <div class="cover-title">
-      AI Context,<br><span class="gold">Edit Entropy.</span>
+      AI Context,<br><span class="gold">Agent Entropy.</span>
     </div>
     <div class="cover-rule"></div>
     <div class="cover-tagline">
@@ -2960,7 +2960,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     </div>
 
     <div class="callout">
-      셋이 합쳐지면 — <em>Edit Entropy.</em><br>
+      셋이 합쳐지면 — <em>Agent Entropy.</em><br>
       국소는 합리적, 전체는 모순이 된다.
     </div>
   </div>
@@ -3614,7 +3614,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
     <div class="harness-flow">
       <div class="harness-phase">
         <div class="harness-phase-num">①</div>
-        <div class="harness-phase-name">Plan</div>
+        <div class="harness-phase-name">요구사항 분석</div>
         <div class="harness-phase-desc">영향 범위<br>전체 식별</div>
       </div>
       <div class="harness-arrow-cell">
@@ -3623,7 +3623,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       </div>
       <div class="harness-phase">
         <div class="harness-phase-num">②</div>
-        <div class="harness-phase-name">Spec</div>
+        <div class="harness-phase-name">설계</div>
         <div class="harness-phase-desc">인터페이스<br>약속 작성</div>
       </div>
       <div class="harness-arrow-cell">
@@ -3632,7 +3632,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       </div>
       <div class="harness-phase">
         <div class="harness-phase-num">③</div>
-        <div class="harness-phase-name">Implement</div>
+        <div class="harness-phase-name">구현</div>
         <div class="harness-phase-desc">관련 파일<br>모두 업데이트</div>
       </div>
       <div class="harness-arrow-cell">
@@ -3640,7 +3640,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       </div>
       <div class="harness-phase">
         <div class="harness-phase-num">④</div>
-        <div class="harness-phase-name">Verify</div>
+        <div class="harness-phase-name">테스트</div>
         <div class="harness-phase-desc">모든 케이스<br>실행 + 검증</div>
       </div>
     </div>
@@ -3648,7 +3648,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
     <svg class="harness-loopback-svg" viewBox="0 0 1000 60" preserveAspectRatio="none">
       <path class="lb-path" d="M 870 4 L 870 38 L 510 38 L 510 14" />
       <polygon class="lb-arrow" points="500,16 520,16 510,2" />
-      <text class="lb-label" x="690" y="30" text-anchor="middle">LOOPBACK · 실패 시 ③ Implement로 자동 복구</text>
+      <text class="lb-label" x="690" y="30" text-anchor="middle">LOOPBACK · 실패 시 ③ 구현으로 자동 복구</text>
     </svg>
 
     <div class="harness-rtm">
@@ -3664,7 +3664,8 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
     </div>
 
     <div class="callout" style="margin-top:14px;">
-      <em>Harness Engineering의 본질</em> — 워크플로우 자체를 설계한다.
+      <em>통념</em> — Harness는 LLM을 wrapping하는 <strong>코드 레이어</strong> (Claude Code · MCP · eval harness).<br>
+      <em>본 시리즈</em> — 그 광의: <strong>LLM의 발산을 수렴시키는 모든 장치</strong>. 코드 · 프로세스 · 도구 · 추적까지. 이 슬라이드는 그중 <strong>프로세스 레이어.</strong>
     </div>
   </div>
   <div class="foot"><span>Limit III · Remedy</span><span>14 / 19 · → deck 3·5에서 다시 만난다</span></div>
@@ -3692,13 +3693,13 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       워크플로우 전체의 설계가 필요하다.
     </div>
   </div>
-  <div class="foot"><span>Limit III · Insight</span><span>15 / 19 · → 종합: Edit Entropy</span></div>
+  <div class="foot"><span>Limit III · Insight</span><span>15 / 19 · → 종합: Agent Entropy</span></div>
 </section>
 
-<!-- ============ 15 SYNTHESIS — Edit Entropy 정의 ============ -->
+<!-- ============ 15 SYNTHESIS — Agent Entropy 정의 ============ -->
 <section class="slide dark">
   <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Synthesis · Edit Entropy</span></div>
+    <div class="seg"><span class="dot"></span><span>Synthesis · Agent Entropy</span></div>
     <div class="tag">#local-vs-global #drift</div>
     <div>16 / 19</div>
   </div>
@@ -3708,7 +3709,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       국소는 합리적,<br><em>전체는 모순.</em>
     </div>
     <div class="subline" style="max-width:680px">
-      이것이 <strong>Edit Entropy</strong>다.
+      이것이 <strong>Agent Entropy</strong> — <em>AI의 작업 단위로 누적되는 엔트로피.</em>
     </div>
 
     <div class="split-copy">
@@ -4029,19 +4030,18 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
   </div>
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Fin</span></div>
-    <div class="tag">#hammer #carpenter #next-deck</div>
+    <div class="tag">#agent-entropy #synthesis #next-deck</div>
     <div>19 / 19</div>
   </div>
   <div class="stage">
     <div class="kicker">Fin.</div>
     <div class="final-big">
-      더 좋은 망치는<br>
-      <em>더 좋은 목수</em>의<br>
-      손에서.
+      <em>Agent Entropy.</em>
     </div>
     <div class="final-sub">
-      deck 1에서 본 것 — 세 한계, 하나의 함정. <em>Edit Entropy.</em><br><br>
-      그러나 우리는 아직 <em>"왜 이런 한계가 생기는가"</em>를 답하지 않았다. 그 답은 — 더 똑똑한 모델이 아니라, <strong>물리 법칙</strong>에 있다.
+      국소는 <em>합리</em>, 전체는 <em>모순</em>. — AI의 작업 단위로 누적되는 엔트로피.<br><br>
+      세 한계 — <em>Pattern Drift · Context Rot · Context Blind.</em><br>
+      셋이 합쳐 사이클을 돌면 — 매 편집은 LGTM, 누적된 건 화석.
     </div>
     <div class="callout" style="max-width:760px">
       <em>→ next deck.</em><br>
@@ -4050,7 +4050,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
     <div class="final-link">deck 2 · HBM Ceiling →</div>
   </div>
   <div class="foot">
-    <span>AI Context, Edit Entropy — Deck 1 / 6</span>
+    <span>AI Context, Agent Entropy — Deck 1 / 6</span>
     <span>19 / 19 · END</span>
   </div>
 </section>

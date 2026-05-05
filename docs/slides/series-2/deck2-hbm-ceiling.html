@@ -175,6 +175,74 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
 .divider { width: 40px; height: 1px; background: var(--gold); opacity: 0.5; margin: 22px 0; }
 
+/* BLEED (cover/fin backdrops) */
+.bleed { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.bleed img { width: 100%; height: 100%; object-fit: cover; opacity: 0.18; filter: saturate(0.7); }
+.has-bleed > *:not(.bleed) { z-index: 2; position: relative; }
+.bleed.ph-bleed { display: flex; align-items: center; justify-content: center; }
+.bleed.ph-bleed .ph-bleed-mark {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.18;
+  border: 1px dashed var(--gold);
+  padding: 18px 24px;
+  border-radius: 2px;
+}
+
+/* CALLOUT */
+.callout {
+  margin-top: 32px;
+  padding: 18px 24px;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--rule-lt);
+  font-family: var(--serif-ko);
+  font-size: clamp(17px, 1.5vw, 24px);
+  line-height: 1.5;
+  color: var(--cream);
+  text-align: center;
+}
+.slide.light .callout { color: var(--black); border-bottom-color: var(--rule-dk); border-top-color: var(--gold-dk); }
+.callout em { font-style: normal; color: var(--gold); font-weight: 700; }
+.slide.light .callout em { color: var(--gold-dk); }
+.callout strong { color: var(--cream); font-weight: 700; }
+.slide.light .callout strong { color: var(--black); }
+
+/* FIN HEADLINE */
+.final-big {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(48px, 7.5vw, 116px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.final-big em {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 400;
+}
+.final-sub {
+  font-family: var(--serif-ko);
+  font-size: clamp(17px, 1.5vw, 23px);
+  color: var(--muted-lt);
+  margin-top: 22px;
+  max-width: 720px;
+  line-height: 1.6;
+}
+.final-sub em { color: var(--gold); font-style: italic; }
+.final-link {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-top: 36px;
+  text-transform: uppercase;
+}
+
 /* COVER */
 .cover { justify-content: space-between; padding: 52px 80px; }
 .cover-brand {
@@ -269,20 +337,77 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .mem-ladder { display: flex; flex-direction: column; margin-top: 22px; border-top: 1px solid var(--rule-lt); }
 .mem-row {
   display: grid;
-  grid-template-columns: 160px 1fr 110px 110px;
+  grid-template-columns: 200px 1fr 110px 130px 110px;
   align-items: center;
-  padding: 12px 4px;
+  padding: 16px 4px;
   border-bottom: 1px solid var(--rule-lt);
   gap: 18px;
 }
 .mem-row.hi { background: rgba(184,146,74,0.07); }
-.mem-label { font-family: var(--mono); font-size: 11px; color: var(--cream); letter-spacing: 0.04em; }
+.mem-label { font-family: var(--mono); font-size: 17px; color: var(--cream); letter-spacing: 0.04em; }
 .mem-row.hi .mem-label { color: var(--gold); }
-.mem-bar-wrap { height: 5px; background: rgba(240,236,224,0.06); overflow: hidden; }
+.mem-bar-wrap { height: 6px; background: rgba(240,236,224,0.06); overflow: hidden; }
 .mem-bar-fill { height: 100%; }
-.mem-val { font-family: var(--mono); font-size: 10px; color: var(--muted-lt); text-align: right; }
-.mem-speed { font-family: var(--mono); font-size: 10px; color: var(--gold-lt); text-align: right; }
+.mem-val { font-family: var(--mono); font-size: 16px; color: var(--muted-lt); text-align: right; }
+.mem-speed { font-family: var(--mono); font-size: 17px; color: var(--gold-lt); text-align: right; font-weight: 700; }
 .mem-row.hi .mem-speed { color: var(--gold); font-weight: 700; }
+.mem-price { font-family: var(--mono); font-size: 17px; color: var(--gold-lt); text-align: right; font-weight: 700; }
+.mem-row.hi .mem-price { color: var(--gold); }
+.mem-price.dim { color: var(--muted-lt); font-weight: 400; opacity: 0.7; }
+
+/* mem-ladder header row */
+.mem-row.mem-header {
+  padding: 4px 4px 8px;
+  border-bottom: 1px solid var(--gold);
+}
+.mem-row.mem-header .mem-label,
+.mem-row.mem-header .mem-val,
+.mem-row.mem-header .mem-speed,
+.mem-row.mem-header .mem-price {
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* MODEL LINEUP TABLE (slide 07 — light) */
+.model-lineup {
+  display: flex;
+  flex-direction: column;
+  margin-top: 22px;
+  border-top: 1px solid var(--gold-dk);
+}
+.ml-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1.5fr 1.4fr 1fr;
+  align-items: center;
+  padding: 14px 8px;
+  border-bottom: 1px solid var(--rule-dk);
+  gap: 18px;
+}
+.ml-row.ml-header {
+  padding: 6px 8px 10px;
+  border-bottom: 1px solid var(--gold-dk);
+}
+.ml-row.ml-header span {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--gold-dk);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.ml-row.baseline { background: rgba(184,146,74,0.10); }
+.ml-row.mla { background: rgba(176,74,58,0.06); }
+.ml-name { font-family: var(--mono); font-size: 17px; color: var(--black); font-weight: 700; }
+.ml-row.mla .ml-name { color: var(--red); }
+.ml-size { font-family: var(--mono); font-size: 15px; color: var(--muted-dk); }
+.ml-arch { font-family: var(--mono); font-size: 15px; color: var(--gold-dk); font-weight: 700; }
+.ml-row.mla .ml-arch { color: var(--red); }
+.ml-kv { font-family: var(--mono); font-size: 17px; color: var(--gold-dk); text-align: right; font-weight: 700; }
+.ml-row.baseline .ml-kv { color: var(--gold-dk); }
+.ml-row.mla .ml-kv { color: var(--red); }
 
 /* HBM bar */
 .hbm-outer {
@@ -439,6 +564,56 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .card.good .card-list li::before { content: "✓"; color: var(--green); }
 .card-tag  { font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em; color: var(--muted-lt); margin-top: 12px; opacity: 0.7; }
 
+/* ============ LIGHT THEME OVERRIDES (slides 04-14 콘텐츠) ============ */
+
+/* mem-ladder (slide 04) */
+.slide.light .mem-ladder { border-top-color: var(--rule-dk); }
+.slide.light .mem-row { border-bottom-color: var(--rule-dk); }
+.slide.light .mem-row.hi { background: rgba(122,95,46,0.08); }
+.slide.light .mem-row.hi .mem-label { color: var(--gold-dk); }
+.slide.light .mem-row.hi .mem-speed { color: var(--gold-dk); }
+.slide.light .mem-label { color: var(--black); }
+.slide.light .mem-val { color: var(--muted-dk); }
+.slide.light .mem-speed { color: var(--gold-dk); }
+.slide.light .mem-bar-wrap { background: rgba(12,11,9,0.06); }
+
+/* HBM live viz (slide 09) */
+.slide.light .hbm-outer { background: rgba(12,11,9,0.04); border-color: var(--rule-dk); }
+.slide.light .hbm-weights { background: rgba(122,95,46,0.18); }
+.slide.light .hbm-kv { background: rgba(184,146,74,0.55); }
+.slide.light .hbm-lbl { color: var(--black); }
+.slide.light .hbm-legend-item { color: var(--muted-dk); }
+.slide.light #conv-log { color: var(--muted-dk); background: rgba(12,11,9,0.03); border-color: var(--rule-dk); }
+.slide.light .log-u { color: var(--gold-dk); }
+.slide.light .log-a { color: var(--muted-dk); }
+.slide.light #bridge-txt { color: var(--muted-dk); border-left-color: var(--gold-dk); }
+
+/* HBM segment (slide 07) */
+.slide.light .hbm-seg { border-color: var(--rule-dk); }
+.slide.light .seg-w { background: rgba(122,95,46,0.18); color: var(--black); }
+.slide.light .seg-kv { background: rgba(184,146,74,0.45); color: var(--gold-dk); }
+.slide.light .seg-fr { background: rgba(12,11,9,0.04); color: var(--muted-dk); }
+.slide.light .seg-cap { color: var(--muted-dk); }
+
+/* Cards (slides 08, 13) */
+.slide.light .card { background: rgba(12,11,9,0.03); border-color: var(--rule-dk); }
+.slide.light .card-lbl { color: var(--muted-dk); }
+.slide.light .card-foot { color: var(--muted-dk); }
+.slide.light .card-list { color: var(--black); }
+.slide.light .card.warn .card-list { color: var(--black); }
+.slide.light .card-tag { color: var(--muted-dk); }
+.slide.light .card-num { color: var(--gold-dk); }
+
+/* Chain (slide 14) */
+.slide.light .chain { border-top-color: var(--gold-dk); }
+.slide.light .chain-item { border-bottom-color: var(--rule-dk); }
+.slide.light .chain-no { color: var(--gold-dk); }
+.slide.light .chain-lbl { color: var(--black); }
+.slide.light .chain-desc { color: var(--muted-dk); }
+
+/* Divider */
+.slide.light .divider { background: var(--gold-dk); }
+
 /* PROGRESS / NAVHINT / CLICK */
 .progress {
   position: fixed;
@@ -476,6 +651,90 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 ::-webkit-scrollbar-track { background: rgba(240,236,224,0.04); }
 ::-webkit-scrollbar-thumb { background: var(--rule-lt); }
 
+/* ============ HBM LIVE VIZ — context-viz pattern (slide 09) ============ */
+.hbm-viz {
+  font-family: var(--mono);
+  background: var(--black);
+  color: var(--cream);
+  border: 1px solid var(--gold-dk);
+  padding: 18px 24px;
+  margin-top: 16px;
+  border-radius: 2px;
+  box-shadow: 0 4px 14px rgba(12,11,9,0.12);
+}
+.hbm-viz-prompt { font-size: 14px; color: var(--gold-lt); margin-bottom: 6px; }
+.hbm-viz-prompt .arrow { color: var(--gold); margin-right: 8px; font-weight: 700; }
+.hbm-viz-title {
+  font-size: 14px; color: var(--muted-lt); margin-bottom: 14px;
+  letter-spacing: 0.04em;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.hbm-viz-title .hbm-help { font-size: 11px; color: var(--muted-lt); }
+.hbm-viz-title .hbm-help kbd {
+  font-family: var(--mono); font-size: 10px;
+  background: rgba(240,236,224,0.08);
+  border: 1px solid rgba(240,236,224,0.18);
+  padding: 1px 6px; border-radius: 2px;
+  color: var(--gold-lt); margin-right: 4px;
+}
+.hbm-viz-bar {
+  display: flex; height: 26px; margin: 12px 0 16px;
+  border-radius: 2px; overflow: hidden;
+  border: 1px solid rgba(240,236,224,0.1);
+}
+.hbm-viz-bar > div { height: 100%; transition: width 0.5s cubic-bezier(.2,.7,.2,1); }
+.hbm-viz-bar .hv-w     { background: #d8cfb6; }
+.hbm-viz-bar .hv-sys   { background: #888888; }
+.hbm-viz-bar .hv-skill { background: #b1b9f9; }
+.hbm-viz-bar .hv-kv    { background: var(--gold); }
+.hbm-viz-bar .hv-kv.over { background: var(--red); }
+.hbm-viz-bar .hv-free  { background: rgba(240,236,224,0.06); }
+
+.hbm-viz-list {
+  display: grid;
+  grid-template-columns: 1fr 90px 80px;
+  gap: 5px 18px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.hbm-viz-list .ck { display: flex; align-items: center; gap: 10px; color: var(--cream); }
+.hbm-viz-list .ck .swatch { width: 12px; height: 12px; border-radius: 1px; flex-shrink: 0; }
+.hbm-viz-list .sw-w     { background: #d8cfb6; }
+.hbm-viz-list .sw-sys   { background: #888888; }
+.hbm-viz-list .sw-skill { background: #b1b9f9; }
+.hbm-viz-list .sw-kv    { background: var(--gold); }
+.hbm-viz-list .sw-free  { background: rgba(240,236,224,0.06); border: 1px solid rgba(240,236,224,0.25); }
+.hbm-viz-list .ck .dim  { color: var(--muted-lt); margin-left: 6px; font-size: 11px; opacity: 0.7; }
+.hbm-viz-list .tk { text-align: right; color: var(--cream); font-weight: 700; }
+.hbm-viz-list .pct { text-align: right; color: var(--muted-lt); }
+.hbm-viz-list .divider {
+  grid-column: 1 / -1; height: 1px;
+  background: rgba(240,236,224,0.12);
+  margin: 4px 0;
+  width: 100%;
+}
+.hbm-viz-list .row-total { color: var(--gold-lt); font-weight: 700; }
+.hbm-viz-list .row-total.warn { color: var(--red); }
+
+#hbm-notice {
+  display: none; margin-top: 14px;
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--red);
+  padding: 8px 14px;
+  border: 1px solid rgba(176,74,58,0.4);
+  background: rgba(176,74,58,0.05);
+  border-radius: 2px;
+}
+#hbm-bridge {
+  display: none; margin-top: 14px;
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(15px, 1.3vw, 20px);
+  color: var(--muted-dk);
+  border-left: 2px solid var(--gold-dk);
+  padding-left: 14px;
+}
+
 @media (max-width: 1100px) {
   .slide { padding: 28px 36px 40px; }
   .stage-split { grid-template-columns: 1fr; gap: 28px; }
@@ -490,7 +749,10 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 <div class="deck" id="deck">
 
 <!-- 01 COVER -->
-<section class="slide dark cover active">
+<section class="slide dark cover has-bleed active">
+  <div class="bleed ph-bleed">
+    <div class="ph-bleed-mark">[ cover bleed · physics-first ]</div>
+  </div>
   <div class="cover-brand">
     <span>FREEDOBY</span>
     <span class="gold">—</span>
@@ -511,20 +773,11 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       AI의 한계는 알고리즘 문제가 아니다. <strong>50년 된 Memory Wall</strong>의 최신 형태다.<br>
       Rubin GPU가 나와도, GPT-6이 나와도 — 천장의 형태는 바뀌지 않는다.
     </div>
-
-    <div class="series-map">
-      <div class="series-item done">01 &nbsp; 한계 직시 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [현상] ✓</div>
-      <div class="series-item current">02 &nbsp; HBM의 천장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [원인] ◀</div>
-      <div class="series-item">03 &nbsp; 엔지니어링의 진화 &nbsp; [방향]</div>
-      <div class="series-item">04 &nbsp; AI일수록, 클래식 &nbsp;&nbsp; [통찰]</div>
-      <div class="series-item">05 &nbsp; HALO Workflow &nbsp;&nbsp;&nbsp;&nbsp; [구현]</div>
-      <div class="series-item">06 &nbsp; 개발자 마인드셋 &nbsp;&nbsp;&nbsp; [자세]</div>
-    </div>
   </div>
 
   <div class="cover-footer">
-    <span>The Ceiling of HBM — AI Coding Engineering</span>
-    <span>01 / 17</span>
+    <span>"the ceiling is physical, not algorithmic."</span>
+    <span>01 / 16</span>
   </div>
 </section>
 
@@ -533,7 +786,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Opening</span></div>
     <div class="tag">#wrong-assumption</div>
-    <div>02 / 17</div>
+    <div>02 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">잘못된 가정</div>
@@ -548,7 +801,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <strong>물리</strong> 문제입니다.
     </div>
   </div>
-  <div class="foot"><span>Opening · 잘못된 전제</span><span>02 / 17 · → Memory Wall</span></div>
+  <div class="foot"><span>Opening · 잘못된 전제</span><span>02 / 16 · → Memory Wall</span></div>
 </section>
 
 <!-- 03 물리 법칙 -->
@@ -556,15 +809,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Opening</span></div>
     <div class="tag">#memory-wall #fifty-years</div>
-    <div>03 / 17</div>
+    <div>03 / 16</div>
   </div>
   <div class="stage">
-    <div class="kicker">답</div>
+    <div class="kicker" style="font-size:14px;">답</div>
     <div class="keyword">
       물리 법칙이다 —<br>그리고 <em>50년 된</em> 문제다.
     </div>
     <div class="divider"></div>
-    <div class="subline">
+    <div class="subline" style="font-size:clamp(17px, 1.45vw, 22px);">
       AI가 부딪히는 한계는 새로운 문제가 아닙니다.<br>
       컴퓨터 과학이 1970년대부터 씨름해온 문제의 <em>최신 형태</em>입니다.<br><br>
       연산 속도는 기하급수적으로 빨라졌습니다.<br>
@@ -572,7 +825,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <em>Memory Wall.</em> 오늘날 AI의 천장이 여기서 옵니다.
     </div>
   </div>
-  <div class="foot"><span>Opening · 50년 된 문제</span><span>03 / 17 · → 메모리 계층</span></div>
+  <div class="foot"><span>Opening · 50년 된 문제</span><span>03 / 16 · → 메모리 계층</span></div>
 </section>
 
 <!-- 04 메모리 계층 -->
@@ -580,88 +833,70 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Memory Hierarchy</span></div>
     <div class="tag">#hierarchy #bandwidth</div>
-    <div>04 / 17</div>
+    <div>04 / 16</div>
   </div>
   <div class="stage top">
     <div class="kicker">원칙</div>
     <div class="keyword md">빠를수록 <em>작고</em> 비싸다.</div>
 
     <div class="mem-ladder">
+      <div class="mem-row mem-header">
+        <span class="mem-label">메모리</span>
+        <span></span>
+        <span class="mem-val">용량</span>
+        <span class="mem-speed">대역폭</span>
+        <span class="mem-price">단가/GB</span>
+      </div>
       <div class="mem-row">
         <span class="mem-label">CPU Register</span>
         <div class="mem-bar-wrap"><div class="mem-bar-fill" style="width:100%;background:var(--cream);"></div></div>
         <span class="mem-val">KB 단위</span>
-        <span class="mem-speed">~TB/s</span>
+        <span class="mem-speed">~수십 TB/s</span>
+        <span class="mem-price dim">내장</span>
       </div>
       <div class="mem-row">
-        <span class="mem-label">L1 / L2 / L3 Cache</span>
+        <span class="mem-label">SRAM</span>
         <div class="mem-bar-wrap"><div class="mem-bar-fill" style="width:80%;background:var(--muted-lt);"></div></div>
         <span class="mem-val">MB 단위</span>
-        <span class="mem-speed">수백 GB/s</span>
+        <span class="mem-speed">~수 TB/s</span>
+        <span class="mem-price dim">내장</span>
       </div>
       <div class="mem-row hi">
         <span class="mem-label">HBM (GPU) ◀</span>
         <div class="mem-bar-wrap"><div class="mem-bar-fill" style="width:58%;background:var(--gold);"></div></div>
-        <span class="mem-val">수백 GB</span>
-        <span class="mem-speed">22 TB/s</span>
+        <span class="mem-val">192 GB</span>
+        <span class="mem-speed">8 TB/s</span>
+        <span class="mem-price">$15</span>
       </div>
       <div class="mem-row">
         <span class="mem-label">System DRAM</span>
         <div class="mem-bar-wrap"><div class="mem-bar-fill" style="width:36%;background:var(--blue);"></div></div>
         <span class="mem-val">수 TB</span>
-        <span class="mem-speed">~1.2 TB/s</span>
+        <span class="mem-speed">~500 GB/s</span>
+        <span class="mem-price">$3</span>
       </div>
       <div class="mem-row">
         <span class="mem-label">NVMe SSD</span>
         <div class="mem-bar-wrap"><div class="mem-bar-fill" style="width:13%;background:var(--green);"></div></div>
         <span class="mem-val">수십 TB</span>
         <span class="mem-speed">~7 GB/s</span>
+        <span class="mem-price">$0.05</span>
       </div>
     </div>
 
-    <div class="subline" style="margin-top:18px;">
-      HBM은 GPU의 System DRAM 자리. 대역폭을 극단적으로 높인 버전입니다.<br>
-      Rubin GPU 기준 <em>22 TB/s</em> — 그러나 용량은 <strong>288 GB</strong>가 한계.
+    <div class="subline" style="margin-top:18px; max-width:none;">
+      B200 HBM: <em>192 GB · 8 TB/s · $15/GB</em>가 천장 — SSD 대비 가격·용량 둘 다 <strong>~300배 차이.</strong>
     </div>
   </div>
-  <div class="foot"><span>Memory Hierarchy · 빠를수록 작다</span><span>04 / 17 · → KV Cache 재사용</span></div>
+  <div class="foot"><span>Memory Hierarchy · 빠를수록 작다</span><span>04 / 16 · → HBM = 조리대</span></div>
 </section>
 
-<!-- 05 KV 재사용 -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Memory Hierarchy</span></div>
-    <div class="tag">#kv-reuse #layering</div>
-    <div>05 / 17</div>
-  </div>
-  <div class="stage">
-    <div class="kicker">업계의 답</div>
-    <div class="keyword md">KV Cache <em>재사용</em> + 레이어링.</div>
-    <div class="ascii"><span class="good">이상적:</span>  같은 prefix → KV Cache 재사용
-          → HBM 부담 최소화, 레이턴시 80% 감소
-          GPT-5.5: 24시간 보존 / Anthropic: 5분~1시간
-
-<span class="bad">현실:</span>    대화가 쌓일수록 prefix가 바뀜
-          → 재사용 불가 → 매번 전체 재계산
-          → HBM이 계속 채워짐
-
-<span class="hl">넘치면:</span>  HBM → DRAM → SSD 오프로드
-          HBM   <span class="good">22 TB/s</span>
-          DRAM  <span class="hl2">1.2 TB/s</span>   <span class="dim">18배 느림</span>
-          SSD   <span class="bad">7 GB/s</span>     <span class="dim">3,000배 느림</span></div>
-    <div class="subline" style="margin-top:18px;">
-      <em>재사용이 되면 빠르고, 안 되면 느리고, 넘치면 더 느리다.</em>
-    </div>
-  </div>
-  <div class="foot"><span>Memory Hierarchy · KV 재사용</span><span>05 / 17 · → HBM = 조리대</span></div>
-</section>
-
-<!-- 06 HBM = 조리대 -->
+<!-- 05 HBM = 조리대 -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
     <div class="tag">#metaphor #countertop</div>
-    <div>06 / 17</div>
+    <div>05 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">비유</div>
@@ -684,47 +919,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 <span class="dim">A100: 80GB · B200: 192GB · Rubin: 288GB</span></div>
     </div>
   </div>
-  <div class="foot"><span>HBM + KV Cache · 조리대</span><span>06 / 17 · → 경쟁하는 것들</span></div>
+  <div class="foot"><span>HBM + KV Cache · 조리대</span><span>05 / 16 · → 컨텍스트 = KV</span></div>
 </section>
 
-<!-- 07 HBM 안에는 -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
-    <div class="tag">#prefill #decode #zerosum</div>
-    <div>07 / 17</div>
-  </div>
-  <div class="stage top">
-    <div class="kicker">구조</div>
-    <div class="keyword md">HBM 안에서 <em>경쟁</em>하는 것들.</div>
-
-    <div style="margin-top:22px;">
-      <div class="hbm-seg">
-        <div class="seg-w" style="width:72%;">Model Weights ~140 GB</div>
-        <div class="seg-kv" style="width:14%;">KV</div>
-        <div class="seg-fr" style="width:14%;">여유</div>
-      </div>
-      <div class="seg-cap">B200 192GB 기준 · 70B 모델 fp16</div>
-    </div>
-
-    <div class="ascii"><span class="dim">Prefill 단계</span>   프롬프트 전체를 한 번에 처리
-              → 모든 토큰의 K,V 벡터 계산 → HBM에 적재
-
-<span class="dim">Decode 단계</span>    토큰을 하나씩 생성
-              → 새 토큰마다 K,V 추가 → HBM이 조금씩 차오름
-
-<span class="hl">제로섬</span>        Weights가 크면 KV 공간 줄고
-              → KV가 늘면 Weights를 다른 GPU로 쪼개야</div>
-  </div>
-  <div class="foot"><span>HBM + KV Cache · 제로섬</span><span>07 / 17 · → 컨텍스트 = KV</span></div>
-</section>
-
-<!-- 08 컨텍스트 = KV -->
-<section class="slide dark">
+<!-- 06 컨텍스트 = KV -->
+<section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
     <div class="tag">#equivalence #scale</div>
-    <div>08 / 17</div>
+    <div>06 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">등가</div>
@@ -753,51 +956,139 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       대화가 쌓일수록 Prefill KV가 처음부터 크고, Decode가 진행될수록 더 쌓입니다.
     </div>
   </div>
-  <div class="foot"><span>HBM + KV Cache · 컨텍스트 = KV</span><span>08 / 17 · → 라이브 시각화</span></div>
+  <div class="foot"><span>HBM + KV Cache · 컨텍스트 = KV</span><span>06 / 16 · → 모델 라인업</span></div>
 </section>
 
-<!-- 09 라이브 시각화 -->
-<section class="slide dark">
+<!-- 07 모델 라인업 -->
+<section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
-    <div class="tag">#live #auto-compaction</div>
-    <div>09 / 17</div>
+    <div class="tag">#models #lineup #universal</div>
+    <div>07 / 16</div>
   </div>
   <div class="stage top">
-    <div class="kicker">★ 라이브 시각화</div>
-    <div class="keyword sm">요청할 때마다 <em>HBM이 차오른다.</em></div>
+    <div class="kicker">모델 라인업</div>
+    <div class="keyword sm">모델은 다양하지만 — <em>KV cache는 모두 HBM을 채운다.</em></div>
 
-    <div style="margin-top:18px;">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">
-        <span style="font-family:var(--mono);font-size:10px;color:var(--muted-lt);letter-spacing:0.08em;">HBM 192 GB (B200 기준)</span>
-        <span id="hbm-pct" style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:0.08em;">36%</span>
+    <div class="model-lineup">
+      <div class="ml-row ml-header">
+        <span class="ml-name">모델</span>
+        <span class="ml-size">크기</span>
+        <span class="ml-arch">Architecture</span>
+        <span class="ml-kv">KV / token (fp16)</span>
       </div>
-      <div class="hbm-outer">
-        <div class="hbm-weights" id="hbm-w" style="width:36%"></div>
-        <div class="hbm-kv" id="hbm-k" style="left:36%;width:0%"></div>
-        <div class="hbm-lbl" id="hbm-l">Weights 70GB &nbsp;|&nbsp; KV 0GB</div>
+      <div class="ml-row baseline">
+        <span class="ml-name">Llama 3.3 70B</span>
+        <span class="ml-size">70B dense</span>
+        <span class="ml-arch">GQA</span>
+        <span class="ml-kv">320 KB</span>
       </div>
-      <div class="hbm-legend">
-        <div class="hbm-legend-item"><div class="hbm-dot" style="background:rgba(200,192,176,0.5)"></div>Model Weights</div>
-        <div class="hbm-legend-item"><div class="hbm-dot" style="background:rgba(184,146,74,0.6)"></div>KV Cache</div>
-        <div class="hbm-legend-item"><div class="hbm-dot" style="background:rgba(176,74,58,0.7)"></div>초과</div>
+      <div class="ml-row">
+        <span class="ml-name">Mistral Large 2</span>
+        <span class="ml-size">123B dense</span>
+        <span class="ml-arch">GQA</span>
+        <span class="ml-kv">352 KB</span>
+      </div>
+      <div class="ml-row">
+        <span class="ml-name">Llama 4 Maverick</span>
+        <span class="ml-size">400B / 17B 활성</span>
+        <span class="ml-arch">GQA + MoE</span>
+        <span class="ml-kv">~350 KB</span>
+      </div>
+      <div class="ml-row">
+        <span class="ml-name">Qwen3 32B</span>
+        <span class="ml-size">32B dense</span>
+        <span class="ml-arch">GQA</span>
+        <span class="ml-kv">~210 KB</span>
+      </div>
+      <div class="ml-row mla">
+        <span class="ml-name">DeepSeek V3 / R1</span>
+        <span class="ml-size">671B / 37B 활성</span>
+        <span class="ml-arch">MLA ★</span>
+        <span class="ml-kv">~70 KB</span>
+      </div>
+      <div class="ml-row mla">
+        <span class="ml-name">Kimi K2</span>
+        <span class="ml-size">1T / 32B 활성</span>
+        <span class="ml-arch">MLA ★</span>
+        <span class="ml-kv">~80 KB</span>
       </div>
     </div>
 
-    <button id="req-btn" onclick="sendReq()">Claude에게 요청 →</button>
-    <div id="compact-notice"></div>
-    <div id="conv-log"></div>
-    <div id="bridge-txt">물리적으로 유실되지 않아도, 또 다른 문제가 있다 →</div>
+    <div class="subline" style="margin-top:18px; max-width:none;">
+      대부분 <em>200-350 KB/token</em>. MLA 모델만 5배 압축 (~70 KB) — 그래도 1M 컨텍스트는 <strong>~70 GB</strong>. <em>HBM 천장은 모든 모델 공통.</em>
+    </div>
   </div>
-  <div class="foot"><span>HBM + KV Cache · Live</span><span>09 / 17 · → Attention</span></div>
+  <div class="foot"><span>HBM + KV Cache · Universal Ceiling</span><span>07 / 16 · → 라이브 시각화</span></div>
 </section>
 
-<!-- 10 Attention -->
+<!-- 08 라이브 시각화 -->
+<section class="slide light" id="s-hbm-live">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
+    <div class="tag">#live #auto-compaction</div>
+    <div>08 / 16</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">★ 라이브 시각화 · Press Space</div>
+    <div class="keyword sm">요청할 때마다 <em>HBM이 차오른다.</em></div>
+
+    <div class="hbm-viz">
+      <div class="hbm-viz-prompt"><span class="arrow">▶</span>/hbm</div>
+      <div class="hbm-viz-title">
+        <span>HBM — B200 192 GB · Llama 3.1 70B (fp16)</span>
+        <span class="hbm-help"><kbd>Space</kbd>다음 요청</span>
+      </div>
+
+      <div class="hbm-viz-bar">
+        <div class="hv-w" style="width:72.9%"></div>
+        <div class="hv-sys" style="width:1%"></div>
+        <div class="hv-skill" style="width:0.5%"></div>
+        <div class="hv-kv" style="width:0%"></div>
+        <div class="hv-free" style="width:25.6%"></div>
+      </div>
+
+      <div class="hbm-viz-list">
+        <div class="ck"><span class="swatch sw-w"></span>Model Weights <span class="dim">(70B × 2 bytes, fp16)</span></div>
+        <div class="tk">140 GB</div>
+        <div class="pct">72.9%</div>
+
+        <div class="ck"><span class="swatch sw-sys"></span>System Tokens <span class="dim">(prefill)</span></div>
+        <div class="tk">2 GB</div>
+        <div class="pct">1.0%</div>
+
+        <div class="ck"><span class="swatch sw-skill"></span>Skills · Tools KV</div>
+        <div class="tk">1 GB</div>
+        <div class="pct">0.5%</div>
+
+        <div class="ck"><span class="swatch sw-kv"></span>Conversation KV <span class="dim">(매 요청 ≈ 30K 토큰 누적)</span></div>
+        <div class="tk hv-kv-tk">0 GB</div>
+        <div class="pct hv-kv-pct">0.0%</div>
+
+        <div class="divider"></div>
+
+        <div class="ck row-total hv-used-row">Used</div>
+        <div class="tk row-total hv-used-row hv-used-tk">143 GB</div>
+        <div class="pct row-total hv-used-row hv-used-pct">74.5%</div>
+
+        <div class="ck"><span class="swatch sw-free"></span>Free <span class="dim">(KV 가용)</span></div>
+        <div class="tk hv-free-tk">49 GB</div>
+        <div class="pct hv-free-pct">25.5%</div>
+      </div>
+    </div>
+
+    <div id="hbm-notice"></div>
+    <div id="hbm-bridge">물리적으로 유실되지 않아도, 또 다른 문제가 있다 →</div>
+  </div>
+  <div class="foot"><span>HBM + KV Cache · Live</span><span>08 / 16 · → Attention</span></div>
+</section>
+
+<!-- 09 Attention -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Context Rot</span></div>
     <div class="tag">#attention</div>
-    <div>10 / 17</div>
+    <div>09 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">메커니즘</div>
@@ -815,15 +1106,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
 <span class="dim">이 가중치 계산 결과가 K, V 벡터로 HBM에 저장됩니다</span></div>
   </div>
-  <div class="foot"><span>Context Rot · Attention</span><span>10 / 17 · → 희석</span></div>
+  <div class="foot"><span>Context Rot · Attention</span><span>09 / 16 · → 희석</span></div>
 </section>
 
-<!-- 11 희석 -->
-<section class="slide dark">
+<!-- 10 희석 -->
+<section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Context Rot</span></div>
     <div class="tag">#dilution #context-rot</div>
-    <div>11 / 17</div>
+    <div>10 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">Context Rot</div>
@@ -848,15 +1139,15 @@ User: "아까 말한 설계 원칙대로 구현해줘"
   <span class="bad">→ 자신있게 엉뚱하게 구현</span></div>
     </div>
   </div>
-  <div class="foot"><span>Context Rot · 희석</span><span>11 / 17 · → Deck 1 연결</span></div>
+  <div class="foot"><span>Context Rot · 희석</span><span>10 / 16 · → Deck 1 연결</span></div>
 </section>
 
-<!-- 12 Needle 연결 -->
-<section class="slide dark">
+<!-- 11 Needle 연결 -->
+<section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Context Rot</span></div>
     <div class="tag">#deck-1 #needle</div>
-    <div>12 / 17</div>
+    <div>11 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">Deck 1 연결</div>
@@ -870,15 +1161,15 @@ User: "아까 말한 설계 원칙대로 구현해줘"
       <em>local에서 합리적인 것이 global에서 모순이 되는</em> 이유가 여기 있습니다.
     </div>
   </div>
-  <div class="foot"><span>Context Rot · Needle 재해석</span><span>12 / 17 · → 멘탈 모델</span></div>
+  <div class="foot"><span>Context Rot · Needle 재해석</span><span>11 / 16 · → 멘탈 모델</span></div>
 </section>
 
-<!-- 13 멘탈 모델 vs 윈도우 -->
+<!-- 12 멘탈 모델 vs 윈도우 -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Mental Model vs Window</span></div>
     <div class="tag">#mental-model #window</div>
-    <div>13 / 17</div>
+    <div>12 / 16</div>
   </div>
   <div class="stage top">
     <div class="kicker">대비</div>
@@ -911,15 +1202,15 @@ User: "아까 말한 설계 원칙대로 구현해줘"
       </div>
     </div>
   </div>
-  <div class="foot"><span>Mental Model vs Window</span><span>13 / 17 · → 담을 수 없는 것</span></div>
+  <div class="foot"><span>Mental Model vs Window</span><span>12 / 16 · → 담을 수 없는 것</span></div>
 </section>
 
-<!-- 14 담을 수 없는 것들 -->
-<section class="slide dark">
+<!-- 13 담을 수 없는 것들 -->
+<section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Mental Model vs Window</span></div>
     <div class="tag">#tacit #intuition</div>
-    <div>14 / 17</div>
+    <div>13 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">본질</div>
@@ -958,15 +1249,15 @@ User: "아까 말한 설계 원칙대로 구현해줘"
       이것들이 없으면 AI는 <em>local에서만 똑똑하다.</em>
     </div>
   </div>
-  <div class="foot"><span>Mental Model · 담을 수 없는 것</span><span>14 / 17 · → 인과사슬</span></div>
+  <div class="foot"><span>Mental Model · 담을 수 없는 것</span><span>13 / 16 · → 인과사슬</span></div>
 </section>
 
-<!-- 15 인과사슬 -->
+<!-- 14 인과사슬 -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Closing</span></div>
     <div class="tag">#causal-chain</div>
-    <div>15 / 17</div>
+    <div>14 / 16</div>
   </div>
   <div class="stage top">
     <div class="kicker">정리</div>
@@ -1009,15 +1300,15 @@ User: "아까 말한 설계 원칙대로 구현해줘"
       </div>
     </div>
   </div>
-  <div class="foot"><span>Closing · 인과사슬</span><span>15 / 17 · → 결론</span></div>
+  <div class="foot"><span>Closing · 인과사슬</span><span>14 / 16 · → 결론</span></div>
 </section>
 
-<!-- 16 모델 업그레이드로 안 풀린다 -->
-<section class="slide light">
+<!-- 15 모델 업그레이드로 안 풀린다 -->
+<section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Closing</span></div>
     <div class="tag">#ceiling #structural</div>
-    <div>16 / 17</div>
+    <div>15 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">결론</div>
@@ -1032,44 +1323,45 @@ User: "아까 말한 설계 원칙대로 구현해줘"
       <strong>천장의 형태는 바뀌지 않는다.</strong>
     </div>
   </div>
-  <div class="foot"><span>Closing · 결론</span><span>16 / 17 · → Fin</span></div>
+  <div class="foot"><span>Closing · 결론</span><span>15 / 16 · → Fin</span></div>
 </section>
 
-<!-- 17 Fin -->
-<section class="slide dark">
+<!-- 16 Fin -->
+<section class="slide dark has-bleed">
+  <div class="bleed ph-bleed">
+    <div class="ph-bleed-mark">[ fin bleed · memory-wall ]</div>
+  </div>
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Fin</span></div>
-    <div class="tag">#deck-3 #strategy</div>
-    <div>17 / 17</div>
+    <div class="tag">#memory-wall #deck-3</div>
+    <div>16 / 16</div>
   </div>
   <div class="stage">
-    <div class="kicker dim">다음</div>
-    <div class="keyword">그래서 <em>전략</em>이 필요하다.</div>
-    <div class="divider"></div>
-    <div class="subline" style="margin-bottom:24px;">
-      한계를 알았다면, 그 안에서 <em>싸우는 법</em>을 배워야 합니다.<br>
-      한계를 우회하는 엔지니어링이 존재합니다.
+    <div class="kicker">Fin.</div>
+    <div class="final-big">
+      <em>Memory Wall.</em>
     </div>
-
-    <div class="card cool" style="max-width:480px;">
-      <div class="card-lbl">Deck 3 —</div>
-      <div style="font-family:var(--serif-ko);font-weight:700;font-size:clamp(20px,2vw,28px);color:var(--gold);margin-top:6px;">엔지니어링의 진화</div>
-      <div class="card-foot" style="margin-top:8px;">Prompt → Context → Harness</div>
+    <div class="final-sub">
+      HBM 대역폭 · 용량 · Attention 희석 — <em>50년 된 한계의 최신 형태.</em><br>
+      Rubin GPU도, GPT-6도, 이 구조 안에서는 천장을 못 깬다.<br><br>
+      한계는 알고리즘 문제가 아니다 — <strong>물리 문제다.</strong> 답도 그래서 알고리즘이 아니라, <strong>시스템이다.</strong>
     </div>
-
-    <div class="series-map" style="margin-top:30px;">
-      <div class="series-item done">01 &nbsp; 한계 직시 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [현상] ✓</div>
-      <div class="series-item done">02 &nbsp; HBM의 천장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [원인] ✓</div>
-      <div class="series-item current">03 &nbsp; 엔지니어링의 진화 &nbsp; [방향] ◀</div>
+    <div class="callout" style="max-width:760px">
+      <em>→ next deck.</em><br>
+      <strong>Prompt → Context → Harness</strong> — 진화의 방향.
     </div>
+    <div class="final-link">deck 3 · 엔지니어링의 진화 →</div>
   </div>
-  <div class="foot"><span>Fin · Deck 2 of 6</span><span>17 / 17</span></div>
+  <div class="foot">
+    <span>The Ceiling of HBM — Deck 2 / 6</span>
+    <span>16 / 16 · END</span>
+  </div>
 </section>
 
 </div>
 
 <div class="progress" id="progress"></div>
-<div class="navhint"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>F</kbd> fullscreen</div>
+<div class="navhint"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>Space</kbd> HBM (slide 08) · <kbd>F</kbd> fullscreen</div>
 <div class="click-zone left"  id="cz-left"></div>
 <div class="click-zone right" id="cz-right"></div>
 
@@ -1086,10 +1378,17 @@ function goTo(n) {
   cur = Math.max(0, Math.min(n, slides.length - 1));
   slides[cur].classList.add('active');
   setProgress();
+  if (slides[cur].id === 's-hbm-live' && typeof hbmReset === 'function') hbmReset();
 }
 setProgress();
 
 document.addEventListener('keydown', e => {
+  // On HBM live viz, Space advances the visualization, not the slide
+  if (slides[cur].id === 's-hbm-live' && (e.key === ' ' || e.code === 'Space')) {
+    e.preventDefault();
+    hbmStep();
+    return;
+  }
   if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') goTo(cur + 1);
   if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(cur - 1);
   if (e.key === 'f' || e.key === 'F') {
@@ -1102,104 +1401,96 @@ document.getElementById('cz-left').addEventListener('click', () => goTo(cur - 1)
 document.getElementById('cz-right').addEventListener('click', () => goTo(cur + 1));
 
 document.getElementById('deck').addEventListener('click', e => {
-  if (e.target.closest('button, a, input, #conv-log, .hbm-outer')) return;
+  if (e.target.closest('button, a, input, .hbm-viz')) return;
   e.clientX < window.innerWidth / 2 ? goTo(cur - 1) : goTo(cur + 1);
 });
 
-/* ============ Slide 09 — HBM Live Viz ============ */
-const W_PCT = 36;
-const THRESHOLD = 82;
-const STEP = 9;
-const PROMPTS = [
-  "이 함수의 시간복잡도를 분석해줘",
-  "위 코드에서 메모리 누수 가능성 있어?",
-  "에러 핸들링 패턴을 개선하고 싶은데",
-  "비동기 처리 방식을 바꾸면 어떨까?",
-  "지금까지 논의한 설계 원칙대로 구현해줘",
-  "이전에 합의한 인터페이스 기억해?",
-  "아까 말한 최적화 전략 적용해줘",
-  "처음 요청했던 아키텍처로 돌아가자",
-];
-let kvPct = 0, reqN = 0, busy = false, compactN = 0, inCompact = false;
-let turns = [];
+/* ============ Slide 08 — HBM Live Viz (Spacebar) ============ */
+// fp16 70B (Llama 3.1) on B200 single GPU: 95% 천장 빠르게 닿음
+const HBM_TOTAL = 192;                          // GB (B200)
+const HBM_FIXED = 143;                          // Weights 140 + System 2 + Skills 1
+const HBM_KV_STEP = 10;                         // GB per press (≈ 30K tokens at 320 KB/token)
+const HBM_SAT_PCT = 95;                         // saturation threshold (~182 GB)
+const HBM_KV_MAX = HBM_TOTAL - HBM_FIXED;       // 49 GB
 
-function updateBar() {
-  const total = W_PCT + kvPct;
-  const over = total > 100;
-  const kEl = document.getElementById('hbm-k');
-  kEl.style.left = W_PCT + '%';
-  kEl.style.width = (over ? 100 - W_PCT : kvPct) + '%';
-  over ? kEl.classList.add('over') : kEl.classList.remove('over');
-  document.getElementById('hbm-l').textContent = `Weights 70GB  |  KV ${Math.round(kvPct*1.92)}GB`;
-  const pEl = document.getElementById('hbm-pct');
-  pEl.textContent = Math.min(total,100).toFixed(0) + '%';
-  pEl.style.color = total >= THRESHOLD ? 'var(--red)' : 'var(--gold)';
+let hbmKvGb = 0;
+let hbmCompactN = 0;
+let hbmInCompact = false;
+
+function hbmPct(gb) { return (gb / HBM_TOTAL) * 100; }
+
+function hbmUpdate() {
+  const usedGb = HBM_FIXED + hbmKvGb;
+  const usedPct = Math.min(hbmPct(usedGb), 100);
+  const freeGb = Math.max(HBM_TOTAL - usedGb, 0);
+  const freePct = hbmPct(freeGb);
+  const kvPct = hbmPct(hbmKvGb);
+  const overSat = usedPct >= HBM_SAT_PCT;
+
+  // Bar widths
+  const kvEl = document.querySelector('.hbm-viz-bar .hv-kv');
+  const freeEl = document.querySelector('.hbm-viz-bar .hv-free');
+  if (kvEl) {
+    kvEl.style.width = kvPct + '%';
+    kvEl.classList.toggle('over', overSat);
+  }
+  if (freeEl) freeEl.style.width = freePct + '%';
+
+  // List values
+  const set = (sel, val) => { const el = document.querySelector(sel); if (el) el.textContent = val; };
+  set('.hv-kv-tk', hbmKvGb.toFixed(0) + ' GB');
+  set('.hv-kv-pct', kvPct.toFixed(1) + '%');
+  set('.hv-used-tk', usedGb.toFixed(0) + ' GB');
+  set('.hv-used-pct', usedPct.toFixed(1) + '%');
+  set('.hv-free-tk', freeGb.toFixed(0) + ' GB');
+  set('.hv-free-pct', freePct.toFixed(1) + '%');
+
+  // Saturation color shift on Used row
+  document.querySelectorAll('.hv-used-row').forEach(el => {
+    el.classList.toggle('warn', overSat);
+  });
 }
 
-function addLog(user, asst, lost=false) {
-  const log = document.getElementById('conv-log');
-  const d = document.createElement('div');
-  d.className = 'log-turn' + (lost?' lost':'');
-  d.innerHTML = `<span class="log-u">User [${reqN}]:</span> ${user}<br><span class="log-a">Claude:</span> ${(asst||'').slice(0,90)}${asst&&asst.length>90?'...':''}`;
-  log.appendChild(d);
-  log.scrollTop = log.scrollHeight;
+function hbmStep() {
+  if (hbmInCompact) return;
+  const usedPct = hbmPct(HBM_FIXED + hbmKvGb);
+  if (usedPct >= HBM_SAT_PCT) {
+    hbmDoCompact();
+    return;
+  }
+  hbmKvGb = Math.min(hbmKvGb + HBM_KV_STEP, HBM_KV_MAX);
+  hbmUpdate();
 }
 
-function doCompact() {
-  compactN++;
-  inCompact = true;
-  const n = document.getElementById('compact-notice');
+function hbmDoCompact() {
+  hbmCompactN++;
+  hbmInCompact = true;
+  const n = document.getElementById('hbm-notice');
   n.style.display = 'block';
   n.style.color = 'var(--red)';
-  n.textContent = `⚠ Auto-compaction #${compactN} — 오래된 대화 압축 중...`;
-  const all = document.querySelectorAll('#conv-log .log-turn:not(.lost)');
-  const lose = Math.floor(all.length * 0.5);
-  for (let i = 0; i < lose; i++) all[i].classList.add('lost');
+  n.textContent = `⚠ Auto-compaction #${hbmCompactN} — HBM 포화, 오래된 KV 압축 중...`;
   setTimeout(() => {
-    kvPct = Math.max(0, kvPct - 36);
-    updateBar();
+    hbmKvGb = Math.max(0, hbmKvGb - 25);
+    hbmUpdate();
     n.style.color = 'var(--muted-lt)';
-    n.textContent = `✓ Compaction 완료 — ${lose}턴 유실됨`;
-    if (compactN >= 1) document.getElementById('bridge-txt').style.display = 'block';
-    setTimeout(() => { inCompact = false; }, 800);
-  }, 1200);
+    n.textContent = `✓ Compaction 완료 — KV 25 GB 절감 · 이전 턴 일부 유실`;
+    document.getElementById('hbm-bridge').style.display = 'block';
+    setTimeout(() => { hbmInCompact = false; }, 600);
+  }, 1100);
 }
 
-async function sendReq() {
-  if (busy) return;
-  busy = true;
-  const btn = document.getElementById('req-btn');
-  btn.disabled = true;
-  btn.textContent = '요청 중...';
-  reqN++;
-  const userMsg = PROMPTS[(reqN-1) % PROMPTS.length];
-  const msgs = turns.flatMap(t => ([{role:'user',content:t.u},{role:'assistant',content:t.a}]));
-  msgs.push({role:'user',content:userMsg});
-  let asst = '';
-  try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model:'claude-sonnet-4-20250514', max_tokens:80,
-        system:'코드 리뷰 어시스턴트. 한국어로 2문장 이내로 답하세요.',
-        messages: msgs
-      })
-    });
-    const d = await r.json();
-    asst = d.content?.[0]?.text || '(응답 없음)';
-  } catch { asst = '(시뮬레이션 계속)'; }
-  turns.push({u:userMsg, a:asst});
-  kvPct = Math.min(kvPct + STEP, 64);
-  updateBar();
-  addLog(userMsg, asst);
-  const total = W_PCT + kvPct;
-  if (total >= THRESHOLD && !inCompact) doCompact();
-  btn.disabled = false;
-  btn.textContent = 'Claude에게 요청 →';
-  busy = false;
+function hbmReset() {
+  hbmKvGb = 0;
+  hbmCompactN = 0;
+  hbmInCompact = false;
+  const n = document.getElementById('hbm-notice');
+  const b = document.getElementById('hbm-bridge');
+  if (n) n.style.display = 'none';
+  if (b) b.style.display = 'none';
+  hbmUpdate();
 }
 
-updateBar();
+hbmUpdate();
 </script>
 </body>
 </html>
