@@ -547,6 +547,32 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   border: 1px solid rgba(122,138,74,0.35);
 }
 
+/* IMAGE PLACEHOLDER (slide 11 right panel) */
+.image-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 320px;
+}
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: 2px dashed var(--gold-dk);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dk);
+  opacity: 0.4;
+  background: rgba(184,146,74,0.04);
+}
+
 /* HBM bar */
 .hbm-outer {
   width: 100%; height: 50px;
@@ -1330,14 +1356,16 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div class="keyword md">길어질수록 <em>희석된다</em><br>— 있는데 못 찾는다.</div>
     <div class="divider"></div>
     <div class="stage-split">
-      <div class="subline">
-        봐야 할 대상이 많아질수록<br>attention 가중치가 분산됩니다.<br><br>
-        물을 많이 탈수록<br>커피가 연해지는 것과 같습니다.<br><br>
-        정보가 없는 게 아닙니다.<br><em>있는데 못 찾는 겁니다.</em><br>그래서 더 위험합니다.
-      </div>
-      <div class="ascii" style="margin-top:0;">토큰     10개 → 각각      9개를 봄
-토큰  1,000개 → 각각    999개를 봄
-토큰 100,000개 → 각각 <span class="bad">99,999개</span>를 봄
+      <div>
+        <div class="subline">
+          봐야 할 대상이 많아질수록 attention 가중치가 분산됩니다. 물을 많이 탈수록 커피가 연해지는 것과 같습니다.<br><br>
+          정보가 없는 게 아닙니다 — <em>있는데 못 찾는 겁니다.</em>
+        </div>
+        <div class="ascii" style="margin-top:14px;"><span class="dim">컨텍스트 길이</span>      <span class="dim">각 토큰 평균 attention</span>
+
+      10 토큰  →  1/10     = <span class="good">10%</span>      <span class="dim">(집중)</span>
+   1,000 토큰  →  1/1,000  = <span class="hl2">0.1%</span>     <span class="dim">(분산)</span>
+ 100,000 토큰  →  1/100,000 = <span class="bad">0.001%</span>   <span class="bad">(희석)</span>
 
 <span class="dim">─────────────────────────</span>
 
@@ -1346,6 +1374,10 @@ User: "아까 말한 설계 원칙대로 구현해줘"
   <span class="dim">→ 근데 10만 토큰 중 하나</span>
   <span class="bad">→ attention이 거기까지 안 감</span>
   <span class="bad">→ 자신있게 엉뚱하게 구현</span></div>
+      </div>
+      <div class="image-slot">
+        <div class="image-placeholder">[ 이미지 자리 ]</div>
+      </div>
     </div>
   </div>
   <div class="foot"><span>Context Rot · 희석</span><span>11 / 16 · → 멘탈 모델</span></div>
