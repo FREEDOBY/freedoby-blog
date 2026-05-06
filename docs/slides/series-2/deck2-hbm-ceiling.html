@@ -415,19 +415,42 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 /* MULTI-GPU SHARDING (slide 09) */
 .shard-compare {
   display: grid;
-  grid-template-columns: 1fr 40px 1.8fr;
+  grid-template-columns: 1fr 60px 1.8fr;
   gap: 24px;
   align-items: stretch;
   margin-top: 24px;
 }
-.shard-side { display: flex; flex-direction: column; gap: 12px; }
+.shard-side {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 20px;
+  border-radius: 4px;
+  border: 1px solid var(--rule-dk);
+  background: rgba(12,11,9,0.04);
+}
+.shard-side.bad {
+  background: rgba(176,74,58,0.05);
+  border-color: rgba(176,74,58,0.3);
+}
+.shard-side.good {
+  background: rgba(122,138,74,0.06);
+  border-color: rgba(122,138,74,0.35);
+}
 .shard-title {
   font-family: var(--mono); font-size: 16px;
   letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--gold-dk); font-weight: 700;
+  text-align: center;
 }
-.shard-bar-wrap { position: relative; }
+.shard-bar-wrap {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  position: relative;
+}
 .shard-bar {
+  flex: 192;
   display: flex;
   height: 220px;
   border: 1px solid var(--rule-dk);
@@ -448,20 +471,30 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 }
 .shard-bar .sb-kv .sb-lbl { font-size: 14px; opacity: 0.8; font-weight: 400; }
 .shard-overflow {
-  position: absolute;
-  right: -10%; top: 0; height: 220px;
-  width: 8%;
+  flex: 15;
+  height: 220px;
   background: rgba(176,74,58,0.55);
   border: 1px dashed var(--red);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-size: 12px; color: var(--red); font-weight: 700;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono); font-size: 12px;
+  color: var(--black); font-weight: 700;
+  text-align: center;
   line-height: 1.3;
+  gap: 2px;
 }
-.shard-arrow {
+.shard-overflow .sb-lbl { font-size: 11px; opacity: 0.85; font-weight: 400; }
+.shard-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--serif); font-style: italic;
   font-size: 48px; color: var(--gold);
-  display: flex; align-items: center; justify-content: center;
   font-weight: 400;
+  line-height: 1;
 }
 .shard-grid {
   display: grid;
@@ -882,7 +915,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
   <div class="cover-footer">
     <span>"the ceiling is physical, not algorithmic."</span>
-    <span>01 / 17</span>
+    <span>01 / 16</span>
   </div>
 </section>
 
@@ -891,7 +924,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Opening</span></div>
     <div class="tag">#wrong-assumption</div>
-    <div>02 / 17</div>
+    <div>02 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">잘못된 가정</div>
@@ -906,7 +939,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <strong>물리</strong> 문제입니다.
     </div>
   </div>
-  <div class="foot"><span>Opening · 잘못된 전제</span><span>02 / 17 · → Memory Wall</span></div>
+  <div class="foot"><span>Opening · 잘못된 전제</span><span>02 / 16 · → Memory Wall</span></div>
 </section>
 
 <!-- 03 물리 법칙 -->
@@ -914,7 +947,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Opening</span></div>
     <div class="tag">#memory-wall #fifty-years</div>
-    <div>03 / 17</div>
+    <div>03 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker" style="font-size:14px;">답</div>
@@ -930,7 +963,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <em>Memory Wall.</em> 오늘날 AI의 천장이 여기서 옵니다.
     </div>
   </div>
-  <div class="foot"><span>Opening · 50년 된 문제</span><span>03 / 17 · → 메모리 계층</span></div>
+  <div class="foot"><span>Opening · 50년 된 문제</span><span>03 / 16 · → 메모리 계층</span></div>
 </section>
 
 <!-- 04 메모리 계층 -->
@@ -938,7 +971,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Memory Hierarchy</span></div>
     <div class="tag">#hierarchy #bandwidth</div>
-    <div>04 / 17</div>
+    <div>04 / 16</div>
   </div>
   <div class="stage top">
     <div class="kicker">원칙</div>
@@ -993,7 +1026,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       B200 HBM: <em>192 GB · 8 TB/s · $15/GB</em>가 천장 — SSD 대비 가격·용량 둘 다 <strong>~300배 차이.</strong>
     </div>
   </div>
-  <div class="foot"><span>Memory Hierarchy · 빠를수록 작다</span><span>04 / 17 · → HBM = 조리대</span></div>
+  <div class="foot"><span>Memory Hierarchy · 빠를수록 작다</span><span>04 / 16 · → HBM = 조리대</span></div>
 </section>
 
 <!-- 05 HBM = 조리대 -->
@@ -1001,7 +1034,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
     <div class="tag">#metaphor #countertop</div>
-    <div>05 / 17</div>
+    <div>05 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">비유</div>
@@ -1025,7 +1058,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 <span class="dim">A100: 80GB · B200: 192GB · Rubin: 288GB</span></div>
     </div>
   </div>
-  <div class="foot"><span>HBM + KV Cache · 조리대</span><span>05 / 17 · → 컨텍스트 = KV</span></div>
+  <div class="foot"><span>HBM + KV Cache · 조리대</span><span>05 / 16 · → 컨텍스트 = KV</span></div>
 </section>
 
 <!-- 06 컨텍스트 = KV -->
@@ -1033,7 +1066,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
     <div class="tag">#equivalence #scale</div>
-    <div>06 / 17</div>
+    <div>06 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">등가</div>
@@ -1062,7 +1095,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       매 API 요청마다 전체 대화를 보냅니다 — 대화가 쌓일수록 Prefill KV가 처음부터 크고, Decode가 진행될수록 더 쌓입니다.
     </div>
   </div>
-  <div class="foot"><span>HBM + KV Cache · 컨텍스트 = KV</span><span>06 / 17 · → 모델 라인업</span></div>
+  <div class="foot"><span>HBM + KV Cache · 컨텍스트 = KV</span><span>06 / 16 · → 모델 라인업</span></div>
 </section>
 
 <!-- 07 모델 라인업 -->
@@ -1070,7 +1103,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
     <div class="tag">#models #lineup #universal</div>
-    <div>07 / 17</div>
+    <div>07 / 16</div>
   </div>
   <div class="stage top">
     <div class="kicker">모델 라인업</div>
@@ -1132,7 +1165,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       대부분 <em>200-350 KB/token</em>. MLA 모델만 5배 압축 (~70 KB) — 그래도 1M 컨텍스트는 <strong>~70 GB</strong>. <em>HBM 천장은 모든 모델 공통.</em>
     </div>
   </div>
-  <div class="foot"><span>HBM + KV Cache · Universal Ceiling</span><span>07 / 17 · → 라이브 시각화</span></div>
+  <div class="foot"><span>HBM + KV Cache · Universal Ceiling</span><span>07 / 16 · → 라이브 시각화</span></div>
 </section>
 
 <!-- 08 라이브 시각화 -->
@@ -1140,7 +1173,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
     <div class="tag">#live #auto-compaction</div>
-    <div>08 / 17</div>
+    <div>08 / 16</div>
   </div>
   <div class="stage top">
     <div class="kicker">★ 라이브 시각화 · Press Space</div>
@@ -1193,7 +1226,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div id="hbm-notice"></div>
     <div id="hbm-bridge">물리적으로 유실되지 않아도, 또 다른 문제가 있다 →</div>
   </div>
-  <div class="foot"><span>HBM + KV Cache · Live</span><span>08 / 17 · → Multi-GPU</span></div>
+  <div class="foot"><span>HBM + KV Cache · Live</span><span>08 / 16 · → Multi-GPU</span></div>
 </section>
 
 <!-- 09 Multi-GPU Sharding -->
@@ -1201,14 +1234,14 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>HBM + KV Cache</span></div>
     <div class="tag">#sharding #tp #production</div>
-    <div>09 / 17</div>
+    <div>09 / 16</div>
   </div>
   <div class="stage top">
     <div class="kicker">그럼 Production은?</div>
     <div class="keyword sm">Multi-GPU Sharding — <em>천장을 깨지 않는다, GPU 8개를 동시에 쓸 뿐.</em></div>
 
     <div class="shard-compare">
-      <div class="shard-side">
+      <div class="shard-side bad">
         <div class="shard-title">단일 B200 (192 GB)</div>
         <div class="shard-bar-wrap">
           <div class="shard-bar">
@@ -1221,15 +1254,18 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
               <div class="sb-lbl">49 GB</div>
             </div>
           </div>
-          <div class="shard-overflow">+15 GB<br>over</div>
+          <div class="shard-overflow">
+            <div>+15</div>
+            <div class="sb-lbl">over</div>
+          </div>
         </div>
         <div class="shard-verdict bad">✗ 207 GB &gt; 192 · 못 담음</div>
       </div>
 
-      <div class="shard-arrow">→</div>
+      <div class="shard-divider">→</div>
 
-      <div class="shard-side">
-        <div class="shard-title">TP=8 · 8× B200 = 1.5 TB 합산</div>
+      <div class="shard-side good">
+        <div class="shard-title">TP=8 · DGX B200 표준 SKU · 1.5 TB</div>
         <div class="shard-grid">
           <div class="sb-mini"><div class="sm-label">#0</div><div class="m-w" style="height:9.1%"></div><div class="m-k" style="height:4.2%"></div><div class="m-f"></div></div>
           <div class="sb-mini"><div class="sm-label">#1</div><div class="m-w" style="height:9.1%"></div><div class="m-k" style="height:4.2%"></div><div class="m-f"></div></div>
@@ -1245,15 +1281,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
 
-    <div class="subline" style="margin-top:18px; max-width:none;">
+    <div class="subline" style="margin-top:18px; max-width:none; text-align:center;">
       Weights 140 ÷ 8 = <em>17.5 GB/GPU</em> · KV 64 ÷ 8 = <em>8 GB/GPU</em>. 8 GPU 비용 + NVLink 통신 overhead — 천장은 <strong>사라지지 않고 옮겨짐.</strong>
     </div>
 
-    <div class="callout" style="margin-top:18px; max-width:900px;">
+    <div class="callout" style="margin-top:18px; max-width:none; white-space:nowrap;">
       1M 컨텍스트: KV 320 GB ÷ 8 = <em>40 GB/GPU</em> 여전히 가능. <strong>10M (3.2 TB)</strong> → 16+ GPU 필요 → 비용 폭증, <em>천장 다시.</em>
     </div>
   </div>
-  <div class="foot"><span>HBM + KV Cache · Multi-GPU</span><span>09 / 17 · → Attention</span></div>
+  <div class="foot"><span>HBM + KV Cache · Multi-GPU</span><span>09 / 16 · → Attention</span></div>
 </section>
 
 <!-- 10 Attention -->
@@ -1261,7 +1297,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Context Rot</span></div>
     <div class="tag">#attention</div>
-    <div>10 / 17</div>
+    <div>10 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">메커니즘</div>
@@ -1279,7 +1315,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
 <span class="dim">이 가중치 계산 결과가 K, V 벡터로 HBM에 저장됩니다</span></div>
   </div>
-  <div class="foot"><span>Context Rot · Attention</span><span>10 / 17 · → 희석</span></div>
+  <div class="foot"><span>Context Rot · Attention</span><span>10 / 16 · → 희석</span></div>
 </section>
 
 <!-- 11 희석 -->
@@ -1287,7 +1323,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Context Rot</span></div>
     <div class="tag">#dilution #context-rot</div>
-    <div>11 / 17</div>
+    <div>11 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">Context Rot</div>
@@ -1312,37 +1348,15 @@ User: "아까 말한 설계 원칙대로 구현해줘"
   <span class="bad">→ 자신있게 엉뚱하게 구현</span></div>
     </div>
   </div>
-  <div class="foot"><span>Context Rot · 희석</span><span>11 / 17 · → Deck 1 연결</span></div>
+  <div class="foot"><span>Context Rot · 희석</span><span>11 / 16 · → 멘탈 모델</span></div>
 </section>
 
-<!-- 12 Needle 연결 -->
-<section class="slide light">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Context Rot</span></div>
-    <div class="tag">#deck-1 #needle</div>
-    <div>12 / 17</div>
-  </div>
-  <div class="stage">
-    <div class="kicker">Deck 1 연결</div>
-    <div class="keyword md">Deck 1의 Needle은<br><em>이것의 직접 증거였다.</em></div>
-    <div class="divider"></div>
-    <div class="subline">
-      Deck 1에서 우리는 컨텍스트 중간 내용이 망각되는 현상을 봤습니다.<br><br>
-      그때의 그래프가 바로 <em>Context Rot의 fingerprint</em>였습니다.<br><br>
-      정보가 없어서가 아닙니다. HBM에 물리적으로 있지만,
-      attention이 거기까지 충분히 가지 못한 것입니다.<br><br>
-      <em>local에서 합리적인 것이 global에서 모순이 되는</em> 이유가 여기 있습니다.
-    </div>
-  </div>
-  <div class="foot"><span>Context Rot · Needle 재해석</span><span>12 / 17 · → 멘탈 모델</span></div>
-</section>
-
-<!-- 13 멘탈 모델 vs 윈도우 -->
+<!-- 12 멘탈 모델 vs 윈도우 -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Mental Model vs Window</span></div>
     <div class="tag">#mental-model #window</div>
-    <div>13 / 17</div>
+    <div>12 / 16</div>
   </div>
   <div class="stage top">
     <div class="kicker">대비</div>
@@ -1375,15 +1389,15 @@ User: "아까 말한 설계 원칙대로 구현해줘"
       </div>
     </div>
   </div>
-  <div class="foot"><span>Mental Model vs Window</span><span>13 / 17 · → 담을 수 없는 것</span></div>
+  <div class="foot"><span>Mental Model vs Window</span><span>12 / 16 · → 담을 수 없는 것</span></div>
 </section>
 
-<!-- 14 담을 수 없는 것들 -->
+<!-- 13 담을 수 없는 것들 -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Mental Model vs Window</span></div>
     <div class="tag">#tacit #intuition</div>
-    <div>14 / 17</div>
+    <div>13 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">본질</div>
@@ -1422,15 +1436,15 @@ User: "아까 말한 설계 원칙대로 구현해줘"
       이것들이 없으면 AI는 <em>local에서만 똑똑하다.</em>
     </div>
   </div>
-  <div class="foot"><span>Mental Model · 담을 수 없는 것</span><span>14 / 17 · → 인과사슬</span></div>
+  <div class="foot"><span>Mental Model · 담을 수 없는 것</span><span>13 / 16 · → 인과사슬</span></div>
 </section>
 
-<!-- 15 인과사슬 -->
+<!-- 14 인과사슬 -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Closing</span></div>
     <div class="tag">#causal-chain</div>
-    <div>15 / 17</div>
+    <div>14 / 16</div>
   </div>
   <div class="stage top">
     <div class="kicker">정리</div>
@@ -1473,15 +1487,15 @@ User: "아까 말한 설계 원칙대로 구현해줘"
       </div>
     </div>
   </div>
-  <div class="foot"><span>Closing · 인과사슬</span><span>15 / 17 · → 결론</span></div>
+  <div class="foot"><span>Closing · 인과사슬</span><span>14 / 16 · → 결론</span></div>
 </section>
 
-<!-- 16 모델 업그레이드로 안 풀린다 -->
+<!-- 15 모델 업그레이드로 안 풀린다 -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Closing</span></div>
     <div class="tag">#ceiling #structural</div>
-    <div>16 / 17</div>
+    <div>15 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">결론</div>
@@ -1496,10 +1510,10 @@ User: "아까 말한 설계 원칙대로 구현해줘"
       <strong>천장의 형태는 바뀌지 않는다.</strong>
     </div>
   </div>
-  <div class="foot"><span>Closing · 결론</span><span>16 / 17 · → Fin</span></div>
+  <div class="foot"><span>Closing · 결론</span><span>15 / 16 · → Fin</span></div>
 </section>
 
-<!-- 17 Fin -->
+<!-- 16 Fin -->
 <section class="slide dark has-bleed">
   <div class="bleed ph-bleed">
     <div class="ph-bleed-mark">[ fin bleed · memory-wall ]</div>
@@ -1507,7 +1521,7 @@ User: "아까 말한 설계 원칙대로 구현해줘"
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Fin</span></div>
     <div class="tag">#memory-wall #deck-3</div>
-    <div>17 / 17</div>
+    <div>16 / 16</div>
   </div>
   <div class="stage">
     <div class="kicker">Fin.</div>
@@ -1527,7 +1541,7 @@ User: "아까 말한 설계 원칙대로 구현해줘"
   </div>
   <div class="foot">
     <span>The Ceiling of HBM — Deck 2 / 6</span>
-    <span>17 / 17 · END</span>
+    <span>16 / 16 · END</span>
   </div>
 </section>
 
