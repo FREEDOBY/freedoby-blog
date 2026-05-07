@@ -426,17 +426,27 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   gap: 14px;
   padding: 22px 20px;
   border-radius: 4px;
-  border: 1px solid var(--rule-dk);
-  background: rgba(12,11,9,0.04);
+  border: 2px solid var(--gold);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 40px,
+      rgba(184,146,74,0.04) 40px,
+      rgba(184,146,74,0.04) 41px
+    ),
+    #1f2a3c;
+  box-shadow: 0 6px 18px rgba(12,11,9,0.25), inset 0 1px 0 rgba(240,236,224,0.08);
+  color: var(--cream);
 }
-.shard-side.bad {
-  background: rgba(176,74,58,0.05);
-  border-color: rgba(176,74,58,0.3);
-}
-.shard-side.good {
-  background: rgba(122,138,74,0.06);
-  border-color: rgba(122,138,74,0.35);
-}
+.shard-side.bad { border-color: var(--red); }
+.shard-side.good { border-color: var(--green); }
+/* Inner text colors on dark navy bg */
+.shard-side .shard-title { color: var(--gold-lt); }
+.shard-side .shard-conn { color: var(--muted-lt); }
+.shard-side .sb-mini .sm-label { color: var(--muted-lt); }
+.shard-side .shard-bar { background: rgba(12,11,9,0.35); border-color: rgba(240,236,224,0.12); }
+.shard-side .sb-mini { background: rgba(12,11,9,0.35); border-color: rgba(240,236,224,0.12); }
 .shard-title {
   font-family: var(--mono); font-size: 16px;
   letter-spacing: 0.16em; text-transform: uppercase;
@@ -823,11 +833,22 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   margin-top: 14px;
 }
 .dual-viz .hbm-viz { margin-top: 0; }
-/* Physical HBM panel: cooler dark slate to differ from logical (pure black) */
+/* Physical HBM panel: navy slate with tinted hue to clearly differ from logical (pure black) */
 .dual-viz .physical-viz {
-  background: #1a2028;
-  border-color: var(--gold);
-  box-shadow: 0 4px 14px rgba(12,11,9,0.18), inset 0 1px 0 rgba(240,236,224,0.05);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 40px,
+      rgba(184,146,74,0.04) 40px,
+      rgba(184,146,74,0.04) 41px
+    ),
+    #1f2a3c;
+  border: 2px solid var(--gold);
+  box-shadow: 0 6px 18px rgba(12,11,9,0.25), inset 0 1px 0 rgba(240,236,224,0.08);
+}
+.dual-viz .physical-viz .hbm-viz-prompt {
+  color: var(--gold-lt);
 }
 .dual-arrow {
   text-align: center;
