@@ -815,6 +815,43 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 ::-webkit-scrollbar-track { background: rgba(240,236,224,0.04); }
 ::-webkit-scrollbar-thumb { background: var(--rule-lt); }
 
+/* ============ DUAL VIZ (slide 08 — context ↔ HBM sync) ============ */
+.dual-viz {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+}
+.dual-viz .hbm-viz { margin-top: 0; }
+.dual-arrow {
+  text-align: center;
+  font-family: var(--mono); font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 4px 0;
+  opacity: 0.85;
+}
+.dv-conversion {
+  text-align: center;
+  font-family: var(--mono); font-size: 13px;
+  color: var(--gold-dk);
+  letter-spacing: 0.08em;
+  margin-top: 14px;
+  padding: 10px 0;
+  border-top: 1px solid var(--rule-dk);
+  border-bottom: 1px solid var(--rule-dk);
+}
+/* Logical view bar segments */
+.hbm-viz-bar .hv-fixed { background: #999; }
+.hbm-viz-bar .hv-msgs { background: var(--gold); transition: width 0.5s cubic-bezier(.2,.7,.2,1); }
+.hbm-viz-bar .hv-msgs.over { background: var(--red); }
+/* Physical extra: combined fixed KV */
+.hbm-viz-bar .hv-fixed-kv { background: #888; }
+/* List swatches for new types */
+.hbm-viz-list .sw-fixed { background: #999; }
+.hbm-viz-list .sw-fixed-kv { background: #888; }
+.hbm-viz-list .sw-msgs { background: var(--gold); }
+
 /* ============ HBM LIVE VIZ — context-viz pattern (slide 09) ============ */
 .hbm-viz {
   font-family: var(--mono);
@@ -1202,52 +1239,67 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div>08 / 16</div>
   </div>
   <div class="stage top">
-    <div class="kicker">★ 라이브 시각화 · Press Space</div>
-    <div class="keyword sm">요청할 때마다 <em>HBM이 차오른다.</em></div>
+    <div class="kicker">★ 라이브 · Press Space</div>
+    <div class="keyword sm">컨텍스트 = <em>KV cache</em>. 같이 차오르고, 같이 컴팩션.</div>
 
-    <div class="hbm-viz">
-      <div class="hbm-viz-prompt"><span class="arrow">▶</span>/hbm</div>
-      <div class="hbm-viz-title">
-        <span>HBM — B200 192 GB · Llama 3.3 70B (fp16)</span>
-        <span class="hbm-help"><kbd>Space</kbd>다음 요청</span>
+    <div class="dual-viz">
+
+      <!-- LOGICAL: Claude Code /context -->
+      <div class="hbm-viz logical-viz">
+        <div class="hbm-viz-prompt"><span class="arrow">▶</span>/context · Claude Sonnet 200K · 사용자 view</div>
+        <div class="hbm-viz-bar">
+          <div class="hv-fixed" style="width:15%"></div>
+          <div class="hv-msgs lv-msgs-bar" style="width:0%"></div>
+          <div class="hv-free lv-free-bar" style="width:85%"></div>
+        </div>
+        <div class="hbm-viz-list">
+          <div class="ck"><span class="swatch sw-fixed"></span>System fixed <span class="dim">(prompt + tools + agents + memory + skills)</span></div>
+          <div class="tk">30K</div>
+          <div class="pct">15.0%</div>
+
+          <div class="ck"><span class="swatch sw-msgs"></span>Messages <span class="dim">(대화 누적)</span></div>
+          <div class="tk lv-msgs-tk">0K</div>
+          <div class="pct lv-msgs-pct">0.0%</div>
+
+          <div class="ck"><span class="swatch sw-free"></span>Free</div>
+          <div class="tk lv-free-tk">170K</div>
+          <div class="pct lv-free-pct">85.0%</div>
+        </div>
       </div>
 
-      <div class="hbm-viz-bar">
-        <div class="hv-w" style="width:72.9%"></div>
-        <div class="hv-sys" style="width:1%"></div>
-        <div class="hv-skill" style="width:0.5%"></div>
-        <div class="hv-kv" style="width:0%"></div>
-        <div class="hv-free" style="width:25.6%"></div>
+      <div class="dual-arrow">↓ 이게 GPU에서는…</div>
+
+      <!-- PHYSICAL: B200 HBM -->
+      <div class="hbm-viz physical-viz">
+        <div class="hbm-viz-prompt"><span class="arrow">▶</span>HBM · B200 192 GB · Llama 3.3 70B fp16 · 물리 view</div>
+        <div class="hbm-viz-bar">
+          <div class="hv-w" style="width:72.9%"></div>
+          <div class="hv-fixed-kv" style="width:5%"></div>
+          <div class="hv-kv pv-kv-bar" style="width:0%"></div>
+          <div class="hv-free pv-free-bar" style="width:22.1%"></div>
+        </div>
+        <div class="hbm-viz-list">
+          <div class="ck"><span class="swatch sw-w"></span>Model Weights <span class="dim">(70B × 2 bytes, fp16)</span></div>
+          <div class="tk">140 GB</div>
+          <div class="pct">72.9%</div>
+
+          <div class="ck"><span class="swatch sw-fixed-kv"></span>System fixed KV <span class="dim">(30K tokens × 320 KB)</span></div>
+          <div class="tk">9.6 GB</div>
+          <div class="pct">5.0%</div>
+
+          <div class="ck"><span class="swatch sw-kv"></span>Conversation KV <span class="dim">(같이 누적)</span></div>
+          <div class="tk pv-kv-tk">0 GB</div>
+          <div class="pct pv-kv-pct">0.0%</div>
+
+          <div class="ck"><span class="swatch sw-free"></span>Free</div>
+          <div class="tk pv-free-tk">42.4 GB</div>
+          <div class="pct pv-free-pct">22.1%</div>
+        </div>
       </div>
 
-      <div class="hbm-viz-list">
-        <div class="ck"><span class="swatch sw-w"></span>Model Weights <span class="dim">(70B × 2 bytes, fp16)</span></div>
-        <div class="tk">140 GB</div>
-        <div class="pct">72.9%</div>
-
-        <div class="ck"><span class="swatch sw-sys"></span>System Tokens <span class="dim">(prefill)</span></div>
-        <div class="tk">2 GB</div>
-        <div class="pct">1.0%</div>
-
-        <div class="ck"><span class="swatch sw-skill"></span>Skills · Tools KV</div>
-        <div class="tk">1 GB</div>
-        <div class="pct">0.5%</div>
-
-        <div class="ck"><span class="swatch sw-kv"></span>Conversation KV <span class="dim">(매 요청 ≈ 30K 토큰 누적)</span></div>
-        <div class="tk hv-kv-tk">0 GB</div>
-        <div class="pct hv-kv-pct">0.0%</div>
-
-        <div class="divider"></div>
-
-        <div class="ck row-total hv-used-row">Used</div>
-        <div class="tk row-total hv-used-row hv-used-tk">143 GB</div>
-        <div class="pct row-total hv-used-row hv-used-pct">74.5%</div>
-
-        <div class="ck"><span class="swatch sw-free"></span>Free <span class="dim">(KV 가용)</span></div>
-        <div class="tk hv-free-tk">49 GB</div>
-        <div class="pct hv-free-pct">25.5%</div>
-      </div>
     </div>
+
+    <div class="dv-conversion">─── 25K 토큰 = 8 GB KV  ·  320 KB/token (Llama 3.3 70B) ───</div>
 
     <div id="hbm-notice"></div>
     <div id="hbm-bridge">물리적으로 유실되지 않아도, 또 다른 문제가 있다 →</div>
@@ -1624,60 +1676,77 @@ document.getElementById('deck').addEventListener('click', e => {
   e.clientX < window.innerWidth / 2 ? goTo(cur - 1) : goTo(cur + 1);
 });
 
-/* ============ Slide 08 — HBM Live Viz (Spacebar) ============ */
-// fp16 70B (Llama 3.3) on B200 single GPU: 95% 천장 빠르게 닿음
-const HBM_TOTAL = 192;                          // GB (B200)
-const HBM_FIXED = 143;                          // Weights 140 + System 2 + Skills 1
-const HBM_KV_STEP = 10;                         // GB per press (≈ 30K tokens at 320 KB/token)
-const HBM_SAT_PCT = 95;                         // saturation threshold (~182 GB)
-const HBM_KV_MAX = HBM_TOTAL - HBM_FIXED;       // 49 GB
+/* ============ Slide 08 — Dual Viz (context ↔ HBM sync, Spacebar) ============ */
+// Logical: 200K context window
+const TOKEN_TOTAL = 200000;
+const TOKEN_FIXED = 30000;     // sys + tools + agents + memory + skills
+const TOKEN_STEP  = 25000;     // per Spacebar press
+const KB_PER_TOKEN = 320;      // Llama 3.3 70B fp16
 
-let hbmKvGb = 0;
+// Physical: B200 HBM
+const HBM_TOTAL = 192;
+const HBM_W = 140;
+const HBM_FIXED_KV = (TOKEN_FIXED * KB_PER_TOKEN) / 1_000_000;  // 9.6 GB
+const HBM_FIXED   = HBM_W + HBM_FIXED_KV;                       // 149.6 GB
+const HBM_KV_MAX  = HBM_TOTAL - HBM_FIXED;                       // 42.4 GB
+const KV_STEP_GB  = (TOKEN_STEP * KB_PER_TOKEN) / 1_000_000;    // 8 GB
+const SAT_PCT = 95;
+
+let convTokens = 0;
+let convKvGb = 0;
 let hbmCompactN = 0;
 let hbmInCompact = false;
 
-function hbmPct(gb) { return (gb / HBM_TOTAL) * 100; }
+const $ = (sel) => document.querySelector(sel);
+const setBar = (sel, pct) => { const el = $(sel); if (el) el.style.width = pct + '%'; };
+const setText = (sel, val) => { const el = $(sel); if (el) el.textContent = val; };
+const fmtK = (n) => Math.round(n / 1000) + 'K';
 
 function hbmUpdate() {
-  const usedGb = HBM_FIXED + hbmKvGb;
-  const usedPct = Math.min(hbmPct(usedGb), 100);
+  // ── Logical (tokens) ──
+  const totalTokens = TOKEN_FIXED + convTokens;
+  const msgsPct = (convTokens / TOKEN_TOTAL) * 100;
+  const freeTokens = Math.max(TOKEN_TOTAL - totalTokens, 0);
+  const freeTokenPct = (freeTokens / TOKEN_TOTAL) * 100;
+
+  setBar('.lv-msgs-bar', msgsPct);
+  setBar('.lv-free-bar', freeTokenPct);
+  setText('.lv-msgs-tk', fmtK(convTokens));
+  setText('.lv-msgs-pct', msgsPct.toFixed(1) + '%');
+  setText('.lv-free-tk', fmtK(freeTokens));
+  setText('.lv-free-pct', freeTokenPct.toFixed(1) + '%');
+
+  // ── Physical (HBM GB) ──
+  const usedGb = HBM_FIXED + convKvGb;
+  const usedPct = Math.min((usedGb / HBM_TOTAL) * 100, 100);
+  const kvPct = (convKvGb / HBM_TOTAL) * 100;
   const freeGb = Math.max(HBM_TOTAL - usedGb, 0);
-  const freePct = hbmPct(freeGb);
-  const kvPct = hbmPct(hbmKvGb);
-  const overSat = usedPct >= HBM_SAT_PCT;
+  const freeGbPct = (freeGb / HBM_TOTAL) * 100;
+  const overSat = usedPct >= SAT_PCT;
 
-  // Bar widths
-  const kvEl = document.querySelector('.hbm-viz-bar .hv-kv');
-  const freeEl = document.querySelector('.hbm-viz-bar .hv-free');
-  if (kvEl) {
-    kvEl.style.width = kvPct + '%';
-    kvEl.classList.toggle('over', overSat);
-  }
-  if (freeEl) freeEl.style.width = freePct + '%';
+  setBar('.pv-kv-bar', kvPct);
+  setBar('.pv-free-bar', freeGbPct);
+  setText('.pv-kv-tk', convKvGb.toFixed(1) + ' GB');
+  setText('.pv-kv-pct', kvPct.toFixed(1) + '%');
+  setText('.pv-free-tk', freeGb.toFixed(1) + ' GB');
+  setText('.pv-free-pct', freeGbPct.toFixed(1) + '%');
 
-  // List values
-  const set = (sel, val) => { const el = document.querySelector(sel); if (el) el.textContent = val; };
-  set('.hv-kv-tk', hbmKvGb.toFixed(0) + ' GB');
-  set('.hv-kv-pct', kvPct.toFixed(1) + '%');
-  set('.hv-used-tk', usedGb.toFixed(0) + ' GB');
-  set('.hv-used-pct', usedPct.toFixed(1) + '%');
-  set('.hv-free-tk', freeGb.toFixed(0) + ' GB');
-  set('.hv-free-pct', freePct.toFixed(1) + '%');
-
-  // Saturation color shift on Used row
-  document.querySelectorAll('.hv-used-row').forEach(el => {
-    el.classList.toggle('warn', overSat);
-  });
+  // Saturation: 두 view의 growing segment 모두 red
+  const kvEl = $('.pv-kv-bar');
+  const msgsEl = $('.lv-msgs-bar');
+  if (kvEl) kvEl.classList.toggle('over', overSat);
+  if (msgsEl) msgsEl.classList.toggle('over', overSat);
 }
 
 function hbmStep() {
   if (hbmInCompact) return;
-  const usedPct = hbmPct(HBM_FIXED + hbmKvGb);
-  if (usedPct >= HBM_SAT_PCT) {
+  const usedPct = ((HBM_FIXED + convKvGb) / HBM_TOTAL) * 100;
+  if (usedPct >= SAT_PCT) {
     hbmDoCompact();
     return;
   }
-  hbmKvGb = Math.min(hbmKvGb + HBM_KV_STEP, HBM_KV_MAX);
+  convTokens = Math.min(convTokens + TOKEN_STEP, TOKEN_TOTAL - TOKEN_FIXED);
+  convKvGb = Math.min(convKvGb + KV_STEP_GB, HBM_KV_MAX);
   hbmUpdate();
 }
 
@@ -1687,19 +1756,21 @@ function hbmDoCompact() {
   const n = document.getElementById('hbm-notice');
   n.style.display = 'block';
   n.style.color = 'var(--red)';
-  n.textContent = `⚠ Auto-compaction #${hbmCompactN} — HBM 포화, 오래된 KV 압축 중...`;
+  n.textContent = `⚠ Auto-compaction #${hbmCompactN} — HBM 포화 · 대화 압축 + 토큰 유실 (둘 다 동시)`;
   setTimeout(() => {
-    hbmKvGb = Math.max(0, hbmKvGb - 25);
+    convTokens = Math.max(0, convTokens - 75000);
+    convKvGb = Math.max(0, convKvGb - 24);
     hbmUpdate();
-    n.style.color = 'var(--muted-lt)';
-    n.textContent = `✓ Compaction 완료 — KV 25 GB 절감 · 이전 턴 일부 유실`;
+    n.style.color = 'var(--muted-dk)';
+    n.textContent = `✓ Compaction 완료 — 75K 토큰 / 24 GB KV 동시 감소`;
     document.getElementById('hbm-bridge').style.display = 'block';
     setTimeout(() => { hbmInCompact = false; }, 600);
   }, 1100);
 }
 
 function hbmReset() {
-  hbmKvGb = 0;
+  convTokens = 0;
+  convKvGb = 0;
   hbmCompactN = 0;
   hbmInCompact = false;
   const n = document.getElementById('hbm-notice');
