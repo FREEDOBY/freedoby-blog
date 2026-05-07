@@ -823,6 +823,12 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   margin-top: 14px;
 }
 .dual-viz .hbm-viz { margin-top: 0; }
+/* Physical HBM panel: cooler dark slate to differ from logical (pure black) */
+.dual-viz .physical-viz {
+  background: #1a2028;
+  border-color: var(--gold);
+  box-shadow: 0 4px 14px rgba(12,11,9,0.18), inset 0 1px 0 rgba(240,236,224,0.05);
+}
 .dual-arrow {
   text-align: center;
   font-family: var(--mono); font-size: 12px;
@@ -1244,24 +1250,50 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
     <div class="dual-viz">
 
-      <!-- LOGICAL: Claude Code /context -->
+      <!-- LOGICAL: Claude Code /context (deck 1 slide 10 동일 구조) -->
       <div class="hbm-viz logical-viz">
         <div class="hbm-viz-prompt"><span class="arrow">▶</span>/context · Claude Sonnet 200K · 사용자 view</div>
         <div class="hbm-viz-bar">
-          <div class="hv-fixed" style="width:15%"></div>
-          <div class="hv-msgs lv-msgs-bar" style="width:0%"></div>
-          <div class="hv-free lv-free-bar" style="width:85%"></div>
+          <div style="width:2%;    background:#888888"></div>
+          <div style="width:10.5%; background:#bbbbbb"></div>
+          <div style="width:1%;    background:#b1b9f9"></div>
+          <div style="width:0.5%;  background:#d77757"></div>
+          <div style="width:1%;    background:#ffc107"></div>
+          <div class="lv-msgs-bar" style="width:0%; background:#9333ea"></div>
+          <div class="lv-free-bar" style="width:85%; background:rgba(240,236,224,0.06); border-left: 1px solid rgba(240,236,224,0.18);"></div>
         </div>
         <div class="hbm-viz-list">
-          <div class="ck"><span class="swatch sw-fixed"></span>System fixed <span class="dim">(prompt + tools + agents + memory + skills)</span></div>
-          <div class="tk">30K</div>
-          <div class="pct">15.0%</div>
+          <div class="ck"><span class="swatch" style="background:#888888"></span>System prompt</div>
+          <div class="tk">4K</div>
+          <div class="pct">2.0%</div>
 
-          <div class="ck"><span class="swatch sw-msgs"></span>Messages <span class="dim">(대화 누적)</span></div>
+          <div class="ck"><span class="swatch" style="background:#bbbbbb"></span>System tools <span class="dim">(built-in + MCP)</span></div>
+          <div class="tk">21K</div>
+          <div class="pct">10.5%</div>
+
+          <div class="ck"><span class="swatch" style="background:#b1b9f9"></span>Custom agents</div>
+          <div class="tk">2K</div>
+          <div class="pct">1.0%</div>
+
+          <div class="ck"><span class="swatch" style="background:#d77757"></span>Memory files <span class="dim">(CLAUDE.md · auto-memory)</span></div>
+          <div class="tk">1K</div>
+          <div class="pct">0.5%</div>
+
+          <div class="ck"><span class="swatch" style="background:#ffc107"></span>Skills</div>
+          <div class="tk">2K</div>
+          <div class="pct">1.0%</div>
+
+          <div class="ck"><span class="swatch" style="background:#9333ea"></span>Messages <span class="dim">(대화 히스토리)</span></div>
           <div class="tk lv-msgs-tk">0K</div>
           <div class="pct lv-msgs-pct">0.0%</div>
 
-          <div class="ck"><span class="swatch sw-free"></span>Free</div>
+          <div class="divider"></div>
+
+          <div class="ck row-total">Used</div>
+          <div class="tk row-total lv-used-tk">30K</div>
+          <div class="pct row-total lv-used-pct">15.0%</div>
+
+          <div class="ck"><span class="swatch" style="background:rgba(240,236,224,0.06); border:1px solid rgba(240,236,224,0.25)"></span>Free space</div>
           <div class="tk lv-free-tk">170K</div>
           <div class="pct lv-free-pct">85.0%</div>
         </div>
@@ -1713,6 +1745,8 @@ function hbmUpdate() {
   setBar('.lv-free-bar', freeTokenPct);
   setText('.lv-msgs-tk', fmtK(convTokens));
   setText('.lv-msgs-pct', msgsPct.toFixed(1) + '%');
+  setText('.lv-used-tk', fmtK(totalTokens));
+  setText('.lv-used-pct', ((totalTokens / TOKEN_TOTAL) * 100).toFixed(1) + '%');
   setText('.lv-free-tk', fmtK(freeTokens));
   setText('.lv-free-pct', freeTokenPct.toFixed(1) + '%');
 
