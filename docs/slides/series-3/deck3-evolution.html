@@ -68,7 +68,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   justify-content: space-between;
   align-items: center;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   padding-bottom: 12px;
@@ -86,7 +86,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   display: flex;
   justify-content: space-between;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   padding-top: 12px;
@@ -96,8 +96,8 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .slide.light .foot { color: var(--muted-dk); border-color: var(--rule-dk); }
 
 /* STAGE */
-.stage { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 28px 0; min-height: 0; }
-.stage.top { justify-content: flex-start; padding-top: 24px; }
+.stage { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 16px 0; min-height: 0; overflow: hidden; }
+.stage.top { justify-content: flex-start; padding-top: 14px; }
 .stage-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -109,7 +109,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 /* TYPOGRAPHY */
 .kicker {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
@@ -197,7 +197,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 /* ============ SATURATION CHART (slide 02) ============ */
 .sat-chart { margin-top: 18px; max-width: 100%; }
 .sat-chart-label {
-  font-family: var(--mono); font-size: 10px;
+  font-family: var(--mono); font-size: 14px;
   letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 6px;
 }
@@ -205,18 +205,18 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .sat-svg { width: 100%; height: auto; max-height: 280px; display: block; }
 .sat-svg .ax-line { stroke: var(--muted-lt); stroke-width: 1; opacity: 0.45; fill: none; }
 .sat-svg .ax-grid { stroke: var(--muted-lt); stroke-width: 0.5; opacity: 0.2; stroke-dasharray: 2 4; fill: none; }
-.sat-svg .ax-tick { fill: var(--muted-lt); font-family: var(--mono); font-size: 10px; }
+.sat-svg .ax-tick { fill: var(--muted-lt); font-family: var(--mono); font-size: 14px; }
 .sat-svg .sat-zone { fill: rgba(176,74,58,0.08); stroke: rgba(176,74,58,0.25); stroke-width: 0.5; stroke-dasharray: 4 4; }
-.sat-svg .zone-label { fill: var(--red); font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em; opacity: 0.75; }
+.sat-svg .zone-label { fill: var(--red); font-family: var(--mono); font-size: 14px; letter-spacing: 0.16em; opacity: 0.75; }
 .sat-svg .curve-mmlu { fill: none; stroke: var(--gold); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .sat-svg .dot-mmlu { fill: var(--gold); }
 .sat-svg .curve-he { fill: none; stroke: var(--cream); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .sat-svg .dot-he { fill: var(--cream); }
-.sat-svg .curve-label { font-family: var(--mono); font-size: 11px; font-weight: 700; }
+.sat-svg .curve-label { font-family: var(--mono); font-size: 14px; font-weight: 700; }
 .sat-svg .curve-label.gold { fill: var(--gold); }
 .sat-svg .curve-label.cream { fill: var(--cream); }
 .sat-chart-source {
-  font-family: var(--mono); font-size: 9px;
+  font-family: var(--mono); font-size: 14px;
   color: var(--muted-lt); margin-top: 6px;
   letter-spacing: 0.08em; text-align: right; opacity: 0.65;
 }
@@ -225,7 +225,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .cover { justify-content: space-between; padding: 52px 80px; }
 .cover-brand {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--muted-lt);
@@ -235,23 +235,25 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .cover-main { display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 24px 0; }
 .cover-title {
   font-family: var(--serif-ko);
-  font-weight: 700;
+  font-weight: 900;
   font-size: clamp(64px, 10vw, 160px);
   line-height: 0.92;
   letter-spacing: -0.03em;
   color: var(--cream);
+  text-shadow: 0 2px 18px rgba(12,11,9,0.6);
 }
 .cover-title .gold { color: var(--gold); font-family: var(--serif); font-style: italic; font-weight: 400; }
 .cover-rule { width: 100%; height: 1px; background: var(--gold); margin: 28px 0; opacity: 0.5; }
 .cover-tagline {
   font-family: var(--serif-ko);
-  font-weight: 700;
+  font-weight: 800;
   font-size: clamp(24px, 3vw, 42px);
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--cream);
   margin-bottom: 22px;
   max-width: 880px;
+  text-shadow: 0 1px 12px rgba(12,11,9,0.5);
 }
 .cover-tagline em {
   font-family: var(--serif);
@@ -262,17 +264,19 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .cover-sub {
   font-family: var(--serif-ko);
   font-size: clamp(15px, 1.3vw, 20px);
+  font-weight: 500;
   color: var(--muted-lt);
   max-width: 720px;
   line-height: 1.6;
+  text-shadow: 0 1px 8px rgba(12,11,9,0.45);
 }
-.cover-sub strong { color: var(--cream); font-weight: 700; }
+.cover-sub strong { color: var(--cream); font-weight: 800; }
 .cover-footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted-lt);
@@ -282,7 +286,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .series-map { display: flex; flex-direction: column; gap: 6px; margin-top: 28px; }
 .series-item {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   color: var(--muted-lt);
   opacity: 0.55;
@@ -293,13 +297,13 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 /* ASCII */
 .ascii {
   font-family: var(--mono);
-  font-size: clamp(11px, 0.92vw, 14px);
-  line-height: 1.85;
+  font-size: clamp(14px, calc(0.55vw + 0.45vh), 16px);
+  line-height: 1.42;
   white-space: pre-wrap;
-  padding: 20px 24px;
+  padding: 12px 18px;
   background: rgba(184,146,74,0.05);
   border-left: 2px solid var(--gold);
-  margin-top: 18px;
+  margin-top: 12px;
   color: var(--muted-lt);
   border-radius: 1px;
 }
@@ -312,6 +316,164 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .ascii .good { color: var(--green); font-weight: 700; }
 .ascii .bad  { color: var(--red);   font-weight: 700; }
 .ascii .blue { color: var(--blue); font-weight: 700; }
+
+/* ============ TREE FOCUS SYSTEM (.claude/ stratigraphy) ============
+   Wrap each Stage block with .t-s1 / .t-s2 / .t-s3.
+   Per-slide focus: add .focus-s1 / .focus-s2 / .focus-s3 to the <section>.
+   Behavior: non-focused layers stay readable at full brightness;
+            focused layer gets a gold background highlight.
+   Combine (e.g. .focus-s1.focus-s2) to highlight multiple. */
+.ascii .t-s1, .ascii .t-s2, .ascii .t-s3 {
+  transition: background 280ms ease;
+  border-radius: 2px;
+  padding: 1px 4px;
+  margin: 0 -4px;
+}
+/* Highlighter (형광펜) — translucent yellow-gold band */
+/* Dark slides — bright yellow-gold reads strong on near-black */
+.slide.focus-s1 .ascii .t-s1,
+.slide.focus-s2 .ascii .t-s2,
+.slide.focus-s3 .ascii .t-s3 {
+  background: rgba(245, 211, 94, 0.38);
+}
+/* Light slides — slightly more saturated to register on cream */
+.slide.light.focus-s1 .ascii .t-s1,
+.slide.light.focus-s2 .ascii .t-s2,
+.slide.light.focus-s3 .ascii .t-s3 {
+  background: rgba(255, 213, 60, 0.48);
+}
+.ascii .phase {
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.slide.light .ascii .phase { color: var(--gold-dk); }
+
+/* Substrate footnote under tree — same substrate, different concern */
+.ascii-meta {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  margin-top: 10px;
+  opacity: 0.7;
+  color: var(--muted-dk);
+}
+.slide.dark .ascii-meta { color: var(--muted-lt); }
+.ascii-meta em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--gold-dk);
+  opacity: 1;
+}
+.slide.dark .ascii-meta em { color: var(--gold); }
+
+/* ============ MARKDOWN PREVIEW (scrolling .claude file) ============ */
+.md-preview {
+  margin-top: 16px;
+  border: 1px solid var(--rule-dk);
+  border-radius: 6px;
+  background: rgba(12,11,9,0.04);
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(12,11,9,0.06);
+}
+.slide.dark .md-preview {
+  border-color: var(--rule-lt);
+  background: rgba(240,236,224,0.04);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.md-preview-chrome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(12,11,9,0.05);
+  border-bottom: 1px solid var(--rule-dk);
+}
+.slide.dark .md-preview-chrome {
+  background: rgba(240,236,224,0.06);
+  border-bottom-color: var(--rule-lt);
+}
+.md-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  display: inline-block;
+}
+.md-dot.r { background: #ff5f56; }
+.md-dot.y { background: #ffbd2e; }
+.md-dot.g { background: #27c93f; }
+.md-name {
+  margin-left: 10px;
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--muted-dk);
+}
+.slide.dark .md-name { color: var(--muted-lt); }
+.md-preview-body {
+  height: 240px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(184,146,74,0.45) transparent;
+}
+.md-preview-body::-webkit-scrollbar { width: 6px; }
+.md-preview-body::-webkit-scrollbar-track { background: transparent; }
+.md-preview-body::-webkit-scrollbar-thumb {
+  background: rgba(184,146,74,0.45);
+  border-radius: 3px;
+}
+.md-preview-body::-webkit-scrollbar-thumb:hover { background: rgba(184,146,74,0.7); }
+.md-content {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 14px 18px;
+  margin: 0;
+  white-space: pre-wrap;
+  color: var(--muted-dk);
+}
+.slide.dark .md-content { color: var(--muted-lt); }
+.md-content .h  { color: var(--gold-dk); font-weight: 700; }
+.slide.dark .md-content .h  { color: var(--gold); }
+.md-content .c  { color: var(--gold-dk); opacity: 0.85; }
+.slide.dark .md-content .c  { color: var(--gold); opacity: 0.85; }
+.md-content .b  { color: var(--black); font-weight: 700; }
+.slide.dark .md-content .b  { color: var(--cream); }
+
+/* ============ LEFT COLUMN VERTICAL SPLIT (top/bottom halves) ============ */
+.slide.has-left-split .stage-split { align-items: stretch; }
+.left-split {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 18px;
+  height: 100%;
+  min-height: 0;
+}
+.left-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 0;
+}
+.left-bottom {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.slide.has-left-split .left-bottom .md-preview {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.slide.has-left-split .left-bottom .md-preview-body {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 180px;
+}
 
 /* STACK VISUAL (slide 02) */
 .stack-wrap { display: flex; justify-content: center; align-items: center; padding: 20px 0; }
@@ -353,13 +515,13 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .stack-en {
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(13px, 1.05vw, 16px);
+  font-size: clamp(14px, 1.1vw, 16px);
   color: var(--gold);
   margin-top: 2px;
 }
 .stack-meta {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   color: var(--muted-lt);
   text-align: right;
   letter-spacing: 0.06em;
@@ -381,14 +543,137 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   gap: 0;
 }
 .map-row:last-child { border-bottom: none; }
-.map-row.fwk { grid-template-columns: 230px 1fr 130px; }
+.map-row.fwk { grid-template-columns: 280px 1fr; }
+.map-row.fwk .mc-label { font-size: 15px; }
+.map-row.fwk .mc-name { font-size: clamp(20px, 1.6vw, 26px); }
+.map-row.fwk .mc-en { font-size: 16px; }
+.map-row.fwk .mc-desc { font-size: clamp(16px, 1.2vw, 19px); line-height: 1.6; }
+.map-row.fwk .mc-desc mark {
+  background: rgba(245, 211, 94, 0.34);
+  color: inherit;
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin: 0 -2px;
+}
+.slide.light .map-row.fwk .mc-desc mark {
+  background: rgba(255, 213, 60, 0.45);
+}
 .map-row.matrix { grid-template-columns: 130px 110px 1.1fr 1.5fr 130px; }
+.map-row.vocab { grid-template-columns: 130px 1fr 44px; gap: 12px; padding: 5px 0; align-items: center; }
+.map-row.vocab .mc-name { font-family: var(--mono); font-size: 14px; letter-spacing: 0.02em; color: var(--gold-dk); font-weight: 700; }
+.slide.dark .map-row.vocab .mc-name { color: var(--gold); }
+.map-row.vocab .mc-desc { font-size: 14px; line-height: 1.3; }
+.map-row.vocab .mc-tag.stage { text-align: center; font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--gold-dk); }
+.slide.dark .map-row.vocab .mc-tag.stage { color: var(--gold); }
+.map-row.vocab.vocab-head { padding: 3px 0 5px; border-bottom: 1px solid var(--gold-dk); }
+.slide.dark .map-row.vocab.vocab-head { border-bottom-color: var(--gold); }
+.map-row.vocab.vocab-head + .map-row.vocab { border-top: none; }
+
+/* ============ VOCAB GLOSSARY (slide 03) — compact text list ============ */
+.vocab-list {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid var(--gold-dk);
+  padding-top: 12px;
+}
+.slide.dark .vocab-list { border-top-color: var(--gold); }
+.vocab-list > div {
+  font-family: var(--serif-ko);
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--black);
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.slide.dark .vocab-list > div { color: var(--cream); }
+.vocab-list .vn {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--gold-dk);
+  font-size: 16px;
+  width: 130px;
+  flex-shrink: 0;
+}
+.slide.dark .vocab-list .vn { color: var(--gold); }
+.vocab-list .vd { flex: 1; }
+.vocab-list .vs {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--gold-dk);
+  font-size: 19px;
+  width: 36px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.slide.dark .vocab-list .vs { color: var(--gold); }
+
+/* ============ ACTIVATION TIMELINE (slide 03) ============ */
+.timeline {
+  margin-top: 18px;
+  border-top: 1px solid var(--gold-dk);
+  padding: 12px 0 6px;
+}
+.slide.dark .timeline { border-top-color: var(--gold); }
+.timeline-head {
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dk);
+  margin-bottom: 10px;
+}
+.slide.dark .timeline-head { color: var(--gold); }
+.timeline-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 10px;
+}
+.tl-zone {
+  border-left: 2px solid var(--gold-dk);
+  padding-left: 10px;
+}
+.slide.dark .tl-zone { border-left-color: var(--gold); }
+.tl-zone .zone-label {
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-dk);
+  margin-bottom: 6px;
+}
+.slide.dark .tl-zone .zone-label { color: var(--gold); }
+.tl-zone .zone-items {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-family: var(--mono);
+  font-size: 16px;
+  color: var(--black);
+  line-height: 1.45;
+}
+.slide.dark .tl-zone .zone-items { color: var(--cream); }
+.timeline-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-dk);
+  opacity: 0.7;
+}
+.slide.dark .timeline-axis { color: var(--muted-lt); }
 .map-cell { padding: 0 16px; }
 .map-cell:first-child { padding-left: 0; }
 .map-cell:last-child { padding-right: 0; }
 .mc-label {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 14px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted-lt);
@@ -406,19 +691,19 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .mc-en {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--gold);
   margin-top: 2px;
 }
 .mc-desc {
   font-family: var(--serif-ko);
-  font-size: clamp(13px, 1.05vw, 15px);
+  font-size: clamp(14px, 1.05vw, 16px);
   color: var(--muted-lt);
   line-height: 1.55;
 }
 .mc-tag {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 14px;
   letter-spacing: 0.12em;
   color: var(--muted-lt);
   text-align: right;
@@ -436,11 +721,21 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   border-radius: 1px;
 }
 .card.cool { border-color: rgba(184,146,74,0.3); background: rgba(184,146,74,0.05); }
-.card-lbl  { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-.card-name { font-family: var(--serif-ko); font-weight: 700; font-size: clamp(20px, 1.8vw, 28px); color: var(--cream); margin-bottom: 6px; line-height: 1.2; }
+.card-lbl  { font-family: var(--mono); font-size: 16px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.card-name { font-family: var(--serif-ko); font-weight: 700; font-size: clamp(24px, 2vw, 32px); color: var(--cream); margin-bottom: 6px; line-height: 1.2; }
 .card-name em { font-family: var(--serif); font-style: italic; color: var(--gold); font-weight: 400; }
-.card-by { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; color: var(--muted-lt); margin-bottom: 12px; }
-.card-desc { font-family: var(--serif-ko); font-size: clamp(13px, 1.05vw, 16px); color: var(--muted-lt); line-height: 1.6; }
+.card-by { font-family: var(--mono); font-size: 16px; letter-spacing: 0.12em; color: var(--muted-lt); margin-bottom: 12px; }
+.card-desc { font-family: var(--serif-ko); font-size: clamp(17px, 1.3vw, 20px); color: var(--muted-lt); line-height: 1.65; }
+.card-desc mark {
+  background: rgba(245, 211, 94, 0.34);
+  color: inherit;
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin: 0 -2px;
+}
+.slide.light .card-desc mark {
+  background: rgba(255, 213, 60, 0.45);
+}
 .card-desc strong { color: var(--cream); font-weight: 700; }
 
 /* PULLQUOTE / FIN */
@@ -468,6 +763,50 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 }
 .slide.light .pullquote .ko { color: var(--muted-dk); }
 
+/* === Stack tier (slide 03 — light) === */
+.slide.light .stack-tier { border-color: var(--rule-dk); background: rgba(12,11,9,0.025); }
+.slide.light .stack-tier:nth-child(1) { background: rgba(12,11,9,0.03); }
+.slide.light .stack-tier:nth-child(2) { background: rgba(12,11,9,0.05); }
+.slide.light .stack-tier:nth-child(3) { background: rgba(122,95,46,0.08); border-color: rgba(122,95,46,0.3); }
+.slide.light .stack-num { color: var(--gold-dk); }
+.slide.light .stack-name { color: var(--black); }
+.slide.light .stack-en { color: var(--gold-dk); }
+.slide.light .stack-meta { color: var(--muted-dk); }
+.slide.light .stack-meta .yr { color: var(--black); }
+
+/* === Mapping table (slides 07, 09 — light) === */
+.slide.light .mapping { border-top-color: var(--gold-dk); border-bottom-color: var(--rule-dk); }
+.slide.light .map-row { border-bottom-color: var(--rule-dk); }
+.slide.light .mc-label { color: var(--muted-dk); }
+.slide.light .mc-name { color: var(--black); }
+.slide.light .mc-name .gold { color: var(--gold-dk); }
+.slide.light .mc-en { color: var(--gold-dk); }
+.slide.light .mc-desc { color: var(--muted-dk); }
+.slide.light .mc-desc strong { color: var(--black); }
+.slide.light .mc-tag { color: var(--muted-dk); }
+.slide.light .mc-tag .star { color: var(--gold-dk); }
+.slide.light .mc-tag .kr { color: var(--gold-dk); }
+
+/* === Cards (slide 08 — light) === */
+.slide.light .card { background: rgba(12,11,9,0.03); border-color: var(--rule-dk); }
+.slide.light .card.cool { background: rgba(122,95,46,0.06); border-color: rgba(122,95,46,0.3); }
+.slide.light .card-lbl { color: var(--gold-dk); }
+.slide.light .card-name { color: var(--black); }
+.slide.light .card-name em { color: var(--gold-dk); }
+.slide.light .card-by { color: var(--muted-dk); }
+.slide.light .card-desc { color: var(--muted-dk); }
+.slide.light .card-desc strong { color: var(--black); }
+.slide.light .card-desc em { color: var(--gold-dk); font-style: normal; font-weight: 700; }
+
+/* === Source / Attr / Final-link (light) === */
+.slide.light .source { color: var(--muted-dk); border-top-color: var(--rule-dk); }
+.slide.light .source::before { color: var(--gold-dk); }
+.slide.light .attr { color: var(--gold-dk); }
+.slide.light .final-link { color: var(--gold-dk); }
+.slide.light .final-big { color: var(--black); }
+.slide.light .final-big em { color: var(--gold-dk); }
+.slide.light .final-sub { color: var(--muted-dk); }
+
 .final-big {
   font-family: var(--serif-ko);
   font-weight: 700;
@@ -492,7 +831,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 }
 .final-link {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 0.14em;
   color: var(--gold);
   margin-top: 32px;
@@ -505,7 +844,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   padding-top: 10px;
   border-top: 1px solid var(--rule-lt);
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 14px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted-lt);
@@ -522,7 +861,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 /* ATTRIBUTION INLINE */
 .attr {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.1em;
   color: var(--gold-lt);
   text-transform: uppercase;
@@ -543,7 +882,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   position: fixed;
   bottom: 14px; right: 18px;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.14em;
   color: var(--muted-lt);
   z-index: 90;
@@ -556,9 +895,9 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   border-radius: 2px;
   margin: 0 2px;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
 }
-.click-zone { position: fixed; top: 0; height: 100%; width: 33%; z-index: 50; }
+.click-zone { position: fixed; top: 0; height: 100%; width: 12%; z-index: 50; }
 .click-zone.left  { left: 0;  cursor: w-resize; }
 .click-zone.right { right: 0; cursor: e-resize; }
 
@@ -566,7 +905,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   .slide { padding: 28px 36px 40px; }
   .stage-split { grid-template-columns: 1fr; gap: 28px; }
   .card-grid { grid-template-columns: 1fr; }
-  .map-row.fwk { grid-template-columns: 160px 1fr 110px; }
+  .map-row.fwk { grid-template-columns: 160px 1fr; }
   .map-row.matrix { grid-template-columns: 90px 70px 1fr 1.2fr 90px; }
 }
 </style>
@@ -577,6 +916,10 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
 <!-- 01 COVER -->
 <section class="slide dark cover active">
+  <img src="../../images/Harness-engineering.png"
+       alt=""
+       aria-hidden="true"
+       style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.32; filter:saturate(0.75); z-index:-1; pointer-events:none;" />
   <div class="cover-brand">
     <span>FREEDOBY</span>
     <span class="gold">—</span>
@@ -586,26 +929,18 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   </div>
 
   <div class="cover-main">
-    <div class="cover-title">
-      Prompt → Context →<br><span class="gold">Harness.</span>
+    <div class="cover-title" style="font-family: var(--serif); font-weight: 700; font-size: clamp(72px, 7vw, 128px); line-height: 1; letter-spacing: -0.02em;">
+      Prompt → Context → Harness.<br><span class="gold" style="font-family: var(--serif-ko);">진화의 방향.</span>
     </div>
     <div class="cover-rule"></div>
-    <div class="cover-tagline">
-      AI Agent의 진화 — <em>대체가 아니라 적층.</em>
+    <div class="cover-tagline" style="max-width:none; white-space:nowrap;">
+      AI Agent의 진화 — 대체가 아니라 <em style="font-size:1.3em; font-weight:800; font-style:italic;">겹겹이 잡는 통제.</em>
     </div>
     <div class="cover-sub">
       "어떻게 말할까"에서 "무엇을 넣을까"로, 다시 "어떤 구조로 실행할까"로.<br>
       <strong>Better prompts don't scale. Better systems do.</strong>
     </div>
 
-    <div class="series-map">
-      <div class="series-item done">01 &nbsp; 한계 직시 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [현상] ✓</div>
-      <div class="series-item done">02 &nbsp; HBM의 천장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [원인] ✓</div>
-      <div class="series-item current">03 &nbsp; 엔지니어링의 진화 &nbsp; [방향] ◀</div>
-      <div class="series-item">04 &nbsp; AI일수록, 클래식 &nbsp;&nbsp; [통찰]</div>
-      <div class="series-item">05 &nbsp; HALO Workflow &nbsp;&nbsp;&nbsp;&nbsp; [구현]</div>
-      <div class="series-item">06 &nbsp; 개발자 마인드셋 &nbsp;&nbsp;&nbsp; [자세]</div>
-    </div>
   </div>
 
   <div class="cover-footer">
@@ -614,297 +949,425 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   </div>
 </section>
 
-<!-- 02 SATURATION -->
+<!-- 02 OPENING — 적층 -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Opening</span></div>
-    <div class="tag">#saturation #wrong-assumption</div>
+    <div class="tag">#stacked #not-replacement</div>
     <div>02 / 10</div>
-  </div>
-  <div class="stage top">
-    <div class="kicker">왜 진화했나</div>
-    <div class="keyword sm">
-      "GPT-5가 나오면 <em>해결되지 않을까?</em>"
-    </div>
-    <div class="subline" style="margin-top:8px;">
-      많은 개발자가 그렇게 생각합니다 — <em>더 좋은 모델, 더 긴 윈도우, 그러면 되는 거 아닌가.</em><br>
-      하지만 데이터는 다른 이야기를 합니다.
-    </div>
-
-    <div class="sat-chart">
-      <div class="sat-chart-label">★ 모델 벤치마크 saturation · 2020~2026</div>
-      <svg viewBox="0 0 720 280" preserveAspectRatio="xMidYMid meet" class="sat-svg" xmlns="http://www.w3.org/2000/svg">
-        <line x1="60" y1="20" x2="60" y2="240" class="ax-line" />
-        <line x1="60" y1="240" x2="700" y2="240" class="ax-line" />
-
-        <line x1="60" y1="64" x2="700" y2="64" class="ax-grid" />
-        <text x="55" y="68" text-anchor="end" class="ax-tick">80</text>
-        <line x1="60" y1="108" x2="700" y2="108" class="ax-grid" />
-        <text x="55" y="112" text-anchor="end" class="ax-tick">60</text>
-        <line x1="60" y1="152" x2="700" y2="152" class="ax-grid" />
-        <text x="55" y="156" text-anchor="end" class="ax-tick">40</text>
-        <line x1="60" y1="196" x2="700" y2="196" class="ax-grid" />
-        <text x="55" y="200" text-anchor="end" class="ax-tick">20</text>
-        <text x="55" y="245" text-anchor="end" class="ax-tick">0</text>
-
-        <text x="100" y="260" text-anchor="middle" class="ax-tick">'20</text>
-        <text x="200" y="260" text-anchor="middle" class="ax-tick">'22</text>
-        <text x="320" y="260" text-anchor="middle" class="ax-tick">'23</text>
-        <text x="450" y="260" text-anchor="middle" class="ax-tick">'24</text>
-        <text x="580" y="260" text-anchor="middle" class="ax-tick">'25</text>
-        <text x="680" y="260" text-anchor="middle" class="ax-tick">'26</text>
-
-        <rect x="450" y="20" width="250" height="220" class="sat-zone" />
-        <text x="575" y="40" text-anchor="middle" class="zone-label">SATURATION</text>
-
-        <path d="M 100 143 L 200 86 L 320 51 L 450 46 L 580 42 L 680 40" class="curve-mmlu" />
-        <circle cx="100" cy="143" r="4" class="dot-mmlu" />
-        <circle cx="200" cy="86" r="4" class="dot-mmlu" />
-        <circle cx="320" cy="51" r="4" class="dot-mmlu" />
-        <circle cx="450" cy="46" r="4" class="dot-mmlu" />
-        <circle cx="580" cy="42" r="4" class="dot-mmlu" />
-        <circle cx="680" cy="40" r="4" class="dot-mmlu" />
-        <text x="685" y="34" class="curve-label gold">MMLU</text>
-
-        <path d="M 200 134 L 320 93 L 450 42 L 580 33 L 680 29" class="curve-he" />
-        <circle cx="200" cy="134" r="4" class="dot-he" />
-        <circle cx="320" cy="93" r="4" class="dot-he" />
-        <circle cx="450" cy="42" r="4" class="dot-he" />
-        <circle cx="580" cy="33" r="4" class="dot-he" />
-        <circle cx="680" cy="29" r="4" class="dot-he" />
-        <text x="660" y="22" class="curve-label cream">HumanEval</text>
-      </svg>
-      <div class="sat-chart-source">MMLU (Hendrycks 2020) · HumanEval (Chen 2021) · 공개 SOTA 점수 종합 — GPT · Claude · Gemini</div>
-    </div>
-
-    <div class="callout" style="margin-top:18px;">
-      <em>모델은 이미 천장에 닿아간다.</em> 그런데 AI는 계속 강해진다 —<br>
-      <strong>그 차이는 어디서 오는가?</strong>
-    </div>
-  </div>
-  <div class="foot"><span>Opening · 데이터로 본 잘못된 가정</span><span>02 / 10 · → 적층</span></div>
-</section>
-
-<!-- 03 ADOPTION -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Opening</span></div>
-    <div class="tag">#three-stages #stacked</div>
-    <div>03 / 10</div>
   </div>
   <div class="stage stage-split center">
     <div>
-      <div class="kicker">세 단계로 진화했다</div>
-      <div class="keyword md">대체가 아니라<br><em>적층.</em></div>
+      <div class="kicker">왜 진화했나</div>
+      <div class="keyword md">대체가 아니라<br><em>겹겹이 잡는 통제.</em></div>
       <div class="subline">
         새 단계가 등장했다고 이전 단계가 사라진 게 아닙니다.<br>
         그 위에 한 층씩 <em>쌓였습니다.</em><br><br>
         <strong>하네스 ⊃ 컨텍스트 ⊃ 프롬프트.</strong><br>
-        지금 우리가 쓰는 모든 셋업은 — 세 층의 합산입니다.
+        지금 우리가 쓰는 모든 셋업은 — 세 층의 합산.<br><br>
+        <span style="font-size:1.3em; line-height:1.45; font-weight:500; display:inline-block; margin-top:10px; color:var(--cream);"><em style="color:var(--gold); font-weight:600;">왜 쌓였나?</em> AI는 <strong style="color:var(--gold); font-weight:800;">발산</strong>한다 &mdash; <em style="color:var(--gold); font-weight:700;">잡고, 잡고, 또 잡고.</em><br>매 층은 <strong style="color:var(--gold); font-weight:800;">제품 코드의 신뢰성</strong>을 지키는 engineering의 <em style="color:var(--gold); font-weight:700;">반복</em>.</span>
       </div>
     </div>
 
-    <div class="stack-wrap">
-      <div class="stack">
-        <div class="stack-tier">
-          <div class="stack-num">I</div>
-          <div>
-            <div class="stack-name">Prompt Engineering</div>
-            <div class="stack-en">"어떻게 말할까"</div>
+    <div style="display:flex; align-items:center; justify-content:center; height:100%;">
+      <a href="../../images/prompt-context-harness.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기">
+        <img src="../../images/prompt-context-harness.png"
+             alt="Prompt → Context → Harness 적층 구조"
+             style="max-width:100%; max-height:560px; object-fit:contain; display:block; border-radius:4px; box-shadow:0 6px 24px rgba(12,11,9,0.32); cursor:zoom-in;" />
+      </a>
+    </div>
+  </div>
+  <div class="foot"><span>Opening · 적층의 구조</span><span>02 / 10 · → Primer</span></div>
+</section>
+
+<!-- 03 .CLAUDE/ VOCABULARY (Primer) -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Primer · Toolkit</span></div>
+    <div class="tag">#claude-folder #7-units</div>
+    <div>03 / 10</div>
+  </div>
+  <div class="stage stage-split">
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker">다음 세 장을 보기 전</div>
+      <div class="display sm">.claude/ <em>도구들.</em></div>
+      <div class="subline" style="margin-top:8px;">
+        skill · agent · command — 다 다른가, 같은가?<br>
+        <strong>7개 단위 — 한 줄 정의.</strong>
+      </div>
+
+      <div class="vocab-list">
+        <div><span class="vn">CLAUDE.md</span><span class="vd">매 호출 자동 깔리는 시스템 지침</span><span class="vs">I</span></div>
+        <div><span class="vn">rules/</span><span class="vd">CLAUDE.md가 @-참조하는 룰 분리</span><span class="vs">I</span></div>
+        <div><span class="vn">skills/</span><span class="vd">load-on-demand 지침 모듈</span><span class="vs">II</span></div>
+        <div><span class="vn">agents/</span><span class="vd">격리 컨텍스트 sub-agent 정의</span><span class="vs">II</span></div>
+        <div><span class="vn">commands/</span><span class="vd">명명된 워크플로우 진입점</span><span class="vs">III</span></div>
+        <div><span class="vn">hooks/</span><span class="vd">이벤트 트리거 스크립트</span><span class="vs">III</span></div>
+        <div><span class="vn">settings.json</span><span class="vd">권한 · 환경 · 구성</span><span class="vs">III</span></div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-head">Activation Timeline — 언제 깔리나</div>
+        <div class="timeline-track">
+          <div class="tl-zone">
+            <div class="zone-label">항상</div>
+            <div class="zone-items">
+              <span>CLAUDE.md</span>
+              <span>rules/</span>
+              <span>settings.json</span>
+            </div>
           </div>
-          <div class="stack-meta">
-            <span class="yr">2020~2023</span>
-            CoT · ReAct
+          <div class="tl-zone">
+            <div class="zone-label">모델 판단</div>
+            <div class="zone-items">
+              <span>skills/</span>
+              <span>agents/</span>
+            </div>
+          </div>
+          <div class="tl-zone">
+            <div class="zone-label">이벤트</div>
+            <div class="zone-items">
+              <span>hooks/</span>
+            </div>
+          </div>
+          <div class="tl-zone">
+            <div class="zone-label">사람 · 예약 실행</div>
+            <div class="zone-items">
+              <span>commands/</span>
+            </div>
           </div>
         </div>
-        <div class="stack-tier">
-          <div class="stack-num">II</div>
-          <div>
-            <div class="stack-name">Context Engineering</div>
-            <div class="stack-en">"무엇을, 어떤 순서로"</div>
-          </div>
-          <div class="stack-meta">
-            <span class="yr">2023~2025</span>
-            Lütke · Karpathy
-          </div>
+        <div class="timeline-axis">
+          <span>← 자동</span>
+          <span>명시 호출 →</span>
         </div>
-        <div class="stack-tier">
-          <div class="stack-num">III</div>
-          <div>
-            <div class="stack-name">Harness Engineering</div>
-            <div class="stack-en">"어떤 구조로 실행할까"</div>
-          </div>
-          <div class="stack-meta">
-            <span class="yr">2024~2026</span>
-            Bockeler · Huntley
-          </div>
-        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker dim">비유 — Inside the AI Workshop</div>
+      <a href="../../images/claude.md.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기">
+        <img src="../../images/claude.md.png"
+             alt="Inside the AI Workshop — .claude/ 비유"
+             style="width:100%; max-height:560px; object-fit:contain; display:block; margin-top:16px; border-radius:4px; box-shadow:0 6px 24px rgba(12,11,9,0.14); cursor:zoom-in;" />
+      </a>
+      <div style="text-align:center; font-family:var(--serif); font-style:italic; color:var(--gold-dk); margin-top:12px; font-size:15px;">
+        각 디렉토리 = <em style="font-style:normal;font-weight:700;">작업장의 한 역할.</em>
       </div>
     </div>
   </div>
-  <div class="foot"><span>Opening · 세 단계 적층</span><span>03 / 10 · → Stage 1</span></div>
+  <div class="foot"><span>Primer · .claude/ Toolkit</span><span>03 / 10 · → Stage I</span></div>
 </section>
 
-<!-- 04 STAGE 1 -->
-<section class="slide dark">
+<!-- 04 STAGE I — Prompt 예제 -->
+<section class="slide light focus-s1 has-left-split">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage I · Prompt</span></div>
-    <div class="tag">#how-to-say #2020-2023</div>
+    <div class="tag">#how-to-say #system-instruction</div>
     <div>04 / 10</div>
   </div>
   <div class="stage stage-split">
-    <div>
-      <div class="kicker">Stage I — 2020~2023</div>
-      <div class="keyword">"어떻게<br><em>말할까.</em>"</div>
-      <div class="subline">
-        단위는 <em>1 호출.</em><br>
-        말하는 방식 자체를 다듬어 출력을 끌어올린다.<br><br>
-        <strong>CoT</strong> (Wei et al. 2022) ·
-        <strong>ReAct</strong> (Yao et al. 2022) ·
-        Few-shot · Role · Format.<br><br>
-        — 그런데 곧 한계가 드러난다.
+    <div class="left-split">
+      <div class="left-top">
+        <div class="keyword"><em style="font-size:1.35em; font-weight:700; font-style:italic;">Prompt</em> Engineering.</div>
+        <div class="subline">
+          <em>"어떻게 말할까."</em> &mdash; 지침으로 모델의 행동을 규제하는 일.<br>
+          시스템 프롬프트 · 역할 · 포맷 · 예시 제시 · 단계별 사고.
+        </div>
       </div>
-      <div class="source">CoT: Wei et al. 2022 · ReAct: Yao et al. 2022</div>
+      <div class="left-bottom">
+
+      <div class="md-preview">
+        <div class="md-preview-chrome">
+          <span class="md-dot r"></span>
+          <span class="md-dot y"></span>
+          <span class="md-dot g"></span>
+          <span class="md-name">.claude/CLAUDE.md</span>
+        </div>
+        <div class="md-preview-body">
+          <div class="md-content"><span class="h"># CLAUDE.md — Project Rules</span>
+
+<span class="c">## 참조 룰</span>
+<span class="b">@.claude/rules/architecture.md</span>
+<span class="b">@.claude/rules/design-principles.md</span>
+<span class="b">@.claude/rules/extension-rules.md</span>
+
+<span class="c">## 아키텍처</span>
+- 공통 모듈: <span class="b">src/common/</span>
+- 확장 모듈: <span class="b">src/extensions/[name]/</span>
+- 의존 방향: <span class="b">extensions → common</span>
+- 외부 IO는 adapter layer에서만
+
+<span class="c">## 설계 원칙</span>
+- 함수는 단일 책임
+- 부수효과는 boundary에서만
+- 상태는 명시적 — 숨은 글로벌 금지
+
+<span class="c">## 톤 · 포맷</span>
+- 한국어, 능동태
+- 모호한 부사 금지
+- 마크다운 헤더 H3까지
+
+<span class="c">## 코딩 컨벤션</span>
+- C++ · <span class="b">Hungarian notation</span>
+- 정수: <span class="b">iCount</span>, <span class="b">fRatio</span>, <span class="b">bValid</span>
+- 포인터: <span class="b">pBuffer</span>, <span class="b">pszName</span>
+- 멤버: <span class="b">m_iData</span>, <span class="b">m_pHandle</span>
+- 클래스: <span class="b">CMyClass</span> / <span class="b">IFoo</span>
+- 한 함수 50줄 이하
+
+<span class="c">## 적용 지점</span>
+모든 1 호출의 <span class="b">베이스라인</span>이 된다.</div>
+        </div>
+      </div>
+
+      </div>
     </div>
 
-    <div>
-      <div class="kicker dim">★ 한계의 증거</div>
-      <div class="keyword sm">
-        <em>Vibe Coding.</em>
-      </div>
-      <div class="attr">Karpathy 2025-02 · Collins WoTY 2025</div>
-      <div class="ascii">"fully give in to the vibes...
- forget that the code even exists"
-
-  → 떠들고 / 받아쓰고 / 에러 다시 던지고
-  → 검토 없음 / 추적 없음 / <span class="hl">백지에서 시작</span>
-
-<span class="hl2">조리대(HBM)는 그대로다.</span>
-말솜씨를 다듬어도 — <span class="dim">deck 2 콜백</span>
-조리대가 커지지 않는다.</div>
-      <div class="subline" style="margin-top:14px;">
-        말 잘 한다고 해결되지 않는다는 걸<br>
-        커뮤니티 스스로가 <em>이름 붙여 증명</em>했다.
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker dim">.claude/ 단면 — Stage I이 다루는 자리</div>
+      <div class="ascii">.claude/
+<span class="t-s1">├─ <span class="hl2">CLAUDE.md</span>             <span class="dim">←</span> <span class="hl">Stage I</span>   루트 지침 (rules/ 참조)
+│
+├─ <span class="hl2">rules/</span>                <span class="dim">←</span> <span class="hl">Stage I</span>   룰 분리
+│  ├─ architecture.md           아키텍처 룰
+│  ├─ design-principles.md      설계 원칙
+│  └─ extension-rules.md        공통·확장 규칙</span>
+│
+<span class="t-s2">├─ <span class="hl2">skills/</span>               <span class="dim">←</span> <span class="hl">Stage II</span>  Context — phase별 동적 모듈
+│  ├─ requirements-analysis/    <span class="phase">P1</span> 요구사항 분석
+│  ├─ dld-design/               <span class="phase">P3</span> DLD 설계
+│  ├─ unit-test-tdd/            <span class="phase">P4</span> Unit (TDD RED)
+│  ├─ integration-test/         <span class="phase">P6</span> Integration · E2E 실장
+│  └─ regression-test/          <span class="phase">P7</span> 회귀 수행
+│
+├─ <span class="hl2">agents/</span>               <span class="dim">←</span> <span class="hl">Stage II</span>  Context — 분리 워커
+│  ├─ code-reviewer.md          <span class="phase">P8</span> 리뷰 (×3 병렬)
+│  └─ judge.md                  <span class="phase">JUDGE</span> — RTM 판별 (×1)</span>
+│
+<span class="t-s3">├─ <span class="hl2">commands/</span>             <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 워크플로우
+│  ├─ halo-workflow.md          P1~P9 + LOOPBACK
+│  └─ doc-drift-sync.md         매일 자정 · 문서·코드 모순 동기화
+│
+├─ <span class="hl2">hooks/</span>                <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 트리거
+│  ├─ post-edit-lint.sh         편집 후 린트 자동 수정
+│  └─ post-edit-unit-test.sh    편집 후 영향받은 Unit 자동 실행
+│
+└─ <span class="hl2">settings.json</span>         <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 권한·구성</span></div>
+      <div class="ascii-meta">
+        모든 파일 = <em>마크다운 형태의 자연어 지침.</em><br>
+        사람이 읽고 &mdash; 모델이 읽는 &mdash; <em>같은 substrate.</em>
       </div>
     </div>
   </div>
-  <div class="foot"><span>Stage I · Prompt — 한계까지</span><span>04 / 10 · → Stage 2</span></div>
+  <div class="foot"><span>Stage I · Prompt — substrate vs concern</span><span>04 / 10 · → Stage II</span></div>
 </section>
 
-<!-- 05 STAGE 2 -->
-<section class="slide dark">
+<!-- 04 STAGE II — Context 예제 -->
+<section class="slide light focus-s2 has-left-split">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage II · Context</span></div>
-    <div class="tag">#what-when-how #2023-2025</div>
+    <div class="tag">#what-when-how #skill-agent</div>
     <div>05 / 10</div>
   </div>
   <div class="stage stage-split">
-    <div>
-      <div class="kicker">Stage II — 2023~2025</div>
-      <div class="keyword">"무엇을,<br>어떤 <em>순서로.</em>"</div>
-      <div class="subline">
-        단위는 <em>1 세션.</em><br>
-        Tobi Lütke가 2025-06에 <strong>Context Engineering</strong>으로 명명.<br>
-        Karpathy 정의: <em>"the delicate art of filling the context window
-        with just the right information for the next step."</em>
+    <div class="left-split">
+      <div class="left-top">
+        <div class="keyword"><em style="font-size:1.35em; font-weight:700; font-style:italic;">Context</em> Engineering.</div>
+        <div class="subline">
+          <em>"무엇을, 어떤 순서로."</em> &mdash; 필요할 때 필요한 모듈을 동적으로 주입한다.<br>
+          MCP · RAG · Skills · Agents · Serena.
+        </div>
       </div>
-      <div class="ascii"><span class="hl">표준 프로토콜</span>
-  MCP        (Anthropic 2024-11)
-  RAG        (Lewis et al. 2020 → 2023 mainstream)
-  Function Calling
-
-<span class="hl">동적 주입</span>
-  Skills / SKILL.md   load-on-demand 모듈
-  CLAUDE.md           프로젝트 컨벤션·메모리
-  Serena (oraios)     symbol-level <span class="hl2">semantic MCP</span>
-  @path imports       파일 단위 합성</div>
+      <div class="left-bottom" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <a href="../../images/context-stack-1.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기" style="display:block; width:100%; height:100%;">
+          <img src="../../images/context-stack-1.png"
+               alt="Context Stacking — load-on-demand + sub-agent isolation"
+               style="width:100%; height:100%; max-height:none; object-fit:contain; display:block; cursor:zoom-in;" />
+        </a>
+      </div>
     </div>
 
-    <div>
-      <div class="kicker dim">한계</div>
-      <div class="keyword md">
-        차림표만으로는<br><em>실행 구조</em>가 안 만들어진다.
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker dim">.claude/ 단면 — Stage II가 다루는 자리</div>
+      <div class="ascii">.claude/
+<span class="t-s1">├─ <span class="hl2">CLAUDE.md</span>             <span class="dim">←</span> <span class="hl">Stage I</span>   루트 지침 (rules/ 참조)
+│
+├─ <span class="hl2">rules/</span>                <span class="dim">←</span> <span class="hl">Stage I</span>   룰 분리
+│  ├─ architecture.md           아키텍처 룰
+│  ├─ design-principles.md      설계 원칙
+│  └─ extension-rules.md        공통·확장 규칙</span>
+│
+<span class="t-s2">├─ <span class="hl2">skills/</span>               <span class="dim">←</span> <span class="hl">Stage II</span>  Context — phase별 동적 모듈
+│  ├─ requirements-analysis/    <span class="phase">P1</span> 요구사항 분석
+│  ├─ dld-design/               <span class="phase">P3</span> DLD 설계
+│  ├─ unit-test-tdd/            <span class="phase">P4</span> Unit (TDD RED)
+│  ├─ integration-test/         <span class="phase">P6</span> Integration · E2E 실장
+│  └─ regression-test/          <span class="phase">P7</span> 회귀 수행
+│
+├─ <span class="hl2">agents/</span>               <span class="dim">←</span> <span class="hl">Stage II</span>  Context — 분리 워커
+│  ├─ code-reviewer.md          <span class="phase">P8</span> 리뷰 (×3 병렬)
+│  └─ judge.md                  <span class="phase">JUDGE</span> — RTM 판별 (×1)</span>
+│
+<span class="t-s3">├─ <span class="hl2">commands/</span>             <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 워크플로우
+│  ├─ halo-workflow.md          P1~P9 + LOOPBACK
+│  └─ doc-drift-sync.md         매일 자정 · 문서·코드 모순 동기화
+│
+├─ <span class="hl2">hooks/</span>                <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 트리거
+│  ├─ post-edit-lint.sh         편집 후 린트 자동 수정
+│  └─ post-edit-unit-test.sh    편집 후 영향받은 Unit 자동 실행
+│
+└─ <span class="hl2">settings.json</span>         <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 권한·구성</span></div>
+      <div class="ascii-meta">
+        모든 파일 = <em>마크다운 형태의 자연어 지침.</em><br>
+        사람이 읽고 &mdash; 모델이 읽는 &mdash; <em>같은 substrate.</em>
       </div>
-      <div class="subline" style="margin-top:18px;">
-        세션이 길어지면 <em>Context Rot</em>이 시작된다.<br>
-        <span style="opacity:0.7;font-size:0.95em;">(deck 1·2 — Needle in Haystack · HBM Auto-compaction)</span><br><br>
-        잘 차려도 <strong>자기수정과 추적성</strong>이 빠져 있다.<br>
-        한 세션이 길어질수록, 흐름은 <em>희석된다.</em><br><br>
-        — 컨텍스트 위에 또 한 층이 필요하다.
-      </div>
-      <div class="source">Karpathy 2025-06 · Simon Willison · Phil Schmid</div>
     </div>
   </div>
-  <div class="foot"><span>Stage II · Context — 정의 + 한계</span><span>05 / 10 · → Stage 3</span></div>
+  <div class="foot"><span>Stage II · Context — substrate vs concern</span><span>05 / 10 · → Stage III</span></div>
 </section>
 
-<!-- 06 STAGE 3 — DEFINITION -->
-<section class="slide dark">
+<!-- 05 STAGE III — Harness 예제 -->
+<section class="slide light focus-s1 focus-s2 focus-s3 has-left-split">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage III · Harness</span></div>
-    <div class="tag">#how-to-execute #2024-2026</div>
+    <div class="tag">#how-to-execute #halo-workflow</div>
     <div>06 / 10</div>
   </div>
   <div class="stage stage-split">
-    <div>
-      <div class="kicker">Stage III — 2024~2026</div>
-      <div class="keyword">"어떤 <em>구조로</em><br>실행할까."</div>
-      <div class="subline">
-        단위는 <em>프로젝트 / 워크플로우.</em><br>
-        Birgitta Bockeler가 <strong>Martin Fowler 블로그(2026-04)</strong>에서 공식화.
+    <div class="left-split">
+      <div class="left-top">
+        <div class="keyword"><em style="font-size:1.35em; font-weight:700; font-style:italic;">Harness</em> Engineering.</div>
+        <div class="subline">
+          <em>"어떤 구조로 실행할까."</em> &mdash; 발산을 잡는 LOOPBACK sensor.<br>
+          프로젝트 단위로 실행 흐름 자체를 구조화한다.
+        </div>
       </div>
-      <div class="ascii" style="margin-top:14px;"><span class="hl">Agent = Model + Harness</span>
-
-  <span class="hl2">Guides</span>     (feedforward)
-            지침·규칙·페르소나가 미리 깔린다
-
-  <span class="hl2">Sensors</span>    (feedback)
-            테스트·린터·LLM judge가 결과를 본다
-
-도메인:  유지보수성 · 아키텍처 정합성 · 행동</div>
-      <div class="source">Bockeler · Thoughtworks · martinfowler.com 2026-04</div>
+      <div class="left-bottom" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <a href="../../images/Harness-workflow-loopback.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기" style="display:block; width:100%; height:100%;">
+          <img src="../../images/Harness-workflow-loopback.png"
+               alt="HALO Workflow — Phase 진행 + JUDGE 게이트 + LOOPBACK"
+               style="width:100%; height:100%; max-height:none; object-fit:contain; display:block; cursor:zoom-in;" />
+        </a>
+      </div>
     </div>
 
-    <div>
-      <div class="kicker dim">★ 가장 단순한 캐논</div>
-      <div class="keyword sm"><em>Ralph loop.</em></div>
-      <div class="attr">Geoffrey Huntley 2025-07-14</div>
-      <div class="ascii"><span class="dim">$ </span><span class="hl">while :; do
-    cat PROMPT.md | claude-code
-  done</span>
-
-진행은 <span class="hl2">git/파일</span>에 산다.
-context window이 아니라.
-
-  ✓ 모델이 잊어도 git이 기억한다
-  ✓ 매 루프마다 PROMPT.md를 다시 읽는다
-  ✓ 멈추는 조건은 사람이 정한다
-
-<span class="dim">"Deterministically bad in a
- non-deterministic world."</span></div>
-      <div class="subline" style="margin-top:14px;font-style:italic;">
-        하네스의 핵심은 <em>똑똑한 실행</em>이 아니라<br>
-        <em>똑똑한 구조</em>다.
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker dim">.claude/ 전체 — Harness가 모두 오케스트레이션</div>
+      <div class="ascii">.claude/
+<span class="t-s1">├─ <span class="hl2">CLAUDE.md</span>             <span class="dim">←</span> <span class="hl">Stage I</span>   루트 지침 (rules/ 참조)
+│
+├─ <span class="hl2">rules/</span>                <span class="dim">←</span> <span class="hl">Stage I</span>   룰 분리
+│  ├─ architecture.md           아키텍처 룰
+│  ├─ design-principles.md      설계 원칙
+│  └─ extension-rules.md        공통·확장 규칙</span>
+│
+<span class="t-s2">├─ <span class="hl2">skills/</span>               <span class="dim">←</span> <span class="hl">Stage II</span>  Context — phase별 동적 모듈
+│  ├─ requirements-analysis/    <span class="phase">P1</span> 요구사항 분석
+│  ├─ dld-design/               <span class="phase">P3</span> DLD 설계
+│  ├─ unit-test-tdd/            <span class="phase">P4</span> Unit (TDD RED)
+│  ├─ integration-test/         <span class="phase">P6</span> Integration · E2E 실장
+│  └─ regression-test/          <span class="phase">P7</span> 회귀 수행
+│
+├─ <span class="hl2">agents/</span>               <span class="dim">←</span> <span class="hl">Stage II</span>  Context — 분리 워커
+│  ├─ code-reviewer.md          <span class="phase">P8</span> 리뷰 (×3 병렬)
+│  └─ judge.md                  <span class="phase">JUDGE</span> — RTM 판별 (×1)</span>
+│
+<span class="t-s3">├─ <span class="hl2">commands/</span>             <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 워크플로우
+│  ├─ halo-workflow.md          P1~P9 + LOOPBACK
+│  └─ doc-drift-sync.md         매일 자정 · 문서·코드 모순 동기화
+│
+├─ <span class="hl2">hooks/</span>                <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 트리거
+│  ├─ post-edit-lint.sh         편집 후 린트 자동 수정
+│  └─ post-edit-unit-test.sh    편집 후 영향받은 Unit 자동 실행
+│
+└─ <span class="hl2">settings.json</span>         <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 권한·구성</span></div>
+      <div class="ascii-meta">
+        모든 파일 = <em>마크다운 형태의 자연어 지침.</em><br>
+        사람이 읽고 &mdash; 모델이 읽는 &mdash; <em>같은 substrate.</em>
       </div>
     </div>
   </div>
-  <div class="foot"><span>Stage III · Harness — 정의</span><span>06 / 10 · → 4대장</span></div>
+  <div class="foot"><span>Stage III · Harness — substrate vs concern</span><span>06 / 10 · → 적층의 단면</span></div>
+</section>
+
+<!-- 06 .claude/ TREE — 적층의 단면 -->
+<section class="slide dark has-left-split">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Synthesis · Layered</span></div>
+    <div class="tag">#claude-folder #stratigraphy</div>
+    <div>07 / 10</div>
+  </div>
+  <div class="stage stage-split">
+    <div class="left-split">
+      <div class="left-top">
+        <div class="kicker">한 폴더가</div>
+        <div class="keyword">진화의 <em>지층 단면.</em></div>
+        <div class="subline">
+          한 폴더가 곧 <strong>제품 코드 신뢰성</strong>을 지키는 <em>통제의 누적.</em>
+        </div>
+      </div>
+      <div class="left-bottom" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <a href="../../images/harness-horse.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기" style="display:block; width:100%; height:100%;">
+          <img src="../../images/harness-horse.png"
+               alt="Harness — 발산을 잡는 통제 구조"
+               style="width:100%; height:100%; max-height:none; object-fit:contain; display:block; cursor:zoom-in;" />
+        </a>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker dim">.claude/ 디렉토리 — AI Agent 기반 제품 개발의 단면</div>
+      <div class="ascii">.claude/
+<span class="t-s1">├─ <span class="hl2">CLAUDE.md</span>             <span class="dim">←</span> <span class="hl">Stage I</span>   루트 지침 (rules/ 참조)
+│
+├─ <span class="hl2">rules/</span>                <span class="dim">←</span> <span class="hl">Stage I</span>   룰 분리
+│  ├─ architecture.md           아키텍처 룰
+│  ├─ design-principles.md      설계 원칙
+│  └─ extension-rules.md        공통·확장 규칙</span>
+│
+<span class="t-s2">├─ <span class="hl2">skills/</span>               <span class="dim">←</span> <span class="hl">Stage II</span>  Context — phase별 동적 모듈
+│  ├─ requirements-analysis/    <span class="phase">P1</span> 요구사항 분석
+│  ├─ dld-design/               <span class="phase">P3</span> DLD 설계
+│  ├─ unit-test-tdd/            <span class="phase">P4</span> Unit (TDD RED)
+│  ├─ integration-test/         <span class="phase">P6</span> Integration · E2E 실장
+│  └─ regression-test/          <span class="phase">P7</span> 회귀 수행
+│
+├─ <span class="hl2">agents/</span>               <span class="dim">←</span> <span class="hl">Stage II</span>  Context — 분리 워커
+│  ├─ code-reviewer.md          <span class="phase">P8</span> 리뷰 (×3 병렬)
+│  └─ judge.md                  <span class="phase">JUDGE</span> — RTM 판별 (×1)</span>
+│
+<span class="t-s3">├─ <span class="hl2">commands/</span>             <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 워크플로우
+│  ├─ halo-workflow.md          P1~P9 + LOOPBACK
+│  └─ doc-drift-sync.md         매일 자정 · 문서·코드 모순 동기화
+│
+├─ <span class="hl2">hooks/</span>                <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 트리거
+│  ├─ post-edit-lint.sh         편집 후 린트 자동 수정
+│  └─ post-edit-unit-test.sh    편집 후 영향받은 Unit 자동 실행
+│
+└─ <span class="hl2">settings.json</span>         <span class="dim">←</span> <span class="hl">Stage III</span> Harness — 권한·구성</span></div>
+      <div class="subline" style="margin-top:14px; font-style:italic; text-align:right;">
+        잡고, 잡고, 또 잡고 — 한 폴더가 곧 그 반복의 <em>누적된 형태.</em>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Synthesis · 적층의 단면</span><span>07 / 10 · → 4대장</span></div>
 </section>
 
 <!-- 07 FRAMEWORKS -->
-<section class="slide dark">
+<section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage III · Frameworks</span></div>
     <div class="tag">#superpowers #gstack #bmad #omc</div>
-    <div>07 / 10</div>
+    <div>08 / 10</div>
   </div>
   <div class="stage top">
     <div class="kicker">한 도구 위에 다시 한 층</div>
     <div class="keyword md">하네스의 <em>4대장.</em></div>
     <div class="subline" style="max-width:920px;margin-top:8px;">
       Cursor·Claude Code 위에 사람들이 <em>또 하네스를 쌓고 있다.</em><br>
-      그것 자체가 <strong>Stage 3의 메타-증거</strong> — 진화는 도구에서 멈추지 않고
-      <em>워크플로우</em>로 이어진다.
+      Stage III는 추측이 아니라 <strong>이미 일어나고 있는 일.</strong><br>
+      아래는 <em>커뮤니티에서 주목받은 케이스 4가지.</em>
     </div>
 
     <div class="mapping">
@@ -917,13 +1380,7 @@ context window이 아니라.
         <div class="map-cell">
           <div class="mc-desc">
             <strong>plan-first methodology</strong>로 시작해 작은 task로 분해, TDD·리뷰가 사이클에 박힘.
-            agentic skills 프레임워크 + 부분-에이전트 협업.
-          </div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-tag">
-            <span class="star">★ 176K</span>
-            v5.0 · 2026-03
+            agentic skills 프레임워크 + <mark>부분-에이전트 협업</mark>.
           </div>
         </div>
       </div>
@@ -936,14 +1393,8 @@ context window이 아니라.
         </div>
         <div class="map-cell">
           <div class="mc-desc">
-            YC CEO의 <strong>23-tool 셋업</strong>: CEO · Designer · Eng Manager · Release Manager · Doc Engineer · QA.
-            한 명의 개인이 가상 팀을 끼고 일한다.
-          </div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-tag">
-            <span class="star">★ 10K / 48시간</span>
-            2026-03
+            YC CEO의 <strong>23-tool 셋업</strong>: <mark>CEO · Designer · Eng Manager · Release Manager · Doc Engineer · QA</mark>.
+            한 명의 개인이 <mark>가상 팀</mark>을 끼고 일한다.
           </div>
         </div>
       </div>
@@ -956,14 +1407,8 @@ context window이 아니라.
         </div>
         <div class="map-cell">
           <div class="mc-desc">
-            "Breakthrough Method for Agile AI Driven Dev". <strong>12+ 도메인 페르소나</strong>(PM·Architect·Dev·UX·QA),
-            34+ 워크플로우, Party Mode 멀티-에이전트 협업.
-          </div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-tag">
-            v6.6 · 2026-04
-            <span class="kr">국내 활발 사용</span>
+            "Breakthrough Method for Agile AI Driven Dev". <mark><strong>12+ 도메인 페르소나</strong>(PM·Architect·Dev·UX·QA)</mark>,
+            34+ 워크플로우, <mark>Party Mode 멀티-에이전트 협업</mark>.
           </div>
         </div>
       </div>
@@ -976,161 +1421,68 @@ context window이 아니라.
         </div>
         <div class="map-cell">
           <div class="mc-desc">
-            <strong>한국 개발자가 만든</strong> multi-agent orchestration. 19 agents + 36 skills,
+            <strong>한국 개발자가 만든</strong> <mark>multi-agent orchestration</mark>. <mark>19 agents + 36 skills</mark>,
             tmux fan-out으로 task를 동시에 분산. <em>"A weapon, not a tool."</em>
-          </div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-tag">
-            <span class="kr">국내 메이커</span>
-            tmux orchestration
           </div>
         </div>
       </div>
     </div>
+
+    <div class="subline" style="margin-top:18px; max-width:none;">
+      공통점 — 모두 <em>역할을 쪼개고 멀티 에이전트로 분담한다.</em><br>
+      차이는 분해 단위뿐 — <strong>task · role · persona · agent.</strong>
+    </div>
   </div>
-  <div class="foot"><span>Stage III · 4 Frameworks</span><span>07 / 10 · → vendor 흐름</span></div>
+  <div class="foot"><span>Stage III · 4 Frameworks</span><span>08 / 10 · → vendor 흐름</span></div>
 </section>
 
 <!-- 08 VENDOR FLOWS -->
-<section class="slide dark">
+<section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage III · Vendor Flows</span></div>
     <div class="tag">#devin #kiro #closing-the-loop</div>
-    <div>08 / 10</div>
+    <div>09 / 10</div>
   </div>
   <div class="stage">
     <div class="kicker">vendor가 그리는 두 흐름</div>
-    <div class="keyword md">자율로 <em>닫거나</em>, 단계로 <em>나누거나.</em></div>
+    <div class="keyword md" style="white-space:nowrap;">업계의 두 답 — 자율 <em>vs</em> 게이트.</div>
 
     <div class="card-grid">
-      <div class="card cool">
-        <div class="card-lbl">Closing the Agent Loop</div>
-        <div class="card-name"><em>Devin.</em> Cognition Labs.</div>
+      <div class="card cool" style="background:rgba(176,74,58,0.09); border-color:rgba(176,74,58,0.4);">
+        <div class="card-lbl" style="color:var(--red);">Closing the Agent Loop · 자율</div>
+        <div class="card-name"><em style="color:var(--red);">Devin.</em> Cognition Labs.</div>
         <div class="card-by">코드리뷰 코멘트를 자율로 fix</div>
         <div class="card-desc">
-          PR이 올라오면 리뷰어 코멘트를 읽고 <strong>스스로 수정 커밋을 푸시</strong>한다.
-          개발자가 매번 babysit하지 않아도 — sensor가 작동하면 loop이 닫힌다.<br><br>
+          PR이 올라오면 리뷰어 코멘트를 읽고 <mark><strong>스스로 수정 커밋을 푸시</strong></mark>한다.
+          개발자가 <mark>매번 babysit하지 않아도</mark> — sensor가 작동하면 <mark>loop이 닫힌다</mark>.<br><br>
           <em>"Long-horizon agents"</em> — Addy Osmani의 표현 그대로.
         </div>
       </div>
 
-      <div class="card cool">
-        <div class="card-lbl">Spec-Driven Development</div>
-        <div class="card-name"><em>Kiro.</em> Amazon Web Services.</div>
+      <div class="card cool" style="background:rgba(106,138,166,0.10); border-color:rgba(106,138,166,0.4);">
+        <div class="card-lbl" style="color:var(--blue);">Spec-Driven Development · 게이트</div>
+        <div class="card-name"><em style="color:var(--blue);">Kiro.</em> Amazon Web Services.</div>
         <div class="card-by">Requirements → Design → Tasks 3-phase</div>
         <div class="card-desc">
-          요구사항을 <strong>EARS 노테이션</strong>으로 강제, 다음 phase로 넘어가기 전 게이트.
-          AI가 코드 쓰기 전에 <em>사람이 spec을 검증</em>한다.<br><br>
-          phase 자체가 traceability — spec.md가 약속이 된다.
+          요구사항을 <strong>EARS 노테이션</strong><span style="font-size:0.85em; opacity:0.75;"> (모호함 없는 요구사항 문법: When/While/If/Where + shall)</span>으로 강제, <mark>다음 phase로 넘어가기 전 게이트</mark>.
+          AI가 코드 쓰기 전에 <mark><em>사람이 spec을 검증</em></mark>한다.<br><br>
+          <mark>phase 자체가 traceability</mark> — spec.md가 약속이 된다.
         </div>
       </div>
     </div>
 
-    <div class="ascii" style="margin-top:18px;"><span class="hl">공통점:</span> 둘 다 model 위에 <span class="hl2">실행 구조</span>를 한 층 더 깐다
+    <div class="ascii" style="margin-top:14px; font-size:clamp(14px, 0.95vw, 16px); line-height:1.45; padding:10px 16px;"><span class="hl">공통점:</span> 둘 다 model 위에 <span class="hl2">실행 구조</span>를 한 층 더 깐다
        — Hooks · Subagents · Worktree 같은 <span class="hl2">Claude Code 메커니즘</span>이
          이 위에서 게이트·격리·자동화를 떠받친다.
 
 <span class="hl">차이:</span>   Devin은 <span class="hl2">자율 closure</span>로 사람의 부담을 뺀다
        Kiro는 <span class="hl2">phase + gate</span>로 사람의 판단을 박는다
-       — 트레이드오프는 결국 "어디까지 사람이 들어갈 것인가"</div>
+       — 트레이드오프는 결국 "어디까지 사람이 들어갈 것인가"
+
+<span class="hl">결국:</span>   둘 다 — <span class="hl2">발산을 잡는 두 방법.</span>
+       한쪽은 자율, 한쪽은 게이트.</div>
   </div>
-  <div class="foot"><span>Stage III · Vendor Flows</span><span>08 / 10 · → 종합</span></div>
-</section>
-
-<!-- 09 SYNTHESIS MATRIX -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Synthesis</span></div>
-    <div class="tag">#one-page #stacked</div>
-    <div>09 / 10</div>
-  </div>
-  <div class="stage top">
-    <div class="kicker">한 페이지로</div>
-    <div class="display sm">
-      세 단계 — <em>한 호흡에.</em>
-    </div>
-
-    <div class="mapping" style="margin-top:24px;">
-      <div class="map-row matrix">
-        <div class="map-cell">
-          <div class="mc-label">Stage</div>
-          <div class="mc-name">Prompt</div>
-          <div class="mc-en">2020~2023</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">단위</div>
-          <div class="mc-name">1 호출</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">질문</div>
-          <div class="mc-name">"어떻게 말할까"</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">핵심 도구</div>
-          <div class="mc-desc">CoT · ReAct · Few-shot · Role · Format</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">한계</div>
-          <div class="mc-name"><span class="gold">백지</span></div>
-        </div>
-      </div>
-
-      <div class="map-row matrix">
-        <div class="map-cell">
-          <div class="mc-label">Stage</div>
-          <div class="mc-name">Context</div>
-          <div class="mc-en">2023~2025</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">단위</div>
-          <div class="mc-name">1 세션</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">질문</div>
-          <div class="mc-name">"무엇을, 어떤 순서"</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">핵심 도구</div>
-          <div class="mc-desc">MCP · RAG · CLAUDE.md · Skills · Serena</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">한계</div>
-          <div class="mc-name"><span class="gold">Rot</span></div>
-        </div>
-      </div>
-
-      <div class="map-row matrix">
-        <div class="map-cell">
-          <div class="mc-label">Stage</div>
-          <div class="mc-name">Harness</div>
-          <div class="mc-en">2024~2026</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">단위</div>
-          <div class="mc-name">프로젝트</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">질문</div>
-          <div class="mc-name">"어떤 구조로 실행"</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">핵심 도구</div>
-          <div class="mc-desc">Ralph · Hooks · Subagents · Worktree<br>+ superpowers · gstack · BMAD · OMC</div>
-        </div>
-        <div class="map-cell">
-          <div class="mc-label">한계</div>
-          <div class="mc-name"><span class="gold">진화 중</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="subline" style="margin-top:20px;text-align:center;max-width:none;">
-      <em>하네스 ⊃ 컨텍스트 ⊃ 프롬프트.</em> &nbsp;—&nbsp;
-      대체가 아니라 적층이다.
-    </div>
-  </div>
-  <div class="foot"><span>Synthesis · 한 페이지 적층</span><span>09 / 10 · → Fin</span></div>
+  <div class="foot"><span>Stage III · Vendor Flows</span><span>09 / 10 · → Fin</span></div>
 </section>
 
 <!-- 10 FIN -->
@@ -1141,7 +1493,7 @@ context window이 아니라.
     <div>10 / 10</div>
   </div>
   <div class="stage stage-split">
-    <div>
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
       <div class="kicker">Fin.</div>
       <div class="final-big">
         Better prompts<br>don't <em>scale.</em>
@@ -1154,25 +1506,15 @@ context window이 아니라.
       </div>
     </div>
 
-    <div>
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
       <div class="kicker dim">다음</div>
       <div class="keyword sm">
         그런데 — <em>이게 정말</em><br>새로운 답인가?
       </div>
       <div class="subline" style="margin-top:18px;">
         Phase · 검증 · 확장 — 우리가 지금 <em>새로 만들고 있다</em> 믿는 것들.<br>
-        50년 전에 다른 이름으로 같은 답이 있었다.<br><br>
-        다음 deck에서 그 이름들을 만난다.
+        50년 전에 다른 이름으로 같은 답이 있었다.
       </div>
-
-      <div class="series-map" style="margin-top:24px;">
-        <div class="series-item done">01 &nbsp; 한계 직시 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ✓</div>
-        <div class="series-item done">02 &nbsp; HBM의 천장 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ✓</div>
-        <div class="series-item done">03 &nbsp; 엔지니어링의 진화 &nbsp; ✓</div>
-        <div class="series-item current">04 &nbsp; AI일수록, 클래식 &nbsp;&nbsp; ◀</div>
-      </div>
-
-      <div class="final-link">→ Deck 4 · AI일수록, 클래식이다</div>
     </div>
   </div>
   <div class="foot"><span>Fin · Bridge to Deck 4</span><span>10 / 10 · END</span></div>
@@ -1216,6 +1558,92 @@ context window이 아니라.
 
   const h = parseInt(location.hash.replace('#',''), 10);
   go(!isNaN(h) && h >= 1 && h <= total ? h - 1 : 0);
+})();
+</script>
+
+<!-- Image Lightbox (scroll to zoom, drag to pan) -->
+<div id="img-lightbox" style="display:none; position:fixed; inset:0; background:rgba(8,7,6,0.95); z-index:9999; cursor:grab; overflow:hidden; user-select:none;">
+  <img id="img-lightbox-img" alt="" style="position:absolute; top:50%; left:50%; transform: translate(-50%, -50%) scale(1); transform-origin: center center; max-width: 95vw; max-height: 95vh; pointer-events:none;" />
+  <div style="position:absolute; top:20px; right:24px; color:rgba(240,236,224,0.55); font-family:ui-monospace,monospace; font-size:13px; pointer-events:none;">
+    스크롤 = 확대/축소 · 드래그 = 이동 · ESC / 빈 공간 클릭 = 닫기
+  </div>
+  <button id="img-lightbox-close" aria-label="close" style="position:absolute; top:16px; left:24px; background:transparent; border:1px solid rgba(240,236,224,0.3); color:rgba(240,236,224,0.7); padding:6px 14px; font-family:ui-monospace,monospace; font-size:13px; cursor:pointer; border-radius:2px;">✕ Close</button>
+</div>
+
+<script>
+(() => {
+  const lightbox = document.getElementById('img-lightbox');
+  const img = document.getElementById('img-lightbox-img');
+  const closeBtn = document.getElementById('img-lightbox-close');
+  let scale = 1, posX = 0, posY = 0;
+  let isDragging = false, lastX = 0, lastY = 0, startX = 0, startY = 0;
+
+  function applyTransform() {
+    img.style.transform = `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px)) scale(${scale})`;
+  }
+  function open(src) {
+    img.src = src;
+    scale = 1; posX = 0; posY = 0;
+    applyTransform();
+    lightbox.style.display = 'block';
+  }
+  function close() {
+    lightbox.style.display = 'none';
+    img.src = '';
+  }
+
+  lightbox.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = -e.deltaY * 0.0015;
+    scale = Math.max(0.3, Math.min(10, scale * (1 + delta)));
+    applyTransform();
+  }, { passive: false });
+
+  lightbox.addEventListener('mousedown', (e) => {
+    if (e.target === closeBtn) return;
+    isDragging = true;
+    startX = lastX = e.clientX;
+    startY = lastY = e.clientY;
+    lightbox.style.cursor = 'grabbing';
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    posX += (e.clientX - lastX); posY += (e.clientY - lastY);
+    lastX = e.clientX; lastY = e.clientY;
+    applyTransform();
+  });
+  document.addEventListener('mouseup', (e) => {
+    if (!isDragging) return;
+    const moved = Math.abs(e.clientX - startX) > 3 || Math.abs(e.clientY - startY) > 3;
+    isDragging = false;
+    lightbox.style.cursor = 'grab';
+    // close only on a clean click (no drag) on the backdrop
+    if (!moved && e.target === lightbox) close();
+  });
+
+  closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.style.display === 'block') close();
+  });
+
+  // Hook every <a> that wraps an image — intercept click and open lightbox
+  document.querySelectorAll('a[target="_blank"]').forEach(a => {
+    if (a.querySelector('img')) {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        open(a.href);
+      });
+    }
+  });
+
+  // Also hook bare <img> tags (skip .bleed overlay, skip the lightbox image itself, skip those already inside <a>)
+  document.querySelectorAll('img').forEach(im => {
+    if (im.id === 'img-lightbox-img') return;
+    if (im.closest('.bleed')) return;
+    if (im.closest('a')) return;
+    im.style.cursor = 'zoom-in';
+    im.addEventListener('click', () => open(im.src));
+  });
 })();
 </script>
 
