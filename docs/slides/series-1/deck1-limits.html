@@ -2893,8 +2893,8 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
 <!-- ============ 01 COVER ============ -->
 <section class="slide dark cover has-bleed active">
-  <div class="bleed ph-bleed">
-    <div class="ph-bleed-mark">[ cover bleed · ai-running-blind ]</div>
+  <div class="bleed">
+    <img src="../../images/agent-antropy-1.png" alt="Agent Entropy" />
   </div>
   <div class="cover-brand">
     <span>FREEDOBY</span>
@@ -3156,19 +3156,30 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div class="tag">#insight #starting-point</div>
     <div>06 / 19</div>
   </div>
-  <div class="stage">
-    <div class="kicker">⑤ Insight</div>
-    <div class="pullquote">
-      구체화되지 않은 것은<br>
-      <em>통계로 채워진다.</em>
+  <div class="stage stage-split">
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker">⑤ Insight</div>
+      <div class="pullquote">
+        구체화되지 않은 것은<br>
+        <em>통계로 채워진다.</em>
+      </div>
+      <div class="subline" style="max-width:none; margin-top:24px;">
+        AI의 디폴트는 <em>"묻지 않고 채움"</em> — 빈칸을 발견하면 사용자에게 드러내는 대신 <strong>훈련 분포의 다수</strong>로 메워서 즉시 답한다.<br><br>
+        개발자가 명시하지 않은 모든 invariant는 <em>위험에 노출된다.</em>
+      </div>
+      <div class="callout">
+        이 통찰이 <em>시리즈 전체의 출발점</em>이다.<br>
+        뒤의 모든 엔지니어링은 — <em>암묵을 명시로 바꾸는 작업.</em>
+      </div>
     </div>
-    <div class="subline" style="max-width:680px; margin-top:32px">
-      AI의 디폴트는 <em>"묻지 않고 채움"</em> — 빈칸을 발견하면 사용자에게 드러내는 대신 <strong>훈련 분포의 다수</strong>로 메워서 즉시 답한다.<br><br>
-      개발자가 명시하지 않은 모든 invariant는 <em>위험에 노출된다.</em>
-    </div>
-    <div class="callout">
-      이 통찰이 <em>시리즈 전체의 출발점</em>이다.<br>
-      뒤의 모든 엔지니어링은 — <em>암묵을 명시로 바꾸는 작업.</em>
+
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker dim">비유 — Pattern Drift</div>
+      <a href="../../images/pattern-drift.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기">
+        <img src="../../images/pattern-drift.png"
+             alt="Pattern Drift — 빈칸을 훈련 분포로 채움"
+             style="width:100%; max-height:560px; object-fit:contain; display:block; margin-top:16px; border-radius:4px; box-shadow:0 6px 24px rgba(12,11,9,0.14); cursor:zoom-in;" />
+      </a>
     </div>
   </div>
   <div class="foot"><span>Limit I · Insight</span><span>06 / 19 · → 한계 ② Needle</span></div>
@@ -3229,8 +3240,8 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <em>최신 18개 모델</em> (Claude 4 · GPT-4.1 · Gemini 2.5 · Qwen3 등) — 입력 길이가 늘어날수록 *긴 컨텍스트 안 정보를 정확히 찾아 쓰는 능력*이 단조 감소. <em>주장된 컨텍스트 ≠ 실제 효과적인 컨텍스트.</em>
     </div>
 
-    <div class="stage-split" style="margin-top:18px;">
-      <div>
+    <div class="stage-split" style="margin-top:18px; align-items:stretch;">
+      <div style="display:flex; flex-direction:column; justify-content:center; min-height:0;">
         <div class="needle-chart">
           <svg viewBox="0 0 620 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
             <line x1="60" y1="20" x2="60" y2="270" class="cl-axis-line" />
@@ -3284,7 +3295,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
           </svg>
         </div>
       </div>
-      <div>
+      <div style="display:flex; flex-direction:column; justify-content:center; min-height:0;">
         <div class="col-label">최신 발견 (2025)</div>
         <ul class="col-list">
           <li><em>GPT-4o</em>: 99.3% → <em>69.7% @ 32K</em> (NoLiMa)</li>
@@ -3461,19 +3472,30 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div class="tag">#insight #window-illusion</div>
     <div>11 / 19</div>
   </div>
-  <div class="stage">
-    <div class="kicker">⑤ Insight</div>
-    <div class="pullquote">
-      윈도우가 커진다고<br>
-      <em>더 똑똑해지지 않는다.</em>
+  <div class="stage stage-split">
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker">⑤ Insight</div>
+      <div class="pullquote">
+        윈도우가 커진다고<br>
+        <em>더 똑똑해지지 않는다.</em>
+      </div>
+      <div class="subline" style="max-width:none; margin-top:24px;">
+        <strong>넣을 수 있는 양</strong>이 늘었을 뿐, <strong>소화할 수 있는 능력</strong>이 같이 늘진 않았다.<br><br>
+        128K → 1M으로 윈도우가 커지면 KV Cache가 차지하는 메모리도 <em>8배</em>로 커진다. 그러나 회상 정확도는 그만큼 함께 올라가지 않는다.
+      </div>
+      <div class="callout">
+        <em>"왜 그런가"</em> — 답은 deck 2에서.<br>
+        <strong>HBM이라는 물리적 천장</strong>이 그 답이다.
+      </div>
     </div>
-    <div class="subline" style="max-width:700px; margin-top:32px">
-      <strong>넣을 수 있는 양</strong>이 늘었을 뿐, <strong>소화할 수 있는 능력</strong>이 같이 늘진 않았다.<br><br>
-      128K → 1M으로 윈도우가 커지면 KV Cache가 차지하는 메모리도 <em>8배</em>로 커진다. 그러나 회상 정확도는 그만큼 함께 올라가지 않는다.
-    </div>
-    <div class="callout">
-      <em>"왜 그런가"</em> — 답은 deck 2에서.<br>
-      <strong>HBM이라는 물리적 천장</strong>이 그 답이다.
+
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker dim">비유 — Attention Overflow</div>
+      <a href="../../images/attention-overflow.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기">
+        <img src="../../images/attention-overflow.png"
+             alt="Attention Overflow — 윈도우는 커도 attention은 흩어진다"
+             style="width:100%; max-height:560px; object-fit:contain; display:block; margin-top:16px; border-radius:4px; box-shadow:0 6px 24px rgba(12,11,9,0.14); cursor:zoom-in;" />
+      </a>
     </div>
   </div>
   <div class="foot"><span>Limit II · Insight</span><span>11 / 19 · → 한계 ③ Blind</span></div>
@@ -3678,19 +3700,30 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
     <div class="tag">#insight #invisible-larger</div>
     <div>15 / 19</div>
   </div>
-  <div class="stage">
-    <div class="kicker">⑤ Insight</div>
-    <div class="pullquote">
-      보이지 않는 것이<br>
-      <em>보이는 것보다 크다.</em>
+  <div class="stage stage-split">
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker">⑤ Insight</div>
+      <div class="pullquote">
+        보이지 않는 것이<br>
+        <em>보이는 것보다 크다.</em>
+      </div>
+      <div class="subline" style="max-width:none; margin-top:24px;">
+        실제 시스템에서 <em>보이는 것은 항상 일부</em>다. AI에게 보이는 부분은 그 일부의 <em>또 일부</em>다.<br><br>
+        시니어 개발자가 수년간 쌓아온 <strong>멘탈 모델</strong> — 수천 클래스의 관계, 하드웨어 인터럽트 흐름, 메모리 레이아웃, 타이밍 제약 — 이것은 <em>어떤 컨텍스트 윈도우에도 담기지 않는다.</em>
+      </div>
+      <div class="callout">
+        그래서 — <em>한 프롬프트, 한 세션의 일이 아니다.</em><br>
+        워크플로우 전체의 설계가 필요하다.
+      </div>
     </div>
-    <div class="subline" style="max-width:720px; margin-top:32px">
-      실제 시스템에서 <em>보이는 것은 항상 일부</em>다. AI에게 보이는 부분은 그 일부의 <em>또 일부</em>다.<br><br>
-      시니어 개발자가 수년간 쌓아온 <strong>멘탈 모델</strong> — 수천 클래스의 관계, 하드웨어 인터럽트 흐름, 메모리 레이아웃, 타이밍 제약 — 이것은 <em>어떤 컨텍스트 윈도우에도 담기지 않는다.</em>
-    </div>
-    <div class="callout">
-      그래서 — <em>한 프롬프트, 한 세션의 일이 아니다.</em><br>
-      워크플로우 전체의 설계가 필요하다.
+
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker dim">비유 — Context Blind</div>
+      <a href="../../images/context-blind.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기">
+        <img src="../../images/context-blind.png"
+             alt="컨텍스트 윈도우에 담기지 않는 멘탈 모델"
+             style="width:100%; max-height:560px; object-fit:contain; display:block; margin-top:16px; border-radius:4px; box-shadow:0 6px 24px rgba(12,11,9,0.14); cursor:zoom-in;" />
+      </a>
     </div>
   </div>
   <div class="foot"><span>Limit III · Insight</span><span>15 / 19 · → 종합: Agent Entropy</span></div>
@@ -3703,28 +3736,39 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
     <div class="tag">#local-vs-global #drift</div>
     <div>16 / 19</div>
   </div>
-  <div class="stage">
-    <div class="kicker">Synthesis</div>
-    <div class="display md">
-      국소는 합리적,<br><em>전체는 모순.</em>
-    </div>
-    <div class="subline" style="max-width:680px">
-      이것이 <strong>Agent Entropy</strong> — <em>AI의 작업 단위로 누적되는 엔트로피.</em>
+  <div class="stage stage-split">
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker">Synthesis</div>
+      <div class="display md">
+        국소는 합리적,<br><em>전체는 모순.</em>
+      </div>
+      <div class="subline" style="max-width:none; margin-top:16px;">
+        이것이 <strong>Agent Entropy</strong> — <em>AI의 작업 단위로 누적되는 엔트로피.</em>
+      </div>
+
+      <div class="split-copy" style="margin-top:20px;">
+        <div>
+          <div class="col-label">AI의 작업 단위</div>
+          <p class="col-body">편집 1건 · 함수 1개 · 파일 1개 · 세션 1번<br><em>= local</em></p>
+        </div>
+        <div>
+          <div class="col-label">시스템의 정합성</div>
+          <p class="col-body">설계 ↔ 코드 ↔ 테스트 일치 / 모듈 간 인터페이스 일관성 / v1부터 vN까지 누적된 규약<br><em>= global</em></p>
+        </div>
+      </div>
+
+      <div class="callout">
+        매 편집은 <em>local에서 best</em>를 만든다. 그러나 그 best의 합집합은 — <strong>global best가 아니다.</strong>
+      </div>
     </div>
 
-    <div class="split-copy">
-      <div>
-        <div class="col-label">AI의 작업 단위</div>
-        <p class="col-body">편집 1건 · 함수 1개 · 파일 1개 · 세션 1번<br><em>= local</em></p>
-      </div>
-      <div>
-        <div class="col-label">시스템의 정합성</div>
-        <p class="col-body">설계 ↔ 코드 ↔ 테스트 일치 / 모듈 간 인터페이스 일관성 / v1부터 vN까지 누적된 규약<br><em>= global</em></p>
-      </div>
-    </div>
-
-    <div class="callout">
-      매 편집은 <em>local에서 best</em>를 만든다. 그러나 그 best의 합집합은 — <strong>global best가 아니다.</strong>
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker dim">비유 — Local vs Global</div>
+      <a href="../../images/local-best-global-not-best.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기">
+        <img src="../../images/local-best-global-not-best.png"
+             alt="Local best ≠ Global best"
+             style="width:100%; max-height:560px; object-fit:contain; display:block; margin-top:16px; border-radius:4px; box-shadow:0 6px 24px rgba(12,11,9,0.32); cursor:zoom-in;" />
+      </a>
     </div>
   </div>
   <div class="foot"><span>Synthesis · Definition</span><span>16 / 19 · → 사이클이 누적시킨다</span></div>
@@ -4024,30 +4068,38 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
 </section>
 
 <!-- ============ 18 FIN — Next Deck ============ -->
-<section class="slide dark has-bleed">
-  <div class="bleed ph-bleed">
-    <div class="ph-bleed-mark">[ fin bleed · era-shift ]</div>
-  </div>
+<section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Fin</span></div>
     <div class="tag">#agent-entropy #synthesis #next-deck</div>
     <div>19 / 19</div>
   </div>
-  <div class="stage">
-    <div class="kicker">Fin.</div>
-    <div class="final-big">
-      <em>Agent Entropy.</em>
+  <div class="stage stage-split">
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker">Fin.</div>
+      <div class="final-big">
+        <em>Agent Entropy.</em>
+      </div>
+      <div class="final-sub">
+        국소는 <em>합리</em>, 전체는 <em>모순</em>. — AI의 작업 단위로 누적되는 엔트로피.<br><br>
+        세 한계 — <em>Pattern Drift · Context Rot · Context Blind.</em><br>
+        셋이 합쳐 사이클을 돌면 — 매 편집은 LGTM, 누적된 건 화석.
+      </div>
+      <div class="callout" style="max-width:760px">
+        <em>→ next deck.</em><br>
+        <strong>HBM의 천장</strong> — 이 한계는 왜 생기는가.
+      </div>
+      <div class="final-link">deck 2 · HBM Ceiling →</div>
     </div>
-    <div class="final-sub">
-      국소는 <em>합리</em>, 전체는 <em>모순</em>. — AI의 작업 단위로 누적되는 엔트로피.<br><br>
-      세 한계 — <em>Pattern Drift · Context Rot · Context Blind.</em><br>
-      셋이 합쳐 사이클을 돌면 — 매 편집은 LGTM, 누적된 건 화석.
+
+    <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
+      <div class="kicker dim">비유 — Local vs Global</div>
+      <a href="../../images/local-best-global-not-best2.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기">
+        <img src="../../images/local-best-global-not-best2.png"
+             alt="Local best ≠ Global best"
+             style="width:100%; max-height:560px; object-fit:contain; display:block; margin-top:16px; border-radius:4px; box-shadow:0 6px 24px rgba(12,11,9,0.32); cursor:zoom-in;" />
+      </a>
     </div>
-    <div class="callout" style="max-width:760px">
-      <em>→ next deck.</em><br>
-      <strong>HBM의 천장</strong> — 이 한계는 왜 생기는가.
-    </div>
-    <div class="final-link">deck 2 · HBM Ceiling →</div>
   </div>
   <div class="foot">
     <span>AI Context, Agent Entropy — Deck 1 / 6</span>

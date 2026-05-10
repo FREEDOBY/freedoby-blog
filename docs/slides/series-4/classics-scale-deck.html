@@ -620,7 +620,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 <!-- ============ 01 COVER ============ -->
 <section class="slide dark cover active has-bleed">
   <div class="bleed">
-    <img src="../../images/classiconai.png" alt="Classics as foundation, AI stacked on top" />
+    <img src="../../images/build-harness-swprinciples.png" alt="Build Harness on Software Principles" />
   </div>
   <div class="cover-brand">
     <span>FREEDOBY</span>
@@ -655,11 +655,11 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div class="tag">#two-years #fifty-years</div>
     <div>02 / 18</div>
   </div>
-  <div class="stage stage-split r">
+  <div class="stage stage-split r" style="gap:24px;">
     <div class="copy">
       <div class="kicker">Two Years vs Fifty</div>
       <div class="keyword">
-        AI는 지난 <em>2년</em>을 바꿨다.
+        AI는 지난 <em>2년</em>을<br>바꿨다.
       </div>
       <div class="subline">
         매주 새 AI가 나온다. 썸네일은 '개발자의 종말'을 외친다.<br>
@@ -668,7 +668,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
     <div class="art">
-      <img src="../../images/outsourecedThinking.png" alt="Outsourced Thinking" />
+      <img src="../../images/problem_in-sotfware.png" alt="50년의 세 가지 문제" style="width:100%; max-height:85vh; object-fit:contain;" />
     </div>
   </div>
   <div class="foot"><span>Prologue · Two Years vs Fifty</span><span>02 / 18 · → 50년의 세 가지 문제</span></div>
@@ -746,7 +746,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="stage stage-split r">
     <div class="copy">
       <div class="kicker">Classics II — 불확실성의 답</div>
-      <div class="keyword"><em>TDD.</em><br>테스트로 신뢰를 만든다.</div>
+      <div class="keyword"><em>TDD.</em><br>테스트로 <br>신뢰를 만든다.</div>
       <div class="subline">
         <strong>요구사항을 테스트로 옮긴다.</strong><br>
         먼저 실패부터 — Red → Green → Refactor.<br><br>
@@ -774,7 +774,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     </div>
     <div class="copy">
       <div class="kicker">Classics III — 확장의 답</div>
-      <div class="keyword"><em>Clean Architecture.</em><br>코어는 닫고, 확장만 연다.</div>
+      <div class="keyword"><em>Clean Architecture.</em><br>코어는 닫고,<br>확장만 연다.</div>
       <div class="subline">
         어디까지가 이 레이어의 책임인가.<br>
         <strong>아키텍트는 확장의 방향을 설계하는 사람이다.</strong><br><br>
@@ -788,7 +788,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 <!-- ============ 07 AI 시대 전환 — 문제는 같다 ============ -->
 <section class="slide dark has-bleed">
   <div class="bleed">
-    <img src="../../images/ai-running-blind.png" alt="AI running blind" />
+    <img src="../../images/AI-amplifier.png" alt="AI Amplifier" />
   </div>
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Shift</span></div>
@@ -814,92 +814,22 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 불확실성 →  <span class="hl">자신감 있는 오답이 빠르게 쌓인다</span>
 확장     →  <span class="hl">하나를 고치면 열 곳이 터진다</span></div>
   </div>
-  <div class="foot"><span>The Shift · Same Problems</span><span>07 / 18 · → 엔지니어링의 진화</span></div>
+  <div class="foot"><span>The Shift · Same Problems</span><span>07 / 18 · → 그러나 AI는 새 한계</span></div>
 </section>
 
-<!-- ============ 08 엔지니어링의 진화 ============ -->
+<!-- ============ 08 AI의 새 한계 ============ -->
 <section class="slide dark">
   <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Evolution of Engineering</span></div>
-    <div class="tag">#prompt #context #harness</div>
+    <div class="seg"><span class="dot"></span><span>The New Limits</span></div>
+    <div class="tag">#ai-limits #new-requirements</div>
     <div>08 / 18</div>
   </div>
-  <div class="stage stage-split">
+  <div class="stage stage-split" style="gap:24px;">
     <div class="art">
-      <img src="../../images/prompt-context-harness.png" alt="Prompt Context Harness" />
+      <img src="../../images/local-best-global-not-best.png" alt="Local best ≠ Global best" style="width:100%; max-height:85vh; object-fit:contain;" />
     </div>
     <div class="copy">
-      <div class="kicker">AI를 다루는 기술의 진화</div>
-      <div class="keyword sm">
-        세 단계로<br><em>진화했다.</em>
-      </div>
-      <div class="ascii"><span class="hl2">Prompt Engineering</span>
-  "어떻게 말할까" — 1회 호출을 최적화
-  CoT · Role · Few-shot · Format
-  한계: 컨텍스트 부족에 무력
-
-<span class="hl2">Context Engineering</span>
-  "무엇을 넣을까" — 1 세션을 최적화
-  RAG · MCP · 동적 주입
-  한계: 세션이 길면 Context Rot
-
-<span class="hl">Harness Engineering</span>
-  "어떤 구조로 실행할까" — 프로젝트 전체를 설계
-  Subagents · Hooks · Plan Mode · Skills
-  <span class="hl">"Better prompts don't scale. Better systems do."</span></div>
-    </div>
-  </div>
-  <div class="foot"><span>Engineering Evolution · Three Layers</span><span>08 / 18</span></div>
-</section>
-
-<!-- ============ 09 근본은 같다 ============ -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>The Connection</span></div>
-    <div class="tag">#classics #same-structure</div>
-    <div>09 / 18</div>
-  </div>
-  <div class="stage stage-split r">
-    <div class="copy">
-      <div class="kicker">그러나 근본은 같다</div>
-      <div class="keyword sm">
-        이름이 바뀌었을 뿐,<br><em>원리는 그대로다.</em>
-      </div>
-      <div class="ascii">Context Engineering
-  = 무엇을 컨텍스트에 넣을까
-  = <span class="hl">Divide &amp; Conquer의 인프라</span>
-    (필요한 것만 골라 조리대에 올린다)
-
-Harness Engineering
-  = 워크플로우 자체를 설계한다
-  = <span class="hl">불확실성과 확장을 AI 시대에 구조화한 것</span>
-    · 검증의 원리   → TDD
-    · 경계의 원리   → Clean Architecture</div>
-      <div class="subline" style="margin-top:16px">
-        고전이 먼저 답을 알고 있었다.<br>
-        엔지니어링은 그것을 <strong>AI에 맞게 재구현</strong>하는 과정이다.
-      </div>
-    </div>
-    <div class="art sm">
-      <img src="../../images/harness-controlled-ai.png" alt="Harness Controlled AI" />
-    </div>
-  </div>
-  <div class="foot"><span>The Connection · Same Structure</span><span>09 / 18 · → 그러나 AI에겐…</span></div>
-</section>
-
-<!-- ============ 10 Bridge — AI의 한계가 새 요구를 낳는다 ============ -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>The Bridge</span></div>
-    <div class="tag">#ai-limits #new-requirements</div>
-    <div>10 / 18</div>
-  </div>
-  <div class="stage stage-split">
-    <div class="art">
-      <img src="../../images/productivity-boost.png" alt="AI's Shaky Foundation - confident wrong output" />
-    </div>
-    <div class="copy">
-      <div class="kicker">같은 원리, 그러나 새 한계</div>
+      <div class="kicker">그러나 — AI에는 새 한계가 있다</div>
       <div class="display sm">
         AI의 한계가,<br><em>새 요구</em>를 낳는다.
       </div>
@@ -907,24 +837,57 @@ Harness Engineering
         AI는 <strong>컨텍스트가 유한</strong>하다 — 넣을수록 썩는다.<br>
         AI는 <strong>자신감 있는 오답</strong>을 낸다.<br>
         AI는 <strong>보이지 않는 코드</strong>를 모른다.<br><br>
-        50년의 문제는 그대로다. 그러나 <strong>AI라는 새 매체</strong>가 각 문제에 <strong>고유 한계</strong>를 덧붙인다.<br>
-        그래서 엔지니어링이 재구현되어야 했다 — 그 재구현이 다음 세 <strong>명시적 요구</strong>다.
+        50년의 문제는 그대로지만, <strong>AI라는 새 매체</strong>가 각 문제에 <strong>고유 한계</strong>를 덧붙인다.<br>
+        그래서 엔지니어링이 진화로 답해야 했다.
       </div>
     </div>
   </div>
-  <div class="foot"><span>Bridge · AI Limits → New Requirements</span><span>10 / 18 · → 첫 번째 축</span></div>
+  <div class="foot"><span>The New Limits · AI's Constraints</span><span>08 / 18 · → 엔지니어링의 진화</span></div>
 </section>
 
-<!-- ============ 11 Clean Context ============ -->
+<!-- ============ 09 엔지니어링의 진화 (3-layer + 클래식 매핑 통합) ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Evolution of Engineering</span></div>
+    <div class="tag">#prompt #context #harness</div>
+    <div>09 / 18</div>
+  </div>
+  <div class="stage stage-split" style="gap:24px;">
+    <div class="art">
+      <img src="../../images/harness-aibot.png" alt="Harness AI Bot" style="width:100%; max-height:85vh; object-fit:contain;" />
+    </div>
+    <div class="copy">
+      <div class="kicker">엔지니어링이 답한다</div>
+      <div class="keyword sm">
+        세 단계로<br><em>진화했다.</em>
+      </div>
+      <div class="ascii"><span class="hl2">Prompt Engineering</span>
+  "어떻게 말할까" — 1회 호출을 최적화
+  CoT · Role · Few-shot · Format
+
+<span class="hl2">Context Engineering</span>           <span class="hl">← Divide &amp; Conquer의 인프라</span>
+  "무엇을 넣을까" — 1 세션을 최적화
+  RAG · MCP · 동적 주입
+
+<span class="hl">Harness Engineering</span>            <span class="hl">← TDD + Clean Architecture의 재구현</span>
+  "어떤 구조로 실행할까" — 프로젝트 전체를 설계
+  Subagents · Hooks · Plan Mode · Skills
+  <span class="hl">"Better prompts don't scale. Better systems do."</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Engineering Evolution · Three Layers</span><span>09 / 18 · → 세 axis 디테일</span></div>
+</section>
+
+<!-- ============ 10 Clean Context (옛 11) ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Axis I · Clean Context</span></div>
     <div class="tag">#complexity → #clean-context</div>
-    <div>11 / 18</div>
+    <div>10 / 18</div>
   </div>
   <div class="stage stage-split">
     <div class="art">
-      <img src="../../images/needle-in-haystack.png" alt="Needle in Haystack" />
+      <img src="../../images/context-stack-1.png" alt="Context Stack — load-on-demand + isolation" />
     </div>
     <div class="copy">
       <div class="kicker">복잡성의 AI 시대 요구</div>
@@ -939,15 +902,15 @@ Harness Engineering
       <div class="source">Needle in a Haystack · Lost in the Middle (Liu et al., 2023) · Context Rot</div>
     </div>
   </div>
-  <div class="foot"><span>Complexity → Clean Context</span><span>11 / 18</span></div>
+  <div class="foot"><span>Complexity → Clean Context</span><span>10 / 18 · Axis I of III</span></div>
 </section>
 
-<!-- ============ 12 Verifiable Output ============ -->
+<!-- ============ 11 Verifiable Output (옛 12) ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Axis II · Verifiable Output</span></div>
     <div class="tag">#uncertainty → #verifiable-output</div>
-    <div>12 / 18</div>
+    <div>11 / 18</div>
   </div>
   <div class="stage stage-split r">
     <div class="copy">
@@ -966,19 +929,19 @@ Harness Engineering
       <img src="../../images/car-wash-test.png" alt="Car Wash Test" />
     </div>
   </div>
-  <div class="foot"><span>Uncertainty → Verifiable Output</span><span>12 / 18</span></div>
+  <div class="foot"><span>Uncertainty → Verifiable Output</span><span>11 / 18 · Axis II of III</span></div>
 </section>
 
-<!-- ============ 13 Extension Gate ============ -->
+<!-- ============ 12 Extension Gate (옛 13) ============ -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Axis III · Extension Gate</span></div>
     <div class="tag">#boundary → #extension-gate</div>
-    <div>13 / 18</div>
+    <div>12 / 18</div>
   </div>
   <div class="stage stage-split">
     <div class="art">
-      <img src="../../images/harness-divide-and-conquer.png" alt="Harness Divide and Conquer" />
+      <img src="../../images/Harness-workflow-loopback.png" alt="Harness Workflow Loopback" />
     </div>
     <div class="copy">
       <div class="kicker">확장의 AI 시대 요구</div>
@@ -987,26 +950,25 @@ Harness Engineering
         코어는 닫고, 확장만 연다 — AI가 건드릴 수 있는 범위를 Gate로 잠근다.<br>
         <strong>판단(Judgment)은 사람의 몫이다. Gate는 그 판단의 산물이다.</strong><br><br>
         이 요구를 <strong>Harness Engineering</strong>이 푼다 —<br>
-        Subagents · Hooks로 확장 지점만 열어두고, Permission Scope · Human in the Loop으로 <strong>Gate를 강제한다.</strong><br>
-        <strong>Clean Architecture의 철학이 그대로다.</strong>
+        Subagents · Hooks로 확장 지점만 열어두고, Permission Scope · Human in the Loop으로 <strong>Gate를 강제한다.</strong>
       </div>
       <div class="source">Blind Context · Change Ripple Effect · HBM physical limit</div>
     </div>
   </div>
-  <div class="foot"><span>Boundary → Extension Gate</span><span>13 / 18</span></div>
+  <div class="foot"><span>Boundary → Extension Gate</span><span>12 / 18 · Axis III of III · → 종합</span></div>
 </section>
 
-<!-- ============ 14 Synthesis — 세 축, 하나의 원리 ============ -->
+<!-- ============ 13 Synthesis — 이름은 바뀌었을 뿐, 원리는 그대로 ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis</span></div>
-    <div class="tag">#three-axes #same-principle</div>
-    <div>14 / 18</div>
+    <div class="tag">#three-axes #same-principle #re-implementation</div>
+    <div>13 / 18</div>
   </div>
   <div class="stage">
-    <div class="kicker">이제 보인다 — 원리는 같다</div>
+    <div class="kicker">이제 보인다</div>
     <div class="display sm">
-      세 축이, <em>하나의 원리</em>를 공유한다.
+      이름이 바뀌었을 뿐,<br><em>원리는 그대로다.</em>
     </div>
 
     <div class="mapping">
@@ -1065,16 +1027,21 @@ Harness Engineering
         </div>
       </div>
     </div>
+
+    <div class="subline" style="margin-top:24px; max-width:none; text-align:center;">
+      고전이 먼저 답을 알고 있었다.<br>
+      <strong>엔지니어링은 그것을 AI에 맞게 재구현하는 과정이다.</strong>
+    </div>
   </div>
-  <div class="foot"><span>Synthesis · Same Principle</span><span>14 / 18 · → 속도</span></div>
+  <div class="foot"><span>Synthesis · Same Principle</span><span>13 / 18 · → 속도</span></div>
 </section>
 
-<!-- ============ 15 단 하나의 변화 = 속도 ============ -->
+<!-- ============ 14 단 하나의 변화 = 속도 ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Only Difference</span></div>
     <div class="tag">#speed #leverage</div>
-    <div>15 / 18</div>
+    <div>14 / 18</div>
   </div>
   <div class="stage stage-split r">
     <div class="copy">
@@ -1097,15 +1064,67 @@ Harness Engineering
       <img src="../../images/architect-as-judge.png" alt="Architect as Judge" />
     </div>
   </div>
-  <div class="foot"><span>The Only Difference · Speed</span><span>15 / 18</span></div>
+  <div class="foot"><span>The Only Difference · Speed</span><span>14 / 18 · → 원칙으로 하네스</span></div>
 </section>
 
-<!-- ============ 16 클래식의 구현 = HALO ============ -->
+<!-- ============ 15 Bridge — 원칙으로 하네스를 만든다 ============ -->
 <section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Bridge · Principles into Harness</span></div>
+    <div class="tag">#principles #harness-build</div>
+    <div>15 / 18</div>
+  </div>
+  <div class="stage" style="padding: 14px 0; min-height: 0;">
+    <div style="flex: 1; display:flex; align-items:center; justify-content:center; min-height:0;">
+      <a href="../../images/build-harness-swprinciples.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기" style="display:block; max-width:100%; max-height:100%;">
+        <img src="../../images/build-harness-swprinciples.png"
+             alt="원칙으로 하네스를 만들어라"
+             style="max-width:100%; max-height:88vh; object-fit:contain; display:block; cursor:zoom-in; filter: drop-shadow(0 20px 40px rgba(12,11,9,0.4));" />
+      </a>
+    </div>
+  </div>
+  <div class="foot"><span>Bridge · Principles into Harness</span><span>15 / 18 · → Fin</span></div>
+</section>
+
+<!-- ============ 16 FIN — 원칙은 버전이 없다 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Fin</span></div>
+    <div class="tag">#ai일수록-클래식이다</div>
+    <div>16 / 18</div>
+  </div>
+  <div class="stage stage-split r" style="gap:24px;">
+    <div class="copy">
+      <div class="kicker">Fin.</div>
+      <div class="final-big">
+        원칙은<br><em>버전이 없다.</em>
+      </div>
+      <div class="final-sub">
+        복잡성 · 불확실성 · 확장.<br>
+        50년 전에도 지금도 같은 문제다.<br>
+        AI는 그 원칙 위에서 달리는 <strong style="color:var(--gold)">속도</strong>일 뿐이다.
+      </div>
+      <div class="final-link">github.com/FREEDOBY/halo-workflow →</div>
+    </div>
+    <div class="art">
+      <img src="../../images/control-ai-with-harness.png" alt="Control AI with Harness" style="width:100%; max-height:85vh; object-fit:contain;" />
+    </div>
+  </div>
+  <div class="foot">
+    <span>AI일수록, 클래식이다 — FREEDOBY</span>
+    <span>16 / 18 · → 클래식의 구현</span>
+  </div>
+</section>
+
+<!-- ============ 17 클래식의 구현 = HALO ============ -->
+<section class="slide dark has-bleed">
+  <div class="bleed">
+    <img src="../../images/stand-on-principles.png1.png" alt="Stand on Principles" />
+  </div>
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · HALO</span></div>
     <div class="tag">#halo #classics-implementation</div>
-    <div>16 / 18</div>
+    <div>17 / 18</div>
   </div>
   <div class="stage">
     <div class="kicker">클래식의 구현</div>
@@ -1145,37 +1164,7 @@ Harness Engineering
       </div>
     </div>
   </div>
-  <div class="foot"><span>HALO · Harness · Agentic · Loopback · Orchestration</span><span>16 / 18</span></div>
-</section>
-
-<!-- ============ 17 FIN ============ -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Fin</span></div>
-    <div class="tag">#ai일수록-클래식이다</div>
-    <div>17 / 18</div>
-  </div>
-  <div class="stage stage-split r">
-    <div class="copy">
-      <div class="kicker">Fin.</div>
-      <div class="final-big">
-        원칙은<br><em>버전이 없다.</em>
-      </div>
-      <div class="final-sub">
-        복잡성 · 불확실성 · 확장.<br>
-        50년 전에도 지금도 같은 문제다.<br>
-        AI는 그 원칙 위에서 달리는 <strong style="color:var(--gold)">속도</strong>일 뿐이다.
-      </div>
-      <div class="final-link">github.com/FREEDOBY/halo-workflow →</div>
-    </div>
-    <div class="art">
-      <img src="../../images/developer-controlling-ai.png" alt="Developer Controlling AI" />
-    </div>
-  </div>
-  <div class="foot">
-    <span>AI일수록, 클래식이다 — FREEDOBY</span>
-    <span>17 / 18 · → See it Live</span>
-  </div>
+  <div class="foot"><span>HALO · Harness · Agentic · Loopback · Orchestration</span><span>17 / 18 · → See it Live</span></div>
 </section>
 
 <!-- ============ 18 See it Live ============ -->
