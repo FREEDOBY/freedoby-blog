@@ -430,9 +430,6 @@ a.sidebar-section.active {
 }
 
 .page-cover {
-  width: 100%;
-  aspect-ratio: 5 / 2;
-  max-height: 260px;
   overflow: hidden;
   border-radius: var(--radius-lg);
   background: var(--bg-subtle);
@@ -440,10 +437,9 @@ a.sidebar-section.active {
 }
 
 .page-cover img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
+  width: 100%;
+  height: auto;
 }
 
 .article-header {
@@ -821,7 +817,6 @@ a.sidebar-section.active {
   .article-title { font-size: 30px; }
   .article h2 { font-size: 23px; margin: 40px 0 14px; }
   .article h3 { font-size: 19px; }
-  .page-cover { max-height: 180px; }
   .article-nav { grid-template-columns: 1fr; }
   .article-nav .next { text-align: left; }
   .site-header-inner { padding: 0 16px; }
