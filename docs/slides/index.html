@@ -16,7 +16,6 @@
       </a>
       <nav class="site-nav">
         <a href="../index.html">Home</a>
-        <a href="index.html">Slides</a>
         <a href="https://github.com/FREEDOBY/halo-workflow" target="_blank" rel="noopener">Project</a>
       </nav>
     </div>
@@ -25,66 +24,79 @@
   <div class="layout">
 
     <aside class="sidebar">
-      <div class="sidebar-header">Slides</div>
+      <div class="sidebar-header">Index</div>
       <nav class="sidebar-nav">
-        <a href="../index.html" class="sidebar-home">← Blog</a>
+        <a href="../index.html" class="sidebar-home">← 목차</a>
+
+        <a href="../series/index.html" class="sidebar-section">Series</a>
+        <a href="../series/series-1.html" class="sidebar-link"><span class="num">01</span>AI Agent의 명확한 한계</a>
+        <a href="../series/series-2.html" class="sidebar-link"><span class="num">02</span>HBM이 만든 AI의 물리적 천장</a>
+        <a href="../series/series-3.html" class="sidebar-link"><span class="num">03</span>Prompt → Context → Harness — 진화의 방향</a>
+        <a href="../series/series-4.html" class="sidebar-link"><span class="num">04</span>우공이산: 나눠서 정복해야 한다</a>
+        <a href="../series/series-5.html" class="sidebar-link"><span class="num">05</span>실행이 싸지면, 판단과 비용이 비싸진다</a>
+        <a href="../series/series-6.html" class="sidebar-link"><span class="num">06</span>HALO Workflow — 한계를 구조로 극복</a>
+
+        <a href="index.html" class="sidebar-section active">Slides</a>
         <a href="series-1/deck1-limits.html" class="sidebar-link"><span class="num">01</span>AI Context, Agent Entropy</a>
         <a href="series-2/deck2-hbm-ceiling.html" class="sidebar-link"><span class="num">02</span>HBM의 천장</a>
         <a href="series-3/deck3-evolution.html" class="sidebar-link"><span class="num">03</span>Prompt → Context → Harness</a>
         <a href="series-4/classics-scale-deck.html" class="sidebar-link"><span class="num">04</span>AI일수록, 클래식이다</a>
+
+        <div class="sidebar-section">Project</div>
+        <a href="https://github.com/FREEDOBY/halo-workflow" class="sidebar-link" target="_blank" rel="noopener">HALO Workflow <span class="sidebar-ext">↗</span></a>
       </nav>
     </aside>
 
     <main class="layout-content">
-      <section class="hero-landing">
-        <h1 class="sr-only">Presentation Slides</h1>
-        <p class="hero-tagline">
-          발표자료 모음
-        </p>
+
+      <section class="page-hero">
+        <h1 class="page-title">Slides</h1>
+        <p class="page-desc">발표자료 모음 — 시리즈 글의 핵심을 슬라이드로 정리했습니다.</p>
       </section>
 
-      <ul class="post-list">
-        <li class="post-item">
-          <a href="series-1/deck1-limits.html">
-            <div class="post-meta">
-              <span class="post-num">01</span>
-              <span class="post-tags">#presentation #context #agent-entropy</span>
-            </div>
-            <h2 class="post-title">AI Context, Agent Entropy</h2>
-            <p class="post-excerpt">매 편집은 합리적이다. 그러나, 누적되면 — 모순이 된다.</p>
-          </a>
-        </li>
-        <li class="post-item">
-          <a href="series-2/deck2-hbm-ceiling.html">
-            <div class="post-meta">
-              <span class="post-num">02</span>
-              <span class="post-tags">#presentation #hbm #context-window</span>
-            </div>
-            <h2 class="post-title">HBM의 천장</h2>
-            <p class="post-excerpt">더 큰 컨텍스트 윈도우가 답이 아닌 이유 — 물리 법칙이 먼저다.</p>
-          </a>
-        </li>
-        <li class="post-item">
-          <a href="series-3/deck3-evolution.html">
-            <div class="post-meta">
-              <span class="post-num">03</span>
-              <span class="post-tags">#presentation #harness #evolution</span>
-            </div>
-            <h2 class="post-title">Prompt → Context → Harness</h2>
-            <p class="post-excerpt">AI Agent의 진화 — 대체가 아니라 적층. Better prompts don't scale. Better systems do.</p>
-          </a>
-        </li>
-        <li class="post-item">
-          <a href="series-4/classics-scale-deck.html">
-            <div class="post-meta">
-              <span class="post-num">04</span>
-              <span class="post-tags">#presentation #classics #scale</span>
-            </div>
-            <h2 class="post-title">AI일수록, 클래식이다</h2>
-            <p class="post-excerpt">AI가 바꾼 건 속도뿐이다. 50년의 원칙은 이름만 바꿔 다시 돌아왔다.</p>
-          </a>
-        </li>
-      </ul>
+      <h2 class="gallery-heading">Presentations</h2>
+      <div class="gallery">
+        <a class="gallery-card" href="series-1/deck1-limits.html">
+          <div class="gallery-cover"><img src="../images/agent-antropy-1.png" alt="AI Context, Agent Entropy"></div>
+          <div class="gallery-body">
+            <span class="gallery-num">01</span>
+            <h3 class="gallery-title">AI Context, Agent Entropy</h3>
+            <p class="gallery-excerpt">매 편집은 합리적이다. 그러나, 누적되면 — 모순이 된다.</p>
+            <span class="gallery-tags">#presentation #context #agent-entropy</span>
+          </div>
+        </a>
+
+        <a class="gallery-card" href="series-2/deck2-hbm-ceiling.html">
+          <div class="gallery-cover"><img src="../images/memory-wall-enter.png" alt="HBM의 천장"></div>
+          <div class="gallery-body">
+            <span class="gallery-num">02</span>
+            <h3 class="gallery-title">HBM의 천장</h3>
+            <p class="gallery-excerpt">더 큰 컨텍스트 윈도우가 답이 아닌 이유 — 물리 법칙이 먼저다.</p>
+            <span class="gallery-tags">#presentation #hbm #context-window</span>
+          </div>
+        </a>
+
+        <a class="gallery-card" href="series-3/deck3-evolution.html">
+          <div class="gallery-cover"><img src="../images/Harness-engineering.png" alt="Prompt → Context → Harness"></div>
+          <div class="gallery-body">
+            <span class="gallery-num">03</span>
+            <h3 class="gallery-title">Prompt → Context → Harness</h3>
+            <p class="gallery-excerpt">AI Agent의 진화 — 대체가 아니라 적층. Better prompts don't scale. Better systems do.</p>
+            <span class="gallery-tags">#presentation #harness #evolution</span>
+          </div>
+        </a>
+
+        <a class="gallery-card" href="series-4/classics-scale-deck.html">
+          <div class="gallery-cover"><img src="../images/build-harness-swprinciples.png" alt="AI일수록, 클래식이다"></div>
+          <div class="gallery-body">
+            <span class="gallery-num">04</span>
+            <h3 class="gallery-title">AI일수록, 클래식이다</h3>
+            <p class="gallery-excerpt">AI가 바꾼 건 속도뿐이다. 50년의 원칙은 이름만 바꿔 다시 돌아왔다.</p>
+            <span class="gallery-tags">#presentation #classics #scale</span>
+          </div>
+        </a>
+      </div>
+
     </main>
   </div>
 
