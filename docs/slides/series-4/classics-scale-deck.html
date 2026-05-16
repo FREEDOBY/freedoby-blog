@@ -926,7 +926,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <div class="source">Car Wash Test · Opper.ai (2025) · 48 of 53 models failed</div>
     </div>
     <div class="art">
-      <img src="../../images/car-wash-test.png" alt="Car Wash Test" />
+      <img src="../../images/harness-engineering-human-gate-ci-system-in-field.png" alt="Harness Engineering — Human Gate · CI · System · In-Field" />
     </div>
   </div>
   <div class="foot"><span>Uncertainty → Verifiable Output</span><span>11 / 18 · Axis II of III</span></div>
@@ -941,7 +941,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   </div>
   <div class="stage stage-split">
     <div class="art">
-      <img src="../../images/Harness-workflow-loopback.png" alt="Harness Workflow Loopback" />
+      <img src="../../images/harness-engineering-human-gate-ci-system-in-field.png" alt="Harness Engineering — Human Gate · CI · System · In-Field" />
     </div>
     <div class="copy">
       <div class="kicker">확장의 AI 시대 요구</div>
@@ -1323,6 +1323,17 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     if (im.closest('a')) return;
     im.style.cursor = 'zoom-in';
     im.addEventListener('click', () => open(im.src));
+  });
+
+  // Bleed slides (cover + any has-bleed): whole slide is clickable to open the overlay image
+  document.querySelectorAll('section.has-bleed').forEach(slide => {
+    const overlayImg = slide.querySelector('.bleed img, img[aria-hidden="true"]');
+    if (!overlayImg) return;
+    slide.style.cursor = 'zoom-in';
+    slide.addEventListener('click', (e) => {
+      if (e.target.closest('a, button')) return;
+      open(overlayImg.src);
+    });
   });
 })();
 </script>

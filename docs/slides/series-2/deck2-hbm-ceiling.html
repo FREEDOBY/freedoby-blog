@@ -2032,8 +2032,20 @@ hbmUpdate();
     if (im.id === 'img-lightbox-img') return;
     if (im.closest('.bleed')) return;
     if (im.closest('a')) return;
+    if (im.getAttribute('aria-hidden') === 'true') return;
     im.style.cursor = 'zoom-in';
     im.addEventListener('click', () => open(im.src));
+  });
+
+  // Cover slide: whole slide is clickable to open the overlay image
+  document.querySelectorAll('section.cover').forEach(cover => {
+    const overlayImg = cover.querySelector('.bleed img, img[aria-hidden="true"]');
+    if (!overlayImg) return;
+    cover.style.cursor = 'zoom-in';
+    cover.addEventListener('click', (e) => {
+      if (e.target.closest('a, button')) return;
+      open(overlayImg.src);
+    });
   });
 })();
 </script>

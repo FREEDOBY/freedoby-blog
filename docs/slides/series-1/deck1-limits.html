@@ -3324,63 +3324,12 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="stage top">
     <div class="kicker">③ Case</div>
     <div class="keyword sm">
-      프로젝트 규모로<br>체감하는 <em>한계.</em>
+      프로젝트 규모로 체감하는 <em>한계.</em>
     </div>
 
-    <div class="scale-viz">
-      <div class="scale-viz-header">
-        <div>Scale</div>
-        <div>대표 예시</div>
-        <div>골드 = AI 윈도우 (Claude 200K) · 회색 = 못 보는 코드</div>
-        <div>AI 보는 비율</div>
-      </div>
-
-      <div class="scale-viz-row">
-        <div class="lbl">Toy / 사이드<span class="meta">~5K LOC · 책 ~½권</span></div>
-        <div class="examples">개인 블로그 · Todo 앱 · <em>사이드 SaaS MVP</em></div>
-        <div class="bar">
-          <div class="bar-shell" style="width:45px">
-            <div class="bar-window contained" style="width:100%"></div>
-          </div>
-        </div>
-        <div class="pct">~100%</div>
-      </div>
-
-      <div class="scale-viz-row">
-        <div class="lbl">대규모 코드베이스<span class="meta">~1M LOC · 책 ~100권</span></div>
-        <div class="examples">VS Code · <em>Spring</em> · Kubernetes · 카카오톡 코어</div>
-        <div class="bar">
-          <div class="bar-shell" style="width:22%">
-            <div class="bar-window"></div>
-          </div>
-        </div>
-        <div class="pct warn">~20%</div>
-      </div>
-
-      <div class="scale-viz-row">
-        <div class="lbl">산업용 임베디드<span class="meta">~10M LOC · 책 ~1,000권</span></div>
-        <div class="examples">자동차 ECU · <em>SSD FW suite</em> · 산업 제어 PLC · 통신장비 OS</div>
-        <div class="bar">
-          <div class="bar-shell" style="width:55%">
-            <div class="bar-window"></div>
-          </div>
-        </div>
-        <div class="pct warn">~2%</div>
-      </div>
-
-      <div class="scale-viz-row">
-        <div class="lbl">빅테크 / 하이퍼스케일<span class="meta">~100M~수십억 LOC · 책 ~1만권+</span></div>
-        <div class="examples"><em>Android AOSP</em> (~100M) · Google monorepo (~2B) · Facebook codebase</div>
-        <div class="bar">
-          <div class="bar-shell" style="width:100%">
-            <div class="bar-window"></div>
-          </div>
-        </div>
-        <div class="pct warn">~0.2%</div>
-      </div>
-
-      <div class="scale-viz-note">표준 환산: 책 1권 ≈ ~10K LOC (300~500 페이지 기준)</div>
-    </div>
+    <img src="../../images/codesize-in-context.png"
+         alt="코드베이스 규모와 AI 컨텍스트 윈도우의 비율"
+         style="width:100%; max-height:560px; object-fit:contain; display:block; margin:16px auto; border-radius:4px; box-shadow:0 6px 24px rgba(12,11,9,0.14);" />
 
     <div class="callout" style="font-style:italic; font-family:var(--serif);">
       "내 토이에서 잘 되던 게,
@@ -4338,6 +4287,17 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
     if (im.closest('a')) return;
     im.style.cursor = 'zoom-in';
     im.addEventListener('click', () => open(im.src));
+  });
+
+  // Cover slide: whole slide is clickable to open the overlay image
+  document.querySelectorAll('section.cover').forEach(cover => {
+    const overlayImg = cover.querySelector('.bleed img, img[aria-hidden="true"]');
+    if (!overlayImg) return;
+    cover.style.cursor = 'zoom-in';
+    cover.addEventListener('click', (e) => {
+      if (e.target.closest('a, button')) return;
+      open(overlayImg.src);
+    });
   });
 })();
 </script>
