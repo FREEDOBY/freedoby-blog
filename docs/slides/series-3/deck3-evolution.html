@@ -559,6 +559,74 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   background: rgba(255, 213, 60, 0.45);
 }
 .map-row.matrix { grid-template-columns: 130px 110px 1.1fr 1.5fr 130px; }
+
+/* ============ CONTEXT VIZ (slide 03b — ported from deck 1 /context) ============ */
+.context-viz {
+  font-family: var(--mono);
+  background: var(--black);
+  color: var(--cream);
+  border: 1px solid var(--gold);
+  padding: 20px 26px;
+  margin-top: 24px;
+  border-radius: 2px;
+  box-shadow: 0 4px 14px rgba(12,11,9,0.3);
+}
+.context-viz-prompt { font-size: 15px; color: var(--gold-lt); margin-bottom: 6px; }
+.context-viz-prompt .arrow { color: var(--gold); margin-right: 8px; font-weight: 700; }
+.context-viz-title { font-size: 14px; color: var(--muted-lt); margin-bottom: 16px; letter-spacing: 0.04em; }
+.context-viz-bar { display: flex; height: 30px; margin: 12px 0 18px; border-radius: 2px; overflow: hidden; border: 1px solid rgba(240,236,224,0.1); }
+.context-viz-bar > div { height: 100%; }
+.context-viz-list { display: grid; grid-template-columns: 1fr 80px 80px; gap: 6px 18px; font-size: 15px; line-height: 1.5; }
+.context-viz-list .ck { display: flex; align-items: center; gap: 10px; color: var(--cream); }
+.context-viz-list .ck .swatch { width: 12px; height: 12px; border-radius: 1px; flex-shrink: 0; }
+.context-viz-list .tk { text-align: right; color: var(--cream); font-weight: 700; }
+.context-viz-list .pct { text-align: right; color: var(--muted-lt); }
+.context-viz-list .cv-divider { grid-column: 1 / -1; height: 1px; background: rgba(240,236,224,0.12); margin: 6px 0; }
+.context-viz-list .row-total .ck,
+.context-viz-list .row-total .tk,
+.context-viz-list .row-total .pct { color: var(--gold-lt); font-weight: 700; }
+.context-viz .cv-tag { font-family: var(--mono); font-size: 13px; letter-spacing: 0.06em; margin-left: 8px; }
+
+/* ============ CTX MAPPING (slide 03c — /context rows → Vendor / User / 대화) ============ */
+.map-row.ctx { grid-template-columns: 230px 64px 158px 1fr; gap: 14px; align-items: center; padding: 10px 0; }
+.map-row.ctx .mc-item {
+  display: flex; align-items: center; gap: 11px;
+  font-family: var(--serif-ko); font-weight: 700;
+  font-size: clamp(15px, 1.25vw, 20px); color: var(--cream); line-height: 1.18;
+}
+.slide.light .map-row.ctx .mc-item { color: var(--black); }
+.map-row.ctx .mc-item .swatch { width: 13px; height: 13px; border-radius: 2px; flex-shrink: 0; }
+.map-row.ctx .mc-tok { font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--gold-lt); text-align: right; }
+.map-row.ctx .mc-own { font-family: var(--mono); font-size: 14px; letter-spacing: 0.04em; }
+.map-row.ctx .mc-own.o-vendor { color: var(--gold); }
+.map-row.ctx .mc-own.o-user { color: #8fb2cc; }
+.map-row.ctx .mc-own.o-talk { color: var(--muted-lt); }
+.map-row.ctx .mc-link { font-family: var(--mono); font-size: 14px; color: var(--muted-lt); letter-spacing: 0.02em; }
+.map-row.ctx .mc-link em { font-style: normal; color: #8fb2cc; font-weight: 700; }
+.map-row.ctx.ctx-head { padding: 4px 0 8px; border-bottom: 1px solid var(--gold); }
+.map-row.ctx.ctx-head + .map-row.ctx { border-top: none; }
+.map-row.ctx.ctx-head .mc-label { margin-bottom: 0; }
+
+/* ctxm — merged 측정+매핑 table (slide 04): swatch·item | token | % | owner | link */
+.map-row.ctxm { grid-template-columns: 196px 54px 58px 142px 1fr; gap: 13px; padding: 7px 0; }
+.map-row.ctxm .mc-item { font-size: clamp(14px, 1.05vw, 17px); gap: 10px; }
+.map-row.ctxm .mc-item .swatch { width: 12px; height: 12px; }
+.map-row.ctxm .mc-tok { font-size: 14px; }
+.map-row.ctxm .mc-pct { font-family: var(--mono); font-size: 13px; color: var(--muted-lt); text-align: right; }
+.map-row.ctxm .mc-own { font-size: 13px; }
+.map-row.ctxm .mc-link { font-size: 13px; }
+.map-row.ctxm.ctx-head { padding: 4px 0 7px; }
+
+/* vh — vendor-harness verbatim excerpt cards (slide 05) */
+.vh-quote { font-family: var(--mono); font-size: 14px; line-height: 1.5; color: var(--cream);
+  border-left: 2px solid var(--gold); padding: 4px 0 4px 13px; margin: 2px 0 11px; opacity: 0.9; }
+.slide.light .vh-quote { color: var(--black); }
+.vh-src { font-family: var(--mono); font-size: 14px; letter-spacing: 0.04em; color: var(--muted-lt); margin-top: 16px; }
+.vh-src em { font-style: normal; color: var(--gold); }
+.vh-name { font-family: var(--mono); font-size: 14px; letter-spacing: 0.01em; color: var(--gold-lt);
+  margin: -4px 0 10px; word-break: break-all; }
+.vh-name::before { content: "▸ "; color: var(--gold); }
+.slide.light .vh-name { color: var(--gold-dk); }
 .map-row.vocab { grid-template-columns: 130px 1fr 44px; gap: 12px; padding: 5px 0; align-items: center; }
 .map-row.vocab .mc-name { font-family: var(--mono); font-size: 14px; letter-spacing: 0.02em; color: var(--gold-dk); font-weight: 700; }
 .slide.dark .map-row.vocab .mc-name { color: var(--gold); }
@@ -721,6 +789,9 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   border-radius: 1px;
 }
 .card.cool { border-color: rgba(184,146,74,0.3); background: rgba(184,146,74,0.05); }
+.card.user { border-color: rgba(143,178,204,0.32); background: rgba(143,178,204,0.06); }
+.card.user .card-lbl,
+.card.user .card-name em { color: #8fb2cc; }
 .card-lbl  { font-family: var(--mono); font-size: 16px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
 .card-name { font-family: var(--serif-ko); font-weight: 700; font-size: clamp(24px, 2vw, 32px); color: var(--cream); margin-bottom: 6px; line-height: 1.2; }
 .card-name em { font-family: var(--serif); font-style: italic; color: var(--gold); font-weight: 400; }
@@ -790,6 +861,9 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 /* === Cards (slide 08 — light) === */
 .slide.light .card { background: rgba(12,11,9,0.03); border-color: var(--rule-dk); }
 .slide.light .card.cool { background: rgba(122,95,46,0.06); border-color: rgba(122,95,46,0.3); }
+.slide.light .card.user { background: rgba(94,128,156,0.06); border-color: rgba(94,128,156,0.34); }
+.slide.light .card.user .card-lbl,
+.slide.light .card.user .card-name em { color: #4f7796; }
 .slide.light .card-lbl { color: var(--gold-dk); }
 .slide.light .card-name { color: var(--black); }
 .slide.light .card-name em { color: var(--gold-dk); }
@@ -945,7 +1019,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
   <div class="cover-footer">
     <span>The Evolution of AI Coding Engineering — FREEDOBY</span>
-    <span>01 / 10</span>
+    <span>01 / 13</span>
   </div>
 </section>
 
@@ -954,7 +1028,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Opening</span></div>
     <div class="tag">#stacked #not-replacement</div>
-    <div>02 / 10</div>
+    <div>02 / 13</div>
   </div>
   <div class="stage stage-split center">
     <div>
@@ -977,23 +1051,205 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </a>
     </div>
   </div>
-  <div class="foot"><span>Opening · 적층의 구조</span><span>02 / 10 · → Primer</span></div>
+  <div class="foot"><span>Opening · 적층의 구조</span><span>02 / 13 · → Primer</span></div>
 </section>
 
-<!-- 03 .CLAUDE/ VOCABULARY (Primer) -->
+<!-- 03a PRIMER — Vendor 하네스: 주장 (두 하네스) -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Primer · Vendor 하네스</span></div>
+    <div class="tag">#two-harnesses #layer-zero</div>
+    <div>03 / 13</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">raw 모델은 글자만 뱉는다 — 그걸로는 못 짠다</div>
+    <div class="keyword md">하네스가 — <em>모델을 '에이전트'로</em> 만든다.</div>
+    <div class="subline" style="max-width:none; margin-top:8px;">
+      파일을 읽고·고치고, 명령을 돌리고, 폭주를 멈추는 능력 — <strong>모델엔 없다.</strong>
+      누가 그걸 깔아 주느냐로 — <strong>하네스는 두 층으로 갈린다.</strong>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-lbl">0번 층 — Vendor Harness</div>
+        <div class="card-name">raw 모델 → <em>범용 에이전트.</em></div>
+        <div class="card-by">도구 · 에이전트 루프 · 권한 게이트 · 컨텍스트 관리</div>
+        <div class="card-desc">
+          목적 — <strong>어디서든 돌아가게.</strong> 도구 쓰고·파일 고치고·폭주 안 하는
+          에이전트를 만든다. 단, <mark>User의 프로젝트는 모른다.</mark>
+        </div>
+      </div>
+      <div class="card user">
+        <div class="card-lbl">그 위 — User Harness</div>
+        <div class="card-name">범용 → <em>User 제품 전용.</em></div>
+        <div class="card-by">.claude/ · 프롬프트 · 컨텍스트 · 프로세스</div>
+        <div class="card-desc">
+          목적 — <strong>User 제품을 성공시키게.</strong> 컨벤션·도메인·완료 기준을 가르쳐,
+          범용 에이전트가 <mark>User 제품을 제대로 뽑게</mark> 만든다.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      벤더는 <strong>범용 에이전트</strong>까지 — 거기서 멈춘다. 그 위를 <em>User 도메인</em>에 맞추는 건,
+      <strong>User만 안다.</strong> 그래서 User 하네스는 — User의 몫.
+    </div>
+  </div>
+  <div class="foot"><span>Primer · Vendor 하네스 — 주장</span><span>03 / 13 · → 측정</span></div>
+</section>
+
+<!-- 04 PRIMER — Vendor 하네스: /context 측정 + 매핑 (병합) -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Primer · /context</span></div>
+    <div class="tag">#context-window #vendor-vs-user</div>
+    <div>04 / 13</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">Vendor 하네스는 추상이 아니다</div>
+    <div class="keyword md"><em>/context</em>의 단면 — <em>Vendor Harness</em>, 그 위에 <em>User Harness.</em></div>
+
+    <div class="context-viz" style="margin-top:16px; padding:14px 22px;">
+      <div class="context-viz-prompt"><span class="arrow">▶</span>/context <span class="cv-tag" style="color:var(--muted-lt)">Claude Sonnet · 200K</span></div>
+
+      <div class="context-viz-bar" style="margin:10px 0 4px;">
+        <div style="width:2%;    background:#888888" title="System prompt"></div>
+        <div style="width:10.5%; background:#bbbbbb" title="System tools"></div>
+        <div style="width:1%;    background:#b1b9f9" title="Custom agents"></div>
+        <div style="width:0.5%;  background:#d77757" title="Memory files"></div>
+        <div style="width:1%;    background:#ffc107" title="Skills"></div>
+        <div style="width:50%;   background:#9333ea" title="Messages"></div>
+        <div style="width:35%;   background:rgba(240,236,224,0.06); border-left: 1px solid rgba(240,236,224,0.18);" title="Free"></div>
+      </div>
+    </div>
+
+    <div class="mapping" style="margin-top:16px;">
+      <div class="map-row ctx ctxm ctx-head">
+        <div class="map-cell"><div class="mc-label">/context 항목</div></div>
+        <div class="map-cell"><div class="mc-label" style="text-align:right">토큰</div></div>
+        <div class="map-cell"><div class="mc-label" style="text-align:right">%</div></div>
+        <div class="map-cell"><div class="mc-label">누구 것</div></div>
+        <div class="map-cell"><div class="mc-label">연결</div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#888888"></span>System prompt</div></div>
+        <div class="map-cell"><div class="mc-tok">4K</div></div>
+        <div class="map-cell"><div class="mc-pct">2.0%</div></div>
+        <div class="map-cell"><div class="mc-own o-vendor">Vendor 하네스</div></div>
+        <div class="map-cell"><div class="mc-link">행동 baseline — 손댈 수 없음</div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#bbbbbb"></span>System tools</div></div>
+        <div class="map-cell"><div class="mc-tok">21K</div></div>
+        <div class="map-cell"><div class="mc-pct">10.5%</div></div>
+        <div class="map-cell"><div class="mc-own o-vendor">Vendor 하네스</div></div>
+        <div class="map-cell"><div class="mc-link">27 도구 + MCP — 25K의 대부분</div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#b1b9f9"></span>Custom agents</div></div>
+        <div class="map-cell"><div class="mc-tok">2K</div></div>
+        <div class="map-cell"><div class="mc-pct">1.0%</div></div>
+        <div class="map-cell"><div class="mc-own o-user">User 하네스</div></div>
+        <div class="map-cell"><div class="mc-link"><em>.claude/agents/</em></div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#d77757"></span>Memory files</div></div>
+        <div class="map-cell"><div class="mc-tok">1K</div></div>
+        <div class="map-cell"><div class="mc-pct">0.5%</div></div>
+        <div class="map-cell"><div class="mc-own o-user">User 하네스</div></div>
+        <div class="map-cell"><div class="mc-link"><em>.claude/CLAUDE.md</em></div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#ffc107"></span>Skills</div></div>
+        <div class="map-cell"><div class="mc-tok">2K</div></div>
+        <div class="map-cell"><div class="mc-pct">1.0%</div></div>
+        <div class="map-cell"><div class="mc-own o-user">User 하네스</div></div>
+        <div class="map-cell"><div class="mc-link"><em>.claude/skills/</em></div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#9333ea"></span>Messages</div></div>
+        <div class="map-cell"><div class="mc-tok">100K</div></div>
+        <div class="map-cell"><div class="mc-pct">50.0%</div></div>
+        <div class="map-cell"><div class="mc-own o-talk">대화 · 런타임</div></div>
+        <div class="map-cell"><div class="mc-link">입력 · 코드 · 출력 — 당신 몫</div></div>
+      </div>
+    </div>
+
+    <div class="subline" style="max-width:none; margin-top:16px; line-height:1.75;">
+      <strong style="color:var(--gold)">Vendor</strong> — 사용자가 손대기 전부터 깔리는 층 <span style="opacity:.6">(System prompt + tools)</span> · <em>default</em><br>
+      <strong style="color:#8fb2cc">User</strong> — <em>.claude/</em>로 우리가 얹는 층 <span style="opacity:.6">(agents · memory · skills)</span><br>
+      <strong style="color:var(--muted-lt)">대화</strong> — 런타임에 채워지는 <em>가변</em> 영역
+    </div>
+
+    <div class="callout" style="margin-top:16px;">
+      <em>Vendor Harness</em> 고정 — 우리가 만질 곳은 <strong>User Harness = .claude/로 설정.</strong>
+    </div>
+  </div>
+  <div class="foot"><span>Primer · /context — 측정 + 매핑</span><span>04 / 13 · → 지침</span></div>
+</section>
+
+<!-- 04b PRIMER — Vendor 하네스 안을 연다: 실제 시스템 지침 4선 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Primer · Vendor 지침</span></div>
+    <div class="tag">#system-prompt #guardrails</div>
+    <div>05 / 13</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">그 하네스 안을 열어보면</div>
+    <div class="keyword md">그 <em>System prompt</em> 안 — <em>안전·컨텍스트·해석</em>을 박은 지침.</div>
+    <div class="subline" style="max-width:none; margin-top:6px;">
+      raw 모델을 <strong>어디서든·폭주 없이</strong> 굴리는 규칙 — 사용자가 한 줄 쓰기 전부터 박혀 있다.
+      Claude Code 실제 발췌 넷.
+    </div>
+
+    <div class="card-grid" style="gap:18px 26px; margin-top:18px;">
+      <div class="card">
+        <div class="card-lbl">안전 · 폭주 차단</div>
+        <div class="vh-name">system-prompt-action-safety-and-truthful-reporting</div>
+        <div class="vh-quote">"For actions that are hard to reverse or outward-facing, confirm first — approval in one context doesn't extend to the next."</div>
+        <div class="card-desc">되돌리기 힘든·외부로 나가는 행동은 <strong>먼저 확인.</strong> 한 번 승인이 다음까지 가지 않는다 — <mark>폭주를 막는 가드레일.</mark></div>
+      </div>
+      <div class="card">
+        <div class="card-lbl">배선 · 권한 게이트</div>
+        <div class="vh-name">system-prompt-harness-instructions</div>
+        <div class="vh-quote">"Tools run behind a user-selected permission mode; a denied call means the user declined it — adjust, don't retry verbatim."</div>
+        <div class="card-desc">도구는 <strong>권한 모드 뒤에서</strong> 실행 — 거부당하면 똑같이 재시도 말고 조정. <mark>모델을 터미널에 묶는 배선.</mark></div>
+      </div>
+      <div class="card">
+        <div class="card-lbl">컨텍스트 · 윈도우 관리</div>
+        <div class="vh-name">system-prompt-context-compaction-summary</div>
+        <div class="vh-quote">"Write a continuation summary that will allow you to resume work in a future context window where the conversation history will be replaced with this summary."</div>
+        <div class="card-desc">대화가 길어지면 — 히스토리를 <strong>요약으로 갈아끼워</strong> 다음 윈도우로 잇는다. <mark>200K를 넘지 않게 관리.</mark></div>
+      </div>
+      <div class="card">
+        <div class="card-lbl">해석 · SE 기본값</div>
+        <div class="vh-name">system-prompt-doing-tasks-software-engineering-focus</div>
+        <div class="vh-quote">"…change methodName to snake case — do not reply with just 'method_name'; find the method in the code and modify it."</div>
+        <div class="card-desc">모호한 지시도 <strong>'코드를 고치라'</strong>로 해석 — 텍스트가 아니라 작업으로. <mark>범용 에이전트의 기본 자세.</mark></div>
+      </div>
+    </div>
+
+    <div class="vh-src">출처 — <em>Claude Code v2.1 system prompts</em> · Piebald-AI 추출 (github.com/Piebald-AI/claude-code-system-prompts)</div>
+  </div>
+  <div class="foot"><span>Primer · Vendor 지침 — 4선</span><span>05 / 13 · → 전환</span></div>
+</section>
+
+<!-- 03d PRIMER — User 하네스: 전환 (.claude/ 7단위) -->
 <section class="slide light">
   <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Primer · Toolkit</span></div>
-    <div class="tag">#claude-folder #7-units</div>
-    <div>03 / 10</div>
+    <div class="seg"><span class="dot"></span><span>Primer · User 하네스</span></div>
+    <div class="tag">#user-harness #7-units</div>
+    <div>06 / 13</div>
   </div>
   <div class="stage stage-split">
     <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
-      <div class="kicker">다음 세 장을 보기 전</div>
-      <div class="display sm">.claude/ <em>도구들.</em></div>
+      <div class="kicker">Vendor가 끝낸 곳에서 — 우리 차례</div>
+      <div class="display sm">User 하네스의 <em>첫 layer.</em></div>
       <div class="subline" style="margin-top:8px;">
-        skill · agent · command — 다 다른가, 같은가?<br>
-        <strong>7개 단위 — 한 줄 정의.</strong>
+        방금 /context의 <strong>User 3줄</strong> (agents · CLAUDE.md · skills) —<br>
+        그 위에 <strong>4를 더하면</strong> <em>.claude/ 7단위.</em><br>
+        Vendor가 끝낸 자리, <strong>여기서부터가 우리 일.</strong>
       </div>
 
       <div class="vocab-list">
@@ -1051,12 +1307,13 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
              alt="Inside the AI Workshop — .claude/ 비유"
              style="width:100%; max-height:560px; object-fit:contain; display:block; margin-top:16px; border-radius:4px; box-shadow:0 6px 24px rgba(12,11,9,0.14); cursor:zoom-in;" />
       </a>
-      <div style="text-align:center; font-family:var(--serif); font-style:italic; color:var(--gold-dk); margin-top:12px; font-size:15px;">
-        각 디렉토리 = <em style="font-style:normal;font-weight:700;">작업장의 한 역할.</em>
+      <div style="text-align:center; font-family:var(--serif-ko); color:var(--black); margin-top:14px; font-size:18px; line-height:1.5;">
+        Vendor 하네스 — <em style="font-family:var(--serif); color:var(--gold-dk);">이미 깔려 있다.</em><br>
+        User 하네스 — <em style="font-family:var(--serif); color:var(--gold-dk); font-weight:700;">우리가 짠다.</em>
       </div>
     </div>
   </div>
-  <div class="foot"><span>Primer · .claude/ Toolkit</span><span>03 / 10 · → Stage I</span></div>
+  <div class="foot"><span>Primer · User 하네스 — 전환</span><span>06 / 13 · → Stage I</span></div>
 </section>
 
 <!-- 04 STAGE I — Prompt 예제 -->
@@ -1064,7 +1321,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage I · Prompt</span></div>
     <div class="tag">#how-to-say #system-instruction</div>
-    <div>04 / 10</div>
+    <div>07 / 13</div>
   </div>
   <div class="stage stage-split">
     <div class="left-split">
@@ -1160,7 +1417,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Stage I · Prompt — substrate vs concern</span><span>04 / 10 · → Stage II</span></div>
+  <div class="foot"><span>Stage I · Prompt — substrate vs concern</span><span>07 / 13 · → Stage II</span></div>
 </section>
 
 <!-- 04 STAGE II — Context 예제 -->
@@ -1168,7 +1425,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage II · Context</span></div>
     <div class="tag">#what-when-how #skill-agent</div>
-    <div>05 / 10</div>
+    <div>08 / 13</div>
   </div>
   <div class="stage stage-split">
     <div class="left-split">
@@ -1224,7 +1481,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Stage II · Context — substrate vs concern</span><span>05 / 10 · → Stage III</span></div>
+  <div class="foot"><span>Stage II · Context — substrate vs concern</span><span>08 / 13 · → Stage III</span></div>
 </section>
 
 <!-- 05 STAGE III — Harness 예제 -->
@@ -1232,7 +1489,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage III · Harness</span></div>
     <div class="tag">#how-to-execute #halo-workflow</div>
-    <div>06 / 10</div>
+    <div>09 / 13</div>
   </div>
   <div class="stage stage-split">
     <div class="left-split">
@@ -1288,7 +1545,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Stage III · Harness — substrate vs concern</span><span>06 / 10 · → 적층의 단면</span></div>
+  <div class="foot"><span>Stage III · Harness — substrate vs concern</span><span>09 / 13 · → 적층의 단면</span></div>
 </section>
 
 <!-- 06 .claude/ TREE — 적층의 단면 -->
@@ -1296,7 +1553,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · Layered</span></div>
     <div class="tag">#claude-folder #stratigraphy</div>
-    <div>07 / 10</div>
+    <div>10 / 13</div>
   </div>
   <div class="stage stage-split">
     <div class="left-split">
@@ -1351,7 +1608,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Synthesis · 적층의 단면</span><span>07 / 10 · → 4대장</span></div>
+  <div class="foot"><span>Synthesis · 적층의 단면</span><span>10 / 13 · → 4대장</span></div>
 </section>
 
 <!-- 07 FRAMEWORKS -->
@@ -1359,7 +1616,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage III · Frameworks</span></div>
     <div class="tag">#superpowers #gstack #bmad #omc</div>
-    <div>08 / 10</div>
+    <div>11 / 13</div>
   </div>
   <div class="stage top">
     <div class="kicker">한 도구 위에 다시 한 층</div>
@@ -1433,7 +1690,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       차이는 분해 단위뿐 — <strong>task · role · persona · agent.</strong>
     </div>
   </div>
-  <div class="foot"><span>Stage III · 4 Frameworks</span><span>08 / 10 · → vendor 흐름</span></div>
+  <div class="foot"><span>Stage III · 4 Frameworks</span><span>11 / 13 · → vendor 흐름</span></div>
 </section>
 
 <!-- 08 VENDOR FLOWS -->
@@ -1441,7 +1698,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage III · Vendor Flows</span></div>
     <div class="tag">#devin #kiro #closing-the-loop</div>
-    <div>09 / 10</div>
+    <div>12 / 13</div>
   </div>
   <div class="stage">
     <div class="kicker">vendor가 그리는 두 흐름</div>
@@ -1482,7 +1739,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 <span class="hl">결국:</span>   둘 다 — <span class="hl2">발산을 잡는 두 방법.</span>
        한쪽은 자율, 한쪽은 게이트.</div>
   </div>
-  <div class="foot"><span>Stage III · Vendor Flows</span><span>09 / 10 · → Fin</span></div>
+  <div class="foot"><span>Stage III · Vendor Flows</span><span>12 / 13 · → Fin</span></div>
 </section>
 
 <!-- 10 FIN -->
@@ -1490,7 +1747,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Fin</span></div>
     <div class="tag">#bridge-to-deck-4</div>
-    <div>10 / 10</div>
+    <div>13 / 13</div>
   </div>
   <div class="stage stage-split">
     <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
@@ -1517,7 +1774,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Fin · Bridge to Deck 4</span><span>10 / 10 · END</span></div>
+  <div class="foot"><span>Fin · Bridge to Deck 4</span><span>13 / 13 · END</span></div>
 </section>
 
 </div>
