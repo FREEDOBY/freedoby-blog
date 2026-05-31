@@ -552,6 +552,13 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   letter-spacing: -0.02em;
 }
 .slide.light .bigstat { color: var(--gold-dk); }
+.bigstat .bs-pre {
+  font-size: 0.3em;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  vertical-align: 0.55em;
+  margin-right: 0.08em;
+}
 .bigstat-cap {
   font-family: var(--mono);
   font-size: 11px;
@@ -632,6 +639,17 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   font-weight: 700;
 }
 .slide.light .source::before { color: var(--gold-dk); }
+.source .src-url {
+  display: block;
+  margin-top: 4px;
+  text-transform: none;
+  letter-spacing: 0;
+  word-break: break-all;
+  color: var(--gold-lt);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.slide.light .source .src-url { color: var(--gold-dk); }
 
 /* ============ FINAL ============ */
 .final-big {
@@ -2939,7 +2957,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <div class="prob">
         <div class="p-num">I</div>
         <div class="p-name">Pattern Drift</div>
-        <div class="p-en">명시 없으면 — 매번 흐른다</div>
+        <div class="p-en">명시 없으면 — 디폴트가 답한다</div>
         <div class="p-desc">지침 없는 자리에 — 통계가 들어찬다.</div>
         <div class="p-tag">→ 질적 한계</div>
       </div>
@@ -2982,7 +3000,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
           <div class="divider-name">Pattern Drift.</div>
         </div>
         <div class="divider-rule"></div>
-        <div class="divider-tag">명시 없으면 — 매번 흐른다.</div>
+        <div class="divider-tag">전제를 짚지 않고 — 패턴으로 답한다.</div>
       </div>
       <div class="divider-bench">
         <div class="kicker">① Benchmark · Car Wash Test</div>
@@ -2990,8 +3008,8 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
           세차장이 <em>50미터.</em><br>걸어갈까, 운전해서 갈까?
         </div>
         <div class="subline">
-          사람은 1초 만에 답한다 — <em>세차하러 가는 거니까 운전.</em><br>
-          그런데 <strong>53개 모델 중 48개</strong>가 "걸어가라"고 답했다.
+          사람은 1초 만에 답한다 — <em>세차엔 차가 필요하니까 운전.</em><br>
+          그 <em>전제를 짚지 못한</em> 모델은 — 53개 중 <strong>42개가 "걸어가라"</strong> (정답 11개).
         </div>
         <div class="bigstat-block" style="margin-top:18px; grid-template-columns:1fr 1fr; display:grid; gap:24px;">
           <div>
@@ -2999,11 +3017,11 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
             <div class="bigstat-cap">사람 정답률</div>
           </div>
           <div>
-            <div class="bigstat" style="color:var(--warn-dk)">9.4%</div>
-            <div class="bigstat-cap">모델 평균 정답률</div>
+            <div class="bigstat" style="color:var(--warn-dk)">20.8%</div>
+            <div class="bigstat-cap">모델 정답률 (1회 · 11/53)</div>
           </div>
         </div>
-        <div class="source">Opper.ai · 2025 · 53 LLMs</div>
+        <div class="source">Opper.ai · 2026 · 53 LLMs<a class="src-url" href="https://opper.ai/blog/car-wash-test" target="_blank" rel="noopener">https://opper.ai/blog/car-wash-test</a></div>
       </div>
     </div>
     <div class="divider-art"></div>
@@ -3216,7 +3234,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
           <li>중간이면 놓친다 — <em>Lost in the Middle</em></li>
           <li>Multi-needle은 더 심각 — 코드베이스 추적이 정확히 그 영역</li>
         </ul>
-        <div class="source">Liu et al. · 2023 · "Lost in the Middle"</div>
+        <div class="source">Liu et al. · TACL 2024 · "Lost in the Middle"<a class="src-url" href="https://aclanthology.org/2024.tacl-1.9/" target="_blank" rel="noopener">https://aclanthology.org/2024.tacl-1.9/</a></div>
       </div>
     </div>
     <div class="divider-art"></div>
@@ -3288,10 +3306,8 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
             <circle cx="480" cy="149" r="6" class="cl-dot mid" />
             <circle cx="560" cy="178" r="7" class="cl-dot mid" />
 
-            <text x="80" y="40" text-anchor="middle" class="cl-label">99%</text>
-            <text x="240" y="56" text-anchor="middle" class="cl-label">92%</text>
-            <text x="400" y="105" text-anchor="middle" class="cl-label warn">70%</text>
-            <text x="560" y="166" text-anchor="middle" class="cl-label warn">42%</text>
+            <text x="80" y="40" text-anchor="middle" class="cl-label">99.3%</text>
+            <text x="400" y="105" text-anchor="middle" class="cl-label warn">69.7%</text>
           </svg>
         </div>
       </div>
@@ -3299,7 +3315,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
         <div class="col-label">최신 발견 (2025)</div>
         <ul class="col-list">
           <li><em>GPT-4o</em>: 99.3% → <em>69.7% @ 32K</em> (NoLiMa)</li>
-          <li>32K에서 <em>10개 모델이 baseline 절반 이하</em>로 추락</li>
+          <li>32K에서 <em>11개 모델이 baseline 절반 이하</em>로 추락 (NoLiMa)</li>
           <li>Claude 4 · GPT-4.1 · Gemini 2.5 · Qwen3 — <em>최신 모델도 동일 패턴</em> (Chroma 18-model 평가)</li>
           <li>Literal match 없으면 더 가파르게 — 실제 코드 추적이 그 영역</li>
         </ul>
@@ -3307,7 +3323,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
           <em>윈도우가 크다 ≠ 그만큼 활용</em>한다.<br>
           모델이 새로워져도 — <em>근본 패턴은 동일.</em>
         </div>
-        <div class="source">Chroma "Context Rot" (2025-07, 18 SOTA 모델) · NoLiMa (Modarressi et al., ICML 2025) · arxiv:2502.05167</div>
+        <div class="source">Chroma "Context Rot" (2025-07, 18 SOTA 모델) · NoLiMa (Modarressi et al., ICML 2025)<a class="src-url" href="https://www.trychroma.com/research/context-rot" target="_blank" rel="noopener">https://www.trychroma.com/research/context-rot</a><a class="src-url" href="https://arxiv.org/abs/2502.05167" target="_blank" rel="noopener">https://arxiv.org/abs/2502.05167</a></div>
       </div>
     </div>
   </div>
@@ -3480,20 +3496,20 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
           보이지 않으면,<br><em>존재하지 않는다.</em>
         </div>
         <div class="subline">
-          ~10K 크로스파일 의존 문제 — Python · Java · TypeScript · C#.<br>
-          같은 파일만 주느냐, <em>관련 파일까지</em> 주느냐로 정답률이 갈린다.
+          ~10K개 문제 — 정답을 쓰려면 <em>다른 파일</em>의 정의를 알아야 한다 (Python · Java · TS · C#).<br>
+          같은 모델·같은 문제인데, <em>관련 파일을 보여주느냐</em>로 정답률이 갈린다.
         </div>
         <div class="bigstat-block" style="margin-top:18px; grid-template-columns:1fr 1fr; display:grid; gap:24px;">
           <div>
             <div class="bigstat" style="color:var(--warn-dk)">8.82%</div>
-            <div class="bigstat-cap">in-file only</div>
+            <div class="bigstat-cap">현재 파일만 줬을 때 정답률</div>
           </div>
           <div>
-            <div class="bigstat">× 4.5</div>
-            <div class="bigstat-cap">with cross-file</div>
+            <div class="bigstat"><span class="bs-pre">최대</span>×4.5</div>
+            <div class="bigstat-cap">관련 파일까지 주면 정답률 배수</div>
           </div>
         </div>
-        <div class="source">CrossCodeEval · Ding et al. NeurIPS 2023</div>
+        <div class="source">CrossCodeEval · Ding et al. NeurIPS 2023<a class="src-url" href="https://arxiv.org/abs/2310.11248" target="_blank" rel="noopener">https://arxiv.org/abs/2310.11248</a></div>
       </div>
     </div>
     <div class="divider-art"></div>

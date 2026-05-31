@@ -361,6 +361,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   border-bottom: 1px solid var(--gold);
 }
 .mem-row.mem-header .mem-label,
+.mem-row.mem-header .mem-bar-head,
 .mem-row.mem-header .mem-val,
 .mem-row.mem-header .mem-speed,
 .mem-row.mem-header .mem-price {
@@ -370,6 +371,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   text-transform: uppercase;
   font-weight: 700;
 }
+.mem-bar-head { font-family: var(--mono); }
 
 /* MODEL LINEUP TABLE (slide 07 — light) */
 .model-lineup {
@@ -1034,7 +1036,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       더 큰 컨텍스트 윈도우가 답이 아닌 이유 — <em>물리 법칙이 먼저다.</em>
     </div>
     <div class="cover-sub">
-      AI의 한계는 알고리즘 문제가 아니다. <strong>50년 된 Memory Wall</strong>의 최신 형태다.<br>
+      AI의 한계는 알고리즘 문제가 아니다. <strong>30년 된 Memory Wall</strong>의 최신 형태다.<br>
       Rubin GPU가 나와도, GPT-6이 나와도 — 천장의 형태는 바뀌지 않는다.
     </div>
   </div>
@@ -1089,12 +1091,12 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div>
       <div class="kicker" style="font-size:14px;">답</div>
       <div class="keyword">
-        물리 법칙이다 —<br>그리고 <em>50년 된</em> 문제다.
+        물리 법칙이다 —<br>그리고 <em>30년 된</em> 문제다.
       </div>
       <div class="divider"></div>
       <div class="subline" style="font-size:clamp(17px, 1.45vw, 22px);">
         AI가 부딪히는 한계는 새로운 문제가 아닙니다.<br>
-        컴퓨터 과학이 1970년대부터 씨름해온 문제의 <em>최신 형태</em>입니다.<br><br>
+        컴퓨터 과학이 1990년대부터 씨름해온 문제의 <em>최신 형태</em>입니다.<br><br>
         연산 속도는 기하급수적으로 빨라졌습니다.<br>
         메모리 대역폭은 그 속도를 따라가지 못했습니다.<br><br>
         <em>Memory Wall.</em> 오늘날 AI의 천장이 여기서 옵니다.
@@ -1104,12 +1106,12 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div style="display:flex; align-items:center; justify-content:center;">
       <a href="../../images/memory-wall.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기" style="display:block; width:100%;">
         <img src="../../images/memory-wall.png"
-             alt="Memory Wall — 50년 된 문제"
+             alt="Memory Wall — 30년 된 문제"
              style="width:100%; max-height:560px; object-fit:contain; display:block; cursor:zoom-in;" />
       </a>
     </div>
   </div>
-  <div class="foot"><span>Opening · 50년 된 문제</span><span>03 / 16 · → 메모리 계층</span></div>
+  <div class="foot"><span>Opening · 30년 된 문제</span><span>03 / 16 · → 메모리 계층</span></div>
 </section>
 
 <!-- 04 메모리 계층 -->
@@ -1126,7 +1128,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div class="mem-ladder">
       <div class="mem-row mem-header">
         <span class="mem-label">메모리</span>
-        <span></span>
+        <span class="mem-bar-head">상대 속도</span>
         <span class="mem-val">용량</span>
         <span class="mem-speed">대역폭</span>
         <span class="mem-price">단가/GB</span>
@@ -1163,13 +1165,13 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
         <span class="mem-label">NVMe SSD</span>
         <div class="mem-bar-wrap"><div class="mem-bar-fill" style="width:13%;background:var(--green);"></div></div>
         <span class="mem-val">수십 TB</span>
-        <span class="mem-speed">~7 GB/s</span>
+        <span class="mem-speed">~14 GB/s</span>
         <span class="mem-price">$0.05</span>
       </div>
     </div>
 
     <div class="subline" style="margin-top:18px; max-width:none;">
-      B200 HBM: <em>192 GB · 8 TB/s · $15/GB</em>가 천장 — SSD 대비 가격·용량 둘 다 <strong>~300배 차이.</strong>
+      B200 HBM: <em>192 GB · 8 TB/s</em>가 천장 — SSD 대비 <strong>용량은 수백 배 작고, GB당 가격은 수십~수백 배 비싸다.</strong>
     </div>
   </div>
   <div class="foot"><span>Memory Hierarchy · 빠를수록 작다</span><span>04 / 16 · → HBM = 조리대</span></div>
@@ -1289,15 +1291,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
         <span class="ml-name">Llama 4 Maverick</span>
         <span class="ml-size">400B / 17B 활성</span>
         <span class="ml-arch">GQA + MoE</span>
-        <span class="ml-kv">~350 KB</span>
-        <span class="ml-200k">~70 GB</span>
+        <span class="ml-kv">~192 KB</span>
+        <span class="ml-200k">~38 GB</span>
       </div>
       <div class="ml-row">
         <span class="ml-name">Qwen3 32B</span>
         <span class="ml-size">32B dense</span>
         <span class="ml-arch">GQA</span>
-        <span class="ml-kv">~210 KB</span>
-        <span class="ml-200k">~42 GB</span>
+        <span class="ml-kv">~256 KB</span>
+        <span class="ml-200k">~51 GB</span>
       </div>
       <div class="ml-row mla">
         <span class="ml-name">DeepSeek V3 / R1</span>
@@ -1310,8 +1312,8 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
         <span class="ml-name">Kimi K2</span>
         <span class="ml-size">1T / 32B 활성</span>
         <span class="ml-arch">MLA ★</span>
-        <span class="ml-kv">~80 KB</span>
-        <span class="ml-200k">~16 GB</span>
+        <span class="ml-kv">~70 KB</span>
+        <span class="ml-200k">~14 GB</span>
       </div>
     </div>
 
@@ -1460,7 +1462,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <div class="shard-divider">→</div>
 
       <div class="shard-side good">
-        <div class="shard-title">TP=8 · DGX B200 표준 SKU · 1.5 TB</div>
+        <div class="shard-title">TP=8 · B200 ×8 · 1,536 GB</div>
         <div class="shard-grid">
           <div class="sb-mini"><div class="sm-label">#0</div><div class="m-w" style="height:9.1%"></div><div class="m-k" style="height:4.2%"></div><div class="m-f"></div></div>
           <div class="sb-mini"><div class="sm-label">#1</div><div class="m-w" style="height:9.1%"></div><div class="m-k" style="height:4.2%"></div><div class="m-f"></div></div>
@@ -1778,7 +1780,7 @@ User: "아까 말한 설계 원칙대로 구현해줘"
         <em>Memory Wall.</em>
       </div>
       <div class="final-sub">
-        HBM 대역폭 · 용량 · Attention 희석 — <em>50년 된 한계의 최신 형태.</em><br>
+        HBM 대역폭 · 용량 · Attention 희석 — <em>30년 된 한계의 최신 형태.</em><br>
         Rubin GPU도, GPT-6도, 이 구조 안에서는 천장을 못 깬다.<br><br>
         한계는 알고리즘 문제가 아니다 — <strong>물리 문제다.</strong> 답도 그래서 알고리즘이 아니라, <strong>시스템이다.</strong>
       </div>
@@ -1792,7 +1794,7 @@ User: "아까 말한 설계 원칙대로 구현해줘"
     <div style="display:flex; align-items:center; justify-content:center;">
       <a href="../../images/memory-wall.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기" style="display:block; width:100%;">
         <img src="../../images/memory-wall.png"
-             alt="Memory Wall — 50년 된 한계"
+             alt="Memory Wall — 30년 된 한계"
              style="width:100%; max-height:560px; object-fit:contain; display:block; cursor:zoom-in;" />
       </a>
     </div>
