@@ -155,8 +155,8 @@ img { max-width: 100%; }
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-faint);
-  padding: 0 10px 10px;
-  margin-bottom: 6px;
+  padding: 0 10px 8px;
+  margin-bottom: 4px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -172,9 +172,9 @@ img { max-width: 100%; }
   font-weight: 500;
   color: var(--text-soft);
   text-decoration: none;
-  padding: 8px 10px;
+  padding: 6px 10px;
   border-radius: var(--radius);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   transition: background 0.12s, color 0.12s;
 }
 
@@ -197,8 +197,8 @@ img { max-width: 100%; }
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-faint);
-  padding: 8px 10px 6px;
-  margin-top: 16px;
+  padding: 6px 10px 4px;
+  margin-top: 10px;
 }
 
 .sidebar-section:first-of-type {
@@ -224,11 +224,11 @@ a.sidebar-section.active {
   display: flex;
   gap: 8px;
   align-items: baseline;
-  padding: 8px 10px;
+  padding: 6px 10px;
   text-decoration: none;
   color: var(--text-soft);
   font-size: 14px;
-  line-height: 1.45;
+  line-height: 1.4;
   border-radius: var(--radius);
   transition: background 0.12s, color 0.12s;
   word-break: keep-all;
