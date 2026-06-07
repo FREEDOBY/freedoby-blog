@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>일하는 방식이 바뀐다 — Deterministic SOP + Agentic Exception Handling</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black:   #0c0b09;
+  --cream:   #f0ece0;
+  --warm:    #f5f0e6;
+  --gold:    #b8924a;
+  --gold-lt: #ddb96a;
+  --gold-dk: #7a5f2e;
+  --rule-lt: rgba(240, 236, 224, 0.18);
+  --rule-dk: rgba(12, 11, 9, 0.14);
+  --muted-dk:#6a6458;
+  --muted-lt:#c8c0b0;
+  --danger:  #b8523a;
+  --danger-dk:#8a3d2a;
+  --blue:    #8fb2cc;
+  --blue-dk: #4f7796;
+
+  --serif:   'Cormorant Garamond', 'Gowun Batang', Georgia, serif;
+  --serif-ko:'Gowun Batang', 'Cormorant Garamond', serif;
+  --sans:    'IBM Plex Sans KR', 'Helvetica Neue', sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; }
+body { background: var(--black); color: var(--cream); font-family: var(--sans); }
+
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 44px 80px 52px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px);
+  transition: opacity 500ms cubic-bezier(.2,.7,.2,1), transform 600ms cubic-bezier(.2,.7,.2,1);
+}
+.slide.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+.slide.dark  { background: var(--black); color: var(--cream); }
+.slide.light { background: var(--warm);  color: var(--black); }
+
+.slide::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(180,170,140,0.06) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  z-index: 0;
+}
+.slide > * { position: relative; z-index: 1; }
+
+/* CHROME */
+.chrome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-bottom: 12px;
+  border-bottom: 1px solid;
+}
+.slide.dark .chrome  { color: var(--muted-lt); border-color: var(--rule-lt); }
+.slide.light .chrome { color: var(--muted-dk); border-color: var(--rule-dk); }
+.chrome .seg { display: flex; gap: 10px; align-items: center; }
+.chrome .seg .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); display: inline-block; }
+.chrome .tag { color: var(--gold); text-transform: none; letter-spacing: 0.05em; }
+.slide.light .chrome .tag { color: var(--gold-dk); }
+
+/* FOOTER */
+.foot {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding-top: 12px;
+  border-top: 1px solid;
+}
+.slide.dark .foot  { color: var(--muted-lt); border-color: var(--rule-lt); }
+.slide.light .foot { color: var(--muted-dk); border-color: var(--rule-dk); }
+
+/* STAGE */
+.stage { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 28px 0; }
+.stage.top { justify-content: flex-start; padding-top: 32px; }
+
+.stage-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding: 20px 0;
+}
+.stage-split.r .art { order: 2; }
+.stage-split.r .copy { order: 1; }
+
+.art { display: flex; align-items: center; justify-content: center; min-height: 0; }
+.art img {
+  max-width: 100%; max-height: 58vh;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(12,11,9,0.28));
+}
+
+/* bleed backdrop */
+.bleed { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.bleed img { width: 100%; height: 100%; object-fit: cover; opacity: 0.15; filter: saturate(0.7); }
+.has-bleed > *:not(.bleed) { z-index: 2; position: relative; }
+
+/* TYPOGRAPHY */
+.kicker {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.kicker::before { content: ""; display: inline-block; width: 20px; height: 1px; background: var(--gold); }
+.slide.light .kicker { color: var(--gold-dk); }
+.slide.light .kicker::before { background: var(--gold-dk); }
+
+.display {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(56px, 9vw, 148px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+}
+.slide.light .display { color: var(--black); }
+.display em { font-style: italic; font-weight: 400; color: var(--gold); }
+.slide.light .display em { color: var(--gold-dk); }
+.display.md { font-size: clamp(44px, 6.5vw, 100px); }
+.display.sm { font-size: clamp(36px, 5vw, 76px); }
+
+.keyword {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(44px, 6.5vw, 100px);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+.slide.light .keyword { color: var(--black); }
+.keyword em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--gold); }
+.slide.light .keyword em { color: var(--gold-dk); }
+.keyword.md { font-size: clamp(36px, 5vw, 76px); }
+.keyword.sm { font-size: clamp(28px, 3.8vw, 58px); }
+
+.subline {
+  font-family: var(--serif-ko);
+  font-size: clamp(16px, 1.3vw, 21px);
+  line-height: 1.6;
+  color: var(--muted-lt);
+  max-width: 560px;
+  margin-top: 4px;
+}
+.slide.light .subline { color: var(--muted-dk); }
+.subline strong { color: var(--cream); font-weight: 700; }
+.slide.light .subline strong { color: var(--black); }
+
+.callout {
+  margin-top: 28px;
+  padding: 22px 28px;
+  border-left: 3px solid var(--gold);
+  background: rgba(184,146,74,0.06);
+  font-family: var(--serif-ko);
+  font-size: clamp(17px, 1.55vw, 25px);
+  line-height: 1.55;
+  color: var(--cream);
+  max-width: 920px;
+}
+.slide.light .callout { color: var(--black); border-left-color: var(--gold-dk); background: rgba(122,95,46,0.07); }
+.callout em { color: var(--gold); font-style: italic; font-weight: 700; }
+.slide.light .callout em { color: var(--gold-dk); }
+
+/* COVER */
+.cover { justify-content: space-between; padding: 52px 80px; }
+.cover-brand {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+  display: flex; gap: 16px; align-items: baseline;
+}
+.cover-brand .gold { color: var(--gold); }
+.cover-main { display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 24px 0; }
+.cover-title {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(72px, 11.5vw, 188px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.cover-title .gold { color: var(--gold); font-family: var(--serif); font-style: italic; font-weight: 400; }
+.cover-rule { width: 100%; height: 1px; background: var(--gold); margin: 28px 0; opacity: 0.5; }
+.cover-tagline {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(26px, 3.4vw, 48px);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 28px;
+  max-width: 880px;
+}
+.cover-tagline em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--gold); }
+.cover-sub {
+  font-family: var(--serif-ko);
+  font-size: clamp(18px, 1.8vw, 26px);
+  color: var(--muted-lt);
+  max-width: 760px;
+  line-height: 1.55;
+}
+.cover-sub strong { color: var(--cream); font-weight: 700; }
+.cover .bleed img { opacity: 0.30; filter: saturate(0.72); }
+.cover-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+}
+
+/* ============ DECK 6 SPECIFIC ============ */
+
+/* before / after (slide 2) */
+.ba {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 30px;
+}
+.ba-cell {
+  padding: 24px 26px 26px;
+  border: 1px solid var(--rule-dk);
+  background: rgba(12,11,9,0.015);
+}
+.ba-cell.after { border-color: var(--gold-dk); background: rgba(184,146,74,0.06); }
+.ba-label {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-dk);
+  margin-bottom: 16px;
+}
+.ba-cell.after .ba-label { color: var(--gold-dk); }
+.ba-body {
+  font-family: var(--serif-ko);
+  font-size: clamp(17px, 1.4vw, 23px);
+  line-height: 1.62;
+  color: var(--black);
+}
+.ba-body strong { font-weight: 700; }
+.ba-body em { font-family: var(--serif); font-style: italic; color: var(--gold-dk); font-weight: 700; }
+
+/* SOP pipeline (slide 4) */
+.sop-pipe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 34px;
+}
+.sop-node {
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 14px 18px;
+  border: 1px solid var(--rule-dk);
+  background: var(--warm);
+  min-width: 96px;
+}
+.sop-node.pr   { border-color: var(--blue-dk); background: rgba(79,119,150,0.08); }
+.sop-node.human{ border-color: var(--blue-dk); background: rgba(79,119,150,0.08); }
+.sop-node.pass { border-color: var(--gold-dk); background: rgba(184,146,74,0.10); }
+.sop-stage {
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 14px 16px;
+  border: 1px solid var(--gold-dk);
+  background: rgba(184,146,74,0.05);
+  min-width: 120px;
+}
+.sop-n {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(22px, 2vw, 30px);
+  color: var(--gold-dk);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.sop-t {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--black);
+  text-align: center;
+}
+.sop-sub {
+  font-family: var(--serif-ko);
+  font-size: 14px;
+  color: var(--muted-dk);
+  margin-top: 4px;
+}
+.sop-arr {
+  display: flex; align-items: center;
+  font-family: var(--mono);
+  font-size: 20px;
+  color: var(--muted-dk);
+}
+.sop-fail {
+  margin-top: 22px;
+  font-family: var(--serif-ko);
+  font-size: clamp(15px, 1.15vw, 19px);
+  color: var(--muted-dk);
+}
+.sop-fail b { color: var(--danger-dk); font-weight: 700; }
+
+/* expert grid (slide 5) */
+.expert-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin-top: 30px;
+}
+.ex-card {
+  padding: 18px 16px 18px;
+  border: 1px solid var(--rule-lt);
+  background: rgba(184,146,74,0.04);
+  display: flex; flex-direction: column;
+}
+.ex-stage {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.ex-name {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(17px, 1.45vw, 22px);
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+.ex-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.ex-list li {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  color: var(--muted-lt);
+  padding-left: 12px;
+  position: relative;
+}
+.ex-list li::before { content: "·"; position: absolute; left: 0; color: var(--gold); }
+
+/* common exception flow (slide 6) */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 34px;
+}
+.flow-step {
+  flex: 1 1 0;
+  min-width: 150px;
+  padding: 20px 20px 22px;
+  border: 1px solid var(--rule-dk);
+  background: var(--warm);
+  display: flex; flex-direction: column;
+}
+.flow-n {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(30px, 3vw, 46px);
+  color: var(--gold-dk);
+  opacity: 0.45;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.flow-t {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(17px, 1.4vw, 22px);
+  color: var(--black);
+  margin-bottom: 5px;
+  letter-spacing: -0.01em;
+}
+.flow-en {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  color: var(--muted-dk);
+}
+.flow-step.retry { border-color: var(--gold-dk); background: rgba(184,146,74,0.07); }
+.flow-arr { display: flex; align-items: center; font-family: var(--mono); font-size: 20px; color: var(--muted-dk); }
+
+/* principles (slide 7) */
+.principles {
+  margin-top: 30px;
+  display: flex; flex-direction: column; gap: 16px;
+  max-width: 920px;
+}
+.pr-row {
+  display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: baseline;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule-lt);
+}
+.pr-num {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+}
+.pr-text {
+  font-family: var(--serif-ko);
+  font-size: clamp(18px, 1.65vw, 27px);
+  line-height: 1.4;
+  color: var(--cream);
+}
+.pr-text em { font-family: var(--serif); font-style: italic; color: var(--gold); font-weight: 400; }
+.pr-text strong { font-weight: 700; }
+
+/* FINAL */
+.final-big {
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: clamp(48px, 7.5vw, 116px);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.final-big em { font-family: var(--serif); font-style: italic; color: var(--gold); font-weight: 400; }
+.final-sub {
+  font-family: var(--serif-ko);
+  font-size: clamp(18px, 1.6vw, 24px);
+  color: var(--muted-lt);
+  margin-top: 22px;
+  max-width: 800px;
+  line-height: 1.6;
+}
+.final-sub em { font-family: var(--serif); font-style: italic; color: var(--gold-lt); font-weight: 400; }
+.final-link {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-top: 40px;
+  text-transform: uppercase;
+}
+
+/* PROGRESS */
+.progress {
+  position: fixed;
+  bottom: 0; left: 0;
+  height: 2px;
+  background: var(--gold);
+  width: 0%;
+  transition: width 320ms cubic-bezier(.2,.7,.2,1);
+  z-index: 100;
+}
+.navhint {
+  position: fixed;
+  bottom: 14px; right: 18px;
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  color: var(--muted-lt);
+  z-index: 90;
+  opacity: 0.6;
+}
+.navhint kbd {
+  background: var(--cream);
+  color: var(--black);
+  padding: 2px 6px;
+  border-radius: 2px;
+  margin: 0 2px;
+  font-family: var(--mono);
+  font-size: 14px;
+}
+.click-zone { position: fixed; top: 0; height: 100%; width: 12%; z-index: 50; }
+.click-zone.left  { left: 0;  cursor: w-resize; }
+.click-zone.right { right: 0; cursor: e-resize; }
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .slide { padding: 28px 36px 40px; }
+  .stage-split { grid-template-columns: 1fr; gap: 28px; }
+  .stage-split.r .art, .stage-split.r .copy { order: 0; }
+  .art img { max-height: 36vh; }
+  .ba { grid-template-columns: 1fr; }
+  .expert-grid { grid-template-columns: 1fr 1fr; }
+  .sop-arr, .flow-arr { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- ============ 01 COVER ============ -->
+<section class="slide dark cover active has-bleed">
+  <div class="bleed">
+    <img src="../../images/SOP-ExceptionHnandling.png" alt="Deterministic SOP + Specialized Agentic Exception Handling" />
+  </div>
+  <div class="cover-brand">
+    <span>FREEDOBY</span>
+    <span class="gold">—</span>
+    <span>2026</span>
+    <span class="gold">·</span>
+    <span>Agentic SOP</span>
+    <span class="gold">·</span>
+    <span>Deck 06</span>
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-title">
+      PR만 등록한다.<br><span class="gold">나머지는, SOP가.</span>
+    </div>
+    <div class="cover-rule"></div>
+    <div class="cover-tagline">
+      빌드부터 성능까지 — 자동으로 실행된다.<br>
+      <em>실패하면, 그 분야 전문가 AI가 고친다.</em>
+    </div>
+    <div class="cover-sub">
+      개발자는 PR을 등록하고 — 최종 리포트를 승인한다.<br>
+      <strong>그 사이의 모든 SOP는, 스스로 돈다.</strong>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span>"deterministic execution. agentic recovery."</span>
+    <span>01 / 08</span>
+  </div>
+</section>
+
+<!-- ============ 02 SETUP · 무엇이 바뀌나 ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Setup · 일하는 방식의 변화</span></div>
+    <div class="tag">#pr-driven #deterministic-sop #before-after</div>
+    <div>02 / 08</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">무엇이 바뀌는가</div>
+    <div class="keyword sm">
+      손으로 돌리던 파이프라인이 — <em>스스로 돈다.</em>
+    </div>
+
+    <div class="ba">
+      <div class="ba-cell">
+        <div class="ba-label">Before · 사람이 돌린다</div>
+        <div class="ba-body">
+          개발자가 빌드를 돌리고 — 실패 로그를 읽고 — 원인을 찾고 — 고치고 — 다시 돌린다.<br>
+          <strong>단계마다, 매번, 손으로.</strong>
+        </div>
+      </div>
+      <div class="ba-cell after">
+        <div class="ba-label">After · SOP가 돈다</div>
+        <div class="ba-body">
+          PR 하나를 등록하면 — 빌드·테스트가 정해진 순서로 <em>자동 실행</em>된다.<br>
+          실패는 전문가 AI가 처리하고 — <strong>사람은 최종 승인만.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Setup · Before → After</span><span>02 / 08 · → 전체 그림</span></div>
+</section>
+
+<!-- ============ 03 전체 그림 (HERO IMAGE) ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Overview · 한 장으로 보는 전체</span></div>
+    <div class="tag">#deterministic-sop #agentic-exception</div>
+    <div>03 / 08</div>
+  </div>
+  <div class="stage" style="gap:18px;">
+    <div class="kicker" style="margin-bottom:8px;">결정론적 SOP + 전문가 AI의 예외 처리</div>
+    <a href="../../images/SOP-ExceptionHnandling.png" target="_blank" rel="noopener" title="클릭 — 새 창에서 원본 크기로 보기">
+      <img src="../../images/SOP-ExceptionHnandling.png"
+           alt="Deterministic SOP + Specialized Agentic Exception Handling — 전체 구조"
+           style="width:100%; max-height:60vh; object-fit:contain; display:block; border-radius:4px; box-shadow:0 10px 36px rgba(0,0,0,0.45); cursor:zoom-in;" />
+    </a>
+    <div style="text-align:center; font-family:var(--serif); font-style:italic; color:var(--gold-lt); font-size:clamp(15px,1.2vw,20px);">
+      파이프라인은 정해진 순서로 흐르고 — <em style="font-style:normal;font-weight:700;color:var(--gold);">각 단계의 예외는 그 분야 전문가 AI가 처리한다.</em>
+    </div>
+  </div>
+  <div class="foot"><span>Overview · 전체 구조</span><span>03 / 08 · → SOP 파이프라인</span></div>
+</section>
+
+<!-- ============ 04 SOP 파이프라인 ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>SOP · 결정론적 파이프라인</span></div>
+    <div class="tag">#build #unit #integration #target #perf</div>
+    <div>04 / 08</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">PR 등록 다음에 벌어지는 일</div>
+    <div class="keyword sm">정해진 순서로 — <em>자동으로.</em></div>
+
+    <div class="sop-pipe">
+      <div class="sop-node pr"><div class="sop-t">PR<div class="sop-sub">개발자 등록</div></div></div>
+      <div class="sop-arr">→</div>
+      <div class="sop-stage"><div class="sop-n">①</div><div class="sop-t">OEM BUILD</div></div>
+      <div class="sop-arr">→</div>
+      <div class="sop-stage"><div class="sop-n">②</div><div class="sop-t">UNIT TEST</div></div>
+      <div class="sop-arr">→</div>
+      <div class="sop-stage"><div class="sop-n">③</div><div class="sop-t">INTEGRATION</div></div>
+      <div class="sop-arr">→</div>
+      <div class="sop-stage"><div class="sop-n">④</div><div class="sop-t">TARGET TEST</div></div>
+      <div class="sop-arr">→</div>
+      <div class="sop-stage"><div class="sop-n">⑤</div><div class="sop-t">PERF TEST</div></div>
+      <div class="sop-arr">→</div>
+      <div class="sop-node pass"><div class="sop-t">ALL PASS</div></div>
+      <div class="sop-arr">→</div>
+      <div class="sop-node human"><div class="sop-t">HUMAN<div class="sop-sub">리뷰 · 승인</div></div></div>
+    </div>
+
+    <div class="sop-fail">
+      각 단계는 <b>FAIL</b> 시 멈추지 않는다 — 그 단계의 전문가 AI가 붙고, 수정 후 <b>그 단계로 재진입(Retry)</b>한다.
+    </div>
+
+    <div class="callout" style="max-width:none;">
+      다섯 단계는 <em>결정론적</em>이다 — 같은 입력엔 같은 순서, 같은 실행. 다섯이 모두 통과해야 — <em>사람의 리뷰로</em> 넘어간다.
+    </div>
+  </div>
+  <div class="foot"><span>SOP · BUILD → UNIT → INTEGRATION → TARGET → PERF</span><span>04 / 08 · → 예외는 전문가가</span></div>
+</section>
+
+<!-- ============ 05 예외 = 단계별 전문가 AI ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Exception · 단계별 전문가 AI</span></div>
+    <div class="tag">#specialized-agent #per-stage-expert</div>
+    <div>05 / 08</div>
+  </div>
+  <div class="stage" style="gap:0;">
+    <div class="kicker">실패하면, 누가 고치나</div>
+    <div class="keyword sm" style="margin-bottom:6px;">범용 AI 하나가 아니라 — <em>단계별 전문가.</em></div>
+
+    <div class="expert-grid">
+      <div class="ex-card">
+        <div class="ex-stage">① BUILD</div>
+        <div class="ex-name">Build Expert</div>
+        <ul class="ex-list">
+          <li>Compiler Error 분석</li>
+          <li>Dependency 문제</li>
+          <li>Build Script 검토</li>
+          <li>Config · 환경 진단</li>
+        </ul>
+      </div>
+      <div class="ex-card">
+        <div class="ex-stage">② UNIT</div>
+        <div class="ex-name">Unit Test Expert</div>
+        <ul class="ex-list">
+          <li>Assertion Failure</li>
+          <li>Mock · Stub 문제</li>
+          <li>Logic 버그 탐지</li>
+          <li>Test Coverage 확보</li>
+        </ul>
+      </div>
+      <div class="ex-card">
+        <div class="ex-stage">③ INTEGRATION</div>
+        <div class="ex-name">Integration Expert</div>
+        <ul class="ex-list">
+          <li>Interface Mismatch</li>
+          <li>Contract · Schema 검증</li>
+          <li>Module Dependency</li>
+          <li>연동 문제 진단</li>
+        </ul>
+      </div>
+      <div class="ex-card">
+        <div class="ex-stage">④ TARGET</div>
+        <div class="ex-name">Target Test Expert</div>
+        <ul class="ex-list">
+          <li>Device Log 분석</li>
+          <li>FW · OS 환경</li>
+          <li>Hardware Interaction</li>
+          <li>Domain Rule · Spec</li>
+        </ul>
+      </div>
+      <div class="ex-card">
+        <div class="ex-stage">⑤ PERF</div>
+        <div class="ex-name">Performance Expert</div>
+        <ul class="ex-list">
+          <li>Latency 분석</li>
+          <li>Throughput 분석</li>
+          <li>CPU · Memory</li>
+          <li>I/O Bottleneck</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:26px; max-width:none;">
+      각 단계의 FAIL은 — 그 단계를 가장 잘 아는 <em>전문가 AI</em>에게 간다. 한 명의 만능이 아니라, 다섯의 전문성이다.
+    </div>
+  </div>
+  <div class="foot"><span>Exception · 단계별 전문가 AI</span><span>05 / 08 · → 어떻게 고치나</span></div>
+</section>
+
+<!-- ============ 06 공통 예외 처리 패턴 ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Recovery · 공통 예외 처리 패턴</span></div>
+    <div class="tag">#root-cause #fix #commit-pr #retry</div>
+    <div>06 / 08</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">전문가 AI는 어떻게 고치나</div>
+    <div class="keyword sm">모든 전문가가 — <em>같은 다섯 걸음.</em></div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-n">1</div>
+        <div class="flow-t">로그 수집</div>
+        <div class="flow-en">Log · 결과 수집</div>
+      </div>
+      <div class="flow-arr">→</div>
+      <div class="flow-step">
+        <div class="flow-n">2</div>
+        <div class="flow-t">원인 분석</div>
+        <div class="flow-en">Root Cause</div>
+      </div>
+      <div class="flow-arr">→</div>
+      <div class="flow-step">
+        <div class="flow-n">3</div>
+        <div class="flow-t">수정</div>
+        <div class="flow-en">Fix</div>
+      </div>
+      <div class="flow-arr">→</div>
+      <div class="flow-step">
+        <div class="flow-n">4</div>
+        <div class="flow-t">커밋 · PR 갱신</div>
+        <div class="flow-en">Commit & PR</div>
+      </div>
+      <div class="flow-arr">→</div>
+      <div class="flow-step retry">
+        <div class="flow-n">5</div>
+        <div class="flow-t">해당 단계로 재진입</div>
+        <div class="flow-en">Retry</div>
+      </div>
+    </div>
+
+    <div class="callout" style="max-width:none;">
+      모든 수정은 <em>커밋 · PR로 기록</em>된다 — 그리고 실패한 <em>그 단계로만</em>, 다시 들어간다. 처음부터가 아니다.
+    </div>
+  </div>
+  <div class="foot"><span>Recovery · 로그 → 원인 → 수정 → 기록 → 재진입</span><span>06 / 08 · → 원칙</span></div>
+</section>
+
+<!-- ============ 07 핵심 원칙 / 결론 ============ -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Principles · 핵심 원칙</span></div>
+    <div class="tag">#deterministic #agentic #human-gate</div>
+    <div>07 / 08</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">결론</div>
+    <div class="keyword">자동은 <em>실행</em>을 — 사람은 <em>판단</em>을.</div>
+
+    <div class="principles">
+      <div class="pr-row"><div class="pr-num">01</div><div class="pr-text">SOP는 <strong>결정론적</strong>으로 실행된다.</div></div>
+      <div class="pr-row"><div class="pr-num">02</div><div class="pr-text">예외는 <em>단계별 전문가 AI</em>가 처리한다.</div></div>
+      <div class="pr-row"><div class="pr-num">03</div><div class="pr-text">모든 수정은 <strong>PR · 커밋</strong>으로 남는다.</div></div>
+      <div class="pr-row"><div class="pr-num">04</div><div class="pr-text">통과하면 — <strong>사람의 리뷰</strong>로 간다.</div></div>
+      <div class="pr-row" style="border-bottom:none;"><div class="pr-num">05</div><div class="pr-text">최종 승인은, <em>사람이 한다.</em></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Principles · 결정론 + 전문가 AI + 사람의 게이트</span><span>07 / 08 · → Fin</span></div>
+</section>
+
+<!-- ============ 08 FIN ============ -->
+<section class="slide dark has-bleed">
+  <div class="bleed">
+    <img src="../../images/SOP-ExceptionHnandling.png" alt="개발자는 PR을 등록한다 — 나머지는 SOP가 한다" />
+  </div>
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Fin</span></div>
+    <div class="tag">#pr-in #report-out #judgment-stays</div>
+    <div>08 / 08</div>
+  </div>
+  <div class="stage">
+    <div class="final-big">
+      개발자는 PR을 등록한다 —<br><em>나머지는 SOP가 한다.</em>
+    </div>
+    <div class="final-sub">
+      실행은 자동으로 — 싸졌다. 비싸진 건 방향과 승인, <em>사람의 판단</em>이다.
+    </div>
+    <div class="final-link">FREEDOBY · Deterministic SOP + Agentic Exception · Deck 06</div>
+  </div>
+  <div class="foot"><span>Fin · PR in, Report out</span><span>08 / 08 · END</span></div>
+</section>
+
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="click-zone left" id="zoneLeft"></div>
+<div class="click-zone right" id="zoneRight"></div>
+<div class="navhint"><kbd>←</kbd><kbd>→</kbd> navigate · <kbd>F</kbd> fullscreen</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const progress = document.getElementById('progress');
+  const total = slides.length;
+  let idx = 0;
+
+  const zoneLeft = document.getElementById('zoneLeft');
+  const zoneRight = document.getElementById('zoneRight');
+
+  function go(n) {
+    idx = Math.max(0, Math.min(total - 1, n));
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    progress.style.width = ((idx + 1) / total * 100) + '%';
+    history.replaceState(null, '', '#' + (idx + 1));
+  }
+  function next() { go(idx + 1); }
+  function prev() { go(idx - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight',' ','PageDown'].includes(e.key)) { e.preventDefault(); next(); }
+    else if (['ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') go(0);
+    else if (e.key === 'End') go(total - 1);
+    else if (e.key.toLowerCase() === 'f') {
+      document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    }
+  });
+
+  zoneLeft.addEventListener('click', prev);
+  zoneRight.addEventListener('click', next);
+
+  const h = parseInt(location.hash.replace('#',''), 10);
+  go(!isNaN(h) && h >= 1 && h <= total ? h - 1 : 0);
+})();
+</script>
+
+<!-- Image Lightbox -->
+<div id="img-lightbox" style="display:none; position:fixed; inset:0; background:rgba(8,7,6,0.95); z-index:9999; cursor:grab; overflow:hidden; user-select:none;">
+  <img id="img-lightbox-img" alt="" style="position:absolute; top:50%; left:50%; transform: translate(-50%, -50%) scale(1); transform-origin: center center; max-width: 95vw; max-height: 95vh; pointer-events:none;" />
+  <div style="position:absolute; top:20px; right:24px; color:rgba(240,236,224,0.55); font-family:ui-monospace,monospace; font-size:14px; pointer-events:none;">
+    스크롤 = 확대/축소 · 드래그 = 이동 · ESC / 빈 공간 클릭 = 닫기
+  </div>
+  <button id="img-lightbox-close" aria-label="close" style="position:absolute; top:16px; left:24px; background:transparent; border:1px solid rgba(240,236,224,0.3); color:rgba(240,236,224,0.7); padding:6px 14px; font-family:ui-monospace,monospace; font-size:14px; cursor:pointer; border-radius:2px;">✕ Close</button>
+</div>
+
+<script>
+(() => {
+  const lightbox = document.getElementById('img-lightbox');
+  const img = document.getElementById('img-lightbox-img');
+  const closeBtn = document.getElementById('img-lightbox-close');
+  let scale = 1, posX = 0, posY = 0;
+  let isDragging = false, lastX = 0, lastY = 0, startX = 0, startY = 0;
+
+  function applyTransform() {
+    img.style.transform = `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px)) scale(${scale})`;
+  }
+  function open(src) {
+    img.src = src;
+    scale = 1; posX = 0; posY = 0;
+    applyTransform();
+    lightbox.style.display = 'block';
+  }
+  function close() {
+    lightbox.style.display = 'none';
+    img.src = '';
+  }
+
+  lightbox.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = -e.deltaY * 0.0015;
+    scale = Math.max(0.3, Math.min(10, scale * (1 + delta)));
+    applyTransform();
+  }, { passive: false });
+
+  lightbox.addEventListener('mousedown', (e) => {
+    if (e.target === closeBtn) return;
+    isDragging = true;
+    startX = lastX = e.clientX;
+    startY = lastY = e.clientY;
+    lightbox.style.cursor = 'grabbing';
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    posX += (e.clientX - lastX); posY += (e.clientY - lastY);
+    lastX = e.clientX; lastY = e.clientY;
+    applyTransform();
+  });
+  document.addEventListener('mouseup', (e) => {
+    if (!isDragging) return;
+    const moved = Math.abs(e.clientX - startX) > 3 || Math.abs(e.clientY - startY) > 3;
+    isDragging = false;
+    lightbox.style.cursor = 'grab';
+    if (!moved && e.target === lightbox) close();
+  });
+
+  closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.style.display === 'block') close();
+  });
+
+  document.querySelectorAll('a[target="_blank"]').forEach(a => {
+    if (a.querySelector('img')) {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        open(a.href);
+      });
+    }
+  });
+
+  document.querySelectorAll('img').forEach(im => {
+    if (im.id === 'img-lightbox-img') return;
+    if (im.closest('.bleed')) return;
+    if (im.closest('a')) return;
+    im.style.cursor = 'zoom-in';
+    im.addEventListener('click', () => open(im.src));
+  });
+
+  document.querySelectorAll('section.has-bleed').forEach(slide => {
+    const overlayImg = slide.querySelector('.bleed img, img[aria-hidden="true"]');
+    if (!overlayImg) return;
+    slide.style.cursor = 'zoom-in';
+    slide.addEventListener('click', (e) => {
+      if (e.target.closest('a, button')) return;
+      open(overlayImg.src);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
