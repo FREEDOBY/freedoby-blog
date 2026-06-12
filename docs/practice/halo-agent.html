@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습 · oh-my-haloagent — HALO 워크플로우 직접 돌리기</title>
+  <meta name="description" content="oh-my-haloagent 템플릿으로 /halo-workflow를 실행해, 요구사항부터 완료 리포트까지 9개 Phase를 직접 경험하는 실습 가이드.">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container-wide site-header-inner">
+      <a href="../index.html" class="site-title">
+        FREEDOBY<em>Blog</em>
+      </a>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="https://github.com/FREEDOBY/oh-my-haloagent" target="_blank" rel="noopener">Project</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="sidebar-header">Index</div>
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="sidebar-home">← 목차</a>
+
+        <a href="../series/index.html" class="sidebar-section">Series</a>
+        <a href="../series/series-1.html" class="sidebar-link"><span class="num">01</span>AI Agent의 명확한 한계</a>
+        <a href="../series/series-2.html" class="sidebar-link"><span class="num">02</span>HBM이 만든 AI의 물리적 천장</a>
+        <a href="../series/series-3.html" class="sidebar-link"><span class="num">03</span>Prompt → Context → Harness — 진화의 방향</a>
+        <a href="../series/series-4.html" class="sidebar-link"><span class="num">04</span>우공이산: 나눠서 정복해야 한다</a>
+        <a href="../series/series-5.html" class="sidebar-link"><span class="num">05</span>실행이 싸지면, 판단과 비용이 비싸진다</a>
+        <a href="../series/series-6.html" class="sidebar-link"><span class="num">06</span>HALO Workflow — 한계를 구조로 극복</a>
+
+        <a href="../slides/index.html" class="sidebar-section">Slides</a>
+        <a href="../slides/series-1/deck1-limits.html" class="sidebar-link"><span class="num">01</span>AI Context, Agent Entropy</a>
+        <a href="../slides/series-2/deck2-hbm-ceiling.html" class="sidebar-link"><span class="num">02</span>HBM의 천장</a>
+        <a href="../slides/series-3/deck3-evolution.html" class="sidebar-link"><span class="num">03</span>Prompt → Context → Harness</a>
+        <a href="../slides/series-4/classics-scale-deck.html" class="sidebar-link"><span class="num">04</span>AI일수록, 클래식이다</a>
+        <a href="../slides/series-5/deck5-industrial-hitl.html" class="sidebar-link"><span class="num">05</span>방향의 게이트</a>
+
+        <a href="index.html" class="sidebar-section">Practice</a>
+        <a href="halo-agent.html" class="sidebar-link active"><span class="num">H</span>oh-my-haloagent 실습</a>
+        <a href="video-agent.html" class="sidebar-link"><span class="num">V</span>oh-my-vedioagent 실습</a>
+
+        <div class="sidebar-section">Project</div>
+        <a href="https://github.com/FREEDOBY/halo-workflow" class="sidebar-link" target="_blank" rel="noopener">HALO Workflow <span class="sidebar-ext">↗</span></a>
+        <a href="https://github.com/FREEDOBY/oh-my-haloagent" class="sidebar-link" target="_blank" rel="noopener">oh-my-haloagent <span class="sidebar-ext">↗</span></a>
+        <a href="https://github.com/FREEDOBY/oh-my-vedioagent" class="sidebar-link" target="_blank" rel="noopener">oh-my-vedioagent <span class="sidebar-ext">↗</span></a>
+      </nav>
+    </aside>
+
+    <main class="layout-content">
+    <article class="article">
+
+      <div class="page-cover"><img src="../images/Harness-workflow-loopback.png" alt=""></div>
+
+      <header class="article-header">
+        <span class="article-number">실습 · 트랙 H</span>
+        <h1 class="article-title">oh-my-haloagent<span class="article-title-sub">HALO 워크플로우를 직접 돌린다</span></h1>
+        <p class="article-subtitle">시리즈 6에서 설명한 HALO Workflow를 글로만 읽지 않는다. 템플릿을 복제하고 <code>/halo-workflow</code> 한 줄로 9개 Phase를 자기 손으로 통과시킨다.</p>
+        <hr class="article-divider">
+      </header>
+
+      <section>
+        <h2>이 실습으로 얻는 것</h2>
+        <p>이 트랙을 끝내면 다음을 직접 경험하게 된다.</p>
+        <ul>
+          <li>요구사항 한 줄이 <strong>RTM(Requirements Traceability Matrix)</strong>으로 구조화되는 과정</li>
+          <li>Main Agent가 P1 → P9를 <strong>컨텍스트 단절 없이 연속 실행</strong>하는 흐름</li>
+          <li>Phase 간 통신이 대화가 아니라 <strong>파일(File = Interface)</strong>로 이뤄지는 방식</li>
+          <li>실패가 <strong>JUDGE의 분류 → LOOPBACK</strong>으로 구조적으로 복구되는 모습</li>
+        </ul>
+        <blockquote>
+          <p>먼저 <a href="../series/series-6.html">시리즈 6 — HALO Workflow</a>를 읽고 오면, 각 Phase에서 일어나는 일이 훨씬 또렷하게 보인다.</p>
+        </blockquote>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>설치 가이드</h2>
+        <p>Windows 10/11 기준. 아래는 <strong>PowerShell</strong>에서 실행한다 — 프롬프트가 <code>PS C:\&gt;</code>로 시작하면 PowerShell이다. 관리자 권한은 필요 없다.</p>
+
+        <h3>1. Claude Code (필수)</h3>
+        <p>공식 네이티브 설치 스크립트를 실행한다. Node.js는 필요 없고, 이후 자동 업데이트된다.</p>
+        <pre><code>irm https://claude.ai/install.ps1 | iex</code></pre>
+        <p>설치가 끝나면 <strong>터미널을 새로 열고</strong> 확인한다.</p>
+        <pre><code>claude --version</code></pre>
+        <blockquote>
+          <p><strong>계정.</strong> Claude Code는 <strong>Pro·Max·Team·Enterprise</strong> 또는 <strong>Console(API)</strong> 계정이 필요하다 — 무료 플랜으로는 쓸 수 없다.</p>
+        </blockquote>
+
+        <h3>2. Git for Windows (권장)</h3>
+        <p>Git이 있으면 Claude Code가 Bash 도구를 쓸 수 있다(없으면 PowerShell로 대체). 레포 복제에도 필요하다.</p>
+        <pre><code>winget install --id Git.Git -e</code></pre>
+        <pre><code>git --version</code></pre>
+        <p>설치가 끝나면 <code>setup-agent.bat</code>(Windows 배치)으로 <code>.claude/</code> 등을 한 번에 설치하거나, <code>.claude/</code> 폴더를 직접 복사한다. Codex를 함께 쓸 때만 <code>AGENTS.md</code>·<code>.codex/</code>가 추가로 필요하다 — 우선 Claude Code만으로 충분하다.</p>
+        <blockquote class="tip">
+          <p><strong>막히면.</strong> 설치 중 어디서든 막히면 <a href="https://claude.ai" target="_blank" rel="noopener">Claude(claude.ai)</a>를 열고 물어본다. 터미널에 뜬 <strong>에러 메시지를 그대로 복사해 붙여넣으면</strong> 된다.</p>
+        </blockquote>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>1단계 — 템플릿으로 내 레포 만들기</h2>
+        <p>이 레포는 fork가 아니라 <strong>독립된 새 레포</strong>로 시작한다.</p>
+        <ol>
+          <li>GitHub에서 <a href="https://github.com/FREEDOBY/oh-my-haloagent" target="_blank" rel="noopener">oh-my-haloagent</a>를 연다.</li>
+          <li>우측 상단 <strong>“Use this template” → “Create a new repository”</strong>를 누른다.</li>
+          <li>새 레포 이름을 정하고 생성한 뒤, 로컬로 복제한다.</li>
+        </ol>
+        <pre><code>git clone https://github.com/&lt;you&gt;/&lt;your-repo&gt;.git
+cd &lt;your-repo&gt;</code></pre>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>2단계 — FRED API 키 발급</h2>
+        <p>이번 실습은 <strong>경제 매크로 대시보드</strong>를 만든다. 데이터는 미국 연준의 <strong>FRED</strong>에서 받는다 — 무료 계정을 만들고 API 키를 발급받는다.</p>
+        <ol>
+          <li><a href="https://fredaccount.stlouisfed.org/apikeys" target="_blank" rel="noopener">FRED API Keys 페이지</a>에서 계정을 만든다(무료).</li>
+          <li>API 키를 발급받아 복사해 둔다.</li>
+        </ol>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>3단계 — /halo-workflow로 만든다</h2>
+        <p>FRED 지표는 수십만 개다. "주요 지표"처럼 막연히 주면 산으로 간다. <strong>큰 카테고리를 먼저 고르고, 짧지만 구체적으로</strong> 요구한다. 스택·설계는 우리가 정하지 않는다 — HALO가 알아서 설계(P3)한다.</p>
+        <p>큰 카테고리를 먼저 정한다. 아래 다섯 카테고리를 대표 지표와 함께 요구사항에 담는다.</p>
+        <ul>
+          <li><strong>금리</strong> — 기준금리 · 국채금리</li>
+          <li><strong>물가</strong> — 소비자물가(CPI)</li>
+          <li><strong>고용</strong> — 실업률</li>
+          <li><strong>성장</strong> — GDP · 산업생산</li>
+          <li><strong>시장</strong> — 주가지수 · 환율</li>
+        </ul>
+        <p>다섯 카테고리를 그대로 프롬프트에 적는다.</p>
+        <pre><code>/halo-workflow FRED API로 거시경제 대시보드를 만든다. 다음 다섯 카테고리를 카테고리별 대표 지표로 차트로 보여준다 — 금리(기준금리·국채금리), 물가(소비자물가 CPI), 고용(실업률), 성장(GDP·산업생산), 시장(주가지수·환율). FRED API 키는 내가 발급받았다.</code></pre>
+        <p>HALO가 <strong>P1에서 FRED 엔드포인트를 실제로 호출해</strong> 키가 유효한지 검증하고(제약 검증), 지표·차트를 설계·구현한 뒤, <strong>P6에서 실제 FRED API로 E2E 테스트</strong>한다.</p>
+      </section>
+
+      <nav class="article-nav">
+        <a class="prev" href="index.html">
+          <span class="label">실습 허브</span>
+          <span class="title">← 실습자료</span>
+        </a>
+        <a class="next" href="video-agent.html">
+          <span class="label">다음 트랙</span>
+          <span class="title">oh-my-vedioagent 실습 →</span>
+        </a>
+      </nav>
+
+    </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong>HALO Workflow</strong> — Harness · Agentic · Loopback · Orchestration</p>
+      <p><a href="https://github.com/FREEDOBY/oh-my-haloagent" target="_blank" rel="noopener">oh-my-haloagent Repository</a></p>
+      <div class="license-notice">
+        © FREEDOBY · Licensed under CC BY-NC-ND 4.0 · No redistribution or modification
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.article pre').forEach(function (pre) {
+      var code = pre.querySelector('code');
+      if (!code || pre.querySelector('.copy-btn')) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.textContent = '복사';
+      btn.addEventListener('click', function () {
+        var text = code.innerText;
+        function done() {
+          btn.textContent = '복사됨';
+          btn.classList.add('copied');
+          setTimeout(function () { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1500);
+        }
+        function fallback() {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta);
+          done();
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(fallback);
+        } else {
+          fallback();
+        }
+      });
+      pre.appendChild(btn);
+    });
+  </script>
+
+</body>
+</html>
