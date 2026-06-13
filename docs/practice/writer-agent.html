@@ -118,7 +118,7 @@ draft = call_llm(model="claude-opus-4-8", prompt=prompt)</code></pre>
     if verdict == "pass": break
     draft = revise(draft, verdict)    # LLM: 지시대로 수정
 # 상한 도달 → 토해내지 않고 사람에게 넘긴다 (게이트)</code></pre>
-        <p>"AI가 글을 뽑아준다"와의 차이는 한 줄이다 — <strong>생성을 구조 안에 가둔다.</strong> 출처는 코드로, 방향은 하네스로, 결과는 별도 심사로, 실패는 제한 안에서 복구하다 사람에게.</p>
+        <p>그냥 글을 뽑는 것과 다른 점은 <strong>검증과 수정이 붙는다</strong>는 것이다 — 초안을 곧장 믿지 않고, 채점해서 미달이면 고친다.</p>
         <blockquote class="tip"><p>전용 템플릿 레포가 공개되면 여기서 연결한다. 그때 <code>draft</code>·<code>judge</code> 프롬프트를 직접 바꿔가며 "하네스를 바꾸면 결과가 어떻게 휘는지"를 손으로 확인한다.</p></blockquote>
       </section>
 
