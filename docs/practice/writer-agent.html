@@ -46,7 +46,7 @@
         <a href="index.html" class="sidebar-section">Practice</a>
         <a href="halo-agent.html" class="sidebar-link"><span class="num">H</span>oh-my-haloagent 실습</a>
         <a href="video-agent.html" class="sidebar-link"><span class="num">V</span>oh-my-vedioagent 실습</a>
-        <a href="writer-agent.html" class="sidebar-link active"><span class="num">W</span>지능을 쓰는 툴</a>
+        <a href="writer-agent.html" class="sidebar-link active"><span class="num">W</span>규칙에서 판단으로</a>
 
         <div class="sidebar-section">Project</div>
         <a href="https://github.com/FREEDOBY/halo-workflow" class="sidebar-link" target="_blank" rel="noopener">HALO Workflow <span class="sidebar-ext">↗</span></a>
@@ -62,64 +62,52 @@
 
       <header class="article-header">
         <span class="article-number">실습 · 트랙 W</span>
-        <h1 class="article-title">지능을 쓰는 툴<span class="article-title-sub">LLM을 호출하는 블로그 글쓰기 에이전트</span></h1>
-        <p class="article-subtitle">앞 트랙들은 만들어진 하네스를 <em>실행</em>했다. 이번엔 한 칸 들어가, <strong>LLM API를 툴 안에서 직접 호출</strong>하는 에이전트의 설계를 본다. 돌리는 코드가 아니라 개념 가이드다.</p>
+        <h1 class="article-title">규칙에서 판단으로<span class="article-title-sub">From Rules to Reasoning</span></h1>
+        <p class="article-subtitle">이 트랙은 "블로그 글쓰기"가 주제가 아니다. 그건 예시일 뿐이다. 진짜 주제는 — 소프트웨어가 <strong>규칙 기반(Rule-based)</strong>에서 <strong>판단 기반(Reasoning-based)</strong>으로 바뀌었다는 것.</p>
         <hr class="article-divider">
       </header>
 
       <section>
-        <h2>이 트랙으로 얻는 것</h2>
-        <ul>
-          <li><strong>지능을 쓰는 툴</strong> — 툴이 정해진 일만 하는 게 아니라, 그 안에서 LLM을 불러 판단·생성한다</li>
-          <li>툴 안 프롬프트에 <strong>요구사항 + 하네스를 함께</strong> 실어 결과를 제어하는 법</li>
-          <li>한 방에 믿지 않고 <strong>LLM-as-Judge로 검증 → 수정</strong>하는 루프</li>
-        </ul>
-        <blockquote class="tip"><p>코드를 실행하지 않는다. 아래 프롬프트·의사코드는 <strong>개념용 예시</strong>다. 전용 템플릿 레포는 <strong>준비 중</strong>.</p></blockquote>
+        <h2>규칙 기반의 한계</h2>
+        <p>기존 소프트웨어는 개발자가 <strong>모든 규칙을 직접</strong> 정의한다.</p>
+        <pre>입력 → 규칙 → 출력</pre>
+        <p>예외가 생길 때마다 <code>elif</code>를 더한다.</p>
+        <pre><code>if A:    do_a()
+elif B:  do_b()
+elif C:  do_c()
+elif D:  ...      # 새 예외가 생길 때마다 계속</code></pre>
+        <p>문제는 현실이 A·B·C로 끝나지 않는다는 것이다 — <code>A'</code>, <code>A+B</code>, <code>B+C</code>… 조합은 무한하다. <strong>모든 상황을 if문으로 못 박을 수 없다.</strong> 규칙이 늘수록 복잡도와 유지보수 비용만 커진다.</p>
       </section>
 
       <hr>
 
       <section>
-        <h2>툴이 지능을 쓴다</h2>
-        <p>보통 툴은 정해진 일만 한다 — <code>fetch_url()</code>은 페이지를 가져온다. 하지만 툴 <strong>안에서 LLM을 호출</strong>하면, 규칙으로 못 박을 수 없는 일(글을 쓰고, 채점한다)을 하는 툴이 된다.</p>
-        <pre><code>일반 툴      입력 → [정해진 규칙]        → 출력   (결정적)
-지능형 툴    입력 → [프롬프트로 LLM 호출] → 출력   (판단·생성)</code></pre>
-        <p>제어는 <strong>프롬프트</strong>에서 일어난다. <strong>요구사항</strong>(무엇을)만 주지 않고 <strong>하네스</strong>(형식·톤·제약·금지)를 함께 실어 방향을 잡는다 — 시리즈 3의 하네스가 툴 호출 하나 안에서도 똑같이 작동한다.</p>
+        <h2>규칙에서 판단으로</h2>
+        <p>LLM이 바꾼 건 '글쓰기 기능'이 아니다. <strong>규칙을 검색하던 자리에 이해와 판단</strong>이 들어왔다.</p>
+<pre>과거 (Rule)       상황 → 규칙 검색 → 행동
+현재 (Reasoning)  상황 → 이해 → 판단 → 행동</pre>
+        <p>이제 모든 예외를 코드로 적지 않는다. 상황을 <strong>이해</strong>하고 그때그때 <strong>판단</strong>한다.</p>
       </section>
 
       <hr>
 
       <section>
-        <h2>흐름</h2>
-        <p>한 방에 뽑지 않는다. 사람이 쓰는 순서대로 — 모으고 · 쓰고 · 따지고 · 고친다.</p>
-<pre>  출처 fetch ──► 초안 ──► 자기검증(Judge) ──► 통과? ─► 완성
-   (결정적)     (LLM)        (LLM)            │
-                  ▲                            │ 미달
-                  └─────── 수정(LLM) ◄─────────┘   (최대 N회 → 사람에게)</pre>
-        <p>1번만 결정적 툴이고 나머지는 모두 같은 LLM이다. <strong>어떤 프롬프트를 받느냐</strong>에 따라 작가도, 심사위원도, 편집자도 된다.</p>
+        <h2>에이전트 — 목표를 받는 작업자</h2>
+        <p>에이전트는 LLM API를 호출하는 프로그램이 아니다. <strong>목표·맥락·툴·추론</strong>으로 스스로 다음 행동을 정한다.</p>
+        <pre>Goal + Context + Tools + Reasoning → 스스로 행동 결정</pre>
+        <p>즉 <strong>규칙을 실행하는 소프트웨어</strong>가 아니라 <strong>목표를 달성하는 작업자</strong>에 가깝다.</p>
       </section>
 
       <hr>
 
       <section>
-        <h2>프롬프트 = 요구사항 + 하네스</h2>
-        <p>이 트랙의 심장. "글 써줘"가 아니라 <strong>무엇을·어떻게·무엇은 하지 말 것</strong>까지 한 프롬프트에 싣는다.</p>
-        <pre><code># 의사코드 — 툴 안에서 LLM을 부르는 모양 (실행용 아님)
-prompt = f"""
-[요구사항] 주제 {topic}, 독자 {audience}. 아래 출처에 근거해서만 쓴다.
-[하네스]   구조 도입→본문 3단락→결론 / 800자 / 단정한 한국어, 1인칭 "우리"
-           금지: 과장 형용사, 출처 없는 단정, 메타 안내
-[출처] {sources}
-"""
-draft = call_llm(model="claude-opus-4-8", prompt=prompt)</code></pre>
-        <p><strong>자기검증</strong>은 같은 트릭을 뒤집는다 — 작가에게 준 하네스를 <strong>채점 루브릭</strong>으로 던져 "이 초안이 그걸 지켰나?"를 묻는다. 자기 글을 후하게 보는 편향을 끊으려 <strong>별도 호출</strong>로 한다(시리즈 5: 실행이 싸지면 판단이 비싸진다).</p>
-        <pre><code>for _ in range(max_rounds):
-    verdict = judge(draft)            # LLM: 루브릭 채점 → pass / revise
-    if verdict == "pass": break
-    draft = revise(draft, verdict)    # LLM: 지시대로 수정
-# 상한 도달 → 토해내지 않고 사람에게 넘긴다 (게이트)</code></pre>
-        <p>그냥 글을 뽑는 것과 다른 점은 <strong>검증과 수정이 붙는다</strong>는 것이다 — 초안을 곧장 믿지 않고, 채점해서 미달이면 고친다.</p>
-        <blockquote class="tip"><p>전용 템플릿 레포가 공개되면 여기서 연결한다. 그때 <code>draft</code>·<code>judge</code> 프롬프트를 직접 바꿔가며 "하네스를 바꾸면 결과가 어떻게 휘는지"를 손으로 확인한다.</p></blockquote>
+        <h2>블로그가 가장 쉬운 예시</h2>
+        <p>기존 방식이면 키워드→검색→요약→초안→발행을 고정 로직으로 짠다. 그러면 예외가 생길 때마다 — 검색 결과 부족, 출처 신뢰도 낮음, 중복률 높음, 품질 낮음 — 규칙을 계속 더해야 한다.</p>
+        <p>에이전트는 <strong>"좋은 글을 써라"</strong>는 목표 하나만 받고, 스스로 반복한다.</p>
+<pre>출처 수집 → 초안 → Judge 평가 → 수정 → 재평가 → 발행
+                      ▲________________│   (목표에 닿을 때까지)</pre>
+        <blockquote><p><strong>LLM은 자동화를 조금 더 똑똑하게 만든 게 아니다. 소프트웨어를 규칙 기반에서 판단 기반으로 바꿨다.</strong> 블로그 작성 에이전트는 그 변화가 가장 이해하기 쉬운 사례일 뿐이다.</p></blockquote>
+        <blockquote class="tip"><p>이 흐름을 실제로 돌려보는 전용 템플릿 레포는 <strong>준비 중</strong>이다. 공개되면 여기서 연결한다.</p></blockquote>
       </section>
 
       <nav class="article-nav">
@@ -139,7 +127,7 @@ draft = call_llm(model="claude-opus-4-8", prompt=prompt)</code></pre>
 
   <footer class="site-footer">
     <div class="container">
-      <p><strong>지능을 쓰는 툴</strong> — LLM을 툴 안에서 호출하는 에이전트</p>
+      <p><strong>규칙에서 판단으로</strong> — From Rules to Reasoning</p>
       <p>전용 템플릿 레포 준비 중 · <a href="https://github.com/FREEDOBY" target="_blank" rel="noopener">FREEDOBY</a></p>
       <div class="license-notice">
         © FREEDOBY · Licensed under CC BY-NC-ND 4.0 · No redistribution or modification
