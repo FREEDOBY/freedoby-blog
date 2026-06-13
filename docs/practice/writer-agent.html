@@ -46,7 +46,7 @@
         <a href="index.html" class="sidebar-section">Practice</a>
         <a href="halo-agent.html" class="sidebar-link"><span class="num">H</span>oh-my-haloagent 실습</a>
         <a href="video-agent.html" class="sidebar-link"><span class="num">V</span>oh-my-vedioagent 실습</a>
-        <a href="writer-agent.html" class="sidebar-link active"><span class="num">W</span>규칙에서 판단으로</a>
+        <a href="writer-agent.html" class="sidebar-link active"><span class="num">W</span>Agent based LLM API 실습</a>
 
         <div class="sidebar-section">Project</div>
         <a href="https://github.com/FREEDOBY/halo-workflow" class="sidebar-link" target="_blank" rel="noopener">HALO Workflow <span class="sidebar-ext">↗</span></a>
@@ -62,7 +62,7 @@
 
       <header class="article-header">
         <span class="article-number">실습 · 트랙 W</span>
-        <h1 class="article-title">규칙에서 판단으로<span class="article-title-sub">From Rules to Reasoning</span></h1>
+        <h1 class="article-title">Agent based LLM API<span class="article-title-sub">From Rules to Reasoning</span></h1>
         <p class="article-subtitle">이 트랙은 "블로그 글쓰기"가 주제가 아니다. 그건 예시일 뿐이다. 진짜 주제는 — 소프트웨어가 <strong>규칙 기반(Rule-based)</strong>에서 <strong>판단 기반(Reasoning-based)</strong>으로 바뀌었다는 것.</p>
         <hr class="article-divider">
       </header>
@@ -115,7 +115,14 @@ elif D:  ...      # 새 예외가 생길 때마다 계속</code></pre>
         <p>바로 그래서 가장 선명한 예시다 — 블로그 글쓰기는 <strong>규칙으로는 처음부터 불가능했고, 판단으로 비로소 가능해진</strong> 일이다. 에이전트는 <strong>"좋은 글을 써라"</strong>는 목표만 받고 스스로 반복한다.</p>
 <pre>출처 수집 → 초안 → Judge 평가 → 수정 → 재평가 → 발행
                       ▲________________│   (목표에 닿을 때까지)</pre>
+        <p><strong>결과물 예시</strong> (네이버 블로그, 새 창에서 열림):</p>
+        <ul>
+          <li><a href="https://blog.naver.com/koomanjj2/224306997437" target="_blank" rel="noopener">상품 블로그 글 예시 ①</a></li>
+          <li><a href="https://blog.naver.com/ghettokorean/224308532551" target="_blank" rel="noopener">상품 블로그 글 예시 ②</a></li>
+          <li><a href="https://blog.naver.com/twarmroyalw/224225737888" target="_blank" rel="noopener">상품 블로그 글 예시 ③</a></li>
+        </ul>
         <blockquote><p><strong>LLM은 자동화를 조금 더 똑똑하게 만든 게 아니다. 소프트웨어를 규칙 기반에서 판단 기반으로 바꿨다.</strong> 블로그 작성 에이전트는 그 변화가 가장 이해하기 쉬운 사례일 뿐이다.</p></blockquote>
+        <blockquote class="tip"><p>이 트랙은 모든 판단이 <strong>유료 LLM API 호출</strong>로 일어난다 — 글을 쓰고, Judge로 평가하고, 수정하는 매 단계가 API 요청이다. 따라서 <strong>결제 수단이 등록된 LLM API 키</strong>(예: Anthropic·OpenAI)가 있어야 실제로 돌릴 수 있다.</p></blockquote>
         <blockquote class="tip"><p>이 흐름을 실제로 돌려보는 전용 템플릿 레포는 <strong>준비 중</strong>이다. 공개되면 여기서 연결한다.</p></blockquote>
       </section>
 
@@ -136,7 +143,7 @@ elif D:  ...      # 새 예외가 생길 때마다 계속</code></pre>
 
   <footer class="site-footer">
     <div class="container">
-      <p><strong>규칙에서 판단으로</strong> — From Rules to Reasoning</p>
+      <p><strong>Agent based LLM API</strong> — From Rules to Reasoning</p>
       <p>전용 템플릿 레포 준비 중 · <a href="https://github.com/FREEDOBY" target="_blank" rel="noopener">FREEDOBY</a></p>
       <div class="license-notice">
         © FREEDOBY · Licensed under CC BY-NC-ND 4.0 · No redistribution or modification
