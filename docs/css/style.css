@@ -146,6 +146,25 @@ img { max-width: 100%; }
   padding-top: 4px;
   max-height: calc(100vh - 80px);
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.25s ease;
+}
+.sidebar:hover {
+  scrollbar-color: var(--border) transparent;
+}
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+}
+.sidebar:hover::-webkit-scrollbar-thumb {
+  background: var(--border);
 }
 
 .sidebar-header {
