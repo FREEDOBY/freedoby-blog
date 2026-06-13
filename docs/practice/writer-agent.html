@@ -126,6 +126,47 @@ elif D:  ...      # 새 예외가 생길 때마다 계속</code></pre>
         <blockquote class="tip"><p>이 흐름을 실제로 돌려보는 전용 템플릿 레포는 <strong>준비 중</strong>이다. 공개되면 여기서 연결한다.</p></blockquote>
       </section>
 
+      <hr>
+
+      <section>
+        <h2>LLM API 키 발급 — 실제로 돌리려면</h2>
+        <p>이 트랙은 ChatGPT·Claude 같은 <strong>채팅 화면이 아니라 API</strong>를 쓴다. 에이전트가 코드 안에서 LLM을 호출하기 때문이다. 그래서 <strong>결제 수단이 등록된 API 키</strong>가 필요하다. Anthropic(Claude)과 OpenAI(GPT) 중 하나면 된다 — 둘 다 발급 절차는 비슷하다.</p>
+
+        <h3>공통 — 과금 방식</h3>
+        <ul>
+          <li><strong>토큰당 과금.</strong> 월 구독이 아니라 쓴 만큼 낸다. 입력 토큰과 출력 토큰에 각각 단가가 붙고, 보통 <strong>출력이 입력보다 비싸다.</strong></li>
+          <li><strong>선불 충전(prepaid credits).</strong> 두 곳 모두 <strong>크레딧을 먼저 충전</strong>해 두고 호출할 때마다 차감하는 방식이 기본이다(최소 충전액이 있다). 카드 등록 없이 키만 만들면 호출이 막히거나 한도가 거의 없다.</li>
+          <li><strong>모델 등급별 단가 차이가 크다.</strong> 가벼운 모델은 싸고 빠르며, 고성능 모델은 비싸다. 초안은 싼 모델, 최종 Judge는 좋은 모델 — 이렇게 섞어 비용을 줄인다.</li>
+        </ul>
+
+        <h3>Anthropic (Claude)</h3>
+        <ol>
+          <li><a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a>에서 가입한다.</li>
+          <li><strong>Billing</strong>에서 카드를 등록하고 크레딧을 충전한다(선불).</li>
+          <li><strong>API Keys</strong>에서 키를 발급해 복사해 둔다(키는 한 번만 보인다).</li>
+        </ol>
+        <p>요금은 <strong>100만 토큰(MTok) 기준</strong>이며 아래는 <strong>예시(2026년 6월 기준)</strong>다 — 단가는 바뀌므로 <a href="https://www.anthropic.com/pricing" target="_blank" rel="noopener">공식 요금 페이지</a>에서 최신값을 확인한다.</p>
+        <table>
+          <thead><tr><th>모델</th><th>입력 / MTok</th><th>출력 / MTok</th></tr></thead>
+          <tbody>
+            <tr><td>Claude Haiku</td><td>$1</td><td>$5</td></tr>
+            <tr><td>Claude Sonnet</td><td>$3</td><td>$15</td></tr>
+            <tr><td>Claude Opus</td><td>$5</td><td>$25</td></tr>
+          </tbody>
+        </table>
+
+        <h3>OpenAI (GPT)</h3>
+        <ol>
+          <li><a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">platform.openai.com/api-keys</a>에서 가입하고 키를 만든다.</li>
+          <li><strong>Billing</strong>에서 카드를 등록하고 크레딧을 충전한다 — <strong>최소 $5</strong> 충전부터 정상적인 사용 한도(Tier 1)와 최신 모델 접근이 열린다. 무료 체험 크레딧은 더 이상 자동 지급되지 않는다.</li>
+          <li>키를 복사해 둔다(키는 한 번만 보인다).</li>
+        </ol>
+        <p>OpenAI도 <strong>토큰당·모델 등급별</strong>로 단가가 다르다(mini 계열은 저렴, flagship 계열은 비쌈). 단가는 자주 바뀌므로 정확한 값은 <a href="https://openai.com/api/pricing" target="_blank" rel="noopener">공식 요금 페이지</a>에서 확인한다.</p>
+
+        <blockquote class="tip"><p><strong>비용 감.</strong> 블로그 글 한 편은 보통 입력·출력 합쳐 수천~수만 토큰 수준이라, 위 단가 기준으로 <strong>글 하나당 수십 원~수백 원</strong> 선이다. 다만 Judge 평가·수정 루프를 여러 번 돌리면 그만큼 호출이 늘어 비용도 는다. 처음엔 <strong>싼 모델 + 적은 반복</strong>으로 감을 잡고 올리는 걸 권한다.</p></blockquote>
+        <blockquote class="tip"><p><strong>키 관리.</strong> API 키는 <strong>비밀번호</strong>다. 코드·깃·블로그에 그대로 올리지 말고 <code>.env</code>나 환경변수로 다룬다. 노출되면 즉시 폐기(rotate)한다.</p></blockquote>
+      </section>
+
       <nav class="article-nav">
         <a class="prev" href="video-agent.html">
           <span class="label">이전 트랙</span>
