@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습 · 지능을 쓰는 툴 — LLM을 호출하는 블로그 글쓰기 에이전트</title>
+  <meta name="description" content="LLM API를 '툴 안에서' 호출해 지능을 쓰는 툴을 만든다. 툴 안 프롬프트에 요구사항과 하네스를 함께 실어, 출처 fetch → 초안 → LLM-as-Judge 자기검증 → 수정 루프로 블로그 글을 만드는 개념 가이드.">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container-wide site-header-inner">
+      <a href="../index.html" class="site-title">
+        FREEDOBY<em>Blog</em>
+      </a>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="https://github.com/FREEDOBY" target="_blank" rel="noopener">Project</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="sidebar-header">Index</div>
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="sidebar-home">← 목차</a>
+
+        <a href="../series/index.html" class="sidebar-section">Series</a>
+        <a href="../series/series-1.html" class="sidebar-link"><span class="num">01</span>AI Agent의 명확한 한계</a>
+        <a href="../series/series-2.html" class="sidebar-link"><span class="num">02</span>HBM이 만든 AI의 물리적 천장</a>
+        <a href="../series/series-3.html" class="sidebar-link"><span class="num">03</span>Prompt → Context → Harness — 진화의 방향</a>
+        <a href="../series/series-4.html" class="sidebar-link"><span class="num">04</span>우공이산: 나눠서 정복해야 한다</a>
+        <a href="../series/series-5.html" class="sidebar-link"><span class="num">05</span>실행이 싸지면, 판단과 비용이 비싸진다</a>
+        <a href="../series/series-6.html" class="sidebar-link"><span class="num">06</span>HALO Workflow — 한계를 구조로 극복</a>
+
+        <a href="../slides/index.html" class="sidebar-section">Slides</a>
+        <a href="../slides/series-1/deck1-limits.html" class="sidebar-link"><span class="num">01</span>AI Context, Agent Entropy</a>
+        <a href="../slides/series-2/deck2-hbm-ceiling.html" class="sidebar-link"><span class="num">02</span>HBM의 천장</a>
+        <a href="../slides/series-3/deck3-evolution.html" class="sidebar-link"><span class="num">03</span>Prompt → Context → Harness</a>
+        <a href="../slides/series-4/classics-scale-deck.html" class="sidebar-link"><span class="num">04</span>AI일수록, 클래식이다</a>
+        <a href="../slides/series-5/deck5-industrial-hitl.html" class="sidebar-link"><span class="num">05</span>방향의 게이트</a>
+
+        <a href="index.html" class="sidebar-section">Practice</a>
+        <a href="halo-agent.html" class="sidebar-link"><span class="num">H</span>oh-my-haloagent 실습</a>
+        <a href="video-agent.html" class="sidebar-link"><span class="num">V</span>oh-my-vedioagent 실습</a>
+        <a href="writer-agent.html" class="sidebar-link active"><span class="num">W</span>지능을 쓰는 툴</a>
+
+        <div class="sidebar-section">Project</div>
+        <a href="https://github.com/FREEDOBY/halo-workflow" class="sidebar-link" target="_blank" rel="noopener">HALO Workflow <span class="sidebar-ext">↗</span></a>
+        <a href="https://github.com/FREEDOBY/oh-my-haloagent" class="sidebar-link" target="_blank" rel="noopener">oh-my-haloagent <span class="sidebar-ext">↗</span></a>
+        <a href="https://github.com/FREEDOBY/oh-my-vedioagent" class="sidebar-link" target="_blank" rel="noopener">oh-my-vedioagent <span class="sidebar-ext">↗</span></a>
+      </nav>
+    </aside>
+
+    <main class="layout-content">
+    <article class="article">
+
+      <div class="page-cover"><img src="../images/AI-amplifier.png" alt=""></div>
+
+      <header class="article-header">
+        <span class="article-number">실습 · 트랙 W</span>
+        <h1 class="article-title">지능을 쓰는 툴<span class="article-title-sub">LLM을 호출하는 블로그 글쓰기 에이전트</span></h1>
+        <p class="article-subtitle">앞선 두 트랙은 이미 만들어진 하네스를 <em>실행</em>했다. 이번엔 한 칸 안으로 들어간다 — <strong>LLM API를 툴 안에서 직접 호출</strong>해, 판단할 줄 아는 툴을 손으로 짠다. 실행하는 코드가 아니라 <strong>설계의 감각</strong>을 다룬다.</p>
+        <hr class="article-divider">
+      </header>
+
+      <section>
+        <h2>이 트랙으로 얻는 것</h2>
+        <p>이 글은 돌려보는 실습이 아니라 <strong>읽고 이해하는 설계 가이드</strong>다. 다 읽으면 다음이 또렷해진다.</p>
+        <ul>
+          <li><strong>"지능을 쓰는 툴"</strong>이라는 발상 — 툴이 정해진 일만 하는 게 아니라, 그 안에서 LLM을 불러 <strong>판단·생성</strong>을 한다</li>
+          <li>툴 안 프롬프트에 <strong>요구사항(무엇을)과 하네스(어떻게·제약)를 함께</strong> 실어 출력을 원하는 방향으로 제어하는 법</li>
+          <li>생성을 한 방에 믿지 않고 <strong>LLM-as-Judge로 자기검증 → 수정</strong>하는 루프의 구조</li>
+          <li>왜 이 구조가 "AI가 글을 뽑아준다"가 아니라 <strong>하네스 안에서 굴러가는 에이전트</strong>인지</li>
+        </ul>
+        <blockquote class="tip">
+          <p><strong>전제.</strong> 이 트랙은 코드를 실행하지 않는다. 등장하는 프롬프트·의사코드는 모두 <strong>개념을 보여주기 위한 예시</strong>다 — 그대로 붙여 돌리는 용도가 아니다. 전용 템플릿 레포는 <strong>준비 중</strong>이다.</p>
+        </blockquote>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>핵심 — 툴이 지능을 쓴다</h2>
+        <p>보통의 툴은 <strong>정해진 일</strong>만 한다. <code>fetch_url(url)</code>은 페이지를 가져오고, <code>save_file(path)</code>는 파일을 쓴다 — 입력이 같으면 출력도 같다. 결정적이다.</p>
+        <p>그런데 툴 <strong>안에서 LLM API를 호출</strong>하면 성질이 달라진다. 그 툴은 이제 <strong>판단하고 생성하는</strong> 툴이 된다 — "이 자료로 도입부를 써라", "이 초안이 요구사항을 만족하는지 채점해라" 같은, 규칙으로 못 박을 수 없는 일을 한다.</p>
+        <pre><code>일반 툴      입력 → [정해진 규칙]        → 출력   (결정적)
+지능형 툴    입력 → [프롬프트로 LLM 호출] → 출력   (판단·생성)</code></pre>
+        <p>여기서 핵심은 <strong>"프롬프트가 곧 제어"</strong>라는 점이다. 툴은 LLM에게 <strong>요구사항(무엇을 해라)</strong>만 던지지 않는다. <strong>하네스(어떤 형식·톤·제약·금지)</strong>를 함께 실어 보낸다. 시리즈 3에서 말한 <em>하네스 엔지니어링</em>이 — 워크플로우 전체가 아니라 — 단 하나의 툴 호출 안에서도 똑같이 작동하는 것이다.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>흐름 한눈에</h2>
+        <p>이 트랙의 에이전트는 한 방에 글을 뽑지 않는다. 사람이 글을 쓰는 순서 그대로 — <strong>모으고 · 쓰고 · 따져보고 · 고친다.</strong></p>
+<pre>  [사용자 요구]  "주제 X로 블로그 글, 출처는 이 URL들"
+        │
+        ▼
+  ┌───────────────┐   툴: 외부 URL/RSS를 실제로 가져온다
+  │ 1. 출처 fetch │   (결정적 — LLM 호출 없음)
+  └──────┬────────┘
+         ▼
+  ┌───────────────┐   지능형 툴: 요구사항 + 하네스 + 출처 →
+  │ 2. 초안 작성  │   LLM이 글 초안 생성
+  └──────┬────────┘
+         ▼
+  ┌───────────────┐   지능형 툴(LLM-as-Judge): 루브릭으로
+  │ 3. 자기검증   │   초안을 채점 → 통과 / 수정지시
+  └──────┬────────┘
+         │  통과 ──────────────► 완성
+         │  미달
+         ▼
+  ┌───────────────┐   지능형 툴: Judge의 지시를 받아
+  │ 4. 수정       │   초안을 고쳐 다시 3으로
+  └───────────────┘   (최대 N회 — 무한루프 방지)</pre>
+        <p>1번만 결정적 툴이고, <strong>2·3·4번이 모두 "지능을 쓰는 툴"</strong>이다. 같은 LLM이라도 <strong>어떤 프롬프트(=요구사항+하네스)를 받느냐에 따라</strong> 작가가 되기도, 심사위원이 되기도, 편집자가 되기도 한다.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>1단계 — 출처 fetch (결정적 툴)</h2>
+        <p>첫 단계는 지능이 필요 없다. 사용자가 준 URL·RSS를 <strong>그대로 가져오는</strong> 평범한 툴이다. 여기서 LLM을 부르지 않는 게 중요하다 — 출처는 <strong>사실</strong>이고, 사실은 생성하는 게 아니라 <strong>가져오는</strong> 것이다. (시리즈 1의 Blind Context: AI는 모르는 걸 그럴듯하게 지어낸다 — 그래서 근거는 코드로 못박는다.)</p>
+        <pre><code>def fetch_sources(urls):
+    # LLM 호출 없음. 실제 네트워크에서 본문만 긁어온다.
+    return [ {"url": u, "text": download_main_text(u)} for u in urls ]</code></pre>
+        <p>이렇게 가져온 출처 텍스트가 다음 단계 프롬프트에 <strong>근거로</strong> 실린다. 글은 모델의 기억이 아니라 <strong>이 출처</strong>에 기대게 만든다.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>2단계 — 초안: 프롬프트 = 요구사항 + 하네스</h2>
+        <p>이 트랙의 심장이다. 초안 툴은 LLM을 부르되, <strong>요구사항과 하네스를 한 프롬프트에 함께</strong> 실어 보낸다. "글 써줘"가 아니라, <strong>무엇을·어떻게·무엇은 하지 말 것</strong>까지 구조로 지시한다.</p>
+        <pre><code># 의사코드 — 툴 안에서 LLM을 부르는 모양 (실행용 아님)
+def draft(topic, sources, audience):
+    prompt = f"""
+[요구사항]   ← 무엇을
+- 주제: {topic}
+- 독자: {audience}
+- 출처(아래 본문)에 근거해서만 쓴다. 출처에 없는 사실은 쓰지 않는다.
+
+[하네스]     ← 어떻게 · 제약
+- 구조: 도입(질문) → 본문 3단락 → 결론(한 줄 요약)
+- 분량: 800자 내외 / 톤: 단정한 한국어, 1인칭은 "우리"
+- 금지: 과장 형용사, 출처 없는 단정, 메타 안내("이 글에서는...")
+- 각 주장 끝에 [출처 번호]를 단다
+
+[출처]
+{format_sources(sources)}
+"""
+    return call_llm(model="claude-opus-4-8", prompt=prompt)</code></pre>
+        <p>같은 모델, 같은 출처라도 <strong>[하네스] 블록을 바꾸면 결과의 방향이 바뀐다.</strong> 요구사항이 "무엇을"이라면, 하네스는 "어떻게 — 그리고 무엇은 절대 하지 말 것"이다. 제어는 여기서 일어난다.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>3단계 — 자기검증: LLM-as-Judge</h2>
+        <p>초안을 그대로 믿지 않는다. <strong>같은 종류의 툴(LLM 호출)을 심사위원 역할로</strong> 한 번 더 쓴다. 작가에게 준 하네스를 이번엔 <strong>채점 루브릭</strong>으로 뒤집어 던진다 — "이 글이 그 제약을 지켰는가?"</p>
+        <pre><code># 의사코드 — 같은 LLM, 다른 프롬프트 → 심사위원이 된다
+def judge(draft, topic, sources):
+    prompt = f"""
+너는 편집자다. 아래 초안을 루브릭으로 채점한다.
+
+[루브릭] (각 항목 통과/미달 + 한 줄 근거)
+1. 출처 근거: 모든 사실 주장이 출처에 있는가? 지어낸 곳은?
+2. 구조: 도입→본문 3단락→결론을 지켰는가?
+3. 톤·금지: 과장/메타 안내/출처 없는 단정이 없는가?
+4. 주제 적합: 독자에게 실제로 답을 주는가?
+
+[출력] 통과면 verdict="pass". 미달이면 verdict="revise"와
+       고쳐야 할 곳을 '어디를 → 어떻게' 형태로 구체적으로.
+
+[초안]
+{draft}
+[출처]
+{format_sources(sources)}
+"""
+    return call_llm(model="claude-opus-4-8", prompt=prompt)  # 구조화 출력</code></pre>
+        <p>여기서 시리즈 5의 명제가 그대로 산다 — <strong>실행이 싸지면 판단이 비싸진다.</strong> 초안 생성(실행)은 한 번의 호출로 끝나지만, <strong>그게 쓸 만한지 가르는 판단</strong>이 품질을 만든다. 그래서 작가와 심사위원을 <strong>분리</strong>한다. 자기가 쓴 걸 자기가 후하게 보는 편향을 끊기 위해, 채점은 별도의 호출로 한다.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>4단계 — 수정 루프 (그리고 멈춤)</h2>
+        <p>Judge가 <code>revise</code>를 내면, 그 <strong>구체적 지시</strong>를 들고 초안을 고치는 툴을 부른다. 고친 초안은 다시 3단계로 — 통과할 때까지. 단, <strong>무한히 돌지 않는다.</strong> 횟수 상한을 둔다 (시리즈 4의 LOOPBACK 제한과 같은 발상).</p>
+        <pre><code># 의사코드 — 에이전트 루프 전체 (실행용 아님)
+def write_post(topic, urls, audience, max_rounds=3):
+    sources = fetch_sources(urls)          # 1. 결정적 툴
+    text = draft(topic, sources, audience) # 2. 지능형 툴
+    for _ in range(max_rounds):
+        verdict = judge(text, topic, sources)   # 3. 지능형 툴(심사)
+        if verdict.result == "pass":
+            return text                          # 통과 → 완성
+        text = revise(text, verdict.fixes, sources)  # 4. 지능형 툴(편집)
+    return text  # 상한 도달 — 사람에게 넘긴다(게이트)</code></pre>
+        <p>상한에 닿아도 그냥 토해내지 않는다 — <strong>사람에게 넘기는 게이트</strong>가 된다. AI가 두 번 고쳐도 루브릭을 못 넘겼다면, 그건 모델이 아니라 <strong>요구사항이나 출처</strong>에 문제가 있다는 신호다. 판단의 책임은 사람에게 돌아온다.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>정리 — 왜 이게 "하네스 안의 에이전트"인가</h2>
+        <p>"주제 던지면 글 뽑아주는 AI"와 이 트랙의 차이는 한 줄로 압축된다.</p>
+        <blockquote>
+          <p>생성을 <strong>구조 안에 가둔다.</strong> 출처는 코드로 못박고(fetch), 방향은 프롬프트의 하네스로 제어하고(draft), 결과는 별도의 심사로 검증하고(judge), 실패는 횟수 제한 안에서 복구하다 사람에게 넘긴다(loop·gate).</p>
+        </blockquote>
+        <p>LLM API를 <strong>툴 안에서</strong> 쓴다는 건, 모델에게 자유를 주는 게 아니라 — <strong>매 호출마다 요구사항과 하네스를 함께 쥐여 방향을 잡는 일</strong>이다. 그게 "지능을 쓰는 툴"이고, 그 툴들을 fetch → draft → judge → revise로 엮은 게 에이전트다.</p>
+        <blockquote class="tip">
+          <p><strong>다음.</strong> 이 흐름을 실제로 돌려볼 수 있는 전용 템플릿 레포는 <strong>준비 중</strong>이다. 공개되면 이 페이지에서 바로 연결한다 — 그때 직접 <code>draft</code>·<code>judge</code> 프롬프트를 바꿔가며 "하네스를 바꾸면 결과가 어떻게 휘는지"를 손으로 확인하게 된다.</p>
+        </blockquote>
+      </section>
+
+      <nav class="article-nav">
+        <a class="prev" href="video-agent.html">
+          <span class="label">이전 트랙</span>
+          <span class="title">← oh-my-vedioagent 실습</span>
+        </a>
+        <a class="next" href="index.html">
+          <span class="label">실습 허브</span>
+          <span class="title">실습자료로 돌아가기 ↑</span>
+        </a>
+      </nav>
+
+    </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong>지능을 쓰는 툴</strong> — LLM을 툴 안에서 호출하는 에이전트</p>
+      <p>전용 템플릿 레포 준비 중 · <a href="https://github.com/FREEDOBY" target="_blank" rel="noopener">FREEDOBY</a></p>
+      <div class="license-notice">
+        © FREEDOBY · Licensed under CC BY-NC-ND 4.0 · No redistribution or modification
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.article pre').forEach(function (pre) {
+      var code = pre.querySelector('code');
+      if (!code || pre.querySelector('.copy-btn')) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.textContent = '복사';
+      btn.addEventListener('click', function () {
+        var text = code.innerText;
+        function done() {
+          btn.textContent = '복사됨';
+          btn.classList.add('copied');
+          setTimeout(function () { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1500);
+        }
+        function fallback() {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta);
+          done();
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(fallback);
+        } else {
+          fallback();
+        }
+      });
+      pre.appendChild(btn);
+    });
+  </script>
+
+</body>
+</html>
