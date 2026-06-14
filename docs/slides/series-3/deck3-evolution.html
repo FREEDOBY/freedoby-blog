@@ -1054,202 +1054,21 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="foot"><span>Opening · 적층의 구조</span><span>02 / 13 · → Primer</span></div>
 </section>
 
-<!-- 03a PRIMER — Vendor 하네스: 주장 (두 하네스) -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Primer · Vendor 하네스</span></div>
-    <div class="tag">#two-harnesses #layer-zero</div>
-    <div>03 / 13</div>
-  </div>
-  <div class="stage">
-    <div class="kicker">raw 모델은 글자만 뱉는다 — 그걸로는 못 짠다</div>
-    <div class="keyword md">하네스가 — <em>모델을 '에이전트'로</em> 만든다.</div>
-    <div class="subline" style="max-width:none; margin-top:8px;">
-      파일을 읽고·고치고, 명령을 돌리고, 폭주를 멈추는 능력 — <strong>모델엔 없다.</strong>
-      누가 그걸 깔아 주느냐로 — <strong>하네스는 두 층으로 갈린다.</strong>
-    </div>
-
-    <div class="card-grid">
-      <div class="card">
-        <div class="card-lbl">0번 층 — Vendor Harness</div>
-        <div class="card-name">raw 모델 → <em>범용 에이전트.</em></div>
-        <div class="card-by">도구 · 에이전트 루프 · 권한 게이트 · 컨텍스트 관리</div>
-        <div class="card-desc">
-          목적 — <strong>어디서든 돌아가게.</strong> 도구 쓰고·파일 고치고·폭주 안 하는
-          에이전트를 만든다. 단, <mark>User의 프로젝트는 모른다.</mark>
-        </div>
-      </div>
-      <div class="card user">
-        <div class="card-lbl">그 위 — User Harness</div>
-        <div class="card-name">범용 → <em>User 제품 전용.</em></div>
-        <div class="card-by">.claude/ · 프롬프트 · 컨텍스트 · 프로세스</div>
-        <div class="card-desc">
-          목적 — <strong>User 제품을 성공시키게.</strong> 컨벤션·도메인·완료 기준을 가르쳐,
-          범용 에이전트가 <mark>User 제품을 제대로 뽑게</mark> 만든다.
-        </div>
-      </div>
-    </div>
-
-    <div class="callout">
-      벤더는 <strong>범용 에이전트</strong>까지 — 거기서 멈춘다. 그 위를 <em>User 도메인</em>에 맞추는 건,
-      <strong>User만 안다.</strong> 그래서 User 하네스는 — User의 몫.
-    </div>
-  </div>
-  <div class="foot"><span>Primer · Vendor 하네스 — 주장</span><span>03 / 13 · → 측정</span></div>
-</section>
-
-<!-- 04 PRIMER — Vendor 하네스: /context 측정 + 매핑 (병합) -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Primer · /context</span></div>
-    <div class="tag">#context-window #vendor-vs-user</div>
-    <div>04 / 13</div>
-  </div>
-  <div class="stage top">
-    <div class="kicker">Vendor 하네스는 추상이 아니다</div>
-    <div class="keyword md"><em>/context</em>의 단면 — <em>Vendor Harness</em>, 그 위에 <em>User Harness.</em></div>
-
-    <div class="context-viz" style="margin-top:16px; padding:14px 22px;">
-      <div class="context-viz-prompt"><span class="arrow">▶</span>/context <span class="cv-tag" style="color:var(--muted-lt)">Claude Sonnet · 200K</span></div>
-
-      <div class="context-viz-bar" style="margin:10px 0 4px;">
-        <div style="width:2%;    background:#888888" title="System prompt"></div>
-        <div style="width:10.5%; background:#bbbbbb" title="System tools"></div>
-        <div style="width:1%;    background:#b1b9f9" title="Custom agents"></div>
-        <div style="width:0.5%;  background:#d77757" title="Memory files"></div>
-        <div style="width:1%;    background:#ffc107" title="Skills"></div>
-        <div style="width:50%;   background:#9333ea" title="Messages"></div>
-        <div style="width:35%;   background:rgba(240,236,224,0.06); border-left: 1px solid rgba(240,236,224,0.18);" title="Free"></div>
-      </div>
-    </div>
-
-    <div class="mapping" style="margin-top:16px;">
-      <div class="map-row ctx ctxm ctx-head">
-        <div class="map-cell"><div class="mc-label">/context 항목</div></div>
-        <div class="map-cell"><div class="mc-label" style="text-align:right">토큰</div></div>
-        <div class="map-cell"><div class="mc-label" style="text-align:right">%</div></div>
-        <div class="map-cell"><div class="mc-label">누구 것</div></div>
-        <div class="map-cell"><div class="mc-label">연결</div></div>
-      </div>
-      <div class="map-row ctx ctxm">
-        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#888888"></span>System prompt</div></div>
-        <div class="map-cell"><div class="mc-tok">4K</div></div>
-        <div class="map-cell"><div class="mc-pct">2.0%</div></div>
-        <div class="map-cell"><div class="mc-own o-vendor">Vendor 하네스</div></div>
-        <div class="map-cell"><div class="mc-link">행동 baseline — 손댈 수 없음</div></div>
-      </div>
-      <div class="map-row ctx ctxm">
-        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#bbbbbb"></span>System tools</div></div>
-        <div class="map-cell"><div class="mc-tok">21K</div></div>
-        <div class="map-cell"><div class="mc-pct">10.5%</div></div>
-        <div class="map-cell"><div class="mc-own o-vendor">Vendor 하네스</div></div>
-        <div class="map-cell"><div class="mc-link">27 도구 + MCP — 25K의 대부분</div></div>
-      </div>
-      <div class="map-row ctx ctxm">
-        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#b1b9f9"></span>Custom agents</div></div>
-        <div class="map-cell"><div class="mc-tok">2K</div></div>
-        <div class="map-cell"><div class="mc-pct">1.0%</div></div>
-        <div class="map-cell"><div class="mc-own o-user">User 하네스</div></div>
-        <div class="map-cell"><div class="mc-link"><em>.claude/agents/</em></div></div>
-      </div>
-      <div class="map-row ctx ctxm">
-        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#d77757"></span>Memory files</div></div>
-        <div class="map-cell"><div class="mc-tok">1K</div></div>
-        <div class="map-cell"><div class="mc-pct">0.5%</div></div>
-        <div class="map-cell"><div class="mc-own o-user">User 하네스</div></div>
-        <div class="map-cell"><div class="mc-link"><em>.claude/CLAUDE.md</em></div></div>
-      </div>
-      <div class="map-row ctx ctxm">
-        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#ffc107"></span>Skills</div></div>
-        <div class="map-cell"><div class="mc-tok">2K</div></div>
-        <div class="map-cell"><div class="mc-pct">1.0%</div></div>
-        <div class="map-cell"><div class="mc-own o-user">User 하네스</div></div>
-        <div class="map-cell"><div class="mc-link"><em>.claude/skills/</em></div></div>
-      </div>
-      <div class="map-row ctx ctxm">
-        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#9333ea"></span>Messages</div></div>
-        <div class="map-cell"><div class="mc-tok">100K</div></div>
-        <div class="map-cell"><div class="mc-pct">50.0%</div></div>
-        <div class="map-cell"><div class="mc-own o-talk">대화 · 런타임</div></div>
-        <div class="map-cell"><div class="mc-link">입력 · 코드 · 출력 — 당신 몫</div></div>
-      </div>
-    </div>
-
-    <div class="subline" style="max-width:none; margin-top:16px; line-height:1.75;">
-      <strong style="color:var(--gold)">Vendor</strong> — 사용자가 손대기 전부터 깔리는 층 <span style="opacity:.6">(System prompt + tools)</span> · <em>default</em><br>
-      <strong style="color:#8fb2cc">User</strong> — <em>.claude/</em>로 우리가 얹는 층 <span style="opacity:.6">(agents · memory · skills)</span><br>
-      <strong style="color:var(--muted-lt)">대화</strong> — 런타임에 채워지는 <em>가변</em> 영역
-    </div>
-
-    <div class="callout" style="margin-top:16px;">
-      <em>Vendor Harness</em> 고정 — 우리가 만질 곳은 <strong>User Harness = .claude/로 설정.</strong>
-    </div>
-  </div>
-  <div class="foot"><span>Primer · /context — 측정 + 매핑</span><span>04 / 13 · → 지침</span></div>
-</section>
-
-<!-- 04b PRIMER — Vendor 하네스 안을 연다: 실제 시스템 지침 4선 -->
-<section class="slide dark">
-  <div class="chrome">
-    <div class="seg"><span class="dot"></span><span>Primer · Vendor 지침</span></div>
-    <div class="tag">#system-prompt #guardrails</div>
-    <div>05 / 13</div>
-  </div>
-  <div class="stage top">
-    <div class="kicker">그 Vendor 하네스 안을 열어보면</div>
-    <div class="keyword md"><em>Vendor Harness</em> 안 — <em>안전·컨텍스트·해석</em>을 박은 지침.</div>
-    <div class="subline" style="max-width:none; margin-top:6px;">
-      raw 모델을 <strong>어디서든·폭주 없이</strong> 굴리는 규칙 — Vendor의 <em>System prompt</em>에,
-      사용자가 한 줄 쓰기 전부터 박혀 있다. Claude Code 실제 발췌 넷.
-    </div>
-
-    <div class="card-grid" style="gap:18px 26px; margin-top:18px;">
-      <div class="card">
-        <div class="card-lbl">안전 · 폭주 차단</div>
-        <div class="vh-name">system-prompt-action-safety-and-truthful-reporting</div>
-        <div class="vh-quote">"For actions that are hard to reverse or outward-facing, confirm first — approval in one context doesn't extend to the next."</div>
-        <div class="card-desc">되돌리기 힘든·외부로 나가는 행동은 <strong>먼저 확인.</strong> 한 번 승인이 다음까지 가지 않는다 — <mark>폭주를 막는 가드레일.</mark></div>
-      </div>
-      <div class="card">
-        <div class="card-lbl">배선 · 권한 게이트</div>
-        <div class="vh-name">system-prompt-harness-instructions</div>
-        <div class="vh-quote">"Tools run behind a user-selected permission mode; a denied call means the user declined it — adjust, don't retry verbatim."</div>
-        <div class="card-desc">도구는 <strong>권한 모드 뒤에서</strong> 실행 — 거부당하면 똑같이 재시도 말고 조정. <mark>모델을 터미널에 묶는 배선.</mark></div>
-      </div>
-      <div class="card">
-        <div class="card-lbl">컨텍스트 · 윈도우 관리</div>
-        <div class="vh-name">system-prompt-context-compaction-summary</div>
-        <div class="vh-quote">"Write a continuation summary that will allow you to resume work in a future context window where the conversation history will be replaced with this summary."</div>
-        <div class="card-desc">대화가 길어지면 — 히스토리를 <strong>요약으로 갈아끼워</strong> 다음 윈도우로 잇는다. <mark>200K를 넘지 않게 관리.</mark></div>
-      </div>
-      <div class="card">
-        <div class="card-lbl">해석 · SE 기본값</div>
-        <div class="vh-name">system-prompt-doing-tasks-software-engineering-focus</div>
-        <div class="vh-quote">"…change methodName to snake case — do not reply with just 'method_name'; find the method in the code and modify it."</div>
-        <div class="card-desc">모호한 지시도 <strong>'코드를 고치라'</strong>로 해석 — 텍스트가 아니라 작업으로. <mark>범용 에이전트의 기본 자세.</mark></div>
-      </div>
-    </div>
-
-    <div class="vh-src">출처 — <em>Claude Code v2.1 system prompts</em> · Piebald-AI 추출 (github.com/Piebald-AI/claude-code-system-prompts)</div>
-  </div>
-  <div class="foot"><span>Primer · Vendor 지침 — 4선</span><span>05 / 13 · → 전환</span></div>
-</section>
-
 <!-- 03d PRIMER — User 하네스: 전환 (.claude/ 7단위) -->
 <section class="slide light">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Primer · User 하네스</span></div>
     <div class="tag">#user-harness #7-units</div>
-    <div>06 / 13</div>
+    <div>03 / 13</div>
   </div>
   <div class="stage stage-split">
     <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
-      <div class="kicker">Vendor가 끝낸 곳에서 — 우리 차례</div>
+      <div class="kicker">여기서부터 — 우리가 짜는 층</div>
       <div class="display sm">User 하네스의 <em>첫 layer.</em></div>
       <div class="subline" style="margin-top:8px;">
-        방금 /context의 <strong>User 3줄</strong> (agents · CLAUDE.md · skills) —<br>
-        그 위에 <strong>4를 더하면</strong> <em>.claude/ 7단위.</em><br>
-        Vendor가 끝낸 자리, <strong>여기서부터가 우리 일.</strong>
+        에이전트에게 우리 프로젝트를 가르치는 자리 — <em>.claude/.</em><br>
+        항상 깔리는 것부터 필요할 때 부르는 것까지 — <em>7단위.</em><br>
+        <strong>여기서부터가 우리 일.</strong>
       </div>
 
       <div class="vocab-list">
@@ -1308,12 +1127,12 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
              style="width:100%; max-height:560px; object-fit:contain; display:block; margin-top:16px; border-radius:4px; box-shadow:0 6px 24px rgba(12,11,9,0.14); cursor:zoom-in;" />
       </a>
       <div style="text-align:center; font-family:var(--serif-ko); color:var(--black); margin-top:14px; font-size:18px; line-height:1.5;">
-        Vendor 하네스 — <em style="font-family:var(--serif); color:var(--gold-dk);">이미 깔려 있다.</em><br>
+        AI의 작업실 — <em style="font-family:var(--serif); color:var(--gold-dk);">.claude/</em><br>
         User 하네스 — <em style="font-family:var(--serif); color:var(--gold-dk); font-weight:700;">우리가 짠다.</em>
       </div>
     </div>
   </div>
-  <div class="foot"><span>Primer · User 하네스 — 전환</span><span>06 / 13 · → Stage I</span></div>
+  <div class="foot"><span>Primer · User 하네스 — 전환</span><span>03 / 13 · → Stage I</span></div>
 </section>
 
 <!-- 04 STAGE I — Prompt 예제 -->
@@ -1321,7 +1140,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage I · Prompt</span></div>
     <div class="tag">#how-to-say #system-instruction</div>
-    <div>07 / 13</div>
+    <div>04 / 13</div>
   </div>
   <div class="stage stage-split">
     <div class="left-split">
@@ -1417,7 +1236,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Stage I · Prompt — substrate vs concern</span><span>07 / 13 · → Stage II</span></div>
+  <div class="foot"><span>Stage I · Prompt — substrate vs concern</span><span>04 / 13 · → Stage II</span></div>
 </section>
 
 <!-- 04 STAGE II — Context 예제 -->
@@ -1425,7 +1244,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage II · Context</span></div>
     <div class="tag">#what-when-how #skill-agent</div>
-    <div>08 / 13</div>
+    <div>05 / 13</div>
   </div>
   <div class="stage stage-split">
     <div class="left-split">
@@ -1481,7 +1300,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Stage II · Context — substrate vs concern</span><span>08 / 13 · → Stage III</span></div>
+  <div class="foot"><span>Stage II · Context — substrate vs concern</span><span>05 / 13 · → Stage III</span></div>
 </section>
 
 <!-- 05 STAGE III — Harness 예제 -->
@@ -1489,7 +1308,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Stage III · Harness</span></div>
     <div class="tag">#how-to-execute #halo-workflow</div>
-    <div>09 / 13</div>
+    <div>06 / 13</div>
   </div>
   <div class="stage stage-split">
     <div class="left-split">
@@ -1545,7 +1364,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Stage III · Harness — substrate vs concern</span><span>09 / 13 · → 적층의 단면</span></div>
+  <div class="foot"><span>Stage III · Harness — substrate vs concern</span><span>06 / 13 · → 적층의 단면</span></div>
 </section>
 
 <!-- 06 .claude/ TREE — 적층의 단면 -->
@@ -1553,7 +1372,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · Layered</span></div>
     <div class="tag">#claude-folder #stratigraphy</div>
-    <div>10 / 13</div>
+    <div>07 / 13</div>
   </div>
   <div class="stage stage-split">
     <div class="left-split">
@@ -1608,7 +1427,188 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Synthesis · 적층의 단면</span><span>10 / 13 · → 4대장</span></div>
+  <div class="foot"><span>Synthesis · 적층의 단면</span><span>07 / 13 · → Vendor 기반</span></div>
+</section>
+
+<!-- 03a PRIMER — Vendor 하네스: 주장 (두 하네스) -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Stack · Vendor 기반</span></div>
+    <div class="tag">#two-harnesses #layer-zero</div>
+    <div>08 / 13</div>
+  </div>
+  <div class="stage">
+    <div class="kicker">그런데 — 이 적층의 맨 아래엔</div>
+    <div class="keyword md">하네스가 — <em>모델을 '에이전트'로</em> 만든다.</div>
+    <div class="subline" style="max-width:none; margin-top:8px;">
+      파일을 읽고·고치고, 명령을 돌리고, 폭주를 멈추는 능력 — <strong>모델엔 없다.</strong>
+      누가 그걸 깔아 주느냐로 — <strong>하네스는 두 층으로 갈린다.</strong>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-lbl">0번 층 — Vendor Harness</div>
+        <div class="card-name">raw 모델 → <em>범용 에이전트.</em></div>
+        <div class="card-by">도구 · 에이전트 루프 · 권한 게이트 · 컨텍스트 관리</div>
+        <div class="card-desc">
+          목적 — <strong>어디서든 돌아가게.</strong> 도구 쓰고·파일 고치고·폭주 안 하는
+          에이전트를 만든다. 단, <mark>User의 프로젝트는 모른다.</mark>
+        </div>
+      </div>
+      <div class="card user">
+        <div class="card-lbl">그 위 — User Harness</div>
+        <div class="card-name">범용 → <em>User 제품 전용.</em></div>
+        <div class="card-by">.claude/ · 프롬프트 · 컨텍스트 · 프로세스</div>
+        <div class="card-desc">
+          목적 — <strong>User 제품을 성공시키게.</strong> 컨벤션·도메인·완료 기준을 가르쳐,
+          범용 에이전트가 <mark>User 제품을 제대로 뽑게</mark> 만든다.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      벤더는 <strong>범용 에이전트</strong>까지 — 거기서 멈춘다. 그 위를 <em>User 도메인</em>에 맞추는 건,
+      <strong>User만 안다.</strong> 그래서 User 하네스는 — User의 몫.
+    </div>
+  </div>
+  <div class="foot"><span>Stack · Vendor 기반 — 주장</span><span>08 / 13 · → 측정</span></div>
+</section>
+
+<!-- 04 PRIMER — Vendor 하네스: /context 측정 + 매핑 (병합) -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Stack · /context</span></div>
+    <div class="tag">#context-window #vendor-vs-user</div>
+    <div>09 / 13</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">Vendor 하네스는 추상이 아니다</div>
+    <div class="keyword md"><em>/context</em>의 단면 — <em>Vendor Harness</em>, 그 위에 <em>User Harness.</em></div>
+
+    <div class="context-viz" style="margin-top:16px; padding:14px 22px;">
+      <div class="context-viz-prompt"><span class="arrow">▶</span>/context <span class="cv-tag" style="color:var(--muted-lt)">Claude Sonnet · 200K</span></div>
+
+      <div class="context-viz-bar" style="margin:10px 0 4px;">
+        <div style="width:2%;    background:#888888" title="System prompt"></div>
+        <div style="width:10.5%; background:#bbbbbb" title="System tools"></div>
+        <div style="width:1%;    background:#b1b9f9" title="Custom agents"></div>
+        <div style="width:0.5%;  background:#d77757" title="Memory files"></div>
+        <div style="width:1%;    background:#ffc107" title="Skills"></div>
+        <div style="width:50%;   background:#9333ea" title="Messages"></div>
+        <div style="width:35%;   background:rgba(240,236,224,0.06); border-left: 1px solid rgba(240,236,224,0.18);" title="Free"></div>
+      </div>
+    </div>
+
+    <div class="mapping" style="margin-top:16px;">
+      <div class="map-row ctx ctxm ctx-head">
+        <div class="map-cell"><div class="mc-label">/context 항목</div></div>
+        <div class="map-cell"><div class="mc-label" style="text-align:right">토큰</div></div>
+        <div class="map-cell"><div class="mc-label" style="text-align:right">%</div></div>
+        <div class="map-cell"><div class="mc-label">누구 것</div></div>
+        <div class="map-cell"><div class="mc-label">연결</div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#888888"></span>System prompt</div></div>
+        <div class="map-cell"><div class="mc-tok">4K</div></div>
+        <div class="map-cell"><div class="mc-pct">2.0%</div></div>
+        <div class="map-cell"><div class="mc-own o-vendor">Vendor 하네스</div></div>
+        <div class="map-cell"><div class="mc-link">행동 baseline — 손댈 수 없음</div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#bbbbbb"></span>System tools</div></div>
+        <div class="map-cell"><div class="mc-tok">21K</div></div>
+        <div class="map-cell"><div class="mc-pct">10.5%</div></div>
+        <div class="map-cell"><div class="mc-own o-vendor">Vendor 하네스</div></div>
+        <div class="map-cell"><div class="mc-link">27 도구 + MCP — 25K의 대부분</div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#b1b9f9"></span>Custom agents</div></div>
+        <div class="map-cell"><div class="mc-tok">2K</div></div>
+        <div class="map-cell"><div class="mc-pct">1.0%</div></div>
+        <div class="map-cell"><div class="mc-own o-user">User 하네스</div></div>
+        <div class="map-cell"><div class="mc-link"><em>.claude/agents/</em></div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#d77757"></span>Memory files</div></div>
+        <div class="map-cell"><div class="mc-tok">1K</div></div>
+        <div class="map-cell"><div class="mc-pct">0.5%</div></div>
+        <div class="map-cell"><div class="mc-own o-user">User 하네스</div></div>
+        <div class="map-cell"><div class="mc-link"><em>.claude/CLAUDE.md</em></div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#ffc107"></span>Skills</div></div>
+        <div class="map-cell"><div class="mc-tok">2K</div></div>
+        <div class="map-cell"><div class="mc-pct">1.0%</div></div>
+        <div class="map-cell"><div class="mc-own o-user">User 하네스</div></div>
+        <div class="map-cell"><div class="mc-link"><em>.claude/skills/</em></div></div>
+      </div>
+      <div class="map-row ctx ctxm">
+        <div class="map-cell"><div class="mc-item"><span class="swatch" style="background:#9333ea"></span>Messages</div></div>
+        <div class="map-cell"><div class="mc-tok">100K</div></div>
+        <div class="map-cell"><div class="mc-pct">50.0%</div></div>
+        <div class="map-cell"><div class="mc-own o-talk">대화 · 런타임</div></div>
+        <div class="map-cell"><div class="mc-link">입력 · 코드 · 출력 — 당신 몫</div></div>
+      </div>
+    </div>
+
+    <div class="subline" style="max-width:none; margin-top:16px; line-height:1.75;">
+      <strong style="color:var(--gold)">Vendor</strong> — 사용자가 손대기 전부터 깔리는 층 <span style="opacity:.6">(System prompt + tools)</span> · <em>default</em><br>
+      <strong style="color:#8fb2cc">User</strong> — <em>.claude/</em>로 우리가 얹는 층 <span style="opacity:.6">(agents · memory · skills)</span><br>
+      <strong style="color:var(--muted-lt)">대화</strong> — 런타임에 채워지는 <em>가변</em> 영역
+    </div>
+
+    <div class="callout" style="margin-top:16px;">
+      <em>Vendor Harness</em> 고정 — 우리가 만질 곳은 <strong>User Harness = .claude/로 설정.</strong>
+    </div>
+  </div>
+  <div class="foot"><span>Stack · /context — 측정 + 매핑</span><span>09 / 13 · → 지침</span></div>
+</section>
+
+<!-- 04b PRIMER — Vendor 하네스 안을 연다: 실제 시스템 지침 4선 -->
+<section class="slide dark">
+  <div class="chrome">
+    <div class="seg"><span class="dot"></span><span>Stack · Vendor 지침</span></div>
+    <div class="tag">#system-prompt #guardrails</div>
+    <div>10 / 13</div>
+  </div>
+  <div class="stage top">
+    <div class="kicker">그 Vendor 하네스 안을 열어보면</div>
+    <div class="keyword md"><em>Vendor Harness</em> 안 — <em>안전·컨텍스트·해석</em>을 박은 지침.</div>
+    <div class="subline" style="max-width:none; margin-top:6px;">
+      raw 모델을 <strong>어디서든·폭주 없이</strong> 굴리는 규칙 — Vendor의 <em>System prompt</em>에,
+      사용자가 한 줄 쓰기 전부터 박혀 있다. Claude Code 실제 발췌 넷.
+    </div>
+
+    <div class="card-grid" style="gap:18px 26px; margin-top:18px;">
+      <div class="card">
+        <div class="card-lbl">안전 · 폭주 차단</div>
+        <div class="vh-name">system-prompt-action-safety-and-truthful-reporting</div>
+        <div class="vh-quote">"For actions that are hard to reverse or outward-facing, confirm first — approval in one context doesn't extend to the next."</div>
+        <div class="card-desc">되돌리기 힘든·외부로 나가는 행동은 <strong>먼저 확인.</strong> 한 번 승인이 다음까지 가지 않는다 — <mark>폭주를 막는 가드레일.</mark></div>
+      </div>
+      <div class="card">
+        <div class="card-lbl">배선 · 권한 게이트</div>
+        <div class="vh-name">system-prompt-harness-instructions</div>
+        <div class="vh-quote">"Tools run behind a user-selected permission mode; a denied call means the user declined it — adjust, don't retry verbatim."</div>
+        <div class="card-desc">도구는 <strong>권한 모드 뒤에서</strong> 실행 — 거부당하면 똑같이 재시도 말고 조정. <mark>모델을 터미널에 묶는 배선.</mark></div>
+      </div>
+      <div class="card">
+        <div class="card-lbl">컨텍스트 · 윈도우 관리</div>
+        <div class="vh-name">system-prompt-context-compaction-summary</div>
+        <div class="vh-quote">"Write a continuation summary that will allow you to resume work in a future context window where the conversation history will be replaced with this summary."</div>
+        <div class="card-desc">대화가 길어지면 — 히스토리를 <strong>요약으로 갈아끼워</strong> 다음 윈도우로 잇는다. <mark>200K를 넘지 않게 관리.</mark></div>
+      </div>
+      <div class="card">
+        <div class="card-lbl">해석 · SE 기본값</div>
+        <div class="vh-name">system-prompt-doing-tasks-software-engineering-focus</div>
+        <div class="vh-quote">"…change methodName to snake case — do not reply with just 'method_name'; find the method in the code and modify it."</div>
+        <div class="card-desc">모호한 지시도 <strong>'코드를 고치라'</strong>로 해석 — 텍스트가 아니라 작업으로. <mark>범용 에이전트의 기본 자세.</mark></div>
+      </div>
+    </div>
+
+    <div class="vh-src">출처 — <em>Claude Code v2.1 system prompts</em> · Piebald-AI 추출 (github.com/Piebald-AI/claude-code-system-prompts)</div>
+  </div>
+  <div class="foot"><span>Stack · Vendor 지침 — 4선</span><span>10 / 13 · → 4대장</span></div>
 </section>
 
 <!-- 07 FRAMEWORKS -->
