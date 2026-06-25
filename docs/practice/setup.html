@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습 · 시작하기 — Claude Code 설치와 로그인</title>
+  <meta name="description" content="실습 트랙을 시작하기 전에. Claude Code를 설치하고 로그인까지 끝내는 공통 준비 가이드 — Windows PowerShell 기준, Git·계정 안내 포함.">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container-wide site-header-inner">
+      <a href="../index.html" class="site-title">
+        FREEDOBY<em>Blog</em>
+      </a>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="https://github.com/FREEDOBY/halo-workflow" target="_blank" rel="noopener">Project</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="sidebar-header">Index</div>
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="sidebar-home">← 목차</a>
+
+        <a href="../series/index.html" class="sidebar-section">Series</a>
+        <a href="../series/series-1.html" class="sidebar-link"><span class="num">01</span>AI Agent의 명확한 한계</a>
+        <a href="../series/series-2.html" class="sidebar-link"><span class="num">02</span>HBM이 만든 AI의 물리적 천장</a>
+        <a href="../series/series-3.html" class="sidebar-link"><span class="num">03</span>Prompt → Context → Harness — 진화의 방향</a>
+        <a href="../series/series-4.html" class="sidebar-link"><span class="num">04</span>우공이산: 나눠서 정복해야 한다</a>
+        <a href="../series/series-5.html" class="sidebar-link"><span class="num">05</span>실행이 싸지면, 판단과 비용이 비싸진다</a>
+        <a href="../series/series-6.html" class="sidebar-link"><span class="num">06</span>HALO Workflow — 한계를 구조로 극복</a>
+
+        <a href="../slides/index.html" class="sidebar-section">Slides</a>
+        <a href="../slides/series-1/deck1-limits.html" class="sidebar-link"><span class="num">01</span>AI Context, Agent Entropy</a>
+        <a href="../slides/series-2/deck2-hbm-ceiling.html" class="sidebar-link"><span class="num">02</span>HBM의 천장</a>
+        <a href="../slides/series-3/deck3-evolution.html" class="sidebar-link"><span class="num">03</span>Prompt → Context → Harness</a>
+        <a href="../slides/series-4/classics-scale-deck.html" class="sidebar-link"><span class="num">04</span>AI일수록, 클래식이다</a>
+        <a href="../slides/series-5/deck5-industrial-hitl.html" class="sidebar-link"><span class="num">05</span>방향의 게이트</a>
+
+        <a href="index.html" class="sidebar-section">Practice</a>
+        <a href="setup.html" class="sidebar-link active"><span class="num">0</span>시작하기 · 설치와 로그인</a>
+        <a href="halo-agent.html" class="sidebar-link"><span class="num">H</span>FRED 경제 매크로 대시보드</a>
+        <a href="video-agent.html" class="sidebar-link"><span class="num">V</span>모션 그래픽 영상 제작</a>
+        <a href="writer-agent.html" class="sidebar-link"><span class="num">W</span>글쓰기 에이전트 LLM API</a>
+
+        <div class="sidebar-section">Project</div>
+        <a href="https://github.com/FREEDOBY/halo-workflow" class="sidebar-link" target="_blank" rel="noopener">HALO Workflow <span class="sidebar-ext">↗</span></a>
+        <a href="https://github.com/FREEDOBY/oh-my-haloagent" class="sidebar-link" target="_blank" rel="noopener">oh-my-haloagent <span class="sidebar-ext">↗</span></a>
+        <a href="https://github.com/FREEDOBY/oh-my-vedioagent" class="sidebar-link" target="_blank" rel="noopener">oh-my-vedioagent <span class="sidebar-ext">↗</span></a>
+      </nav>
+    </aside>
+
+    <main class="layout-content">
+    <article class="article">
+
+      <header class="article-header">
+        <span class="article-number">실습 · 시작하기</span>
+        <h1 class="article-title">설치와 로그인<span class="article-title-sub">Claude Code · 모든 트랙 공통 준비</span></h1>
+        <p class="article-subtitle">트랙을 고르기 전 <strong>설치 → 로그인</strong>만 끝내면 된다. 아래는 <strong>Windows · PowerShell</strong> 기준(관리자 권한 불필요).</p>
+        <hr class="article-divider">
+      </header>
+
+      <section>
+        <h2>1. Claude Code 설치 <span style="color:var(--text-faint);font-weight:400;">— 필수</span></h2>
+        <pre><code>irm https://claude.ai/install.ps1 | iex</code></pre>
+        <p>새 터미널에서 <code>claude --version</code>으로 확인. (macOS·Linux: <code>curl -fsSL https://claude.ai/install.sh | bash</code>)</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>2. 로그인 <span style="color:var(--text-faint);font-weight:400;">— 필수</span></h2>
+        <pre><code>claude</code></pre>
+        <p>브라우저가 열리면 <strong>이메일 로그인</strong>을 골라 <strong>배포받은 이메일</strong>을 입력하고(구글 아님), 메일로 온 <strong>인증 코드</strong>를 넣으면 끝. 개인 계정이 아니라 <strong>안내받은 이메일</strong>이어야 한다.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>3. Git 설치 <span style="color:var(--text-faint);font-weight:400;">— 권장</span></h2>
+        <pre><code>winget install --id Git.Git -e</code></pre>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>4. VS Code 설치 <span style="color:var(--text-faint);font-weight:400;">— 권장</span></h2>
+        <pre><code>winget install --id Microsoft.VisualStudioCode -e</code></pre>
+        <p>폴더를 열고(<strong>File → Open Folder</strong>) <code>Ctrl + `</code>로 터미널을 띄워 그 안에서 <code>claude</code>를 실행한다.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>다음 — 트랙 고르기</h2>
+        <ul>
+          <li><a href="halo-agent.html"><strong>트랙 H</strong></a> — FRED 경제 매크로 대시보드</li>
+          <li><a href="video-agent.html"><strong>트랙 V</strong></a> — 모션 그래픽 영상 <span style="color:var(--text-faint);font-weight:400;">(Node.js 18+ 필요)</span></li>
+          <li><a href="writer-agent.html"><strong>트랙 W</strong></a> — 글쓰기 에이전트 <span style="color:var(--text-faint);font-weight:400;">(LLM API 키 필요)</span></li>
+        </ul>
+        <blockquote class="tip"><p>막히면 <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>에 <strong>에러 메시지를 그대로 붙여넣어</strong> 물어본다.</p></blockquote>
+      </section>
+
+      <nav class="article-nav">
+        <a class="prev" href="index.html">
+          <span class="label">실습 허브</span>
+          <span class="title">← 실습자료</span>
+        </a>
+        <a class="next" href="halo-agent.html">
+          <span class="label">첫 트랙</span>
+          <span class="title">FRED 경제 매크로 대시보드 →</span>
+        </a>
+      </nav>
+
+    </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong>HALO Workflow</strong> — Harness · Agentic · Loopback · Orchestration</p>
+      <p><a href="https://github.com/FREEDOBY/halo-workflow" target="_blank" rel="noopener">Project Repository</a></p>
+      <div class="license-notice">
+        © FREEDOBY · Licensed under CC BY-NC-ND 4.0 · No redistribution or modification
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.article pre').forEach(function (pre) {
+      var code = pre.querySelector('code');
+      if (!code || pre.querySelector('.copy-btn')) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.textContent = '복사';
+      btn.addEventListener('click', function () {
+        var text = code.innerText;
+        function done() {
+          btn.textContent = '복사됨';
+          btn.classList.add('copied');
+          setTimeout(function () { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1500);
+        }
+        function fallback() {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta);
+          done();
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(fallback);
+        } else {
+          fallback();
+        }
+      });
+      pre.appendChild(btn);
+    });
+  </script>
+
+</body>
+</html>
