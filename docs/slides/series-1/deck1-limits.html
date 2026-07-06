@@ -570,6 +570,31 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .slide.light .bigstat-cap { color: var(--muted-dk); }
 .bigstat-cap span.note { color: var(--muted-lt); text-transform: none; letter-spacing: 0.04em; }
 
+/* ============ STAT BAND (slide 02 — hype vs reality) ============ */
+.stat-band {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px solid var(--gold);
+}
+.slide.light .stat-band { border-top-color: var(--gold-dk); }
+.stat-band .stat-cell.turn {
+  border-left: 1px solid var(--rule-lt);
+  padding-left: 24px;
+}
+.slide.light .stat-band .stat-cell.turn { border-left-color: var(--rule-dk); }
+.stat-band .bigstat { font-size: clamp(40px, 5vw, 78px); line-height: 0.95; }
+.stat-band .bigstat-cap { margin-top: 6px; line-height: 1.4; }
+
+/* hero variant — cover-style opening */
+.stat-band.hero { border-top: none; margin-top: 30px; padding-top: 0; gap: 22px; }
+.stat-band.hero .bigstat { font-size: clamp(48px, 6vw, 94px); }
+.stat-band.hero .stat-cell.turn { border-left-color: var(--gold); padding-left: 22px; }
+.stat-band.hero .bigstat-cap { font-size: 14px; }
+.stat-band.hero .bigstat-cap .note { font-size: 14px; }
+
 /* ============ ASCII / DIAGRAM ============ */
 .ascii {
   font-family: var(--mono);
@@ -2909,8 +2934,53 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
 <div class="deck" id="deck">
 
-<!-- ============ 01 COVER ============ -->
-<section class="slide dark cover has-bleed active">
+<!-- ============ 01 OPENING — 사회현상 (Hype vs Reality) ============ -->
+<section class="slide dark cover active">
+  <div class="cover-brand">
+    <span>FREEDOBY</span>
+    <span class="gold">—</span>
+    <span>OPENING · HYPE vs REALITY</span>
+  </div>
+
+  <div class="cover-main">
+    <div class="kicker">요즘, 다들 이렇게 말한다</div>
+    <div class="cover-tagline">
+      "AI가 다 짜준다 — <em>개발자는 필요 없다.</em>"
+    </div>
+
+    <div class="stat-band hero">
+      <div class="stat-cell">
+        <div class="bigstat">30%</div>
+        <div class="bigstat-cap">코드를 AI가 짠다<span class="note"> · MS 나델라</span></div>
+      </div>
+      <div class="stat-cell">
+        <div class="bigstat">84%</div>
+        <div class="bigstat-cap">개발자가 AI를 쓴다<span class="note"> · SO 2025</span></div>
+      </div>
+      <div class="stat-cell turn">
+        <div class="bigstat" style="color:var(--warn)">33%</div>
+        <div class="bigstat-cap">그중, 신뢰한다<span class="note"> · SO 2025</span></div>
+      </div>
+      <div class="stat-cell">
+        <div class="bigstat" style="color:var(--warn)">95%</div>
+        <div class="bigstat-cap">기업 도입, 성과 없음<span class="note"> · MIT 2025</span></div>
+      </div>
+    </div>
+
+    <div class="cover-sub" style="margin-top:28px;">
+      만드는 건 쉬워졌다 — <strong>유지가 안 된다.</strong>
+      개발자 66%가 말한다 — <em style="color:var(--gold); font-family:var(--serif); font-style:italic; white-space:nowrap;">"거의 맞는데 딱 안 맞아서."</em>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span>"better systems, not better prompts."</span>
+    <span>01 / 20</span>
+  </div>
+</section>
+
+<!-- ============ 02 COVER ============ -->
+<section class="slide dark cover has-bleed">
   <div class="bleed">
     <img src="../../images/agent-antropy-1.png" alt="Agent Entropy" />
   </div>
@@ -2936,16 +3006,16 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
   <div class="cover-footer">
     <span>"better prompts don't scale. better systems do."</span>
-    <span>01 / 19</span>
+    <span>02 / 20</span>
   </div>
 </section>
 
-<!-- ============ 02 THE MAP — 세 가지 한계 ============ -->
+<!-- ============ 03 THE MAP — 세 가지 한계 ============ -->
 <section class="slide dark">
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>The Map</span></div>
     <div class="tag">#three-limits #phenomena</div>
-    <div>02 / 19</div>
+    <div>03 / 20</div>
   </div>
   <div class="stage">
     <div class="kicker">세 가지 현상으로 본다</div>
@@ -2982,7 +3052,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       국소는 합리적, 전체는 모순이 된다.
     </div>
   </div>
-  <div class="foot"><span>The Map · Three Limits</span><span>02 / 19 · → 한계 ① Car Wash</span></div>
+  <div class="foot"><span>The Map · Three Limits</span><span>03 / 20 · → 한계 ① Car Wash</span></div>
 </section>
 
 <!-- ============ 03 LIMIT I · DIVIDER + Car Wash Benchmark ============ -->
@@ -2990,7 +3060,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit I · Pattern Drift</span></div>
     <div class="tag">#section-i #pattern-drift</div>
-    <div>03 / 19</div>
+    <div>04 / 20</div>
   </div>
   <div class="divider-stage">
     <div class="divider-left">
@@ -3026,7 +3096,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     </div>
     <div class="divider-art"></div>
   </div>
-  <div class="foot"><span>Limit I · Begin</span><span>03 / 19 · → 사례</span></div>
+  <div class="foot"><span>Limit I · Begin</span><span>04 / 20 · → 사례</span></div>
 </section>
 
 <!-- ============ 04 CAR WASH · 사례 (김치찌개 3 attempts) ============ -->
@@ -3034,7 +3104,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
     <div class="tag">#case #blog-automation</div>
-    <div>04 / 19</div>
+    <div>05 / 20</div>
   </div>
   <div class="stage top">
     <div class="kicker">③ Case</div>
@@ -3099,7 +3169,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       <em>명시되지 않은 9/10</em>이 매번 다르게 채워진다. AI는 빈칸을 발견하면 — 묻지 않고, <em>훈련 분포의 다수</em>로 메운다.
     </div>
   </div>
-  <div class="foot"><span>Limit I · Case</span><span>04 / 19 · → 해법: 의도를 명시하라</span></div>
+  <div class="foot"><span>Limit I · Case</span><span>05 / 20 · → 해법: 의도를 명시하라</span></div>
 </section>
 
 <!-- ============ 05 CAR WASH · 해법 (시스템 프롬프트) ============ -->
@@ -3107,7 +3177,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit I · Car Wash Test</span></div>
     <div class="tag">#remedy #prompt-engineering</div>
-    <div>05 / 19</div>
+    <div>06 / 20</div>
   </div>
   <div class="stage top">
     <div class="kicker">④ Remedy</div>
@@ -3164,7 +3234,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </a>
     </div>
   </div>
-  <div class="foot"><span>Limit I · Remedy</span><span>05 / 19 · → deck 3에서 다시 만난다</span></div>
+  <div class="foot"><span>Limit I · Remedy</span><span>06 / 20 · → deck 3에서 다시 만난다</span></div>
 </section>
 
 <!-- ============ 06 CAR WASH · 통찰 ============ -->
@@ -3172,7 +3242,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit I · Insight</span></div>
     <div class="tag">#insight #starting-point</div>
-    <div>06 / 19</div>
+    <div>07 / 20</div>
   </div>
   <div class="stage stage-split">
     <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
@@ -3200,7 +3270,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </a>
     </div>
   </div>
-  <div class="foot"><span>Limit I · Insight</span><span>06 / 19 · → 한계 ② Needle</span></div>
+  <div class="foot"><span>Limit I · Insight</span><span>07 / 20 · → 한계 ② Needle</span></div>
 </section>
 
 <!-- ============ 07 LIMIT II · DIVIDER + Needle Benchmark ============ -->
@@ -3208,7 +3278,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit II · Context Rot</span></div>
     <div class="tag">#section-ii #context-rot</div>
-    <div>07 / 19</div>
+    <div>08 / 20</div>
   </div>
   <div class="divider-stage">
     <div class="divider-left">
@@ -3239,7 +3309,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     </div>
     <div class="divider-art"></div>
   </div>
-  <div class="foot"><span>Limit II · Begin</span><span>07 / 19 · → 그래프</span></div>
+  <div class="foot"><span>Limit II · Begin</span><span>08 / 20 · → 그래프</span></div>
 </section>
 
 <!-- ============ 08 NEEDLE · 그래프 (Lost in the Middle) ============ -->
@@ -3247,7 +3317,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit II · Context Rot</span></div>
     <div class="tag">#evidence #lost-in-middle</div>
-    <div>08 / 19</div>
+    <div>09 / 20</div>
   </div>
   <div class="stage top">
     <div class="kicker">② Evidence — Context Rot (Chroma · NoLiMa, 2025)</div>
@@ -3327,7 +3397,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Limit II · Evidence</span><span>08 / 19 · → 코드베이스 규모</span></div>
+  <div class="foot"><span>Limit II · Evidence</span><span>09 / 20 · → 코드베이스 규모</span></div>
 </section>
 
 <!-- ============ 08 NEEDLE · 사례 (Scale Table) ============ -->
@@ -3335,7 +3405,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit II · Context Rot</span></div>
     <div class="tag">#case #codebase-scale</div>
-    <div>09 / 19</div>
+    <div>10 / 20</div>
   </div>
   <div class="stage stage-split r">
     <div class="art">
@@ -3359,7 +3429,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </div>
     </div>
   </div>
-  <div class="foot"><span>Limit II · Case</span><span>09 / 19 · → 해법: 안을 깨끗하게</span></div>
+  <div class="foot"><span>Limit II · Case</span><span>10 / 20 · → 해법: 안을 깨끗하게</span></div>
 </section>
 
 <!-- ============ 09 NEEDLE · 해법 (Context Engineering) ============ -->
@@ -3367,7 +3437,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit II · Context Rot</span></div>
     <div class="tag">#remedy #context-engineering</div>
-    <div>10 / 19</div>
+    <div>11 / 20</div>
   </div>
   <div class="stage top">
     <div class="kicker">④ Remedy</div>
@@ -3434,7 +3504,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       무엇을·얼마나·어떤 순서로 들어갈지 — 한 줄씩 의도적으로.
     </div>
   </div>
-  <div class="foot"><span>Limit II · Remedy</span><span>10 / 19 · → deck 3에서 다시 만난다</span></div>
+  <div class="foot"><span>Limit II · Remedy</span><span>11 / 20 · → deck 3에서 다시 만난다</span></div>
 </section>
 
 <!-- ============ 10 NEEDLE · 통찰 ============ -->
@@ -3442,7 +3512,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit II · Insight</span></div>
     <div class="tag">#insight #window-illusion</div>
-    <div>11 / 19</div>
+    <div>12 / 20</div>
   </div>
   <div class="stage stage-split">
     <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
@@ -3470,7 +3540,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
       </a>
     </div>
   </div>
-  <div class="foot"><span>Limit II · Insight</span><span>11 / 19 · → 한계 ③ Blind</span></div>
+  <div class="foot"><span>Limit II · Insight</span><span>12 / 20 · → 한계 ③ Blind</span></div>
 </section>
 
 <!-- ============ 11 LIMIT III · DIVIDER + CrossCodeEval Benchmark ============ -->
@@ -3478,7 +3548,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit III · Context Blind</span></div>
     <div class="tag">#section-iii #context-blind</div>
-    <div>12 / 19</div>
+    <div>13 / 20</div>
   </div>
   <div class="divider-stage">
     <div class="divider-left">
@@ -3514,7 +3584,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     </div>
     <div class="divider-art"></div>
   </div>
-  <div class="foot"><span>Limit III · Begin</span><span>12 / 19 · → 사례</span></div>
+  <div class="foot"><span>Limit III · Begin</span><span>13 / 20 · → 사례</span></div>
 </section>
 
 <!-- ============ 12 BLIND · 사례 (4 platforms) ============ -->
@@ -3522,7 +3592,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit III · Context Blind</span></div>
     <div class="tag">#case #ripple-effect</div>
-    <div>13 / 19</div>
+    <div>14 / 20</div>
   </div>
   <div class="stage top">
     <div class="kicker">③ Case</div>
@@ -3581,7 +3651,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       <span class="time">⏰ 발견까지 12시간</span>
     </div>
   </div>
-  <div class="foot"><span>Limit III · Case</span><span>13 / 19 · → 해법: 필요한 걸 끌어와라</span></div>
+  <div class="foot"><span>Limit III · Case</span><span>14 / 20 · → 해법: 필요한 걸 끌어와라</span></div>
 </section>
 
 <!-- ============ 13 BLIND · 해법 (Harness Engineering) ============ -->
@@ -3589,7 +3659,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit III · Context Blind</span></div>
     <div class="tag">#remedy #harness-engineering</div>
-    <div>14 / 19</div>
+    <div>15 / 20</div>
   </div>
   <div class="stage top">
     <div class="kicker">④ Remedy</div>
@@ -3662,7 +3732,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       <em>본 시리즈</em> — 그 광의: <strong>LLM의 발산을 수렴시키는 모든 장치</strong>. 코드 · 프로세스 · 도구 · 추적까지. 이 슬라이드는 그중 <strong>프로세스 레이어.</strong>
     </div>
   </div>
-  <div class="foot"><span>Limit III · Remedy</span><span>14 / 19 · → deck 3·5에서 다시 만난다</span></div>
+  <div class="foot"><span>Limit III · Remedy</span><span>15 / 20 · → deck 3·5에서 다시 만난다</span></div>
 </section>
 
 <!-- ============ 14 BLIND · 통찰 ============ -->
@@ -3670,7 +3740,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Limit III · Insight</span></div>
     <div class="tag">#insight #invisible-larger</div>
-    <div>15 / 19</div>
+    <div>16 / 20</div>
   </div>
   <div class="stage stage-split">
     <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
@@ -3698,7 +3768,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       </a>
     </div>
   </div>
-  <div class="foot"><span>Limit III · Insight</span><span>15 / 19 · → 종합: Agent Entropy</span></div>
+  <div class="foot"><span>Limit III · Insight</span><span>16 / 20 · → 종합: Agent Entropy</span></div>
 </section>
 
 <!-- ============ 15 SYNTHESIS — Agent Entropy 정의 ============ -->
@@ -3706,7 +3776,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · Agent Entropy</span></div>
     <div class="tag">#local-vs-global #drift</div>
-    <div>16 / 19</div>
+    <div>17 / 20</div>
   </div>
   <div class="stage stage-split">
     <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
@@ -3743,7 +3813,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       </a>
     </div>
   </div>
-  <div class="foot"><span>Synthesis · Definition</span><span>16 / 19 · → 사이클이 누적시킨다</span></div>
+  <div class="foot"><span>Synthesis · Definition</span><span>17 / 20 · → 사이클이 누적시킨다</span></div>
 </section>
 
 <!-- ============ 16 SYNTHESIS — The Cycle ============ -->
@@ -3751,7 +3821,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · The Cycle</span></div>
     <div class="tag">#dev-cycle #accumulation</div>
-    <div>17 / 19</div>
+    <div>18 / 20</div>
   </div>
   <div class="stage top">
     <div class="kicker">The Cycle · Press Space</div>
@@ -3951,7 +4021,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       </div>
     </div>
   </div>
-  <div class="foot"><span>Synthesis · The Cycle</span><span>17 / 19 · → 시각화: 화석화의 과정</span></div>
+  <div class="foot"><span>Synthesis · The Cycle</span><span>18 / 20 · → 시각화: 화석화의 과정</span></div>
 </section>
 
 <!-- ============ 18 SYNTHESIS — Static Diff (twin/dead/orphan trace) ★ ============ -->
@@ -3959,7 +4029,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Synthesis · Visualization ★</span></div>
     <div class="tag">#fossilization #twin-dead-orphan #blog-engine</div>
-    <div>18 / 19</div>
+    <div>19 / 20</div>
   </div>
   <div class="stage top">
     <div class="kicker">Visualization · After 5 platforms</div>
@@ -4036,7 +4106,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       </div>
     </div>
   </div>
-  <div class="foot"><span>Synthesis · Visualization</span><span>18 / 19 · 매 PR은 LGTM ✓ — 누적되는 건 twin · dead · orphan</span></div>
+  <div class="foot"><span>Synthesis · Visualization</span><span>19 / 20 · 매 PR은 LGTM ✓ — 누적되는 건 twin · dead · orphan</span></div>
 </section>
 
 <!-- ============ 18 FIN — Next Deck ============ -->
@@ -4044,7 +4114,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
   <div class="chrome">
     <div class="seg"><span class="dot"></span><span>Fin</span></div>
     <div class="tag">#agent-entropy #synthesis #next-deck</div>
-    <div>19 / 19</div>
+    <div>20 / 20</div>
   </div>
   <div class="stage stage-split">
     <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
@@ -4075,7 +4145,7 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
   </div>
   <div class="foot">
     <span>AI Context, Agent Entropy — Deck 1 / 6</span>
-    <span>19 / 19 · END</span>
+    <span>20 / 20 · END</span>
   </div>
 </section>
 
