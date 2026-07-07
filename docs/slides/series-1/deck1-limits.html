@@ -204,7 +204,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 /* ============ TYPOGRAPHY ============ */
 .kicker {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
@@ -589,11 +589,22 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .stat-band .bigstat-cap { margin-top: 6px; line-height: 1.4; }
 
 /* hero variant — cover-style opening */
-.stat-band.hero { border-top: none; margin-top: 30px; padding-top: 0; gap: 22px; }
-.stat-band.hero .bigstat { font-size: clamp(48px, 6vw, 94px); }
+.stat-band.hero { border-top: none; margin-top: 26px; padding-top: 0; gap: 22px; }
+.stat-band.hero .bigstat { font-size: clamp(80px, 9vw, 156px); line-height: 0.9; }
 .stat-band.hero .stat-cell.turn { border-left-color: var(--gold); padding-left: 22px; }
-.stat-band.hero .bigstat-cap { font-size: 14px; }
-.stat-band.hero .bigstat-cap .note { font-size: 14px; }
+.stat-band.hero .bigstat-cap { font-size: clamp(22px, 1.5vw, 28px); letter-spacing: 0.04em; margin-top: 18px; line-height: 1.3; }
+.stat-band.hero .bigstat-cap .note { display: block; font-size: 15px; margin-top: 4px; }
+
+/* space-stepped reveal — 스페이스바로 수치를 왼쪽부터 하나씩 등장 */
+.stat-band.hero .stat-cell {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 560ms cubic-bezier(.2,.7,.2,1), transform 560ms cubic-bezier(.2,.7,.2,1);
+}
+.stat-band.hero .stat-cell.show { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .stat-band.hero .stat-cell { transition: opacity 200ms linear; transform: none; }
+}
 
 /* ============ ASCII / DIAGRAM ============ */
 .ascii {
@@ -711,17 +722,17 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 
 /* ============ DEMO LINKS (slide 7) ============ */
 .demo-links {
-  margin-top: 12px;
+  margin-top: 6px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 8px;
 }
 .demo-link {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 12px 36px 12px 16px;
+  gap: 2px;
+  padding: 8px 32px 8px 14px;
   background: var(--gold);
   border: 1px solid var(--gold);
   border-radius: 3px;
@@ -773,9 +784,9 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .demo-link .dl-title {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--black);
-  line-height: 1.35;
+  line-height: 1.25;
   font-weight: 700;
 }
 .slide.light .demo-link .dl-title { color: var(--cream); }
@@ -787,9 +798,33 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 }
 .slide.light .demo-link .dl-url { color: rgba(240,236,224,0.7); }
 
+/* result links — 자동 생성 블로그 글 결과물 (slide 06) */
+.result-block { margin-top: 6px; }
+.result-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.result-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid var(--gold-dk);
+  border-radius: 3px;
+  text-decoration: none;
+  font-family: var(--serif-ko);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--black);
+  background: rgba(122,95,46,0.05);
+  transition: background 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+}
+.result-link:hover {
+  background: rgba(122,95,46,0.13);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(122,95,46,0.22);
+}
+.result-link .rl-arrow { font-family: var(--mono); font-weight: 700; color: var(--gold-dk); }
+.result-link .rl-dom { margin-left: auto; font-family: var(--mono); font-weight: 400; font-size: 14px; color: var(--muted-dk); }
+
 /* ============ SPEC PANE (slide 5 — single box, two columns inside) ============ */
 .spec-pane {
-  margin-top: 18px;
+  margin-top: 8px;
   flex: 1;
   min-height: 0;
   display: flex;
@@ -798,7 +833,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   flex: 1;
   background: rgba(184,146,74,0.05);
   border-left: 2px solid var(--gold);
-  padding: 14px 20px;
+  padding: 9px 16px;
   border-radius: 1px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -807,7 +842,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 .spec-col {
   font-family: var(--mono);
   font-size: 12.5px;
-  line-height: 1.55;
+  line-height: 1.35;
   color: var(--muted-lt);
   white-space: pre-wrap;
 }
@@ -818,8 +853,8 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   display: block;
   color: var(--gold);
   font-weight: 700;
-  margin-top: 10px;
-  margin-bottom: 2px;
+  margin-top: 6px;
+  margin-bottom: 1px;
   letter-spacing: 0.04em;
 }
 .slide.light .spec-col .h { color: var(--gold-dk); }
@@ -840,7 +875,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
   font-size: 14px;
   color: var(--gold);
   letter-spacing: 0;
-  line-height: 1.5;
+  line-height: 1.3;
   padding-left: 12px;
 }
 .slide.light .spec-col .ex { color: var(--gold-dk); }
@@ -2935,7 +2970,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
 <div class="deck" id="deck">
 
 <!-- ============ 01 OPENING — 사회현상 (Hype vs Reality) ============ -->
-<section class="slide dark cover active">
+<section class="slide dark cover active" id="s-open">
   <div class="cover-brand">
     <span>FREEDOBY</span>
     <span class="gold">—</span>
@@ -2951,15 +2986,15 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div class="stat-band hero">
       <div class="stat-cell">
         <div class="bigstat">30%</div>
-        <div class="bigstat-cap">코드를 AI가 짠다<span class="note"> · MS 나델라</span></div>
+        <div class="bigstat-cap">코드를 AI가 짠다<span class="note"> · Microsoft 나델라</span></div>
       </div>
       <div class="stat-cell">
         <div class="bigstat">84%</div>
-        <div class="bigstat-cap">개발자가 AI를 쓴다<span class="note"> · SO 2025</span></div>
+        <div class="bigstat-cap">개발자가 AI를 쓴다<span class="note"> · Stack Overflow 2025</span></div>
       </div>
       <div class="stat-cell turn">
         <div class="bigstat" style="color:var(--warn)">33%</div>
-        <div class="bigstat-cap">그중, 신뢰한다<span class="note"> · SO 2025</span></div>
+        <div class="bigstat-cap">그중, 신뢰한다<span class="note"> · Stack Overflow 2025</span></div>
       </div>
       <div class="stat-cell">
         <div class="bigstat" style="color:var(--warn)">95%</div>
@@ -3184,7 +3219,7 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
     <div class="keyword sm">
       <em>빈칸을 메우는</em> 시스템 프롬프트.
     </div>
-    <div class="subline" style="max-width:none; white-space:nowrap; margin-top:8px; font-size:clamp(14px, 1.15vw, 18px);">
+    <div class="subline" style="max-width:none; white-space:nowrap; margin-top:4px; font-size:clamp(14px, 1.15vw, 16px);">
       "김치찌개 글 써줘" 1줄을 <em> SEO 서식에 맞춘 1500자 내외 글로 명시화한 작업</em> — 블로그 자동화 프로젝트의 실제 시스템 프롬프트 발췌.
     </div>
 
@@ -3232,6 +3267,17 @@ body { background: var(--black); color: var(--cream); font-family: var(--sans); 
         <div class="dl-title">실제 적용된 모습 — <em>쿠팡리뷰 생성기</em></div>
         <div class="dl-url">chatgpt.com / 쿠팡리뷰 생성기 / c / 6a2e35bd…</div>
       </a>
+    </div>
+
+    <div class="result-block">
+      <div class="result-links">
+        <a class="result-link" href="https://blog.naver.com/koomanjj2/224306997437" target="_blank" rel="noopener">
+          <span class="rl-arrow">↗</span>자동 생성 블로그 글 ①<span class="rl-dom">blog.naver.com</span>
+        </a>
+        <a class="result-link" href="https://blog.naver.com/ghettokorean/224308532551" target="_blank" rel="noopener">
+          <span class="rl-arrow">↗</span>자동 생성 블로그 글 ②<span class="rl-dom">blog.naver.com</span>
+        </a>
+      </div>
     </div>
   </div>
   <div class="foot"><span>Limit I · Remedy</span><span>06 / 20 · → deck 3에서 다시 만난다</span></div>
@@ -4178,6 +4224,17 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
       cycleStep = 0;
       applyCycle();
     }
+    if (slides[idx].id === 's-open') {
+      openStep = 0;
+      applyOpen();
+    }
+  }
+
+  // opening stat-band: space-stepped reveal
+  let openStep = 0;
+  function applyOpen() {
+    const cells = document.querySelectorAll('#s-open .stat-band.hero .stat-cell');
+    cells.forEach(function(c, i) { c.classList.toggle('show', i < openStep); });
   }
 
   let cycleStep = 0;
@@ -4261,6 +4318,13 @@ class GooglePublisher(<span class="hl2">BasePublisher</span>):
   function prev() { go(idx - 1); }
 
   document.addEventListener('keydown', function(e) {
+    // s-open special: Space reveals stat numbers one by one, then advances
+    if (slides[idx].id === 's-open' && (e.key === ' ' || e.code === 'Space')) {
+      e.preventDefault();
+      if (openStep < 4) { openStep++; applyOpen(); }
+      else { next(); }
+      return;
+    }
     // s-cycle special: Space advances cycle animation
     if (slides[idx].id === 's-cycle' && (e.key === ' ' || e.code === 'Space')) {
       e.preventDefault();
