@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>실습 · kids-game-land — JSON 플러그인으로 게임 추가하기</title>
+  <meta name="description" content="kids-game-land 레포를 클론해 로컬에서 실행하고, games.json에 항목 하나를 추가하는 플러그인 구조로 새 게임을 끼워 넣는 실습 가이드.">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container-wide site-header-inner">
+      <a href="../index.html" class="site-title">
+        FREEDOBY<em>Blog</em>
+      </a>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="https://github.com/FREEDOBY/kids-game-land" target="_blank" rel="noopener">Project</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="sidebar-header">Index</div>
+      <nav class="sidebar-nav">
+        <a href="../index.html" class="sidebar-home">← 목차</a>
+
+        <a href="../series/index.html" class="sidebar-section">Series</a>
+        <a href="../series/series-1.html" class="sidebar-link"><span class="num">01</span>AI Agent의 명확한 한계</a>
+        <a href="../series/series-2.html" class="sidebar-link"><span class="num">02</span>HBM이 만든 AI의 물리적 천장</a>
+        <a href="../series/series-3.html" class="sidebar-link"><span class="num">03</span>Prompt → Context → Harness — 진화의 방향</a>
+        <a href="../series/series-4.html" class="sidebar-link"><span class="num">04</span>우공이산: 나눠서 정복해야 한다</a>
+        <a href="../series/series-5.html" class="sidebar-link"><span class="num">05</span>실행이 싸지면, 판단과 비용이 비싸진다</a>
+        <a href="../series/series-6.html" class="sidebar-link"><span class="num">06</span>HALO Workflow — 한계를 구조로 극복</a>
+
+        <a href="../slides/index.html" class="sidebar-section">Slides</a>
+        <a href="../slides/series-1/deck1-limits.html" class="sidebar-link"><span class="num">01</span>AI Context, Agent Entropy</a>
+        <a href="../slides/series-2/deck2-hbm-ceiling.html" class="sidebar-link"><span class="num">02</span>HBM의 천장</a>
+        <a href="../slides/series-3/deck3-evolution.html" class="sidebar-link"><span class="num">03</span>Prompt → Context → Harness</a>
+        <a href="../slides/series-4/classics-scale-deck.html" class="sidebar-link"><span class="num">04</span>AI일수록, 클래식이다</a>
+        <a href="../slides/series-5/deck5-industrial-hitl.html" class="sidebar-link"><span class="num">05</span>방향의 게이트</a>
+        <a href="../slides/series-6/deck6-agentic-sop.html" class="sidebar-link"><span class="num">06</span>일하는 방식이 바뀐다</a>
+        <a href="../slides/series-7/deck7-what-to-build.html" class="sidebar-link"><span class="num">07</span>무엇을 만들 것인가</a>
+
+        <a href="index.html" class="sidebar-section">Practice</a>
+        <a href="setup.html" class="sidebar-link"><span class="num">0</span>시작하기 · 설치와 로그인</a>
+        <a href="halo-agent.html" class="sidebar-link"><span class="num">H</span>FRED 경제 매크로 대시보드</a>
+        <a href="video-agent.html" class="sidebar-link"><span class="num">V</span>모션 그래픽 영상 제작</a>
+        <a href="writer-agent.html" class="sidebar-link"><span class="num">W</span>글쓰기 에이전트 LLM API</a>
+        <a href="game-agent.html" class="sidebar-link active"><span class="num">G</span>키즈 게임랜드 게임 추가</a>
+
+        <div class="sidebar-section">Project</div>
+        <a href="https://github.com/FREEDOBY/halo-workflow" class="sidebar-link" target="_blank" rel="noopener">HALO Workflow <span class="sidebar-ext">↗</span></a>
+        <a href="https://github.com/FREEDOBY/oh-my-haloagent" class="sidebar-link" target="_blank" rel="noopener">oh-my-haloagent <span class="sidebar-ext">↗</span></a>
+        <a href="https://github.com/FREEDOBY/oh-my-vedioagent" class="sidebar-link" target="_blank" rel="noopener">oh-my-vedioagent <span class="sidebar-ext">↗</span></a>
+      </nav>
+    </aside>
+
+    <main class="layout-content">
+    <article class="article">
+
+      <div class="page-cover"><img src="../images/kids-game-land.svg" alt=""></div>
+
+      <header class="article-header">
+        <span class="article-number">실습 · 트랙 G</span>
+        <h1 class="article-title">키즈 게임랜드 게임 추가<span class="article-title-sub">kids-game-land · JSON 플러그인</span></h1>
+        <p class="article-subtitle">어린이 교육 게임 플랫폼에 <strong>새 게임을 끼워 넣는다.</strong> 레포를 클론해 로컬에서 띄우고 — <strong>games.json에 항목 하나</strong>를 더하면 게임이 목록에 자동으로 올라온다.</p>
+        <hr class="article-divider">
+      </header>
+
+      <section>
+        <h2>무엇을 만드나</h2>
+        <p><a href="https://github.com/FREEDOBY/kids-game-land" target="_blank" rel="noopener">kids-game-land</a>는 정적 HTML로 돌아가는 <strong>어린이 교육 게임 플랫폼</strong>이다. 수박게임·라스트워·애니멀 매치 같은 게임이 <strong>플러그인처럼</strong> 꽂혀 있다. 핵심은 루트의 <code>games.json</code> — 이 <strong>레지스트리에 항목을 추가하는 것만으로</strong> 새 게임이 목록에 등록된다. 이번 트랙은 그 구조를 직접 열어보고, 내 게임을 하나 끼워 넣는다.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>이 실습으로 얻는 것</h2>
+        <p>이 트랙을 끝내면 다음을 직접 경험하게 된다.</p>
+        <ul>
+          <li>정적 사이트를 <strong>확장 가능한 플러그인 구조</strong>로 설계한다는 게 무슨 뜻인지</li>
+          <li><strong>JSON 레지스트리 하나</strong>가 코드 수정 없이 콘텐츠를 늘리는 방식</li>
+          <li>게임 폴더(<code>games/&lt;id&gt;/</code>)와 등록(<code>games.json</code>)의 <strong>관심사 분리</strong></li>
+          <li>Claude Code에게 <strong>규칙(스키마)을 주면</strong> 새 게임 한 벌을 만들어 내는 흐름</li>
+        </ul>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>준비물</h2>
+        <p>Windows 10/11 기준. 아래는 <strong>PowerShell</strong>에서 실행한다 — 프롬프트가 <code>PS C:\&gt;</code>로 시작하면 PowerShell이다.</p>
+
+        <h3>1. Git for Windows (필수)</h3>
+        <p>레포를 클론하려면 Git이 필요하다.</p>
+        <pre><code>winget install --id Git.Git -e</code></pre>
+        <pre><code>git --version</code></pre>
+
+        <h3>2. 로컬 서버용 런타임 (택1)</h3>
+        <p>게임은 브라우저에서 <code>fetch</code>로 <code>games.json</code>을 읽으므로 <strong>파일을 더블클릭하지 말고 로컬 서버</strong>로 띄운다. Python이나 Node 중 하나면 된다.</p>
+        <pre><code>python --version   # 3.x 있으면 OK
+node --version     # 또는 Node 18+</code></pre>
+
+        <h3>3. Claude Code (선택)</h3>
+        <p>3단계에서 게임을 손으로 만들지, Claude Code에게 시킬지는 자유다. 쓸 거라면 설치는 <a href="setup.html">시작하기 — 설치와 로그인</a>을 참고한다.</p>
+        <blockquote class="tip">
+          <p><strong>막히면.</strong> 어디서든 막히면 <a href="https://claude.ai" target="_blank" rel="noopener">Claude(claude.ai)</a>를 열고 <strong>에러 메시지를 그대로 붙여넣어</strong> 물어본다.</p>
+        </blockquote>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>1단계 — 레포 클론</h2>
+        <p>이 레포는 그대로 클론해 <strong>바로 돌려보며</strong> 실습한다. 내 것으로 남기고 싶으면 GitHub에서 <strong>Fork</strong> 한 뒤 그 주소를 클론하면 된다.</p>
+        <pre><code>git clone https://github.com/FREEDOBY/kids-game-land.git
+cd kids-game-land</code></pre>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>2단계 — 로컬에서 실행</h2>
+        <p>레포 루트에서 로컬 서버를 띄운다 — 둘 중 편한 걸 고른다.</p>
+        <pre><code># Python 3
+python -m http.server 8080</code></pre>
+        <pre><code># 또는 Node
+npx serve</code></pre>
+        <p>브라우저에서 <code>http://localhost:8080</code> 에 접속하면 게임 목록이 뜬다. 이 목록이 바로 <code>games.json</code>을 읽어 그린 화면이다.</p>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>3단계 — 게임 추가 (플러그인 구조)</h2>
+        <p>새 게임을 넣는 건 두 가지뿐이다 — <strong>① 게임 파일을 만들고 ② 레지스트리에 등록</strong>한다.</p>
+
+        <h3>① 게임 폴더 만들기</h3>
+        <p><code>games/</code> 아래에 내 게임 폴더를 만들고, 실제 게임은 그 안 <code>index.html</code>에 담는다.</p>
+        <pre><code>games/
+└── my-game/
+    └── index.html   ← 게임 본체 (단일 HTML로 시작해도 된다)</code></pre>
+
+        <h3>② games.json에 등록</h3>
+        <p>루트 <code>games.json</code>의 <code>games</code> 배열에 항목을 하나 추가한다. <strong>이 한 덩어리가 게임 카드 하나</strong>가 된다.</p>
+        <pre><code>{
+  "id": "my-game",
+  "title": "내 게임",
+  "description": "한 줄로 소개해요!",
+  "icon": "🎮",
+  "path": "games/my-game/index.html",
+  "color": "#4CAF50",
+  "gradient": ["#A8E6CF", "#56AB2F"],
+  "tags": ["수학", "퍼즐"],
+  "ageRange": "6-12",
+  "difficulty": "easy",
+  "isNew": true
+}</code></pre>
+        <p>저장하고 브라우저를 새로고침하면 — <strong>코드 한 줄 고치지 않아도</strong> 새 게임이 목록에 올라온다. 이게 플러그인 구조의 핵심이다. (아직 게임을 안 만들었다면 <code>"path": ""</code> 에 <code>"comingSoon": true</code>를 두면 “준비중” 카드로 표시된다.)</p>
+
+        <blockquote>
+          <p><strong>필드 메모.</strong> <code>id</code>·<code>path</code>는 폴더 이름과 맞춘다. <code>icon</code>은 이모지 하나, <code>gradient</code>는 카드 배경 두 색, <code>difficulty</code>는 <code>easy·medium·hard</code>. 기존 항목(<code>watermelon</code>, <code>animal-match</code>)을 그대로 복사해 값만 바꾸는 게 가장 빠르다.</p>
+        </blockquote>
+      </section>
+
+      <hr>
+
+      <section>
+        <h2>한 걸음 더 — Claude Code에게 시키기</h2>
+        <p>스키마를 알았으니, 게임 본체도 직접 짤 필요는 없다. 레포를 연 Claude Code에 <strong>규칙과 함께</strong> 요구하면 게임 파일과 등록까지 한 번에 만들어 준다.</p>
+        <pre><code>games.json의 스키마와 기존 games/watermelon 구조를 참고해서,
+"숫자 빙고"라는 새 게임을 games/number-bingo/index.html 로 만들고
+games.json에 항목을 추가해줘. 6~10세 대상, 단일 HTML, 덧셈 학습용.</code></pre>
+        <p>테스트가 있는 레포다(<code>npm test</code> — Jest). 게임 로직을 함수로 뺐다면 테스트부터 시키고 구현을 맞추는 <strong>TDD</strong>로 진행할 수도 있다.</p>
+      </section>
+
+      <nav class="article-nav">
+        <a class="prev" href="writer-agent.html">
+          <span class="label">이전 트랙</span>
+          <span class="title">← 글쓰기 에이전트 LLM API</span>
+        </a>
+        <a class="next" href="index.html">
+          <span class="label">실습 허브</span>
+          <span class="title">실습자료로 돌아가기 ↑</span>
+        </a>
+      </nav>
+
+    </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong>HALO Workflow</strong> — Harness · Agentic · Loopback · Orchestration</p>
+      <p><a href="https://github.com/FREEDOBY/kids-game-land" target="_blank" rel="noopener">kids-game-land Repository</a></p>
+      <div class="license-notice">
+        © FREEDOBY · Licensed under CC BY-NC-ND 4.0 · No redistribution or modification
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.article pre').forEach(function (pre) {
+      var code = pre.querySelector('code');
+      if (!code || pre.querySelector('.copy-btn')) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.textContent = '복사';
+      btn.addEventListener('click', function () {
+        var text = code.innerText;
+        function done() {
+          btn.textContent = '복사됨';
+          btn.classList.add('copied');
+          setTimeout(function () { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1500);
+        }
+        function fallback() {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta);
+          done();
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(fallback);
+        } else {
+          fallback();
+        }
+      });
+      pre.appendChild(btn);
+    });
+  </script>
+
+</body>
+</html>

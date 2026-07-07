@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>실습자료 — 템플릿 레포로 직접 돌려보기</title>
-  <meta name="description" content="oh-my-haloagent와 oh-my-vedioagent 두 템플릿 레포로 HALO 워크플로우와 영상 에이전트를 직접 실행해보는 실습 가이드.">
+  <meta name="description" content="HALO 워크플로우·영상·글쓰기 에이전트부터 플러그인 게임 추가까지 — 템플릿 레포를 직접 복제해 손으로 돌려보는 실습 가이드.">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -50,6 +50,7 @@
         <a href="halo-agent.html" class="sidebar-link"><span class="num">H</span>FRED 경제 매크로 대시보드</a>
         <a href="video-agent.html" class="sidebar-link"><span class="num">V</span>모션 그래픽 영상 제작</a>
         <a href="writer-agent.html" class="sidebar-link"><span class="num">W</span>글쓰기 에이전트 LLM API</a>
+        <a href="game-agent.html" class="sidebar-link"><span class="num">G</span>키즈 게임랜드 게임 추가</a>
 
         <div class="sidebar-section">Project</div>
         <a href="https://github.com/FREEDOBY/halo-workflow" class="sidebar-link" target="_blank" rel="noopener">HALO Workflow <span class="sidebar-ext">↗</span></a>
@@ -62,7 +63,7 @@
 
       <section class="page-hero">
         <h1 class="page-title">실습자료</h1>
-        <p class="page-desc">읽고 끝내지 않는다. 템플릿 레포를 직접 복제해 HALO 워크플로우와 영상 에이전트를 손으로 돌려보고, 한 걸음 더 들어가 "규칙 기반에서 판단 기반으로" — 에이전트의 본질까지 짚는다.</p>
+        <p class="page-desc">읽고 끝내지 않는다. 레포를 직접 복제해 HALO 워크플로우·영상·글쓰기 에이전트를 손으로 돌려보고, 게임 플랫폼엔 새 게임을 끼워 넣어 본다. 한 걸음 더 들어가 "규칙 기반에서 판단 기반으로" — 에이전트의 본질까지 짚는다.</p>
       </section>
 
       <h2 class="gallery-heading">Practice Tracks</h2>
@@ -96,15 +97,25 @@
             <span class="gallery-tags">#rule-to-reasoning #agent #automation #concept</span>
           </div>
         </a>
+
+        <a class="gallery-card" href="game-agent.html">
+          <div class="gallery-cover"><img src="../images/kids-game-land.svg" alt="키즈 게임랜드 게임 추가"></div>
+          <div class="gallery-body">
+            <span class="gallery-num">G</span>
+            <h3 class="gallery-title">키즈 게임랜드 게임 추가</h3>
+            <p class="gallery-excerpt">어린이 교육 게임 플랫폼을 클론해 로컬에서 띄우고, games.json에 항목 하나를 더해 새 게임을 플러그인처럼 끼워 넣는다. 코드를 고치지 않아도 콘텐츠가 늘어나는 구조를 손으로 확인한다.</p>
+            <span class="gallery-tags">#plugin #json #static-site #claude-code</span>
+          </div>
+        </a>
       </div>
 
       <h2 class="gallery-heading">시작하기 전에</h2>
       <div class="practice-note">
-        <p>두 레포 모두 <strong>Claude Code 템플릿</strong>이다. GitHub에서 <strong>“Use this template”</strong> 버튼으로 자신의 독립된 레포를 만든 뒤(fork 아님) 복제해서 진행한다. 공통 준비물은 다음과 같다.</p>
+        <p>에이전트 트랙(H·V·W)은 <strong>Claude Code 템플릿 레포</strong>다. GitHub에서 <strong>“Use this template”</strong> 버튼으로 자신의 독립된 레포를 만든 뒤(fork 아님) 복제해서 진행한다. <strong>게임 트랙(G)</strong>만 예외로, kids-game-land를 <strong><code>git clone</code></strong>해 바로 돌려본다. 공통 준비물은 다음과 같다.</p>
         <ul>
-          <li><strong>Claude Code</strong> — 두 레포의 <code>.claude/</code> 에이전트·워크플로우를 실행하는 핵심 도구</li>
+          <li><strong>Claude Code</strong> — 각 레포의 <code>.claude/</code> 에이전트·워크플로우를 실행하는 핵심 도구 (게임 트랙에선 선택)</li>
           <li><strong>Git</strong> — 레포 복제 및 체크포인트 관리</li>
-          <li><strong>Node.js 18+</strong> — 영상 트랙(oh-my-vedioagent)에서만 필요</li>
+          <li><strong>Node.js 18+</strong> — 영상 트랙(oh-my-vedioagent)에 필수 · 게임 트랙 로컬 서버에는 선택(Python으로 대체 가능)</li>
           <li><strong>LLM API 키 + 결제 등록</strong> — 트랙 W(글쓰기 에이전트 LLM API)에서만 필요. 에이전트가 글을 쓰고 평가하는 모든 판단이 <strong>유료 LLM API 호출</strong>로 일어나므로, 결제 수단이 등록된 API 키(예: Anthropic·OpenAI)가 있어야 실제로 돌아간다.</li>
         </ul>
         <p>설치와 로그인이 처음이라면 <a href="setup.html"><strong>시작하기 — 설치와 로그인</strong></a>부터 따라 한다. Claude Code를 깔고 계정으로 로그인하는 공통 준비를 한 번에 끝낼 수 있다. 그다음 각 트랙 페이지의 단계별 명령으로 넘어가면 된다 — 원하는 트랙부터 시작한다.</p>
